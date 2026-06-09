@@ -1,0 +1,2005 @@
+%% Apuntes de Fotodeteccion y Trayectorias Cuanticas
+%
+%\documentclass[twocolumn]{article}
+\documentclass[twocolumn,aps,eqsecnum,showkeys,amsmath]{revtex4}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}       
+\usepackage{color}
+\usepackage{cancel}
+\spanishdecimal{.}
+\usepackage[colorlinks,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}% add hypertext capabilities
+
+
+% vectors (the most common ones)
+\newcommand{\mbi}{\mathbf{i}}
+\newcommand{\mbj}{\mathbf{j}}
+\newcommand{\mbk}{\mathbf{k}}
+\newcommand{\mbp}{\mathbf{p}} 
+\newcommand{\mbq}{\mathbf{q}}
+\newcommand{\mbr}{\mathbf{r}}
+%\newcommand{\mbrp}{\mathbf{r}^{\prime}}
+\newcommand{\mbv}{\mathbf{v}}
+\newcommand{\mbE}{\mathbf{E}}
+\newcommand{\mbR}{\mathbf{R}}
+
+\newcommand{\mcC}{\mathcal{C}} 
+\newcommand{\mcH}{\mathcal{H}} 	%Hamiltonian
+\newcommand{\mcL}{\mathcal{L}} 	
+\newcommand{\mcS}{\mathcal{S}} 
+\newcommand{\mcE}{\mathcal{E}} 
+\newcommand{\mcV}{\mathcal{V}} 	%Hamiltonian
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\qed}{\mathrm{Q.E.D.}}
+\newcommand{\p}{\partial}
+%\newcommand{\lan}{\langle}     \newcommand{\ran}{\rangle}
+\newcommand{\adg}{a^{\dag}}
+\newcommand{\Adg}{A^{\dag}} 	
+\newcommand{\Hdg}{H^{\dag}} 	 
+\newcommand{\Udg}{U^{\dag}} 	
+
+\newcommand{\lan}{\langle}
+\newcommand{\ran}{\rangle}
+%\newcommand{\adg}{a^{\dag}}
+
+\providecommand{\abs}[1]{\left\lvert#1\right\rvert}
+\providecommand{\norm}[1]{\lVert #1 \rVert}
+\providecommand{\vxp}[1]{\langle #1 \rangle}
+\providecommand{\bra}[1]{\langle #1 \rvert}
+\providecommand{\ket}[1]{\lvert #1 \rangle}
+\providecommand{\bbra}[1]{\langle #1 \rvert\rvert}
+\providecommand{\kket}[1]{\lvert\lvert #1 \rangle}
+\providecommand{\kkket}[1]{\lvert #1 \rangle\rangle}
+\providecommand{\braket}[2]{\langle #1 \rvert #2 \rangle}
+%\providecommand{\vxp3}[3]{\langle #1 |#2| #3 \rangle}
+\providecommand{\tr}[1]{\text{tr}\left[ #1 \right]}
+\newcommand{\ketbra}[2]{\left| {#1} \right\rangle\left\langle {#2}\right|}
+%\newcommand{\mmax}{_{\text{max}}}
+
+\newcommand{\mru}[1]{\mathrm{#1}} %unidades fisicas
+\newcommand{\inc}[1]{\mathrm{(#1)}} %incisos en formulas desplegadas
+\newcommand{\tbn}[1]{\textbf{#1}} %numero de problema
+
+\begin{document}
+
+\title{Apuntes para el curso  \\
+Teor\'ia de Fotodetecci\'on y Trayectorias Cu\'anticas}
+\author{H\'ector M. Castro Beltr\'an}
+\affiliation{Centro de Investigaci\'on en Ingenier\'ia y 
+Ciencias Aplicadas, IICBA, \\ Universidad Aut\'onoma del Estado de Morelos,  
+Av. Universidad 1001, 62209 Cuernavaca, Morelos, M\'exico}
+
+\date{\today}
+\begin{abstract} 
+Este curso trata de la simulaci\'on de mediciones de luz mediante 
+ecuaciones estoc\'asticas de Schr\"odinger, ecuaciones para la evoluci\'on 
+de la funci\'on de onda. Estos m\'etodos son llamados Trayectorias 
+Cu\'anticas o de Ecuaci\'on de Onda de Monte Carlo, y engloban m\'etodos 
+de saltos cu\'anticos y difusi\'on de estados cu\'anticos para simular 
+fotoconteo, detecci\'on homodina y heterodina y  detecci\'on de espectros. 
+Trataremos solamente aspectos b\'asicos de la teor\'ia de la fotodetecci\'on 
+de inter\'es inmediato para las simulaciones. La mayor\'ia de los ejemplos 
+usan como base la teor\'ia de fluorescencia resonante de un \'atomo de 
+dos niveles. 
+
+Apuntes en proceso, tomados de varias fuentes. La notaci\'on entre 
+secciones no es uniforme, hay material repetido, mal ubicado, partes en 
+ingl\'es y otras en espa\~nol, etc. En estas notas no intentamos una 
+redacci\'on demasiado precisa; nos enfocamos en mencionar los temas 
+y puntos m\'as importantes. 
+
+Un apunte sobre teor\'ia de coherencia y espectro estacionario 
+complementa el curso. 
+\end{abstract}
+
+\keywords{ Photon-counting, homodyne and heterodyne detection, 
+quantum trajectories, quantum jumps, quantum state diffusion, 
+waiting-time distribution, intensity correlations, amplitude-intensity 
+correlation, resonance fluorescence,}
+\maketitle
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Introducci\'on}
+Informaci\'on importante sobre la estad\'istica de un campo se obtiene 
+simplemente contando los fotopulsos producidos en el detector. El 
+n\'umero de pulsos var\'ia si repetimos el experimento una y otra vez 
+porque el proceso de emisi\'on fotoel\'ectrica es fundamentalmente 
+probabil\'istico. Tres factores contribuyen a este hecho: i) las 
+fluctuaciones estad\'isticas del campo detectado, ii) el car\'acter 
+cu\'antico de la interacci\'on entre detector y campo, y 
+iii) imperfecciones en el proceso de medición. 
+
+La tarea de la teor\'ia de detecci\'on fotoel\'ectrica (DF) es establecer 
+una relaci\'on entre un haz de luz y una secuencia de emisi\'on de 
+fotoelectrones. En la teor\'ia DF semicl\'asica la emisi\'on de 
+fotoelectrones esta gobernada por la intensidad estoc\'astica cl\'asica 
+del campo $I(t)$. El detector produce una corriente an\'aloga que 
+describe un segundo proceso estoc\'astico $i(t)$. La teor\'ia de DF 
+debe relacionar $i(t)$ con $I(t)$. 
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Fotoconteo y Fotocorriente}
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+\subsection{Distribuci\'on de Conteo de Fotoelectrones} %%%%%%%%
+La DCF es la densidad de probabilidad $p(n,t,T)$ de contar $n$ 
+fotoelectrones en el intervalo $(t,t+T]$. Calcularemos primero la DCF 
+para un campo incidente cl\'asico de intensidad constante $\bar{I}$, es 
+decir, sin fluctuaciones, y tiene frecuencia $\omega$. Este ejemplo 
+permite separar los efectos de las estad\'isticas del campo y del detector. 
+El haz es intersectado por un detector de \'area $A$. Sea 
+$A \bar{I}/\hbar \omega$ el n\'umero promedio de fotones que entran 
+al detector por segundo. Sea entonces $A \bar{I} T/\hbar \omega$ el 
+n\'umero promedio de fotones contados en el tiempo $T$, suponiendo 
+que cada fot\'on es convertido en un fotoelectr\'on. Esta es una 
+idealizaci\'on. El detector tiene una eficiencia cu\'antica $\eta$ 
+($0< \eta <1$), que es la proporci\'on de fotones convertidos en 
+fotoelectrones. Entonces, 
+%
+\begin{eqnarray}
+\eta \frac{A \bar{I}}{\hbar \omega} T =\xi \bar{I} T \,, 
+\end{eqnarray}
+%%
+es el n\'umero promedio de fotones contados en el tiempo $T$, donde 
+$\xi =\eta A/\hbar \omega$.  
+
+El tratamiento cu\'antico del efecto fotoel\'ectrico proporciona la 
+probabilidad de emisi\'on fotoel\'ectrica en un tiempo de interacci\'on 
+infinitesimal $\Delta t$. Dividamos $T$ en $N=T/\Delta t \gg 1$ 
+subintervalos. Si el campo es constante todos los subintervalos 
+$\Delta t$ son iguales (equivalentes), suponiendo que el detector 
+se recupera inmediatamente (ignorando el tiempo muerto) despu\'es 
+de emitir un fotoelectr\'on, por lo que queda disponible para emitir otro 
+inmediatamente. 
+
+Obtendremos la DCF de dos maneras.
+
+\subsubsection{Distribuci\'on  de Probabilidad de Fotoconteo 1 
+\label{sec:DPF1} } %%%
+Calculemos la probabilidad de contar $n$ fotoelectrones en el tiempo 
+$T$ de la estad\'istica de $N$ volados independientes, \textit{\'aguila} 
+si se emite un electr\'on en $\Delta t$, \textit{sol} si no se emite. 
+La probabilidad $p$ para \'aguilas es proporcional al flujo de fotones 
+incidentes sobre el detector, $p=\xi \bar{I} \Delta t$; la 
+probabilidad para soles es $q=1-p=1-\xi \bar{I} \Delta t$. Al hacer 
+$\Delta t$ suficientemente peque\~no eliminamos eventos con dos o mas 
+fotoelectrones emitidos en $\Delta t$. La probabilidad para $n$ 
+\'aguilas y $N-n$ soles esta dada por la distribuci\'on binomial 
+%
+\begin{eqnarray*}
+p(n,t,T) &=& \frac{N!}{n!(N-n)!} p^n q^{N-n}     \\ 
+	&=& \frac{N(N-1) \cdots(N-n+1)}{n!} p^n (1-p)^{N-n} \\
+&=& \left(1-\frac{1}{N} \right) \cdots \left(1-\frac{n-1}{N} \right) \\ 
+	&& \times \frac{ (\xi \bar{I} \Delta t N)^n }{n!}
+	(1- \xi \bar{I} \Delta t)^{N-n} \,.
+\end{eqnarray*}
+%%
+Tomando los l\'imites $N \to \infty$ y $\Delta t \to 0$ con 
+$N \Delta t =T =$ cte 
+%
+\begin{eqnarray*}
+(1- \frac{\xi \bar{I} T}{N})^{N-n} 
+&=& 1-(N-n)\frac{\xi \bar{I} T}{N} \\ 
+  && +\frac{(N-n)(N-n-1)}{2!} \left(\frac{\xi \bar{I} T}{N} \right)^2 
+	-\cdots \\
+&\simeq& 1- \xi \bar{I} T +\frac{(\xi \bar{I} T)^2}{2!} -\cdots 
+	=e^{-\xi \bar{I} T } \,.
+\end{eqnarray*}
+%%
+Entonces, 
+%
+\begin{eqnarray}
+p(n,t,T) &=& p(n,T) 
+	=\frac{(\xi \bar{I} T)^n}{n!} e^{-\xi \bar{I} T } \,,
+\end{eqnarray}
+%%
+que es la distribuci\'on de Poisson, $P_n =\bar{n}^n e^{-\bar{n}}/n!$, 
+donde $\bar{n}= \xi \bar{I} T$ es el n\'umero promedio de 
+fotoelectrones emitidos en el tiempo $T$. Esta es independiente 
+del inicio del fotoconteo, dado que con un campo constante todos 
+los intervalos $T$ son iguales. Las fluctuaciones Poissonianas en 
+el fotoconteo bajo iluminaci\'on constante son el origen del 
+denominado \textit{ruido de disparo}.
+ 
+Notas: i) El ruido del campo es denominado \textit{ruido de fotones}. 
+Si en un sistema de detecci\'on el ruido de fotones es dominante, 
+el sistema es considerado \textit{ideal}, en el sentido de que es 
+imposible mejorar su funcionamiento. ii) El ruido de fondo de un campo 
+puede ser muy importante, en particular, ruido de radiaci\'on t\'ermica 
+(p. ej., infrarrojo por temperatura del instrumento \'optico) o el ruido 
+de fondo c\'osmico (temperatura $T \sim 2.7$K). iii) Hay ruido por 
+fluctuaciones en la \textit{corriente obscura} de un fotomultiplicador. 
+iv) Hay ruido de \textit{Johnson}, producido por fluctuaciones de 
+voltaje en resistencias y es de origen t\'ermico.
+
+Si dejamos que la intensidad cambie en el tiempo, contando fotones 
+durante un tiempo $T$, la f\'ormula de fotoconteo a\'un es v\'alida si 
+hacemos 
+%
+\begin{subequations}
+\begin{eqnarray}
+\bar{I} &=& \frac{1}{T} \int_0^T I(t) dt \,, \\
+P_n(t) &=& \frac{(\xi \bar{I} T)^n}{n!} \,e^{-\xi \bar{I} T}  	\,, 
+	\label{eq:MamdelPhotocount}
+\end{eqnarray}
+\end{subequations}
+%%
+conocida como la \textit{F\'ormula de Mandel de fotoconteo}. 
+
+\subsubsection{Distribuci\'on  de Probabilidad de Fotoconteo 2} %%%%
+Tomado de AWH, Rice (p.7.2) y Fox (p.90).  Pendiente: uniformizar  
+notaci\'on con lo anterior. 
+\newline Supongamos que tenemos un campo EM cl\'asico de intensidad 
+$I$ sin fluctuaciones y que tenemos un un detector que genera una 
+se\~nal proporcional a esa intensidad. Digamos que el detector tiene una 
+probabilidad de registrar un evento de fotodetecci\'on (hacer click) sobre 
+un intervalo de tiempo $dt$ dada por $\eta I dt$. Al tiempo $t+dt$, si 
+hemos detectado $n$ fotones, con probabilidad $P_n(t+dt)$, esto pudo 
+ocurrir de dos maneras: podr\'iamos haber detectado $n-1$ fotones en el 
+intervalo $[0,t]$, y un fot\'on en el intervalo $[t,t+dt]$, o que detectamos 
+$n$ fotones en el intervalo $[0,t]$ y ninguno en el siguiente intervalo 
+$[t,t+dt]$. Esto se expresa como 
+%
+\begin{eqnarray*}
+P_n(t+dt) &=& P_{n-1}(t) \eta I dt +P_n(t) (1-\eta I dt) \,.
+\end{eqnarray*}
+%%
+Reacomodando t\'erminos, con $\mu= \eta I$, 
+%
+\begin{eqnarray*}
+\frac{d P_n(t)}{dt} &=& \frac{ P_n(t+dt) -P_n(t)}{dt} 
+	=\mu P_{n-1}(t) -\mu P_n(t)  \,.
+\end{eqnarray*}
+%%
+Para resolver esta ecuaci\'on tomamos la condici\'on inicial $P_0(0)=1$ 
+y $P_{n\geq 1}(0) =0$. Para $n=0$, 
+%
+\begin{eqnarray*}
+\frac{d P_0(t)}{dt} &=& -\mu P_0(t) 		\\
+\frac{d P_0(t)}{P_0(t)} &=& -\mu dt \,, \qquad \to P_0(t)= e^{-\mu t} \,.
+\end{eqnarray*}
+%%
+Para $n=1$ [con $P_1(0)=0$], 
+%
+\begin{eqnarray*}
+\frac{d P_1(t)}{dt} &+&\mu P_1(t) = \mu P_0(t) =\mu \,e^{-\mu t} \,,	\\	
+\frac{d}{dt} \left[ e^{\mu t} P_1  \right] &=& \mu 	
+	\quad \to e^{\mu t} P_1(t) = \mu t +c_1 	\,, \\ 
+P_1(t) &=& \mu t \,e^{-\mu t} 	\,.
+\end{eqnarray*}
+%%
+
+Para $n=2$ [con $P_2(0)=0$], 
+%
+\begin{eqnarray*}
+\frac{d P_2(t)}{dt} &+&\mu P_2(t) = \mu P_1(t) =\mu^2 t \,e^{-\mu t}  \,, \\	
+\frac{d}{dt} \left[ e^{\mu t} P_2  \right] &=& \mu^2 t 	\,, 
+	\quad \to e^{\mu t} P_2(t) = \frac{\mu^2 t^2}{2} +c_2 	\,,\\ 
+P_2(t) &=& \frac{\mu^2 t^2}{2} \,e^{-\mu t} 	\,.
+\end{eqnarray*}
+%%
+
+Para $n=3$ [con $P_3(0)=0$], 
+%
+\begin{eqnarray*}
+\frac{d P_3(t)}{dt} &+&\mu P_3(t) = \mu P_2(t) 
+	=\frac{\mu^3 t^2}{2} \,e^{-\mu t}  	\,, \\	
+\frac{d}{dt} \left[ e^{\mu t} P_3  \right] &=& \frac{\mu^3 t^2}{2} 	\,,
+	\quad \to e^{\mu t} P_3(t) = \frac{\mu^3 t^3}{2 \cdot 3} +c_3 \,,\\ 
+P_3(t) &=& \frac{\mu^3 t^3}{2 \cdot 3} e^{-\mu t} 	\,,	\\
+&\vdots& 	\\
+P_n(t) &=& \frac{\mu^n t^n}{n!} \,e^{-\mu t}  	\,.
+\end{eqnarray*}
+%%
+Esta es la distribuci\'on de Poisson con n\'umero promedio de 
+fotoconteo $\mu = \eta I$ y dispersi\'on $\sqrt{\mu}$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Fotocorriente en Detecci\'on Homodina} 
+\textcolor{red}{Resumen de la secci\'on 9.1 de \cite{Carmichael93} 
+en preparaci\'on.}
+
+En esta subsecci\'on relajaremos la condici\'on de que un intervalo 
+$\Delta t$ sea tan corto que solo un fotopulso puede ser emitido. Ahora 
+$\Delta t$ es suficientemente largo para que muchos fotoelectrones 
+sean emitidos, pero muy corto comparado con la escala de fluctuaciones 
+del campo de la fuente. Si $\xi \bar{I} \Delta t$ es un n\'umero grande las 
+fluctuaciones est\'an caracterizadas por la distribuci\'on de Gauss,    
+%
+\begin{eqnarray}
+p(n_t,t,t+\Delta t) &=& \frac{1}{\sqrt{ 2\pi \xi \bar{I}(t) \Delta t}} 	\nonumber \\
+	&& \times \exp{ \left( - \frac{(n_t -\xi \bar{I}(t) \Delta t)^2}
+	{2\xi \bar{I}(t) \Delta t} \right) } \,. \qquad
+\end{eqnarray}
+%%
+Entonces, la carga $\Delta Q$ emitida por el fotoc\'atodo en el intervalo 
+$\Delta t$ esta dada por 
+ %
+\begin{eqnarray}
+\frac{\Delta Q}{e} = \xi \bar{I}(t) \Delta t +\sqrt{ \xi \bar{I}(t)} \Delta W \,, 
+\end{eqnarray}
+%%
+donde $\Delta W$ es un incremento de Wiener. La fotocorriente es ahora 
+ %
+\begin{eqnarray} 	\label{eq:photocurrent}
+\frac{i(t)}{Ge} = \frac{\Delta Q}{G e \Delta t} 
+	= \xi \bar{I}(t) +\sqrt{ \xi \bar{I}(t)} \eta_W(t) \,, 
+\end{eqnarray}
+%%
+donde $G$ es un factor de ganancia y $\eta_W(t)$ indica ruido blanco 
+Gaussiano: 
+%
+\begin{equation} 	
+\overline{dW} =0 \,,  \qquad \overline{\eta_W(t) \eta_W(t')} = \delta(t-t') \,.
+\end{equation}
+%%
+El t\'ermino $\sqrt{ \xi \bar{I}(t)} \eta_W(t)$ es el ruido de disparo. 
+Vemos entonces que la fotocorriente $i(t)$ no es una simple r\'eplica 
+de la intensidad \'optica.
+
+Veamos ahora la detecci\'on homodina (DHm). En la DHm el flujo de 
+fotones visto por el detector es la superposici\'on de la se\~nal 
+\'optica de amplitud fluctuante $e_s(t)$ y la amplitud constante 
+$E_{lo} = |E_{lo}| e^{i\phi}$ del oscilador local (OL),  
+%
+\begin{equation} 	
+\xi \bar{I}(t) = \xi |E_{lo} +e_s(t)|^2 \,.  
+\end{equation}
+%%
+Sustituyendo $\xi \bar{I}(t)$ en la Ec.(\ref{eq:photocurrent}) y con la 
+suposici\'on de que $|E_{lo}| \gg |e_s(t)|$ tenemos que 
+ %
+\begin{eqnarray}
+\frac{i(t)}{Ge} &\simeq& \xi |E_{lo}|^2 +\sqrt{\xi} \,|E_{lo}| \eta_W(t) 
+	\nonumber \\
+	&& +\xi |E_{lo} e_s^\ast(t) + E_{lo}^\ast e_s(t)| \,,
+\end{eqnarray}
+%%
+donde solo conservamos t\'erminos de ruido al orden dominante en la 
+amplitud del OL. $\eta_W$ es ruido blanco Gaussiano de la emisi\'on 
+aleatoria de fotoelectrones a raz\'on promedio dominada por el flujo 
+del OL. La se\~nal $e_s(t)$ tambi\'en introduce ruido, cuyo origen es 
+la fuente que produce $e_s(t)$. Desde el punto de vista de la teor\'ia 
+semicl\'asica de fotodetecci\'on, ambas fuentes de ruido son 
+estad\'isticamente independientes. Entonces las fluctuaciones de la 
+fotocorriente $\Delta (t)/Ge = i(t)/Ge -\xi |E_{lo}|^2$ estan caracterizadas 
+por la funci\'on de correlaci\'on
+ %
+\begin{eqnarray} \label{eq:PhotoCurrentCorrel}
+\frac{ \overline{\Delta i(t) \Delta i(t+\tau)} }{Ge} 
+	&=& \xi |E_{lo}|^2 \overline{\eta_W(t) \eta_W(+\tau')} 	  \nonumber \\
+	&& +4\xi^2  |E_{lo}|^2 \overline{ e_s^{\phi}(t) e_s^{\phi}(t+\tau) } 
+	\nonumber \\
+&=& \xi |E_{lo}|^2 \delta(\tau) 	\nonumber \\ 
+	&&+4\xi^2  |E_{lo}|^2 \overline{ e_s^{\phi}(t) e_s^{\phi}(t+\tau) } \,, \qquad 
+\end{eqnarray}
+%%
+donde 
+%
+\begin{equation} 	
+e_s^{\phi}(t)  = \frac{1}{2} \left(  e_s(t) e^{-i\phi} + e_s^\ast(t) e^{i\phi} \right) \,, 
+\end{equation}
+%%
+y $\phi$ es la fase del campo del oscilador local. La transformada 
+de Fourier de la Ec.(\ref{eq:PhotoCurrentCorrel}) da el espectro de 
+fluctuaciones de la fotocorriente. El primer t\'ermino es el espectro plano 
+de ruido de disparo. El segundo t\'ermino \textit{a\~nade} ruido arriba al 
+ruido de disparo. Esta es una deficiencia de la teor\'ia semicl\'asica ya 
+que la luz comprimida hace que el ruido est\'e debajo del ruido de 
+disparo. La soluci\'on, que veremos m\'as adelante, es que el ruido de la 
+se\~nal debe tratarse de manera autoconsistente con el del detector; 
+ambos ruidos estan correlacionados. Para ello, la teor\'ia debe ser 
+completamente mec\'anico-cu\'antica.  
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Probabilidad de Detecci\'on}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Probabilidad de Detecci\'on de un Fot\'on} 
+Consideremos un detector en equilibrio t\'ermico a temperatura ambiente 
+$T \sim 300$ K. La probabilidad de que los \'atomos sean excitados por la 
+energ\'ia t\'ermica es muy peque\~na [de la distribuci\'on de Boltzmann 
+$P_B \propto \exp{(-\hbar \omega/k_B T)} \sim \exp{(-40)} \to 0$]. Por lo 
+tanto, los \'atomos inician en su estado inferior y solo absorben radiaci\'on, 
+es decir, solo el operador de destrucci\'on juega un papel: 
+%
+\begin{eqnarray}
+\hat{E}^+ (x) \ket{i} \propto a \ket{i} \propto \ket{f} \,, 
+\end{eqnarray}
+%%
+donde $\ket{i}$ y $\ket{f}$ son el estado inicial y final, respectivamente, 
+del detector. La probabilidad de transici\'on por absorci\'on de un fot\'on 
+ubicado en  $\mbr$ al tiempo $t$, en $x= \mbr, t$, es proporcional a 
+%
+\begin{eqnarray}
+W = W_{i \to f} &=& |\bra{f} \hat{E}^+ (x) \ket{i} |^2 	\nonumber \\
+	&=&  \bra{i} \hat{E}^- (x) \ket{f} \bra{f} \hat{E}^+ (x) \ket{i} \,, 
+\end{eqnarray}
+%%
+Aunque sabemos que el \'atomo inicia en el estado base, normalmente 
+no conocemos el estado inicial del campo, incluyendo variaciones 
+estad\'isticas sobre $\ket{i}$. No nos interesa el estado final, de hecho, 
+puede haber muchos de ellos, por lo que escribimos  
+%
+\begin{eqnarray}
+W &=& \sum_f |\bra{f} \hat{E}^+ (x) \ket{i} |^2 
+  = \sum_f \bra{i} \hat{E}^- (x) \ket{f} \bra{f} \hat{E}^+ (x) \ket{i} \nonumber \\ 
+&=& \bra{i} \hat{E}^- (x) \left[ \sum_f \ket{f} \bra{f} \right] 
+    \hat{E}^+ (x) \ket{i} 	\nonumber \\ 
+    &=& \bra{i} \hat{E}^- (x)  \hat{E}^+ (x) \ket{i} . 
+\end{eqnarray}
+%%
+
+ Usando el operador de densidad 
+$\rho = \sum_i P_i \ketbra{i}{i}$ tenemos 
+$W= \tr{\rho \hat{E}^- (x)  \hat{E}^+ (x)}$, que es la funci\'on de correlaci\'on 
+de primer orden!
+
+\subsection{Probabilidad de Detecci\'on de Dos Fotones} %%%%%%%%
+Consideremos un \'atomo de dos niveles $|g\rangle$ y $|e\rangle$ 
+excitado por un l\'aser monocrom\'atico. La emisi\'on de un fot\'on por 
+emisi\'on espont\'anea viene asociada con la proyecci\'on del \'atomo al 
+estado base: $A_{ge} |\Psi \rangle =|g\rangle$, donde 
+$A_{ge} = |g \rangle \langle e|$. El experimento de Hanbury-Brown y 
+Twiss (HBT) mide la probabilidad de detectar dos fotones con un retardo 
+$\tau$. Veamos primero la evoluci\'on de la funci\'on de onda: 
+%
+\begin{eqnarray*}  	%\label{ec:G2operacional}
+|\Psi(t+\tau) \rangle &=& A_{ge} (t+\tau) A_{ge} (t) |\Psi (0) \rangle  	\\
+	&=& e^{iH(t+\tau)} A_{ge} e^{-iH(t+\tau)} e^{iHt} A_{ge} e^{-iHt} 
+		|\Psi (0) \rangle \\ 
+&=& e^{iH(t+\tau)} A_{ge} e^{-iH(t+\tau)} e^{iHt} A_{ge} |\Psi (t) \rangle \\ 
+&=& e^{iH(t+\tau)} A_{ge} e^{-iH(t+\tau)} e^{iHt} |g \rangle \\ 
+&=& e^{iH(t+\tau)} A_{ge} e^{-iH\tau}  |\Psi(t) \rangle \\ 
+&=& e^{iH(t+\tau)} A_{ge} |\Psi(t+\tau) \rangle 
+	= e^{iH(t+\tau)} |g \rangle \,.
+\end{eqnarray*} 	
+%%
+Entonces, la correlaci\'on de emisi\'on de dos fotones es 
+%
+\begin{eqnarray*}  	\label{ec:G2operacional}
+G^{(2)} (t,t+\tau) &=& \left| A_{ge} (t+\tau) A_{ge} (t) |\Psi (0) \rangle  \right|^2 	
+	\nonumber \\ 
+&=& \langle \Psi(0) | A_{eg} (t) A_{eg} (t+\tau)  \\ 
+	&& A_{ge} (t+\tau) A_{ge} (t) |\Psi(0) \rangle \\
+&=& \langle  A_{eg} (t) A_{eg} (t+\tau)  \\ 
+	&& A_{ge} (t+\tau) A_{ge} (t) |\Psi(0) \rangle \langle \Psi(0) |  \rangle \\
+&=& \langle  A_{eg} (t) A_{eg} (t+\tau)  A_{ge} (t+\tau) A_{ge} (t)\rho(0) \rangle \\
+&=& \langle  A_{eg} (t) A_{eg} (t+\tau)  A_{ge} (t+\tau) A_{ge} (t) \rangle \,.
+\end{eqnarray*} 	
+%%
+
+La detecci\'on de un fot\'on viene asociada al decaimiento del \'atomo por 
+emisi\'on espont\'anea, por lo que el \'atomo pasa del estado excitado al 
+estado base, descrito por el operador $A_{0j}$, perdiendo la memoria de la 
+historia previa; estad\'isticamente, sin embargo, todas las historias son 
+equivalentes si las condiciones iniciales se repiten. De este modo el sistema 
+alcanza el estado estacionario, en el cual las funciones a dos tiempos se 
+reducen a funciones del intervalo entre ellos, 
+$G^{(2)} (t,t+\tau) \to G^{(2)} (\tau)$,  donde 
+%
+\begin{eqnarray}
+G^{(2)} (\tau) 
+	= \langle A_{eg} (0) A_{eg} (\tau)  A_{ge} (\tau) A_{ge} (0) \rangle \,.
+\end{eqnarray} 	
+%%
+Cuando $\tau \to \infty$ los fotones emitidos son completamente 
+independientes, por lo que 
+%
+\begin{eqnarray}
+\langle A_{eg} (0) A_{eg} (\tau)  A_{ge} (\tau) A_{ge} (0) \rangle 
+	&\to&  \langle A_{ee} \rangle(0) \langle A_{ee} \rangle(\tau) \nonumber \\ 
+	&=& \langle A_{ee} \rangle_{st}^2 \,, 
+\end{eqnarray} 	
+%%
+lo cual nos sirve para normalizar la correlaci\'on,
+%
+\begin{eqnarray}
+g^{(2)} (\tau) 
+	&=& \frac{ \langle A_{eg} (0) A_{eg} (\tau)  A_{ge} (\tau) A_{ge} (0) \rangle }
+	{ \langle A_{ee} \rangle_{st}^2 } \,, 
+\end{eqnarray} 	
+%%
+tal que  
+%
+\begin{eqnarray} 
+g^{(2)} (\tau \to \infty) = 1 \,. 
+\end{eqnarray} 	 
+%%
+%
+\begin{eqnarray}
+G^{(2)} (\tau) 
+	&=& \langle A_{eg} (0) A_{eg} (\tau)  A_{ge} (\tau) A_{ge} (0) \rangle 	
+		\nonumber \\
+	&=& \langle A_{ee} \rangle_{st} 
+	 \langle A_{eg} (\tau)  A_{ge} (\tau) \rangle_{\rho(0)=\rho_{gg}} 
+	 	\nonumber\\ 
+	&=& \langle A_{ee} \rangle_{st}  
+	\langle A_{ee} (\tau) \rangle_{\rho(0)=\rho_{gg}} \,.
+\end{eqnarray} 	
+%%
+
+Usando la f\'ormula cu\'antica de regresi\'on la correlaci\'on $g_j^{(2)}$ se 
+puede reducir a la evoluci\'on de la poblaci\'on del estado excitado dado que 
+inici\'o en el estado base, normalizada por la poblaci\'on promedio 
+\cite{Carmichael02}, 
+%
+\begin{eqnarray}
+g^{(2)} (\tau) &=& \frac{ \langle A_{ee} (\tau)\rangle_{\rho(0)=\rho_{gg}} }
+	{ \langle A_{ee} \rangle_{st} }
+\end{eqnarray}
+%%
+es decir, la correlaci\'on se reduce a normalizar la poblaci\'on del estado 
+excitado. 
+
+\textcolor{red}{Antibunching}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Distribuci\'on de Tiempos de Espera o Funci\'on de Retardo} 
+Una funci\'on de gran importancia en la fotoestad\'istica, y en muchos 
+campos de la ciencia, es la distribuci\'on de intervalos entre dos fotones 
+o eventos consecutivos. Mostramos los casos de un campo en estado 
+coherente y de la fluorescencia resonante de un \'atomo de dos niveles. 
+
+\subsubsection{Campo en Estado Coherente, M\'etodo 1 
+\cite{Carmichael93} }
+Procediendo como en la Secci\'on \ref{sec:DPF1} dividimos el tiempo 
+de espera en $N$ subintervalos de duraci\'on $\Delta t$. En el l\'imite 
+$N \to \infty, \, \Delta t \to 0$, con $N \Delta t =\tau$ constante, 
+$w(\tau) = p q^N$, es decir, tras $N$ intervalos $q$ sin la emisi\'on 
+de un fot\'on y luego la emisi\'on de uno, tenemos 
+%
+\begin{eqnarray}
+w(\tau) d\tau = ( 1-\xi \bar{I} \Delta t )^N \xi \bar{I} \Delta t 
+	\to \xi \bar{I}  e^{ -\xi \bar{I} \tau} d\tau \,,
+\end{eqnarray}
+%%
+donde $\xi \bar{I} e^{ -\xi \bar{I} \tau}$ es la distribuci\'on de Poisson 
+para $n=1$ y $\bar{n} = \xi \bar{I}$. El tiempo de espera promedio 
+viene dado por 
+%
+\begin{eqnarray}
+\bar{\tau} = \int_0^{\infty} d\tau \,\tau \, \xi \bar{I} e^{ -\xi  \bar{I} \tau} 
+	= \frac{1}{\xi \bar{I} } \,.
+\end{eqnarray}
+%%
+Este es justo el cociente del tiempo de conteo $T$ y el n\'umero 
+promedio de fotoelectrones contados 
+$\bar{n}$, $T/\bar{n} = T/ \xi \bar{I} T = 1/ \xi \bar{I}$, que es lo que 
+esperar\'iamos. 
+
+%%%%%%%%
+\subsubsection{Campo en Estado Coherente, M\'etodo 2 \cite{KiKn89}} 
+El campo coherente posee una distribuci\'on de Poisson de los fotones,  
+$P(n) = \bar{n} e^{-\bar{n}} /n!$, donde $\bar{n}$ es n\'umero promedio 
+de fotones. Si $\tau_0$ es el intervalo medio entre fotoconteos, habr\'a 
+un n\'umero promedio $\tau/\tau_0$ de fotones en el intervalo $\tau$. 
+La probabilidad $P(n, \tau)$ de $n$ fotones presentes en el campo en 
+alg\'un intervalo $\tau$ es 
+%
+\begin{eqnarray}
+P(n,\tau) = \frac{ (\tau/\tau_0)^n }{n!} e^{ -\tau/\tau_0} \,.
+\end{eqnarray}
+%%
+Entonces la probabilidad $P(\tau)$ de no detectar ning\'un fot\'on en el 
+retardo $\tau$ es simplemente
+%
+\begin{eqnarray}
+P(\tau) \equiv P(0,\tau) = e^{ -\tau/\tau_0} \,.
+\end{eqnarray}
+%%
+La integral de $w(\tau')$ con respecto a $\tau'$  sobre $[0,\tau]$ da la 
+probabilidad de que el siguiente fot\'on sea emitido entre el tiempo de 
+retraso 0 y $\tau$. El complemento de esta integral es la probabilidad de que 
+ninguna emisi\'on haya occurrido de modo que 
+%
+\begin{eqnarray}
+P(\tau) = 1 - \int_0^{\tau} w (\tau') \,d\tau \,,
+\end{eqnarray}
+%%
+es decir, 
+%
+\begin{eqnarray}
+w(\tau) = -dP/d\tau \,.
+\end{eqnarray}
+%%
+Usando esta ecuaci\'on, la funci\'on de retardo (Loudon) es 
+%
+\begin{eqnarray}
+w(\tau) = \frac{1}{\tau_0} e^{-\tau/\tau_0} \,.
+\end{eqnarray}
+%%
+Esto se compara con $P(1,\tau) = (\tau/\tau_0) \exp{(-\tau/\tau_0)}$, 
+que es la probabilidad de detectar un fot\'on en el intervalo de tiempo 
+$\tau$. \textcolor{blue}{Pendiente: Ver \cite{CSVR89} p. 1204 para una 
+derivaci\'on simple de $w_{coh}(\tau)$ usando $w_{2LA}(\tau)$. }
+
+\textcolor{blue}{Pendiente: Este resultado es relevante en el estudio de 
+fluorescencia intermitente, a interpretarse como la distribuci\'on de 
+duraciones de per\'iodos oscuros. }
+
+\subsubsection{Fluorescencia Resonante de un \'Atomo de dos Niveles 
+	\label{sssec:wtd2LA}} %%%%%%%%%%%%%%%
+\tbn{Carmichael, SMQO1 2.6} \cite{Carmichael02} (a) Demostrar que la 
+distribuci\'on de tiempos de espera de fotoelectrones de fluorescencia 
+resonante (\'atomo de dos niveles) para eficiencia de detecci\'on unidad 
+esta dada por 
+%
+\begin{subequations}
+\begin{eqnarray} 	
+w_{ss}(\tau) &=& \frac{\gamma Y^2}{2Y^2-1} e^{-\gamma \tau/2}
+	(1- \cosh{\delta' \tau}) \,, 	\label{eq:wtd_2LA} \\
+%
+\delta' &\equiv& (\gamma/2) \sqrt{1-2Y^2} \,, 	\quad  
+	Y = \sqrt{2} \Omega/\gamma \,. \label{eq:delta_and_Y} \qquad 
+\end{eqnarray}
+\end{subequations}
+%%
+(b) Verificar que se satisface $\int_0^{\infty} w_{ss}(\tau) d\tau =1$. 
+(c) Demostrar que el intervalo medio entre fotopulsos es 
+%
+\begin{eqnarray}
+\overline{\tau} =2(1+Y^2)/\gamma Y^2 
+=(\gamma \langle \sigma_+ \sigma_- \rangle_{ss} )^{-1} \,.
+\end{eqnarray}
+%%
+(d) Graficar $w_{ss}(\tau)$ para $2Y=1$ y comparar con la exponencial 
+$w_{ss}(\tau) = (\gamma/6) e^{-\gamma \tau /6}$ que se obtiene para luz 
+coherente de la misma intensidad. \textit{Nota:} Esta f\'ormula para 
+$w_{ss}(\tau)$ esta limitada al caso de frecuencias iguales de l\'aser y de 
+la transici\'on at\'omica. Para el caso no resonante utilizar la soluci\'on 
+general para $c_e(\tau)$ de la ecuaci\'on de Schr\"odinger con el 
+Hamiltoniano efectivo, sin colapso por emisi\'on de un fot\'on. 
+\textcolor{blue}{Tarea Extra: Obtener 
+$\Delta \tau^2 = \overline{\tau^2} -\overline{\tau}^2$ usando Mathematica.}
+%
+\begin{figure}[b]
+\includegraphics[width=8.5cm,height=6.25cm]{fig1_wtd.pdf} 
+\caption{\label{wtd} 
+Funci\'on de retardo para la fluorescencia de un \'atomo de dos niveles 
+(azul) y luz coherente (naranja), ambas de la misma intensidad. Inciso 
+(d) del Ejercicio 2.6 en \cite{Carmichael02}:} 
+\end{figure}
+%% 
+
+\textit{Demostraciones}
+\newline (a) La funci\'on buscada est\'a dada por 
+$w(\tau) = \gamma |c_e(\tau)|^2$, donde $c_e(\tau)$ se obtiene de 
+resolver las ecuaciones de la trayectoria sin ocurrir una emisi\'on, 
+Ecs.(\ref{eq:QJ2LA-sol}) abajo y (8.22b) de \cite{Carmichael93}:
+%
+\begin{eqnarray*}
+w_{ss}(\tau) &=& \gamma \left|  \frac{\Omega}{2\delta} e^{-\gamma \tau/4} 
+	\sinh{\delta \tau} \right|^2 \,, 	\quad 
+	2\delta = \frac{1}{2} \sqrt{\gamma^2 -4\Omega^2} \,, \\
+%
+&=& \frac{\gamma 2\Omega^2}{(\gamma^2 -4\Omega^2)/2} 
+	e^{-\gamma \tau/2} \frac{1}{2} \left( \cosh{2\delta \tau}  -1 \right) \\
+&=&  \frac{\gamma 2\Omega^2}{\gamma^2 (\frac{4\Omega^2}{\gamma^2} -1)}  
+	e^{-\gamma \tau/2}  \left( 1- \cosh{2\delta \tau}  \right)  \,. 
+\end{eqnarray*}
+%%
+Con $2\delta = \delta'$ en (\ref{eq:delta_and_Y}) obtenemos 
+(\ref{eq:wtd_2LA}).  
+
+La funci\'on de retardo muestra la propiedad de \textit{antibunching}, 
+que expresa que el \'atomo no emite dos fotones a la vez, es decir, 
+$w(\tau) =0$. 
+
+(b) Normalizaci\'on de la funci\'on de retardo: 
+\begin{widetext}
+%
+\begin{eqnarray*}
+\int_0^{\infty} w_{ss}(\tau) d\tau 
+&=& \frac{\gamma Y^2}{2Y^2-1} \int_0^{\infty} d\tau \, e^{-\gamma \tau/2} 
+\left[ 1- \frac{ e^{\delta' \tau} +e^{-\delta' \tau} }{2} \right] 
+=\frac{\gamma Y^2}{2Y^2-1} \left[ \frac{e^{-\gamma \tau/2}}{-\gamma/2} 
+	-\frac{ e^{(\delta' -\gamma/2)\tau}}{2(\delta' -\gamma/2)} 
+	-\frac{ e^{-(\delta' +\gamma/2)\tau}}{-2(\delta' +\gamma/2)}
+	\right]_0^{\infty} 	\\
+&=& \frac{\gamma Y^2}{2Y^2-1} \left[ \frac{2}{\gamma} 
+	+\frac{1}{2(\delta' -\gamma/2)} -\frac{1}{-2(\delta' +\gamma/2)}
+	\right]		
+=\frac{\gamma Y^2}{2Y^2-1} \left[ \frac{2}{\gamma} 
+	+\frac{\delta' +\gamma/2 -\delta' +\gamma/2}
+	{2(\delta'^2 -(\gamma/2)^2)}  \right]		\\
+&=& \frac{\gamma Y^2}{2Y^2-1} \left[ \frac{2}{\gamma} 
+	+\frac{\gamma/2}{(\gamma/2)^2 -\Omega^2 -(\gamma/2)^2)} \right] 
+=\frac{\gamma Y^2}{2Y^2-1} \left[ \frac{2}{\gamma} 
+	-\frac{\gamma}{2\Omega^2} \right] 
+=\frac{\gamma Y^2}{2Y^2-1} \left[ 
+	\frac{4\Omega^2 -\gamma^2}{2\Omega^2 \gamma} \right] 	\\
+&=& \frac{2\gamma \Omega^2/\gamma^2}{4(\Omega^2/\gamma^2) -1} 
+  \left[ \frac{4\Omega^2 -\gamma^2}{2\Omega^2 \gamma} \right] 	
+=1 \qquad \qed 
+\end{eqnarray*}
+%%  
+(c) Intervalo medio entre fotopulsos:
+%
+\begin{eqnarray*}
+\overline{\tau} &=& \int_0^{\infty} \tau w_{ss}(\tau) d\tau 
+= \frac{\gamma Y^2}{2Y^2-1} \int_0^{\infty} d\tau \,\tau \, e^{-\gamma \tau/2} 
+\left[ 1- \frac{ e^{\delta' \tau} +e^{-\delta' \tau} }{2} \right] \,,
+%
+\qquad \qquad \int d\tau\,\tau \,e^{a\tau} 
+=\frac{\tau \,e^{a\tau}}{a} -\frac{e^{a\tau}}{a^2} \,, 	\\
+&=& \frac{\gamma Y^2}{2Y^2-1} \left[ \frac{\tau\,e^{-\gamma \tau/2}}{-\gamma/2} 
+	-\frac{e^{-\gamma \tau/2}}{(-\gamma/2)^2} 
+	-\frac{ \tau\,e^{(\delta' -\gamma/2)\tau}}{2(\delta' -\gamma/2)} 
+	+\frac{ e^{(\delta' -\gamma/2)\tau}}{2(\delta' -\gamma/2)^2} 
+	-\frac{ \tau\,e^{-(\delta' +\gamma/2)\tau}}{-2(\delta' +\gamma/2)}
+	+\frac{ e^{-(\delta' +\gamma/2)\tau}}{2(\delta' +\gamma/2)^2}
+	\right]_0^{\infty} 	\\
+&=& \frac{\gamma Y^2}{2Y^2-1} \left[ \frac{1}{(\gamma/2)^2} 
+	-\frac{1}{2(\delta' -\gamma/2)^2} 
+	-\frac{1}{2(\delta' +\gamma/2)^2} \right] 
+=\frac{\gamma Y^2}{2Y^2-1} \left\{ \frac{1}{(\gamma/2)^2} -\frac{1}{2} 
+\left[ \frac{(\delta' +\gamma/2)^2 +(\delta' -\gamma/2)^2}
+	{(\delta'^2 -(\gamma/2)^2)^2} 	\right] \right\} 	\\
+&=& \frac{\gamma Y^2}{2Y^2-1} \left[ \frac{1}{(\gamma/2)^2} 
+   -\frac{\delta'^2 +(\gamma/2)^2}{(\delta'^2 -(\gamma/2)^2)^2} \right] 
+=\frac{\gamma Y^2}{2Y^2-1} \left[ \frac{1}{(\gamma/2)^2} 
+   -\frac{(\gamma/2)^2 (1-2Y^2) +(\gamma/2)^2}
+	{[(\gamma/2)^2 (1-2Y^2) -(\gamma/2)^2]^2} \right] 	\\
+&=& \frac{\gamma Y^2(\gamma/2)^2}{2Y^2-1} 
+	\left[ \frac{1}{(\gamma/2)^4} -\frac{2(1-Y^2)}{4Y^4} \right] 
+=\frac{\gamma Y^2(\gamma/2)^2}{2Y^2-1} 
+	\left[ \frac{2Y^4 -1 +Y^2}{2Y^4(\gamma/2)^4} \right] 
+=\frac{\gamma Y^2}{2Y^2-1} 
+	\left[ \frac{(2Y^2 -1)(1 +Y^2)}{2Y^4(\gamma/2)^2} \right]  \\
+\overline{\tau} &=& \frac{2(1 +Y^2)}{\gamma Y^2} \,, 
+	\qquad \qed 
+\end{eqnarray*}
+%%    
+\vspace{2cm}
+\end{widetext}
+% 
+%\textcolor{red}{Obtener este resultado mediante 
+%$\overline{\tau} = (\gamma \rho_{ee})^{-1}$.}
+\textcolor{blue}{Tarea: Obtener $w(\tau)$ para el caso de shelving.}
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Trayectorias Cu\'anticas: Introducci\'on}
+These notes are meant as a compilation of the main QT approaches to 
+RF for use in class. The notes are limited to the very basics (of the physics 
+and theory of QTs) but hopefully the students will be able to develop their 
+own computer codes. 
+
+Intensity, intensity-intensity correlations, waiting-time distribution, 
+photoelectron statistics, and sub-Poissonian statistics are measured by 
+direct photon counting, simulated by discontinuous trajectories (QJ). 
+Homodyne and heterodyne detection, simulated by quantum state 
+diffusion trajectories, allow phase-dependent field measurements, such 
+as single-quadrature, squeezing, and spectra. Conditional Homodyne 
+Detection (CHD) mixes QJs and QSD to provide a new look at quantum 
+fluctuations and resolves squeezing in a detector-efficiency-independent 
+manner. Spectra can be measured by homodyne, heterodyne, and filtered 
+measurements \cite{TiCa92,Holland98}. 
+
+Quantum trajectories, as formulated by Carmichael, simulate the output 
+of an experiment, and a large ensemble of trajectories represents the 
+average result of many experiments. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Evolution of an Open Quantum System} 
+Our system consists of a coherent part that features the atom-laser 
+coupling. This is often studied with a unitary evolution via the 
+Schr\"odinger equation. However, the coupling of the atom to the 
+environment leads to dissipation, thus forcing a density operator 
+approach (master equation) or a Heisenberg-Langevin approach. 
+
+In resonance fluorescence, we have an atomic system driven by lasers 
+and maybe cavity fields. Magnetic fields are often added to prepare 
+the atomic system in a specific state. To simplify matters, we mostly speak 
+of the interaction of a single two-level atom of transition frequency 
+$\omega_a$ with a single monochromatic laser treated classically (not an 
+operator). The atom-laser coupling is given by the Rabi frequency 
+$\Omega$. The (RWA) Hamiltonian in the frame rotating at the laser 
+frequency is 
+%
+\begin{equation}
+H_0 = \Delta \sigma_{ee} +\frac{\Omega}{2}(\sigma_+  +\sigma_-)  \,,
+\end{equation}
+%%
+where $\sigma_i$ are Pauli spin operators, and 
+$\Delta= \omega_a -\omega$ is the atom-field detuning ($\hbar=1$). 
+The state of the atom is given by the wave function 
+$\ket{\Psi (t)} = c_g(t) \ket{g} +c_e(t) \ket{e}$. 
+
+The atom is also coupled to a large reservoir of harmonic oscillators,  
+which induce decay of the excited state at the rate $\gamma$. We can 
+neglect blackbody radiation effects at optical frequencies for room 
+temperatures and below. The master equation describes the full 
+atom-laser-reservoir 
+%
+\begin{eqnarray} 	\label{MasterEq}
+\dot{\rho} &=& - i [H_0,\rho] +\frac{\gamma}{2} \left[ 2 \sigma_- \rho \sigma_+ 
+	-\sigma_+ \sigma_- \rho - \rho  \sigma_+ \sigma_- \right]  	\,. 	\qquad	
+\end{eqnarray}
+%%
+
+The density matrix formalism ignores the shot noise or, rather, averages 
+over an infinite number of realizations.
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Trayectorias Discont\'inuas: Simulaci\'on de Fotoconteo}
+En este caso la luz se recolecta por detecci\'on directa de los fotones por 
+fotodetectores de banda ancha. Escribimos la ecuaci\'on maestra como 
+%
+\begin{eqnarray} 	\label{MasterEqEffJ}
+\dot{\rho} &=& \mcL \rho = - i ( \mcH \rho -\rho \mcH^{\dag} )  +\mcS \rho \,, 
+\end{eqnarray}
+%%
+donde a $\mcL$ se le llama superoperador de Lindblad, 
+%
+\begin{eqnarray} 
+\mcH &=& H_0 - i \frac{\gamma}{2} \sigma_+ \sigma_-   
+\end{eqnarray}
+%%
+es un Hamiltoniano efectivo no Hermitiano, y  
+%
+\begin{eqnarray} 
+\mcS \rho &=& \gamma \sigma_- \rho \sigma_+ 
+\end{eqnarray}
+%%
+es llamado \textit{el operador de salto}, que corresponde a un evento de 
+emisi\'on espont\'anea. Esto es porque  
+$\gamma \sigma _- \rho \sigma_ + = \gamma \rho_{ee} \sigma_{gg}$, es 
+decir,  el operador de salto disminuye el estado del \'atomo (reduce la 
+funci\'on de onda). 
+
+The master equation can be unraveled in infinite ways, but only a limited 
+number have an experimental significance, each looking at different 
+properties. The decomposition above is suitable for direct photodetection 
+simulation, it corresponds to a discontinuous evolution of the wave 
+function due to photon emissions (quantum jumps); this deals with the 
+particle aspect of light  \cite{Carmichael93,Carmichael02,DaCM92,DuZR92}. We later deal 
+with homodyne and heterodyne measurements (wave features -- 
+quantum diffusion) 
+\cite{Carmichael93,Carmichael02,WiMi93a,WiMi93b,Percival98}. 
+Also spectral detection \cite{TiCa92,Holland98}. 
+
+La soluci\'on formal  de la ecuaci\'on maestra es $\rho(t) = e^{\mcL t} \rho (0)$. 
+Con la descomposici\'on (\ref{MasterEqEffJ}) podemos escribir 
+%
+\begin{eqnarray} 	%\label{MasterEqEffJ}
+\dot{\rho} &=& ( \mcL - \mcS ) \rho  +\mcS \rho \,. 		
+\end{eqnarray}
+%%
+La soluci\'on 
+%
+\begin{eqnarray} 	%\label{MasterEqEffJ}
+\rho (t) &=& e^{ [( \mcL - \mcS ) +\mcS ] t} \rho (0)  	\nonumber \\ 
+&=& 	\sum_{m=0}^{\infty} \int_0^t dt_m  \int_0^{t_m} dt_{m-1}  \cdots 	
+	 \int_0^{t_2} dt_1 e^{ (\mcL - \mcS) (t-t_m)}  		\nonumber \\ 
+	&& \mcS e^{ (\mcL - \mcS) (t_m-t_{m-1})} \mcS \cdots 
+	\mcS  e^{ (\mcL - \mcS) t_1} \rho(0) \,,
+\end{eqnarray}
+%%
+no es dif\'icil de entender \cite{Carmichael93}. El integrando es el 
+operator de densidad condicional no normalizado  $\bar{\rho}_c (t)$ 
+%
+\begin{eqnarray} 	\label{eq:condDensOp}
+\bar{\rho}_c (t) &=& e^{ (\mcL - \mcS) (t-t_m)} \mcS 	
+	 e^{ (\mcL - \mcS) (t_m-t_{m-1}} \mcS 	\nonumber \\  
+	&&\cdots \mcS  e^{ (\mcL - \mcS) t_1} \rho(0) \,,
+\end{eqnarray}
+%%
+para el estado inicial $\rho_c (0) = \rho (0)$. Esta serie es una suma sobre diferentes 
+historias de fotoemisiones de la fuente desde $t=0$ hasta $t$. Cada historia es 
+\'unica y puede involucrar cualquier n\'umero de fotoemisiones, desde $m=0$ hasta $m=\infty$, y los tiempos de las emisiones pueden ser cualquier secuencia ordenada 
+de $m$ veces en el intervalo $[0,t]$.  La interpretaci\'on f\'isica de $\bar{\rho}_c (t)$ 
+es de evoluciones sin fotoemisiones interrumpidas por \textit{colapsos} del estado a 
+los tiempos de emisi\'on. Al tiempo $t$, para un estado inicial $\rho (0)$ y una 
+secuencia particular de tiempos de emisi\'on, el operador de densidad condicionado 
+de la fuente esta dado por 
+%
+\begin{eqnarray} 	\label{eq:condDensOp}
+\rho_c (t) &=& \frac{\bar{\rho}_c (t) }{ \Tr [\bar{\rho}_c (t) ]} \,.
+\end{eqnarray}
+%%
+
+Cada secuencia o historia de fotoemisiones se llama \textit{trayectoria cu\'antica}. 
+Este tipo de trayectorias de fotoemisiones (detecci\'on directa)  se denomina en 
+ingl\'es \textit{unraveling}, una descomposici\'on particular del operador de densidad. 
+Existen otras descomposiciones que corresponden a otros m\'etodos de medici\'on 
+de la luz. 
+
+N\'otese que mientras que $\rho (t)$ llega a un  estado estacionario, $\rho_c (t)$ 
+no lo har\'a; cada trayectoria mantiene su evoluci\'on estoc\'astica. La trayectoria, 
+sin embargo, es estacionaria en sentido estad\'istico, y el estado estacionario 
+para $\rho$ puede calcularse como un promedio en el tiempo de $\rho_c (t)$. 
+
+Para muchos sistemas el Hamiltoniano permite factorizar el operador 
+de densidad en \textcolor{red}{estados puros}
+%
+\begin{eqnarray}
+\rho_c (t) &=& \ketbra{\Psi_c (t) }{ \Psi_c  (t)} 	\,, 	\quad 
+	\bar{\rho}_c (t) = \ketbra{ \bar{\Psi}_c (t) }{ \bar{\Psi}_c  (t)} \,, 
+	\nonumber \\ 
+\end{eqnarray}
+%%
+Mas adelante veremos algunos ejemplos. Entonces reemplazamos el propagador 
+$e^{ (\mcL - \mcS) \Delta t}$ del operador de densidad $\bar{\rho}_c (t)$ por el de 
+la funci\'on de onda $| \bar{\Psi}_c (t) \rangle$. La propagaci\'on sin fotoemisi\'on 
+en un tiempo $\Delta t$ esta dada por 
+%
+\begin{eqnarray}
+\ket{ \bar{\Psi}_c (t+ \Delta t) } 
+	= e^{- i \mcH \Delta t /\hbar} \ket{ \bar{\Psi}_c (t) } 
+\end{eqnarray}
+%%
+que es la soluci\'on de la ecuaci\'on de Schr\"odinger 
+%
+\begin{eqnarray}
+i \hbar \frac{d}{dt} \ket{ \bar{\Psi}_c } = {\cal H} \ket{ \bar{\Psi}_c } \,,
+\end{eqnarray}
+%%
+donde $\ket{ \bar{\Psi}_c }$ es una funci\'on de onda no-normalizada 
+debida a la acci\'on del Hamiltoniano no Hermitiano $\mcH$ que lleva 
+a una evoluci\'on no unitaria, asegurando la p\'erdida de probabilidad 
+de que el \'atomo se encuentre en el estado excitado. 
+
+Escribamos la funci\'on de onda no normalizada como 
+%
+\begin{equation} 	\label{eq:2LA-WF-unnorm}
+\ket{ \bar{\Psi}_c (t) } = \bar{c}_g(t) \ket{g} +\bar{c}_e(t) \ket{e} 	\,,
+\end{equation}
+%%
+La funci\'on de onda normalizada es 
+%
+\begin{equation} 	
+\ket{ \Psi_c(t) } = \ket{ \bar{\Psi}_c(t) } / 
+	[\braket{ \bar{\Psi}_c(t)}{ \bar{\Psi}_c(t)} ]^{1/2} \,.
+\end{equation}
+%%
+El sistema \'atomo-campo evoluciona de manera cont\'inua pero no 
+unitaria por un per\'iodo de tiempo hasta que se emite un fot\'on 
+espont\'aneamente, se\~nalando el regreso del \'atomo al estado 
+base. Este ciclo se repite durante una historia. 
+
+Reescribamos el superoperador de brinco $\mcS \rho$ como 
+%
+\begin{eqnarray} 
+\mcS \rho &=&  \mcC \rho \mcC^\dag \,, 	\qquad \to \qquad 
+	\mcC = \sqrt{\gamma} \sigma_- 	\,. 
+\end{eqnarray}
+%%
+Entonces, al tiempo $t_j$ en el que ocurre una emisi\'on el estado no 
+normalizado experimenta un colapso dado por el operador de brinco 
+$\mcC$,  
+%
+\begin{equation}
+\ket{ \bar{\Psi}_c } \to \mcC \ket{ \bar{\Psi}_c } 
+	= \sqrt{\gamma}\, \bar{c}_e (t_j) \ket{g} 	\,,
+\end{equation}
+%%
+que se normaliza como 
+ %
+\begin{eqnarray} 	\label{jump}
+\ket{\Psi_c(t_j)} = \frac{\mcC \ket{\Psi_c(t_j) } }
+  	 {\sqrt{\bra{\Psi_c(t_j)}  \mcC^\dag \mcC \ket{\Psi_c(t_j)} } } \,,	
+\end{eqnarray}
+%%
+y que ocurre con probabilidad en el intervalo $[t, t+ \delta t]$ 
+%
+\begin{eqnarray} 	\label{JumpProb}
+p_c(t) &=& \delta t \bra{\Psi_c (t)} \mcC^\dag \mcC \ket{\Psi_c (t)} 	\\ 
+	&=& \gamma \delta t \bra{\Psi_c (t)} \sigma_+ \sigma_- \ket{\Psi_c (t)}
+	\nonumber 	\\ 
+&=& \gamma\, \delta t \, \frac{|\bar{c}_e(t)|^2}
+	{|\bar{c}_g(t)|^2 +|\bar{c}_e(t)|^2} = \gamma\, \delta t |c_e(t)|^2	\,. 	
+	\qquad 	\label{eq:jumpProb2LA}
+\end{eqnarray}
+%%
+
+Entonces, una simulaci\'on num\'erica ocurre en el tiempo discreto con 
+paso $\delta t$. Obtenemos una trayectoria estoc\'astica de la funci\'on 
+de onda $\ket{\Psi_c (t_n)}$, donde $t_n = n \delta t$. Dada 
+$\ket{\Psi_c (t_n)}$, la funci\'on de onda $\ket{\Psi_c (t_{n+1})}$ se obtiene 
+con el siguiente algoritmo: 
+\newline (i) Evaluar la probabilidad de un brinco $p_c (t_n)$. 
+\newline (ii) Generar un n\'umero aleatorio $r_n$ distribuido uniformemente en el intervalo $[0,1]$. 
+\newline (iii) Comparar $p_c(t_n)$ con $r_n$ y calcular  $\ket{\Psi_c (t_{n+1})}$ 
+de acuerdo a la regla   
+ %
+\begin{subequations}
+\begin{eqnarray} 	%\label{jump}
+\ket{\Psi_c(t_{n+1}) } &=& \frac{\mcC \ket{\Psi_c(t_n) } } 
+	{\sqrt{\bra{\Psi_c(t_n)} \mcC^\dag \mcC \ket{\Psi_c(t_n)} } } \,, 		
+	\quad p_c (t_n) > r_n \,, 	\nonumber \\ \\ 
+\ket{\Psi_c(t_{n+1}) } 
+	&=& \frac{ e^{- i \mcH \delta t /\hbar} \ket{ \Psi_c(t_n) } } 
+	{\sqrt{\bra{\Psi_c(t_n)} e^{ i \mcH \delta t /\hbar} 
+	e^{- i \mcH \delta t /\hbar} \ket{\Psi_c(t_n)} } } 	\,,	\nonumber \\ 
+	&& \qquad  \qquad  \qquad  \qquad p_c (t_n) \leq r_n \,. 	
+\end{eqnarray}
+\end{subequations}
+%%
+El resultado es un mapeo estoc\'astico cu\'antico a los tiempos $t_n$ donde  
+los brincos ocurren separados por muchos intervalos $\delta t$: 
+ %
+\begin{eqnarray} 	
+\lefteqn{ \ket{\Psi_c(t_{n+1}) } =} \hspace{1cm} \nonumber \\
+	&& \frac{ \mcC e^{- i \mcH \tau_{n+1} /\hbar} \ket{\Psi_c(t_n) } } 
+	{\sqrt{\bra{\Psi_c(t_n)} e^{ i \mcH \tau_{n+1} /\hbar} \mcC^\dag 		
+	\mcC e^{- i \mcH \tau_{n+1} /\hbar} \ket{\Psi_c(t_n)} } } 	\,,	
+	\nonumber \\
+\end{eqnarray}
+%%
+donde $\tau_{n+1} = t_{n+1} -t_n$ es un tiempo aleatorio cuya 
+estad\'istica depende de la funci\'on estoc\'astica misma mediante 
+$p_c (t_n)$. El algoritmo incorpora esta estad\'istica ``al vuelo'' al 
+tomar muchos pasos infinitesimales $\delta t$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Ejemplos}
+\subsubsection{Emisi\'on Espont\'anea} %%%%%%%%%%
+%\textcolor{blue}{Tarea}
+
+%\subsubsection{Decaimiento de un Campo de una Cavidad} %%%%%
+\subsubsection{Fluorescencia Resonante} %%%%%%%%%%%%%
+Para un \'atomo de dos niveles (A2N) con funci\'on de onda 
+Ec.(\ref{eq:2LA-WF-unnorm}) interactuando con un l\'aser 
+monocrom\'atico en espacio libre el Hamiltoniano efectivo es 
+%
+\begin{eqnarray} 
+\mcH &=& (\Delta - i \frac{\gamma}{2})  \sigma_+ \sigma_-   
+	+\frac{\Omega}{2} (\sigma_+ +\sigma_-) \,,
+\end{eqnarray}
+%%
+y el operador de colapso es $ \mcC = \sqrt{\gamma} \sigma_-$. Las 
+ecuaciones para las amplitudes son:
+%
+\begin{subequations}
+\label{eq:DirectSSEamp}
+\begin{eqnarray}
+i \dot{\bar{c}}_g &=& \frac{\Omega}{2} \bar{c}_e  \,, \\
+%
+i \dot{\bar{c}}_e &=& \frac{\Omega}{2} \bar{c}_g 
+	+(\Delta -i\frac{\gamma}{2}) \bar{c}_e \,,
+\end{eqnarray}
+\end{subequations}
+%%
+Podemos obtener soluciones anal\'iticas si $\Delta=0$ (v. gr., por 
+transformada de Laplace). Con las condiciones iniciales $\bar{c}_g(0) =1$
+y $\bar{c}_e(0)=0$, las soluciones son: 
+%
+\begin{subequations}		\label{eq:QJ2LA-sol}
+\begin{eqnarray}
+\bar{c}_g (t) &=& e^{-\gamma t/4} \left[ \cosh{ \delta t} 
+	+\frac{\gamma/2}{2\delta} \sinh{\delta t}   \right]  \,, \\
+%
+\bar{c}_e (t) &=& i \frac{\Omega}{2\delta} e^{-\gamma t/4} \sinh{\delta t}  \,, \\
+%
+2\delta &=& \frac{1}{2} \sqrt{\gamma^2 -4\Omega^2}  \,.
+\end{eqnarray}
+\end{subequations}
+%%
+La probabilidad de un salto est\'a dada por la Ec.(\ref{eq:jumpProb2LA}). 
+
+Una aplicaci\'on simple de implementar es la distribuci\'on de tiempos 
+de espera, vista en \ref{sssec:wtd2LA}. 
+
+%\textcolor{red}{El cero de energ\'ia est\'a a la mitad de la transici\'on, 
+%por lo que las desinton\'ias estan divididas entre 2. Cambiar al caso de 
+%energ\'ia cero para el estado base. }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{C\'alculo de Observables a un Tiempo}
+El valor esperado de un operador $A$ al tiempo $t$ se obtiene como el 
+promedio sobre un n\'umero muy grande $n$ de trayectorias 
+ %
+\begin{eqnarray} 	 
+\vxp{A (t)} &=& 
+	\frac{1}{n} \sum_{i=1}^n \bra{\Psi_c^i (t)} A \ket{\Psi_c^i (t)} \,.
+\end{eqnarray}
+%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Recuperando la Ecuaci\'on Maestra}
+Aqu\'i demostramos que un ensamble infinito de trayectorias en el 
+esquema de detecci\'on directa resuelve (unravels) la ecuaci\'on maestra. 
+El cambio en $\ketbra{\Psi }{ \Psi}$ se debe a una parte de brinco m\'as 
+una parte de evoluci\'on cont\'inua, ambas ponderadas apropiadamente. 
+Para simplificar la tipograf\'ia usamos  $b^\dag =\sigma_+$ y 
+$b= \sigma_-$, y $|\bar{\Psi}_c \rangle \to |\Psi \rangle$. Por integraci\'on 
+formal de  $i(d/dt) \ket{\Psi(t)} = \mcH \ket{\Psi(t)}$ tenemos 
+$\ket{\Psi(t+dt)} = (1 -i \mcH dt) \ket{\Psi(t)}$, donde $\ket{\Psi}$ es la 
+funci\'on de onda condicionada no normalizada, 
+%
+\begin{equation}
+d \rho = \ketbra{\Psi(t+dt) }{ \Psi(t+dt)} - \ketbra{\Psi(t) }{ \Psi(t)} 	\,,
+\end{equation}
+%%
+\begin{widetext}
+%
+\begin{eqnarray*}
+\ketbra{\Psi(t+dt) }{ \Psi(t+dt)}  
+	& \rightarrow &	p_c \ketbra{\Psi (t) }{ \Psi (t)} 	
+	 +(1 -p_c) \ketbra{\Psi_{no}(t) }{ \Psi_{no}(t)} 	\\
+&=& 	\gamma dt \langle \Psi |b^{\dag}b| \Psi \rangle 
+	\frac{b \ketbra{\Psi(t) }{ \Psi(t)} b^\dag}
+	{ \bra{\Psi(t)} b^\dag b \ket{\Psi(t)} }		
+	 +(1 -p_c)[1 - i \mcH dt]	
+	\frac{ \ketbra{\Psi (t) }{ \Psi (t)} }{1-p_c}  [1 +i \mcH^\dag dt]	\\
+&=& 	\gamma dt  \,b \ketbra{\Psi(t) }{ \Psi(t)} b^\dag 		
+	 +[1 - i \mcH dt]	 \ketbra{\Psi (t) }{ \Psi (t)}   [1 +i \mcH^\dag dt]	\\
+&=& \gamma dt\, b \ketbra{\Psi (t) }{ \Psi (t)} b^\dag +\ketbra{\Psi (t) }{ \Psi (t)}  		 
+	+\frac{1}{i\hbar} dt [H_0, \ketbra{\Psi (t) }{ \Psi (t)} ]	\\ 	
+	 && -\frac{\gamma}{2} dt \left[ b^\dag b \ketbra{\Psi (t) }{ \Psi (t)} 	 
+	 +\ketbra{\Psi (t) }{ \Psi (t)} b^\dag b \right] 	+O(dt^2)  \,.
+\end{eqnarray*}
+%%
+\end{widetext}
+Restando $\ketbra{\Psi (t)}{ \Psi(t)}$ en ambos lados, dividiendo entre  $dt$  
+e ignorando los t\'erminos $O(dt^2)$ se tiene 
+%
+\begin{eqnarray}
+\frac{d \rho}{dt} &=& 
+  \frac{ \ketbra{\Psi(t+dt) }{ \Psi(t+dt)} - \ketbra{\Psi (t) }{ \Psi (t)} }{dt}	
+  \nonumber \\
+	&=& \frac{1}{i\hbar} [H_0, \ketbra{\Psi (t) }{ \Psi (t)} ] 
+	+\gamma \, b \ketbra{\Psi (t) }{ \Psi (t)} b^\dag	 	\nonumber\\ 
+	&& -\frac{\gamma}{2} \left[ b^\dag b \ketbra{\Psi (t) }{ \Psi (t)} 
+	+\ketbra{\Psi (t) }{ \Psi (t)} b^\dag b \right] 	  \,. \qquad 
+\end{eqnarray}
+%%
+Promediando sobre un ensamble infinito de trayectorias, 
+$ \overline{ \ketbra{\Psi (t) }{ \Psi (t)} }$, y haciendo 
+$d \rho /dt \to \dot{\rho}$, reproducimos la ecuaci\'on maestra, 
+Eq.~ (\ref{MasterEq}). 
+
+Dado que la EES representa la evoluci\'on de un estado puro, una sola 
+trayectoria conservar\'a la magnitud del vector de  Bloch, 
+$\rho_c= |\Psi_c \rangle \langle \Psi_c|$, $\Tr (\rho_c)=1$.
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Detecci\'on Homodina Balanceada} 
+(Seg\'un Scully \& Zubairy p.125. Revisar.)
+\newline La detecci\'on de estados comprimidos requiere un esquema 
+sensible a la fase que mide la varianza de una cuadratura del campo. 
+Para ello se requiere interferir la luz del emisor con un campo EM de 
+referencia que llamamos oscilador local (OL). En la detecci\'on homodina 
+el OL tiene la misma frecuencia $\omega_{lo}$ e  intensidad es mucho 
+mayor que el haz de excitaci\'on $\omega$. De hecho, ambos haces 
+provienen del mismo l\'aser. Tambi\'en, el OL tiene un retraso de fase 
+$\phi$, usualmente para empatar con una de las cuadraturas.  
+%
+\begin{figure}[t]
+\includegraphics[width=9cm,height=6.cm]{fig_bhd.png} 
+\caption{\label{dHB} 
+Esquema de detecci\'on homodina y heterodina balanceada. En la 
+DHm un mismo l\'aser impulsa al emisor (c\'irculo rojo) y al OL y se 
+puede seleccionar la fase del OL (v. gr., $\phi =0,\pi/2$). En la DHt 
+emisor y OL est\'an muy fuera de sinton\'ia y se pierde la selecci\'on 
+de la fase. (fig. por Kevin MF)} 
+\end{figure}
+%% 
+
+Sean $\hat{a}$ y $\hat{b}$ los modos del emisor y del OL, 
+respectivamente. Ambos modos se mezclan mediante un divisor de haz 
+(DH) con reflectancia $R$ y transmitancia $T$, tales que $R+T =1$.
+Tras el DH emergen los modos 
+%
+\begin{eqnarray}
+ \hat{c} = \sqrt{T} \hat{a} +i \sqrt{1-T} \hat{b} \,, 	\quad 
+ \hat{d} = i \sqrt{1-T} \hat{a} + \sqrt{T} \hat{b} + \,, \,\,\,	
+\end{eqnarray}
+%% 
+que llegan a los detectores  D1 y D2, respectivamente. Recu\'erdese 
+que hay un cambio de fase $\pi/2$ ($e^{i \pi/2} =i$) entre las ondas 
+transmitida y reflejada. Los modos $\hat{a}$ y $\hat{b}$ tienen la misma 
+frecuencia para evitar introducir dependencia temporal a los operadores.  
+
+Las intensidades registradas en D1 y D2 son 
+%
+\begin{eqnarray*}
+\hat{c}^+ \hat{c} &=& T \hat{a}^+ \hat{a} +(1-T) \hat{b}^+ \hat{b} 
+	+i \sqrt{T(1-T)}  \left( \hat{a}^+ \hat{b} -\hat{b}^+ \hat{a}  \right) \,, \\ 
+\hat{d}^+ \hat{d} &=& (1-T) \hat{a}^+ \hat{a} +T \hat{b}^+ \hat{b} 
+	-i \sqrt{T(1-T)}  \left( \hat{a}^+ \hat{b} -\hat{b}^+ \hat{a}  \right) \,. 
+\end{eqnarray*}
+%% 
+Si $R=T=1/2$, 
+%
+\begin{subequations}
+\begin{eqnarray}
+\hat{c}^+ \hat{c} &=& \frac{1}{2} \hat{a}^+ \hat{a} + \hat{b}^+ \hat{b} 
+	+\frac{i}{2} \left( \hat{a}^+ \hat{b} -\hat{b}^+ \hat{a}  \right) \,, \\ 
+\hat{d}^+ \hat{d} &=& \frac{1}{2} \hat{a}^+ \hat{a} +\frac{1}{2} \hat{b}^+ \hat{b} 
+	- \frac{i}{2} \left( \hat{a}^+ \hat{b} -\hat{b}^+ \hat{a}  \right) \,. 
+\end{eqnarray}
+\end{subequations}
+%% 
+En la detecci\'on homodina ordinaria solamente se mide uno de los 
+modos ($\hat{c}$ \'o $\hat{d}$), mientras que en la Detecci\'on Homodina 
+Balanceada (DHm) se restan las intensidades de D1 y D2, 
+%
+\begin{eqnarray}
+\hat{n}_{cd} = \hat{c}^+ \hat{c} - \hat{d}^+ \hat{d} 
+= - i \left( \hat{a}^+ \hat{b} -\hat{b}^+ \hat{a}  \right)  \,,  
+\end{eqnarray}
+%% 
+que permite cancelar el exceso de ruido del OL, cuya intensidad es 
+usualmente mucho mayor que la del emisor. Entonces aproximamos el 
+OL por un estado coherente de amplitud $\beta$ y fase $\phi$, es decir 
+$\hat{b} = \beta e^{i\phi}$, obteniendo 
+%
+\begin{eqnarray}
+\hat{n}_{cd} &=& i \beta \left( \hat{a}^+ e^{i\phi} - \hat{a} e^{-i \phi}  \right) 
+	= \beta e^{i \pi/2} \left( \hat{a}^+ e^{i\phi} - \hat{a} e^{-i \phi}  \right)
+	\nonumber \\
+&=& \beta \left[ \hat{a}^+ e^{i(\phi +\pi/2)} 
+	+ \hat{a} e^{-i\pi} e^{-i( \phi -\pi/2)}  \right] 	\nonumber \\ 
+&=& \beta \left[ \hat{a}^+ e^{i(\phi +\pi/2)} 
+	+ \hat{a} e^{-i( \phi +\pi/2)}  \right] 	\nonumber \\ 	
+&=& 2 \beta \hat{X}_{\phi +\pi/2} = i2\beta \hat{X}_{\phi} \,. 
+\end{eqnarray}
+%% 
+$\hat{X}_{\phi}$ son los operadores de cuadratura (posici\'on y momentum adimensionales). Al normalizar $\hat{n}_{cd}$ quedan solamente las 
+amplitudes de las cuadraturas. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{EES para DHB} 
+La EES que simula la DHm esta dada por 
+$i \hbar \ket{\dot{\bar{\Psi}}_c} = {\mcH}_W \ket{\bar{\Psi}_c}$ 
+\cite{Carmichael93,WiMi93b}, donde 
+%
+\begin{eqnarray} 	\label{eq:HamiltonianHDm}
+\mcH_W &=& \mcH + i \left(2 \gamma \langle \sigma_{\phi}  \rangle_c  
+	+ \sqrt{\gamma} \,\eta_W(t) \right) e^{-i\phi}  \sigma_- \,,	
+\end{eqnarray}
+%% 
+donde, para un \'atomo de dos niveles, 
+%
+\begin{eqnarray}
+\mcH &=& H_0 - i \frac{\gamma}{2} \sigma_+ \sigma_-   \,, \quad 
+	H_0 = \hbar \Delta \sigma_{ee} +\frac{1}{2} (\sigma_+ +\sigma_-) \,, 
+	\nonumber \\ \\ 
+\sigma_{\phi}  
+	&=& \frac{1}{2}(\bar{\sigma}_+ e^{i\phi} +\bar{\sigma}_- e^{-i\phi} ) \,,
+\end{eqnarray}
+%% 
+$\eta_W=dW/dt$ es un ruido blanco Gaussiano y $dW$ es un incremento 
+de Wiener real y satisface 
+%
+\begin{equation} 	\label{eq:GaussianNoise}
+\overline{dW} =0 \,, 	\quad \overline{dWdW} =dt \,, \quad 
+	\overline{\eta_W(t) \eta_W(t')} = \delta(t-t') \,.
+\end{equation}
+%%
+
+Podemos escribir la EES para DHm como 
+%
+\begin{subequations}
+\begin{eqnarray}
+\frac{d \ket{\bar{\Psi}_c}}{dt} 
+	&=& \left\{ -i \mcH   +I_c^W(t) \sigma_- \right\}  \ket{\bar{\Psi}_c}   \,,	 \\
+I_c^W(t) &=& \left(2 \gamma \langle \sigma_{\phi}  \rangle_c  
+	+ \sqrt{\gamma} \,\eta_W(t) \right) e^{-i\phi} 		\\
+&=& \gamma \left( \vxp{\bar{\sigma}_+}_c  
+	+e^{-2i\phi} \vxp{\bar{\sigma}_-}_c \right) 
+	+e^{-i\phi} \sqrt{\gamma} \, \eta_W(t)	\,,	\nonumber 
+	\nonumber \label{HomodyneSSE} 
+\end{eqnarray}
+\end{subequations}
+%%
+donde $I_c^W$ es la fotocorriente medida. 
+
+Vemos que la EES no es lineal debido a la presencia del valor esperado 
+$\langle \sigma_{\phi} \rangle$ y que no contiene directamente 
+informaci\'on de la intensidad y frecuencia del OL. Aparte de la fase 
+$\phi$, el OL se presenta en la forma en que la estocasticidad entra: en 
+lugar de evaluar si se registr\'o un fotoelectr\'on o no cada $\delta t$, 
+ahora hay muchos fotoelectrones en dicho intervalo, produciendo un 
+cambio cont\'inuo e infinitesimal en la funci\'on de onda. Entonces, m\'as 
+que fotoelectrones aislados, se tiene una fotocorriente cuyas fluctuaciones 
+tienen un car\'acter diferente al de fotoconteo: pasamos de ruido 
+Poissoniano o sub-Poissoniano a ruido Gausiano. El procedimiento para 
+llegar a la EES es muy largo y complicado. Esperamos poder reproducirlo 
+en el futuro cercano. 
+
+\textcolor{red}{Obtener: Correlaci\'on de  fotocorrientes} (seg\'un 
+\cite{WiMi93b}): 
+%
+\begin{eqnarray} 	 \label{HomodyneAutoCorr}
+\overline{ I_c(t+\tau) I_c(t) } &=& \gamma^2 
+	\langle : \sigma_{\phi} (t+\tau) \sigma_{\phi} (t) : \rangle 
+	+\gamma \delta (\tau) \,, \qquad
+\end{eqnarray}
+%%
+donde usamos la f\'ormula cu\'antica de regresi\'on (??) y la 
+Ec.(\ref{eq:GaussianNoise}). El espectro de fluorescencia se obtiene 
+calculando la transformada de Fourier de esta correlaci\'on,
+%
+\begin{eqnarray} 	 \label{SpectrumHom}
+S(\omega,\phi)-1 \propto \gamma \int_0^{\infty} dt\, \cos{\omega \tau} 
+	\langle : \sigma_{\phi} (t+\tau) \sigma_{\phi} (t) : \rangle \,. \quad
+\end{eqnarray}
+%%
+Este espectro es tambi\'en llamado espectro de \textit{squeezing}, 
+el cual puede ser negativo, indicando la reducci\'on del ruido por debajo 
+del nivel de ruido de disparo. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equations for 2LA resonance fluorescence} 
+Las ecuacions para las amplitudes de probabilidad son  
+%
+\begin{subequations}
+\label{eq:HomodyneSSEamp}
+\begin{eqnarray}
+dc_g &=& \left[ i\frac{\Delta}{2} c_g -i\frac{\Omega}{2}  
+	c_e +\gamma \left( \vxp{\bar{\sigma}_-} e^{-2i\phi} 
+	+\vxp{\bar{\sigma}_+} \right) c_e  \right] dt  	\nonumber \\
+&& +\sqrt{\gamma} \, dW e^{-i\phi} c_e 	\\
+%
+dc_e &=& -\left[ i\frac{\Omega}{2} c_g 
+ 	+i\frac{\Delta}{2} c_e +\frac{\gamma}{2} c_e \right] dt
+\end{eqnarray}
+\end{subequations}
+%%
+La elecci\'on de $\phi=0$ (en fase) lleva a  
+%
+\begin{eqnarray*}
+dc_g &=& \left[ i\frac{\Delta}{2} c_g -i\frac{\Omega}{2}  
+	c_e +\gamma \vxp{\bar{\sigma}_X}  c_e \right] dt 
+ 	+\sqrt{\gamma} \, dW c_e  \,, \nonumber \\ 
+ \end{eqnarray*}
+%%
+mientras que $\phi=\pi/2$ (en cuadrature) lleva a  
+%
+\begin{equation*}
+dc_g = \left[ i\frac{\Delta}{2} c_g -i\frac{\Omega}{2} 
+ 	c_e -i\gamma \vxp{\bar{\sigma}_Y}  c_e \right] dt 
+	 -\sqrt{\gamma} \, dW c_e 	\,.
+\end{equation*}
+%%
+donde la nonlinealidad viene del valor de expectaci\'on de la 
+dispersi\'on, $u= \vxp{\bar{\sigma}_X}$ y de la absorci\'on, 
+$\vxp{\bar{\sigma}_Y}$, respectivamente. 
+
+% (put a bar on Psi to indicate it is not normalized)
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Detecci\'on Heterodina }
+En la detecci\'on heterodina (DHt) la frecuencia del oscillador local es 
+(mucho mayor? o) muy diferente que las frecuencias de los fotones 
+emitidos y que el campo de excitaci\'on. A diferencia del caso de DHm, 
+en lugar de un elemento \'optico que cambie la fase del OL, ahora se 
+tiene un elemento que cambia su frecuencia. Entonces, el t\'ermino de 
+variaci\'on r\'apida de la fase $e^{-2i\phi} \vxp{\sigma_-} \sigma_-$ en 
+la Ec.(\ref{eq:HamiltonianHDm}) promedia a cero en un ciclo \'optico. 
+Lo que sigue es un tratamiento muy simplificado de la Ref.\cite{WiMi93b}.
+La EES que simula la DHt viene dada por 
+$i \ket{\dot{\Psi}_c} ={\cal H}_Z \ket{\Psi_c}$, donde  
+%
+\begin{eqnarray} 	%\label{HeterodyneSSE} 
+{\cal H}_Z &=& {\cal H} +i\left(\gamma \vxp{\bar{\sigma}_+}_c 
+	+\sqrt{\gamma}  \eta_Z(t) \right) \sigma_- \,, 
+\end{eqnarray}
+%%
+donde $\eta_Z=dZ/dt$ y  
+%
+\begin{eqnarray}
+dZ &=& e^{i\omega^{\prime} t} dW =\frac{1}{\sqrt{2}} (dW_1 +idW_2)
+\end{eqnarray}
+%%
+es un incremento de Wiener complejo, donde $dW_1, dW_2$ son 
+incrementos de Wiener reales e independientes, que satisface
+%
+\begin{eqnarray} 	\label{eq:ComplexGaussNoise}
+\overline{dZ} = 0 \,, \qquad \overline{dZdZ} &=&0  \,, 
+	\qquad \overline{dZ^\ast dZ} =dt \,. 	\nonumber \\
+	\overline{\eta_Z(t) \eta_Z(t')} &=& \delta(t-t') \,. 
+\end{eqnarray}
+%%
+Alternativamente, la EES para detecci\'on heterodina se puede 
+escribir como   
+% 
+\begin{subequations}
+\begin{eqnarray}
+\frac{d \ket{\Psi_c}}{dt} 
+	&=& \left\{ -i \mcH   +I_c^Z(t) \sigma_- \right\}  \ket{\Psi_c}  \,, \\
+I_c^Z(t) &=& \gamma  \vxp{\bar{\sigma}_+}_c   
+	+\sqrt{\gamma} \, \eta_Z	\,,	\label{HeterodyneSSE}
+\end{eqnarray}
+\end{subequations}
+%%
+donde $I_c^Z$ es la fotocorriente medida. 
+
+\textcolor{red}{NEXT: Correlaci\'on de  fotocorrientes} (seg\'un \cite{WiMi93b}): 
+%
+\begin{eqnarray} 	 \label{HomodyneAutoCorr}
+\overline{ I_c(t+\tau) I_c(t) } &=& \gamma^2 
+	\langle : \sigma_+ (t+\tau) \sigma_- (t) : \rangle 
+	+\gamma \delta (\tau) \,, \qquad
+\end{eqnarray}
+%%
+donde usamos la f\'ormula cu\'antica de regresi\'on (??) y la 
+Ec.(\ref{eq:ComplexGaussNoise}). El espectro de fluorescencia se 
+obtiene calculando la transformada de Fourier de esta correlaci\'on, 
+%
+\begin{eqnarray} 	 \label{SpectrumHom}
+S(\omega)-1 \propto \gamma \int_0^{\infty} dt\, \cos{\omega \tau} 
+	\langle  \sigma_+ (t+\tau) \sigma_- (t)  \rangle \,. \quad
+\end{eqnarray}
+%%
+
+\subsection{Equations for 2LA resonance fluorescence} %%%%%%%%
+The equations for the probability amplitudes are 
+%
+\begin{subequations}
+\label{eq:HeterodyneSSEamp}
+\begin{eqnarray}
+dc_g &=& \left[  -i\frac{\Omega}{2} c_e  
+	+\gamma \vxp{\bar{\sigma}_+} c_e \right] dt  
+	+\sqrt{\gamma} \, dZ c_e \,, 	\quad \\
+dc_e &=& -\left[ i\frac{\Omega}{2} c_g 
+ 	+i\frac{\Delta}{2} c_e +\frac{\gamma}{2} c_e \right] dt \,.
+\end{eqnarray}
+\end{subequations}
+%%
+
+%Use Carmichael's scheme of coupling the SSE with the equation for 
+%the current, which includes the finite bandwidth of the detector in 
+%the homodyne and heterodyne cases. 
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+\section{A Single SSE for QJ and QSD}
+Carmichael, in Eq.(11) of \cite{Carmichael96}, has an SSE that includes 
+jump, homodyne and heterodyne trajectories. It is more complicated, so 
+we will try writing a simpler SSE: 
+%
+\begin{eqnarray} 	\label{GeneralSSE} 
+d \ket{\bar{\Psi}_c } &=& \left\{ -i\mcH dt +\left[ 
+	\gamma dt  \vxp{ \sigma_- e^{-i(\phi -\omega_{lo}t)} 
+  	+\sigma_+ e^{i(\phi -\omega_{lo}t)} }_c \right. \right. 
+		\nonumber 	\\
+&& \left. \left. +\sqrt{\gamma} \, dW \right] 
+	\sigma_- e^{-i(\phi-\omega_{lo}t)} 	\right\}   \ket{\bar{\Psi}_c} 	\,,	
+\end{eqnarray}
+%%
+The local oscillator is characterized by the phase $\phi$, frequency 
+$\omega_{lo}$, and a real Wiener increment $dW$. The properties of 
+the noise term depend on the particular measurement scheme. For the 
+heterodyne case, the average of phase terms is zero; for the homodyne 
+case: $\omega_{lo} = \omega$. We go further, deleting the LO and 
+nonlinear terms to obtain the SSE of quantum jumps. 
+
+We now show that equation (citation?)
+%
+\begin{eqnarray}
+d|\Psi \rangle &=& \left\{ \left[ \frac{\mathcal{H}}{i\hbar} 
+	- \frac{\gamma}{2}(b^\dag b +r_+r_- -2r_+b) \right] \,dt 
+	\right. \nonumber \\
+	&& \left.  - \sqrt{\gamma}(r_- -b)e^{i\phi} dW \right\} |\Psi \rangle  \,,
+\end{eqnarray}
+%%
+is a correct unraveling of the ME. Since the calculation does not require 
+details of $\mathcal{H}$, we substitute the spin operators with boson 
+operators $\sigma_+ =b^\dag, \, \sigma_- =b$. Further, we make 
+$|\Psi_c\rangle =|\Psi \rangle$, $\langle \sigma_\pm \rangle_c =r_\pm$,
+and $e^{i(\omega^\prime t +\theta)} =e^{i\phi}$. The master equation is 
+recovered as \textcolor{red}{REVISAR}
+%
+\begin{widetext}
+%
+\begin{eqnarray*}
+d(|\Psi\rangle \langle \Psi|) &=&
+	(d|\Psi\rangle) \langle \Psi| +|\Psi\rangle (d\langle \Psi|) 
+	+(d|\Psi\rangle) (d\langle \Psi|) 				\\
+%
+&=& \left[ \frac{H_S}{i\hbar} -\frac{\gamma}{2}(b^\dag b +r_+r_- -2r_+b) \right] 
+	|\Psi \rangle \langle \Psi| \,dt  	
+   -\sqrt{\gamma}(r_- -b)e^{i\phi} |\Psi \rangle\langle \Psi| \,dW \\
+&& + |\Psi \rangle \langle \Psi| \left[ \frac{-H_S}{i\hbar} 
+	-\frac{\gamma}{2}(b^\dag b +r_+r_- -2r_-b^\dag) \right] \,dt 
+ -|\Psi \rangle\langle \Psi| \sqrt{\gamma}(r_+ -b^\dag)e^{-i\phi}\,dW \\
+&&	+\left\{ \left[ \frac{H_S}{i\hbar} 
+	-\frac{\gamma}{2}(b^\dag b +r_+r_- -2r_+b) \right] |\Psi \rangle \,dt 
+	-\sqrt{\gamma}(r_- -b)e^{i\phi} |\Psi \rangle  dW	\right\}  \\
+&&	\times \left\{ \langle \Psi| \left [\frac{-H_S}{i\hbar} 				
+	-\frac{\gamma}{2}(b^\dag b +r_+r_- -2r_-b^\dag) \right] \,dt 
+  -\langle\Psi| \sqrt{\gamma}(r_+ -b^\dag)e^{-i\phi} \,dW \right\} \\
+%
+&=& \frac{1}{i\hbar} \left[ H_S, |\Psi\rangle \langle \Psi| \right] \,dt 
+	-\frac{\gamma}{2}\,dt \left\{  b^\dag b |\Psi\rangle \langle \Psi| 
+	+|\Psi \rangle \langle \Psi| b^\dag b 
+  +2r_+r_- |\Psi\rangle\langle\Psi| -2r_+b |\Psi\rangle\langle\Psi| 
+	-2r_- |\Psi\rangle\langle\Psi| b^\dag \right\}		\\
+&&	+\gamma dW^2 (r_- -b)|\Psi\rangle\langle\Psi|(r_+ -b^\dag)
+	+O(dt^2) +O(dW) \,.
+\end{eqnarray*}
+%%
+\end{widetext}
+Now, neglecting terms $\sim dt^2$, performing the ensemble average 
+on $\rho= \overline{|\Psi\rangle\langle\Psi|}$ with the (Ito?) rules 
+$\overline{dW}=0$ and $\overline{dW^2}=dt$, and with terms that 
+cancel each other we obtain the ME 
+%
+\begin{equation} 	\label{ME-RF}
+\dot{\rho}(t) = \frac{1}{i\hbar} [H_S, \rho] 
++\frac{\gamma}{2} ( 2b\rho b^\dag -b^\dag b \rho -\rho b^\dag b ) \,.		
+\end{equation}
+%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equations for 2LA resonance fluorescence} 
+We find the equations for the (unnormalized) probability amplitudes 
+for the ground and excited states in the frame of free oscillations 
+%
+\begin{subequations}
+\label{eq:GeneralSSEamp}
+\begin{eqnarray}
+dc_g &=& +\sqrt{\gamma} \, e^{-i(\phi-\Delta_{lo}t)} dW c_e 
+	+\left[ i\frac{\Delta}{2} c_g -i\frac{\Omega}{2} c_e 	\right. 	
+	\nonumber 	\\
+&& \left. +\gamma \left( \vxp{\bar{\sigma}_+} 
+	+\vxp{\bar{\sigma}_-} e^{-2i(\phi-\Delta_{lo}t)} \right) c_e \right] dt 	\\
+%
+dc_e &=& -\left[ i\frac{\Omega}{2} c_g 
+ 	+i\frac{\Delta}{2} c_e +\frac{\gamma}{2} c_e \right] dt
+\end{eqnarray}
+\end{subequations}
+%%
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Conditional Homodyne Detection}
+The derivation of the SSE is very long hence we show a few steps only. Within the framework of quantum trajectory theory CHD is described by a quantum stochastic process comprised of a measurement record, and the quantum state of the source, 
+$\ket{\psi_{\rm R}}$, conditioned on that record. An ensemble of realizations, 
+$\ket{\psi_{{\rm R}_{(n)}}^{(n)} }$, $n=1,2,\cdots$, provide an unraveling of the 
+source density operator; the associated records are realizations of laboratory data \cite{CCFO00,FOCC00}. We analyze the data record for a single, continuous 
+realization, and construct the BHD current average from its conditional sampling 
+over time.
+
+The homodyne current is the stochastic process
+%
+\begin{equation} 	\label{eqn:current} 
+dI = - \Gamma(Idt-dQ_t),
+\end{equation}
+%%
+with
+%
+\begin{equation}
+dQ_t = 2 \sqrt{2r} \vxp{b_\theta}_{\rm R} dt +dW_t,
+\end{equation}
+%% 
+and
+%
+\begin{equation}
+ b_\theta \equiv ( b e^{-i\theta} +{\rm H.c.})/2, 	\qquad
+	 b\equiv a+Ae^{i\phi},
+\end{equation}
+%%
+where $a$ is the source-field annihilation operator, $Ae^{i\phi}$ 
+is the complex amplitude of the coherent offset, $r$ is the reflection
+coefficient at the correlator input (BS2), $\theta$ is the local 
+oscillator (LO) phase, and $\Gamma$ is the BHD bandwidth; $dW_t$ is a 
+Wiener process modeling infinite bandwidth shot noise. The units of 
+time are inverse bandwidths (half-widths) of the quasimonochromatic 
+source.
+
+The conditional state of the source (unnormalized) obeys
+%
+\begin{eqnarray}
+d \ket{\bar\psi}_{\rm R} &=& \left[-(i\mcH +2Ae^{-i\phi} a)dt 
+	+\sqrt{2r} b e^{-i\theta}dQ_t \right] \ket{\bar\psi}_{\rm R} \,, 
+	\nonumber \\ 	\label{eqn:schrodinger} 
+\end{eqnarray}
+%%
+where $\mcH$ is the non-Hermitian Hamiltonian and the other terms 
+account for the measurement backaction. There are also quantum jumps,
+%
+\begin{equation}
+\ket{\bar\psi}_{\rm R} \to b \ket{\bar\psi}_{\rm R},
+\end{equation}
+%% 
+at every firing of the ``start'' detector, where the instantaneous
+firing rate is
+%
+\begin{equation}
+R_s = 2(1-r) \vxp{n_b}_{\rm R}, 	\qquad n_b\equiv b^\dagger b.
+\end{equation}
+%%
+
+We integrate Eq.\ (\ref{eqn:current}) formally and average $N_s$ 
+samples of the photocurrent with ``starts'' at times $t_j$, 
+$j=1,\ldots,N_s$, to obtain the raw signal
+%
+\begin{equation}
+H(\tau) = \frac\Gamma{N_s}\sum_{j=1}^{N_s}\int_{-\infty}^{t_j+\tau}\!dQ_t\,
+	e^{\Gamma(t-t_j-\tau)}.
+\end{equation}
+%%
+For large $N_s$, the sum over $j$ amounts to an average over past and
+future trajectory records, evaluate as \cite{CCFO00}
+%
+%\begin{mathletters}
+\begin{equation}
+\frac{H(\tau)}{2\sqrt{2r}} =
+  \Gamma \int_{-\infty}^\tau dt\,\frac{ \vxp{ : n_b(0) b_\theta(\tau) :}}{\vxp{n_b}} 			e^{\Gamma(t-\tau)} +\Xi(\tau),
+\label{eqn:largecor} 
+\end{equation}
+%%
+%
+\begin{equation}
+\overline{\Xi(\tau)\Xi(\tau^\prime)} 
+	= N_s^{-1}\Gamma e^{-\Gamma |\tau-\tau^\prime|},
+\end{equation}
+%%
+where $::$ denotes time and normal ordering and $\Xi(\tau)$ is the
+residual shot noise.
+%\end{mathletters}
+%%
+From Eq.(\ref{eqn:largecor}), CHD measures a third-order correlation
+function of the electromagnetic field, cross-correlating 
+photodetections with quadrature amplitude fluctuations.
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Quadrature Fluctuations and Spectrum of Squeezing in 
+Cavity QED}
+The squeezing connection is made by separating the mean field 
+amplitude, $\beta$, from the source-field fluctuation, $\Delta a$, 
+$\langle \Delta a \rangle =0$. We write
+%
+\begin{equation}
+ b=\beta+\Delta a, 		\qquad 
+\beta\equiv\langle b\rangle = \langle a \rangle +Ae^{i\phi}.
+\end{equation}
+%%
+%
+\begin{eqnarray}
+b_\theta &=& \beta_\theta +\Delta q_\theta \,,	\nonumber	\\
+\beta_\theta &=& \langle b \rangle = 
+	(\beta e^{-i\theta} +\beta^\ast e^{i\theta} )/2 \,, \nonumber	\\
+\Delta q_\theta &=& 
+  (\Delta a e^{-i\theta} +\Delta a^\dag e^{i\theta} )/2 \,.
+\end{eqnarray}
+%%
+The photon number at the particle detector is 
+%
+\begin{eqnarray}
+n_b = b^\dag b &=& |\beta|^2 +\Delta a^\dag\Delta a  
+	+\beta^\ast\Delta a +\beta\Delta a^\dag	\,,  \nonumber		\\
+\langle b^\dag b\rangle &=& 
+	|\beta|^2 + \langle \Delta a^\dag \Delta a \rangle \,.
+\end{eqnarray}
+%%
+We assume third-order moments in $\Delta a^\dagger$ and $\Delta a$ 
+vanish: the fluctuations might be Gaussian, or the assumption is
+approximately valid because the source field is weak. Therefore, 
+%
+\begin{eqnarray}
+\lefteqn{
+\frac{\langle\,:\! n_b(0) b_\theta(\tau)\!:\,\rangle}{\langle n_b\rangle} 
+	= \beta_\theta } \hspace{1cm} \nonumber\\ 
+	&& +\frac{\langle\,:\! [\beta^\ast \Delta a(0) 
+	+\beta\Delta a^\dag(0)] \Delta q_\theta(\tau)\!:\,\rangle}
+	{\langle n_b\rangle} +\xi(\tau),		\nonumber\\ 				
+\end{eqnarray}
+%%
+Noting that 
+$\langle\,:\! \Delta a(0)\Delta a(\tau)\!:\,\rangle$ and 
+$\langle\,:\! \Delta a^\dag(0)\Delta a^\dag(\tau)\!:\,\rangle$ 
+only contribute noise, and that (?) 
+$\langle\,:\! \Delta a(0)\Delta a^\dag(\tau)\!:\,\rangle = 
+\langle\,:\! \Delta a^\dag(\tau)\Delta a(0)\!:\,\rangle$  
+we can write
+%\begin{widetext}
+%
+\begin{eqnarray}
+\frac{\langle\,:\! n_b(0) b_\theta(\tau)\!:\,\rangle}{\langle n_b\rangle} 
+	&=& \xi(\tau) + \beta_{\theta} \nonumber \\
+	&+& \frac{\beta^\ast e^{i\theta} +\beta e^{-i\theta} }{2} 
+	 \frac{\langle\,:\! \Delta a^\dag (0) \Delta a (\tau)\!:\,\rangle}
+	{\langle n_b\rangle}  \,, \nonumber \\	
+\end{eqnarray}
+%%
+%\end{widetext}
+
+Let us analyze two cases: (a) In cavity QED 
+$\langle a \rangle \neq 0$, so the offset is not needed $A=0$, 
+$\langle n_b \rangle = \langle n_a \rangle = 
+|\alpha|^2 +\langle \Delta a^\dag \Delta a \rangle$, and 
+$\beta=\beta^\ast=\alpha$, 
+%
+\begin{eqnarray}
+\frac{\langle\,:\! n_a(0) a_\theta(\tau)\!:\,\rangle}
+	{\langle n_a\rangle} &=& \alpha \cos{\theta}  \\
+	&&+2\alpha \frac{\langle\,:\! \Delta q_{0^\circ}(0) 
+	\Delta q_\theta(\tau)\!:\,\rangle}
+	{\alpha^2 +\langle \Delta a^\dag \Delta a \rangle} 
+	+\xi(\tau) \,,	\nonumber 
+\end{eqnarray}
+%%
+%
+\begin{eqnarray}
+\frac{\langle\,:\! n_a(0) a_\theta(\tau)\!:\,\rangle}
+	{\langle n_a\rangle} = \alpha \cos{\theta}  \left[ 1+  
+\frac{\langle\,:\! \Delta a^\dag (0) \Delta a (\tau)\!:\,\rangle}
+	{\alpha +\langle \Delta a^\dag \Delta a \rangle} \right]
+ 	+\xi(\tau) \,.			\nonumber
+\end{eqnarray}
+%%
+(b) Lock the offset's phase to the LO's ($\phi=\theta$), so that 
+$\beta_\theta = A+ \alpha \cos{\theta}$, and match $|\beta|$ 
+to the R.M.S. fluctuation:
+%
+\begin{eqnarray}
+\frac{\langle\,:\! n_b(0) b_\theta(\tau)\!:\,\rangle}
+	{\langle n_b\rangle} &=& (A+ \alpha\cos{\theta}) \left[ 1+  
+\frac{\langle\,:\! \Delta a^\dag (0) \Delta a (\tau)\!:\,\rangle}
+	{|\beta|^2 +\langle \Delta a^\dag \Delta a \rangle} \right] 
+	\nonumber \\
+	&&+\xi(\tau),	 
+\end{eqnarray}
+%%
+
+Thus, we set
+%
+\begin{equation}
+\beta=\sqrt{\langle\Delta a^\dagger\Delta a\rangle}\,e^{i\theta}.
+\end{equation}
+%%
+Then, for broadband detection ($\Gamma\gg1$), the normalized signal
+$h_\theta(\tau)\equiv H(\tau)/2\sqrt{2r}|\beta|$ is the correlation 
+function
+%
+%\begin{mathletters}
+\begin{equation} 	\label{eqn:smallcor}
+h_\theta(\tau) = 1+\frac{\langle\,:\Delta q_\theta(0)\Delta
+	q_\theta(\tau)\!:\,\rangle}{\langle\Delta a^\dagger\Delta a\rangle}
+	+\xi(\tau),
+\end{equation}
+%%
+%
+\begin{equation} 	\label{eqn:noise}
+\overline{\xi(\tau)\xi(\tau^\prime)} = (16rN_s|\beta|^2)^{-1}
+	\Gamma e^{-\Gamma|\tau-\tau^\prime|},
+\end{equation}
+%\end{mathletters}
+%%
+and CHD measures the autocorrelation of the quadrature amplitude
+fluctuations. The squeezing spectrum \cite{CCFO00,FOCC00},
+%
+\begin{equation}
+S_\theta(\omega)=4F\!\int_0^\infty\! 
+	d\tau\cos(\omega\tau)[\overline{h_\theta (\tau)}-1],
+\end{equation}
+%%
+where $F=2\kappa \langle n_b\rangle=4|\beta|^2$ is the photon flux into
+the correlator and $\overline{h_\theta(\tau)}\equiv\lim_{N_s\to\infty}
+h_\theta(\tau)$, is independent of the fraction of light,
+$r$, sent to the BHD. Of course, for a fixed measurement time, the
+signal-to-noise ratio does depend on $r$, which enters explicitly and
+through $N_s$ into Eq.\ (\ref{eqn:noise}). [A separate efficiency 
+enters the measurement of $F$.]
+
+The standard signature of squeezing is a reduced shot noise level which
+is interpreted as a deamplification of the vacuum fluctuations. CHD
+provides another view. The focus is on the fluctuations of the light
+emitted by the source. The shot noise is irrelevant, ideally being
+eliminated through the conditional average. The fluctuations are
+nonclassical. They violate inequalities that any classical field must
+satisfy---$\langle\,:\!\Delta q_\theta(0)\Delta q_\theta(\tau)\!:
+\,\rangle$ is classically incompatible with
+%
+\begin{equation} 	\label{eqn:variance}
+\langle\Delta a^\dagger\Delta a\rangle = 
+	\langle\,:\!(\Delta q_\theta)^2\!:\,\rangle+\langle\,:\!(\Delta
+	q_{\theta+\pi/2})^2\!:\,\rangle.
+\end{equation}
+%%
+Classically, the quadrature variances are positive. It follows,
+trivially, from Eqs.\ (\ref{eqn:smallcor}) and (\ref{eqn:variance}), 
+that
+%
+%\begin{mathletters}
+\begin{equation} 	\label{eqn:inequality1}
+0\leq\overline{h_\theta(0)} -1 \leq 1.
+\end{equation}
+%%
+More generally one proves the Schwarz inequality
+%
+\begin{equation} \label{eqn:inequality2}
+|\overline{h_\theta(\tau)}-1|\leq|\overline{h_\theta(0)}-1|\leq1.
+\end{equation}
+%\end{mathletters}
+%%
+One quadrature variance is negative, however, if there is squeezing 
+below the quantum limit. It follows that the squeezed (unsqueezed)
+fluctuations violate the lower (upper) bound of (\ref{eqn:inequality1}),
+and fluctuations of either quadrature amplitude may violate
+(\ref{eqn:inequality2}). Conditions of low photon flux are of 
+particular interest. 
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%
+\section{Quantum Trajectories for Spectra}
+Unraveling of the master equation in the frequency domain, specifically 
+the Tian-Carmichael \cite{TiCa92} and Holland \cite{Holland98} 
+approaches. These methods calculate the number of photons emitted 
+at a certain frequency and time. Methods based on two-time field 
+correlations will probably be out of consideration (Dalibard et al, 
+Zoller et al, etc). 
+
+In the Tian-Carmichael method the light from the source is coupled, 
+with strength $\epsilon \ll 1$, to the filter with zero- and one-photon 
+states, $|0,1 \rangle_F$, half-width $\Gamma$, and resonance frequency 
+$\nu$. The non-Hermitian Hamiltonian is 
+%
+\begin{eqnarray}
+\mathcal{H} = H_{\mathrm{eff}} +(\nu -i\Gamma)b^{\dag}b 
+	-i\sqrt{\epsilon \Gamma} b^{\dag} \sigma_-
+\end{eqnarray}
+%%
+where $H_{\mathrm{eff}}$ is the effective Hamiltonian, $b^{\dag}$ and 
+$b$ act only on the filter states. The unnormalized wave function is 
+%
+\begin{eqnarray}
+|\overline{\Psi}_c (\nu,t)\rangle  &=& 
+|\overline{\Psi}_c^0 (\nu,t) \rangle |0 \rangle_F 
++|\overline{\Psi}_c^1 (\nu,t)\rangle |1 \rangle_F \,, \qquad
+\end{eqnarray}
+%%
+The Schr\"odinger equation splits into two sets of equations
+%
+\begin{subequations}
+\begin{eqnarray}
+|\dot{\overline{\Psi}_c^0} (\nu,t) \rangle 
+	&=& - i H_{\mathrm{eff}} |\overline{\Psi}_c^0(\nu,t) \rangle \,, 	\\
+%
+|\dot{\overline{\Psi}_c^1}(\nu,t) \rangle &=& \left[ -i H_{\mathrm{eff}} 
+ -(\Gamma +i\nu) \right] |\overline{\Psi}_c^1 (\nu,t) \rangle  \nonumber \\
+&& -\sqrt{\epsilon \Gamma} \sigma_- |\overline{\Psi}_c^0 (\nu,t) 
+	\rangle \,, 	
+\end{eqnarray}
+\end{subequations}
+%%
+The spectrum is given by 
+%
+\begin{eqnarray}
+S(\nu,t) &=& 
+\frac{ \langle \overline{\Psi}_c^1(\nu,t) |\overline{\Psi}_c^1(\nu,t) 
+\rangle }{ \langle \overline{\Psi}_c(\nu,t) |\overline{\Psi}_c(\nu,t) 
+\rangle } 
+\end{eqnarray}
+%%
+which is the mean photon number in the filter cavity for different 
+settings of the filter frequency $\nu$. This spectrum is shown to be the 
+same as the EW spectrum. 
+
+What is $|\overline{\Psi}_c^1 (\nu,t)\rangle$ like for a two-level atom?
+
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+% \section{Conclusions}
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+%\section*{Appendix}
+
+%%%%%%%%10%%%%%%%%20    REFERENCES    40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\begin{references} 
+%
+\bibitem{Carmichael93} H. J. Carmichael \textit{An Open Systems
+ Approach to Quantum Optics} (Springer, Berlin, 1993).
+%
+\bibitem{Carmichael02} H. J. Carmichael \textit{Statistical Methods in 
+Quantum Optics 1: Master Equations and Fokker-Planck Equations} 
+(Springer, Berlin, 1999). 
+%
+\bibitem{Carmichael07} H. J. Carmichael \textit{Statistical Methods in 
+Quantum Optics 2: Non-Classical Fields} (Springer, Berlin, 2008). 
+%
+\bibitem{Carmichael96} H. J. Carmichael, Stochastic Schr\"odinger 
+equations: What they mean and what they can do, in \textit{Coherence 
+and Quantum  Optics}, J. H. Eberly, L. Mandel, and E. Wolf, eds. (Plenum 
+Press, New York, 1996).
+%
+\bibitem{DaCM92} J. Dalibard, Y. Castin, and K. Molmer, Phys. Rev. 
+Lett. \textbf{68}, 580 (1992).
+%
+\bibitem{MoCD92} K. Molmer, Y. Castin, and J. Dalibard, J. Opt. Soc. 
+Am. B \textbf{10}, 524 (1993). 
+%
+\bibitem{DuZR92} R. Dum, P. Zoller, and H. Ritsch, Phys. Rev. A 
+\textbf{45}, 4879 (1992).
+%
+\bibitem{PlKn98} M. B. Plenio and P.L. Knight, Rev. Mod. Phys. 
+\textbf{70}, 11 (1998).
+%
+\bibitem{Percival98} I. Percival, \textit{Quantum State Diffusion}  
+(Cambridge University Press, Cambridge, 1998). 
+%
+\bibitem{WiMi93a} H. M. Wiseman and G. J. Milburn, Phys. Rev. A 
+\textbf{47}, 988 (1993).
+%
+\bibitem{WiMi93b} H. M. Wiseman and G. J. Milburn, Phys. Rev. A 
+\textbf{47}, 1652 (1993).
+%
+\bibitem{WiMi11} H. M. Wiseman and G. J. Milburn, \textit{Quantum 
+Measurement and Control} (Cambridge University Press, Cambridge, 
+2011). 
+%
+\bibitem{GaZoQN} C. Gardiner and P. Zoller, \textit{Quantum Noise, 
+3rd ed.} (Springer-Verlag, Berlin, 200?). 
+%
+\bibitem{GaZoQO1} C. Gardiner and P. Zoller, \textit{The Quantum World of 
+Ultra-Cold Atoms and Light Book I: Foundations of Quantum Optics} 
+(World Scientific, Singapore, 2014). 
+%
+\bibitem{GaZoQO2} C. Gardiner and P. Zoller, \textit{The Quantum World 
+of Ultra-Cold Atoms and Light Book II: The Physics of Quantum-Optical 
+Devices} (World Scientific, Singapore, 2015).  
+%
+\bibitem{BrPe02} H.-P. Breuer and F. Petruccione, \textit{The Theory of 
+Open Quantum Systems} (Oxford University Press, Oxford, 2002). 
+%
+\bibitem{CCFO00} H. J. Carmichael, H. M. Castro-Beltran, G. T. Foster, 
+and L. A. Orozco, Phys. Rev. Lett. \textbf{85}, 1855 (2000).
+%
+\bibitem{FOCC00} G. T. Foster, L. A. Orozco, H. M. Castro-Beltran, and 
+	H. J. Carmichael, PRL \textbf{85}, 3149 (2000).
+%
+\bibitem{BeMa11} P. R. Berman and V. S. Malinovsky, \textit{Principles 
+of Laser Spectroscopy and Quantum Optics} (Princeton University Press, 
+Princeton, 2011).
+%
+\bibitem{Huard16} P. Campagne-Ibarcq, P. Six, L. Bretheau, A. Sarlette, 
+M. Mirrahimi, P. Rouchon, and B. Huard, Observing quantum state 
+diffusion by heterodyne detection of fluorescence, Phys. Rev. X 
+\textbf{6}, 011002 (2016).
+%
+\bibitem{Carmichael93casc} H. J. Carmichael, Quantum trajectory 
+theory for cascaded open systems,  Phys. Rev. Lett. \textbf{70}, 2273 
+(1993). 
+%%
+\bibitem{TiCa92} L. Tian and H. J. Carmichael, Phys. Rev. A \textbf{46}, 
+	R6801 (1992).
+%
+\bibitem{Holland98} M.~J. Holland, Phys. Rev. Lett. \textbf{81}, 5117 
+(1998); Comment by D.~B. Horoshko and S.~Ya. Kilin, Phys. Rev. Lett. 
+\textbf{83}, 2469 (1999); 
+Reply by M.~J. Holland, Phys. Rev. Lett. \textbf{83}, 2470 (1999).
+%
+\bibitem{CaGH15} H. M. Castro-Beltran, L. Guti\'errez, and L. Horvath,  
+Appl. Math. Inf. Sci. Opt. \textbf{9}, 2849 (2015). 
+%
+\bibitem{KiKn89} M. S. Kim and P. L. Knight, Phys. Rev. A 
+\textbf{40}, 215 (1989).
+%
+\bibitem{CaWa76} H. J.  Carmichael and D.F. Walls, J. Phys. B 
+	{\bf 9}, 1199 (1976). 
+%
+\bibitem{KiMa76} H.J. Kimble and L. Mandel, Phys. Rev. A 
+\textbf{13}, 2123 (1976).
+%
+\bibitem{antibunch} H. J. Kimble, M. Dagenais, and L. Mandel, 
+	Phys. Rev. Lett. {\bf 39}, 691 (1977).
+%F. Diedrich and H. Walther, {\it ibid} {\bf 58}, 203 (1987); 
+%V. Gomer, F. Strauch, B. Ueberholz, S. Knappe, and D. Meschede, 
+%	Phys. Rev. A {\bf 58}, R1657 (1998).
+%
+\bibitem{CSVR89} H. J. Carmichael, S. Singh, R. Vyas, and P. R. Rice, 
+Photoelectron waiting times and atomic state reduction in resonance 
+fluorescence, Phys. Rev. A \textbf{39}, 1200 (1989).  
+
+ 
+\end{references}
+
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

@@ -1,0 +1,399 @@
+\documentclass[10pt,xcolor=dvipsnames]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{booktabs}
+\usetheme{Madrid}
+\usecolortheme{whale}
+
+% Información de la presentación
+\title[Fluorescencia Resonante Intermitente]{Fluorescencia Resonante Intermitente con Ecuaciones Estocásticas de Schrödinger}
+\subtitle{Tercer Reporte Semestral - Agosto-Diciembre 2025}
+\author[L. T. Kevin Martínez Franco]{L. T. Kevin Martínez Franco\\ Dr. Hector Manuel Castro Beltran}
+
+\institute[UAEM]{Maestría en Ingeniería y Ciencias Aplicadas\\Instituto De Investigación En Ciencias Básicas y Aplicadas
+\\Universidad Autónoma del Estado de Morelos}
+\date{\today}
+\titlegraphic{
+    \includegraphics[width=2cm]{Poster Taller OQM/logos/uaem.png}\hspace{1cm}
+    \includegraphics[width=2.5cm]{Poster Taller OQM/logos/ciicap.png}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Contenido}
+    \tableofcontents
+\end{frame}
+
+\section{Introducción}
+\begin{frame}
+    \frametitle{Introducción}
+
+    \begin{block}{Sistemas Cuánticos Abiertos y Fluorescencia Atómica}
+        Un átomo acoplado a un entorno con un gran número de modos del campo electromagnético experimenta \textbf{emisión espontánea}.\\
+        \vspace{0.5em}
+        Este fenómeno es una manifestación de la \textbf{disipación}: el sistema (átomo) transfiere irreversiblemente energía al entorno (modos del vacío cuántico).
+    \end{block}
+
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \begin{block}{Descripción del Estado}
+            El estado ya no es una función de onda pura \( |\psi\rangle \), sino un \textbf{operador densidad} \(\rho\) que describe un estado mixto:
+            \[
+            \rho = \overline{|\psi\rangle\langle\psi|}
+            \]
+            Permite describir \textbf{decoherencia} y pérdida de información cuántica hacia el entorno.
+        \end{block}
+
+        \column{0.48\textwidth}
+        \begin{block}{Evolución Temporal}
+            Se modela mediante:
+            \begin{itemize}
+                \item \textbf{Ecuación maestra de Lindblad}
+                \item \textbf{Trayectorias cuánticas} (enfoque estocástico)
+            \end{itemize}
+            Estos formalismos capturan la \textbf{evolución no unitaria} y \textbf{disipativa}.
+        \end{block}
+    \end{columns}
+
+
+\end{frame}
+
+
+\begin{frame}{Trayectorias Cuánticas}
+    
+        \centering
+        \textbf{La información extraída determina la dinámica observada}
+
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{exampleblock}{Trayectorias de Saltos Cuánticos}
+                \textbf{Medición:} Conteo de fotones discretos
+                
+                \textbf{Información:} \textcolor{blue}{¿CUÁNDO?} se emiten fotones
+                
+                \textbf{Dinámica:} 
+                \begin{itemize}
+                    \item Evolución suave entre saltos
+                    \item Colapsos abruptos al detectar fotón
+                    \item Estados puros condicionados
+                \end{itemize}
+                
+                \centering
+                \includegraphics[width=0.8\textwidth]{Tutoral 3 Semestre/tjsaltosej.png}
+            \end{exampleblock}
+        \end{column}
+        
+        \begin{column}{0.48\textwidth}
+            \begin{alertblock}{Trayectorias Difusivas (Heterodina/Homodina)}
+                \textbf{Medición:} Fotocorriente continua
+                
+                \textbf{Información:} \textcolor{red}{¿CÓMO?} fluctúa la amplitud del campo
+                
+                \textbf{Dinámica:}
+                \begin{itemize}
+                    \item Evolución continua y suave
+                    \item Ruido de medición tipo Wiener
+                    \item Empujones infinitesimales
+                \end{itemize}
+                
+                \centering
+                \includegraphics[width=0.8\textwidth]{Tutoral 3 Semestre/tjdifusivaej.png}
+            \end{alertblock}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.5cm}
+    
+    \begin{block}{Mismo Sistema, Diferentes Observables}
+        \begin{center}
+            \textbf{Sistema Cuántico} $\rightarrow$ \textbf{Medición} $\rightarrow$ \textbf{Trayectoria Condicionada}
+            
+            \vspace{0.2cm}
+            \small\textit{La fluorescencia del átomo nos revela caminos diferentes dependiendo de qué preguntamos}
+        \end{center}
+    \end{block}
+\end{frame}
+
+\begin{frame}{El Poder de la Información en Medición Cuántica}
+    \begin{columns}[T]
+        \begin{column}{0.6\textwidth}
+            \begin{block}{De la Ecuación Maestra a Trayectorias}
+                \[
+                \dot{\rho} = \mathcal{L}\rho \quad \Rightarrow \quad d|\psi_c\rangle = \text{(Evolución condicionada)}
+                \]
+                
+                \textbf{Descomposición de la ignorancia:}
+                \begin{itemize}
+                    \item Ecuación maestra: conocimiento promedio
+                    \item Trayectorias: conocimiento individual
+                    \item Información extraída $\equiv$ ruido eliminado
+                \end{itemize}
+            \end{block}
+            
+            \begin{exampleblock}{Fotodetección como Fuente de Información}
+                \begin{itemize}
+                    \item Cada fotón detectado $\approx$ 1 bit de información
+                    \item Fotocorriente continua $\approx$ flujo de información
+                    \item \textbf{Resultado:} Estado mejor conocido $\Rightarrow$ dinámica menos aleatoria
+                \end{itemize}
+            \end{exampleblock}
+        \end{column}
+        
+        \begin{column}{0.38\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{esquema_medicion.png}
+            \begin{tikzpicture}
+                \node[draw, fill=blue!20, rounded corners, text width=3cm] {
+                    \small\textbf{Regla de Oro:}\\
+                    \textit{Más información $\Rightarrow$ Menos decoherencia}\\
+                    \textit{Menos información $\Rightarrow$ Más decoherencia}
+                };
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+    
+    \vspace{0.5cm}
+    
+    \begin{alertblock}{Aplicación en Fluorescencia Intermitente}
+        \begin{center}
+            El fenómeno de shelving se manifiesta \textbf{diferentemente} según el esquema de medición:
+            
+            \textbf{Saltos}: Periodos oscuros $\equiv$ ausencia total de fotones
+            
+            \textbf{Heterodina}: Periodos oscuros $\equiv$ señal ruidosa cerca de cero
+        \end{center}
+    \end{alertblock}
+\end{frame}
+
+\begin{frame}{Interpretación Física: Qué nos Dice la Luz Fluorescente}
+    \begin{columns}[T]
+        \begin{column}{0.45\textwidth}
+            \begin{block}{Información Espectral}
+                \centering
+                \includegraphics[width=0.8\textwidth]{espectro.png}
+                
+                \textbf{Triplete de Mollow:}
+                \begin{itemize}
+                    \item Pico central: emisión coherente
+                    \item Laterales: emisión incoherente
+                    \item Anchura: tasa de decaimiento
+                \end{itemize}
+            \end{block}
+        \end{column}
+        
+        \begin{column}{0.55\textwidth}
+            \begin{block}{Información Temporal}
+                \centering
+                \begin{tabular}{c|c}
+                \textbf{Medición} & \textbf{Información} \\
+                \hline
+                Fotoconteo & Tiempos de emisión \\
+                Homodina & Amplitud del campo \\
+                Heterodina & Fase y amplitud \\
+                \hline
+                \end{tabular}
+                
+                \vspace{0.5cm}
+                
+                \textbf{Correlaciones Temporales:}
+                \begin{itemize}
+                    \item $g^{(2)}(\tau)$: estadística de fotones
+                    \item $S(\omega)$: espectro de potencia
+                    \item Distribuciones de tiempos de espera
+                \end{itemize}
+            \end{block}
+            
+            \begin{alertblock}{Fenómeno Clave: Antibunching Cuántico}
+                \[
+                g^{(2)}(0) < 1 \quad \Rightarrow \quad \text{Los fotones se repelen}
+                \]
+                
+                \small Evidencia directa de la naturaleza cuántica del emisor
+            \end{alertblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Sistemas Cuánticos Abiertos}
+    \begin{block}{Ecuación Maestra vs. Trayectorias Estocásticas}
+        \begin{itemize}
+            \item \textbf{Ecuación maestra}: Describe el comportamiento promedio del ensamble
+            \item \textbf{Trayectorias estocásticas}: Evolución de sistemas individuales condicionados a mediciones
+            \item \textit{Unravelings}: Descomposiciones estocásticas de la ecuación maestra
+        \end{itemize}
+    \end{block}
+    
+    \begin{exampleblock}{Relevancia Física}
+        Solo algunos \textit{unravelings} corresponden a esquemas de medición físicamente realizables:
+        \begin{itemize}
+            \item Detección de conteo de fotones (saltos cuánticos)
+            \item Detección homodina/heterodina (trayectorias difusivas)
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\section{Objetivos}
+\begin{frame}{Objetivos del Proyecto}
+    \begin{block}{Objetivo General}
+        Simular sistemas cuánticos de 2 y 3 niveles mediante Teoría de Trayectorias Cuánticas para estudiar fluorescencia intermitente.
+    \end{block}
+    
+    \begin{block}{Objetivos Específicos}
+        \begin{itemize}
+            \item Simular sistema de 3 niveles con estructura de \textit{shelving}
+            \item Análisis fotoestadístico de tiempos de retorno al estado metaestable
+            \item Implementar SDEs para trayectorias difusivas y de saltos
+            \item Generar pseudo-esfera de Bloch para visualización
+            \item Validar con ecuación maestra
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\section{Metodología}
+\begin{frame}{Trayectorias de Saltos Cuánticos}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{block}{Algoritmo}
+                \begin{enumerate}
+                    \item Inicialización $|\Psi_c(0)\rangle$
+                    \item Evolución no-hermítica
+                    \item Cálculo de probabilidades de salto
+                    \item Decisión estocástica
+                    \item Aplicación del salto
+                    \item Actualización temporal
+                \end{enumerate}
+            \end{block}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{block}{Sistema de 3 Niveles}
+                \centering
+                \includegraphics[width=0.8\textwidth]{Reporte Semestre 1/1 sistema.png}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Detección Homodina Balanceada}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{block}{Principio de Operación}
+                \begin{itemize}
+                    \item Mezcla con oscilador local
+                    \item Cancelación de ruido clásico
+                    \item Medición de cuadraturas específicas
+                    \item Detección de estados comprimidos
+                \end{itemize}
+            \end{block}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{Reporte Semestre 3/imagenes/dhb.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{Resultados}
+\begin{frame}{Distribuciones de Tiempos Oscuros y Brillantes}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Reporte Semestre 3/imagenes/Duracion peridos bo.png}
+    
+    \begin{block}{Resultados Numéricos}
+        \begin{itemize}
+            \item Tiempos oscuros: $T_O^{teo} = 66.7$ vs $T_O^{med} = 67.8$ (error 1.7\%)
+            \item Tiempos brillantes: $T_B^{teo} = 41.5$ vs $T_B^{med} = 41.9$ (error 1\%)
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Distribuciones de Tiempos de Retorno}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Reporte Semestre 3/retorno.png}
+    
+    \begin{block}{Validación Teórica}
+        \begin{itemize}
+            \item $\Omega = 3.5\gamma$: $T_{OB}^{teo} = 108.140$ vs $T_{OB}^{med} = 108.995$ (error 0.8\%)
+            \item $\Omega = 0.54\gamma$: $T_{OB}^{teo} = 168.567$ vs $T_{OB}^{med} = 180.607$ (error 7.1\%)
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Espectroscopía Heterodina}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Reporte Semestre 3/imagenes/dhete.png}
+    
+    \begin{block}{Triplete de Mollow}
+        \begin{itemize}
+            \item $\Omega = 3.5\gamma$: Triplete completo con pico central angosto
+            \item $\Omega = 0.54\gamma$: Pico central más angosto (óptimo)
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Detección Homodina por Cuadraturas}
+    \centering
+    \includegraphics[width=0.9\textwidth]{Reporte Semestre 3/imagenes/dhomodinaaa.png}
+    
+    \begin{block}{Selectividad de Fase}
+        \begin{itemize}
+            \item $\phi = 0$: Solo componente coherente del pico central
+            \item $\phi = \pi/2$: Picos laterales + pico central angosto
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Dinámica en Pseudo-Esfera de Bloch}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \textbf{Saltos Cuánticos}
+            \includegraphics[width=\textwidth]{Reporte Semestre 3/imagenes/pseodoesfera tjsaltos.png}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \textbf{Dinámica Difusiva}
+            \includegraphics[width=\textwidth]{Reporte Semestre 3/imagenes/Esfera difusiva.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{Conclusiones y Trabajo Futuro}
+\begin{frame}{Conclusiones}
+    \begin{block}{Avances Significativos}
+        \begin{itemize}
+            \item Optimización de espectros heterodinos con reducción de ruido
+            \item Implementación exitosa de detección homodina balanceada
+            \item Análisis fotoestadístico completo de tiempos de retorno
+            \item Validación teórico-experimental con excelente precisión
+            \item Visualización en pseudo-esfera de Bloch
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Perspectiva del Cuarto Semestre}
+    \begin{block}{Líneas de Investigación}
+        \begin{enumerate}
+            \item Detección homodina condicionada y \textit{squeezing}
+            \item Electrónica fotónica y espectroscopía láser
+            \item Simulación de \textit{quantum beats} en sistema de 4 niveles
+            \item Colaboración en estudios de radiación cooperativa
+        \end{enumerate}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \centering
+    \Huge \textbf{¡Gracias!}
+    
+    \vspace{1cm}
+    \large Preguntas y comentarios
+\end{frame}
+
+\end{document}

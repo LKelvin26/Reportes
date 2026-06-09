@@ -1,0 +1,2629 @@
+%% Apuntes de Optica Cu\'antica
+%
+%\documentclass[twocolumn]{article}
+\documentclass[twocolumn,aps,eqsecnum]{revtex4}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{amsmath} 
+\usepackage{cancel}
+\usepackage{color}
+ 
+% vectors (the most common ones)
+\newcommand{\mbd}{\mathbf{d}}
+\newcommand{\mbe}{\mathbf{e}}
+\newcommand{\mbi}{\mathbf{i}}
+\newcommand{\mbj}{\mathbf{j}}
+\newcommand{\mbk}{\mathbf{k}}
+\newcommand{\mbp}{\mathbf{p}} 
+\newcommand{\mbq}{\mathbf{q}}
+\newcommand{\mbr}{\mathbf{r}}
+%\newcommand{\mbrp}{\mathbf{r}^{\prime}}
+\newcommand{\mbv}{\mathbf{v}}
+\newcommand{\mbB}{\mathbf{B}}
+\newcommand{\mbE}{\mathbf{E}}
+\newcommand{\mbR}{\mathbf{R}}
+
+\newcommand{\mcE}{\mathcal{E}} 
+\newcommand{\mcH}{\mathcal{H}} 	%Hamiltonian 
+\newcommand{\mcL}{\mathcal{L}} 
+\newcommand{\mcV}{\mathcal{V}} 	%Hamiltonian
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\qed}{\mathrm{Q.E.D.}}
+\newcommand{\p}{\partial}
+%\newcommand{\lan}{\langle}     \newcommand{\ran}{\rangle}
+\newcommand{\adg}{a^{\dag}}
+\newcommand{\Adg}{A^{\dag}} 	
+\newcommand{\Hdg}{H^{\dag}} 	 
+\newcommand{\Udg}{U^{\dag}} 	
+%\newcommand{\lan}{\langle}
+%\newcommand{\ran}{\rangle}
+
+
+\providecommand{\abs}[1]{\left\lvert#1\right\rvert}
+\providecommand{\norm}[1]{\lVert #1 \rVert}
+\providecommand{\vxp}[1]{\langle #1 \rangle}
+\providecommand{\bra}[1]{\langle #1 \rvert}
+\providecommand{\ket}[1]{\lvert #1 \rangle}
+\providecommand{\bbra}[1]{\langle #1 \rvert\rvert}
+\providecommand{\kket}[1]{\lvert\lvert #1 \rangle}
+\providecommand{\kkket}[1]{\lvert #1 \rangle\rangle}
+\providecommand{\braket}[2]{\langle #1 \rvert #2 \rangle}
+%\providecommand{\vxp3}[3]{\langle #1 |#2| #3 \rangle}
+\providecommand{\tr}[1]{\text{tr}\left[ #1 \right]}
+\newcommand{\ketbra}[2]{\left| {#1} \right\rangle\left\langle {#2}\right|}
+%\newcommand{\mmax}{_{\text{max}}}
+
+\newcommand{\mru}[1]{\mathrm{#1}} %unidades fisicas
+\newcommand{\inc}[1]{\mathrm{(#1)}} %incisos en formulas desplegadas
+\newcommand{\tbn}[1]{\textbf{#1}} %numero de problema
+
+\begin{document}
+
+\title{Apuntes de \'Optica Cu\'antica Semicl\'asica}
+\author{H\'ector M. Castro Beltr\'an}
+\affiliation{CIICAp-UAEM}
+\date{\today}
+\maketitle
+
+
+Textos: Carmichael 1; Meystre \& Sargent III (MS); Scully \& Zubairy (SZ); 
+Loudon; Stenholm; Berman \& Malinovsky (BM), Sargent III, Scully \& Lamb 
+(SSL);  Fox. El n\'umero despu\'es de MS y Loudon identifica la edici\'on de 
+ donde fue tomado el apunte. 
+
+Los temas de Teor\'ia de fotodetecci\'on est\'an en el apunte 
+``notas Fotodetecci\'on.pdf''
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Interacci\'on \'Atomo-Campo EM} 
+En \'optica cu\'antica (OC) nos interesan procesos en donde la radiaci\'on, la 
+materia o ambas deben describirse por la mec\'anica cu\'antica (MC). En estas 
+notas consideramos la \textit{teor\'ia semicl\'asica}, en donde la luz es tratada 
+por la teor\'ia de Maxwell y la materia mediante la MC, y la \textit{teor\'ia 
+cu\'antica}, en donde luz y materia son ambas tratadas por la MC. No 
+consideramos casos en los que la luz es cuantizada y la materia es tratada cl\'asicamente. 
+
+Estudiaremos varios procesos, m\'as o menos en orden de complejidad 
+creciente, tanto del sistema estudiado como por los m\'etodos. Por ejemplo, 
+iniciaremos con sistemas donde no hay p\'erdidas de energ\'ia o coherencia, 
+descrita por la funci\'on de onda, y luego pasaremos a sistemas disipativos 
+y/o incoherentes, descritos por operador de densidad. Por simplicidad, el 
+t\'ermino \'atomo incluye tambi\'en mol\'eculas, u otros entes materiales. 
+
+En un curso introductorio de MC nos enfocamos en conocer los niveles de 
+energ\'ia de un \'atomo. Esto no nos dice en realidad nada de los procesos 
+por los cuales un \'atomo cambia de nivel (absorci\'on, emisi\'on). Para ello se 
+requiere la interacci\'on con otro sistema, que puede ser luz u otros \'atomos 
+(p. ej., colisiones). Tradicionalmente, estas interacciones se estudian 
+primeramente si son d\'ebiles, donde la energ\'ia de interacci\'on es mucho 
+mas peque\~na que la energ\'ia entre los niveles que se desea estudiar. Este 
+es el dominio de la teor\'ia de perturbaciones. Consideraremos algunos de 
+estos procesos, aunque no es mas dif\'icil plantear primero una situaci\'on mas 
+general.  
+
+\subsection{Efecto Fotoel\'ectrico} 
+El Efecto Fotoel\'etrico (EF) es el proceso por el cual un \'atomo o material 
+que absorbe luz de frecuencia mayor que la frecuencia de ionizaci\'on o de 
+trabajo expulsa un electr\'on. En un fotodetector este electr\'on es sujeto a 
+un proceso de amplificaci\'on para poder ser analizado por varios 
+instrumentos electr\'onicos (osciloscopios, etc).  Aqu\'i describimos el proceso 
+de excitaci\'on del \'atomo por un campo EM, iniciando con un repaso breve 
+de algunos procesos de interacci\'on radiaci\'on materia hasta llegar al 
+an\'alisis semicl\'asico del EF. En secciones posteriores estudiaremos otros 
+aspectos de la teor\'ia de fotodetecci\'on. 
+
+\subsection{Ecuaciones para las Amplitudes} 
+Estudiamos la interacci\'on de un sistema no perturbado con Hamiltoniano 
+$H_0$ con otro dado por el potencial $V$ que induce transiciones entre los 
+estados del sistema no perturbado.  Presentaremos el c\'alculo en las 
+im\'agenes de Schr\"odinger y de Interacci\'on. Posteriormente exploraremos 
+estos conceptos. 
+
+\textit{Imagen de Interacci\'on}: La funci\'on de onda es 
+%
+\begin{eqnarray} 
+\Psi(\mbr,t) &=& \sum_n C_n (t) u_n (\mbr) e^{-i \omega_n t} \nonumber \\ 
+&=& \ket{\Psi} = \sum_n C_n (t)  e^{-i \omega_n t} \ket{n} \,, 
+\end{eqnarray}
+%% 
+donde $C_n (t)$ son llamadas \textit{amplitudes de probabilidad}, que llevan 
+la informaci\'on temporal de la interacci\'on; $u_n (\mbr) = \ket{n}$ son las 
+funciones de onda que obedecen la ecuaci\'on de Schr\"odinger independiente 
+del tiempo $H_0 \ket{n} = \hbar \omega_n \ket{n}$; y $\hbar \omega_n$ es la 
+energ\'ia del nivel $n$. La interacci\'on esta descrita por el operador $V$, que 
+conecta dos o m\'as niveles del sistema. Tenemos entonces la ecuaci\'on de 
+Schr\"odinger dependiente del tiempo 
+$i \hbar \ket{\dot{\Psi}} =  (H_0 +V) \ket{\Psi}$ ($\dot{x} = dx/dt $), 
+que nos llevar\'a a un conjunto de ecuaciones para las amplitudes que describen el acoplamiento en el tiempo entre dos niveles:   
+%
+\begin{eqnarray} 
+\sum_n ( i \hbar \dot{C}_n + \cancel{\hbar \omega_n C_n} ) 
+	e^{-i \omega_n t} \ket{n} 
+	&=& \sum_n ( \cancel{\hbar \omega_n} +V) C_n 
+	e^{-i \omega_n t} \ket{n} 	\nonumber \\ 
+\sum_n i \hbar \dot{C}_n  e^{-i \omega_n t} \ket{n} 
+	&=& \sum_n V C_n e^{-i \omega_n t} \ket{n} \,.
+\end{eqnarray}
+%% 
+Multiplicando por $\bra{m}$ por la izquierda,  
+%
+\begin{eqnarray} 	\label{eq:amplitudeEqsIP}
+\sum_n i \hbar \dot{C}_n  e^{-i \omega_n t}  \braket{m}{n} 
+	&=& \sum_n C_n e^{-i \omega_n t}  \bra{m} V \ket{n} 	\nonumber \\ 
+i \hbar \dot{C}_m  e^{-i \omega_m t}  
+	&=& \sum_n C_n e^{-i \omega_n t} V_{mn} 	\nonumber \\ 
+\dot{C}_m &=& - (i/\hbar) \sum_n C_n e^{i \omega_{mn} t} V_{mn} \,,
+	\nonumber \\
+\end{eqnarray}
+%% 
+donde $\omega_{mn} = \omega_m - \omega_n$, 
+$\braket{m}{n} = \delta_{mn}$ y $ \bra{m} V \ket{n} = V_{mn}$. 
+
+\textit{Imagen de Schr\"odinger}: La funci\'on de onda es 
+%
+\begin{eqnarray} 
+\Psi(\mbr,t) &=& \sum_n c_n (t) u_n (\mbr) \,,	\qquad 
+	 \ket{\Psi} = \sum_n c_n (t)  \ket{n} \,,		\nonumber \\ 
+ c_n (t) &=& C_n e^{i \omega_n t} 	\,.
+\end{eqnarray}
+%% 
+Substituyendo en la ecuaci\'on de onda 
+%
+\begin{eqnarray} 
+i \hbar \sum_n  \dot{c}_n \ket{n} 
+	&=& \sum_n (\hbar \omega_n +V) c_n  \ket{n} 	
+\end{eqnarray}
+%% 
+y multiplicando por $\bra{m}$ por la izquierda, 
+%
+\begin{eqnarray} 	\label{eq:amplitudeEqsSP}
+\sum_n i \hbar \dot{c}_n  \braket{m}{n} 
+	&=&  \sum_n \hbar \omega_n c_n \braket{m}{n}
+	 + \sum_n c_n  \bra{m} V \ket{n}  \nonumber \\ 
+\dot{c}_m  &=& -i \omega_m c_m - (i/\hbar)  \sum_n c_n V_{mn} \,.
+\end{eqnarray}
+%% 
+Hasta aqu\'i el c\'alculo es exacto, es decir, no hemos usado la teor\'ia 
+perturbativa. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Perturbaciones Dependientes del Tiempo} 
+De manera similar al caso de perturbaciones independientes del tiempo 
+introducimos el par\'ametro $\lambda$, de modo que el Hamiltoniano se 
+escribe como $H = H_0 + \lambda V(t)$, la expansi\'on en serie de los 
+coeficientes como ($C_n \to a_n$) 
+$a_n (t) = a_n^{(0)} + \lambda a_n^{(1)} + \lambda^2 a_n^{(2)} + \cdots$ 
+y su substituci\'on en  
+$\dot{a}_m = - (i/\hbar) \sum_n a_n e^{-i \omega_{mn} t} V_{mn}$ (imagen 
+de Interacci\'on) nos lleva a  
+%
+\begin{eqnarray} 
+\lefteqn{ \dot{a}_m^{(0)} + \lambda \dot{a}_m^{(1)} 
+	+ \lambda^2 \dot{a}_m^{(2)} + \cdots = } 	\\ 
+&& - \frac{i}{\hbar} \sum_n \left( a_n^{(0)} + \lambda a_n^{(1)} 
+  	+ \lambda^2 a_n^{(2)} + \cdots \right) \lambda V_{mn} 
+  	e^{-i \omega_{mn} t} \,. \nonumber \\
+\end{eqnarray}
+%% 
+Aqu\'i $\lambda$ es un par\'ametro que luego descartamos, pero nos ayuda 
+a indicar que la serie debe converger. Igualando t\'erminos con las mismas 
+potencias de $\lambda$ genera el conjunto de ecuaciones
+%
+\begin{subequations}
+\begin{eqnarray} 
+\lambda^0 : \qquad \dot{a}_m^{(0)} &=& 0 	\,, 	\\
+\lambda^1 : \qquad \dot{a}_m^{(1)} 
+ 	&=& - \frac{i}{\hbar} \sum_n a_n^{(0)} V_{mn} e^{i \omega_{mn} t} \,, \\ 
+\lambda^2 : \qquad \dot{a}_m^{(2)} 
+ 	&=& - \frac{i}{\hbar} \sum_n a_n^{(1)} V_{mn} e^{i \omega_{mn} t} \,, \\ 
+&\vdots& 	\nonumber \\ 
+\lambda^r : \qquad \dot{a}_m^{(r)} 
+ 	&=& - \frac{i}{\hbar} \sum_n a_n^{(r-1)} V_{mn} e^{i \omega_{mn} t} \,. 
+\end{eqnarray}
+\end{subequations}
+%% 
+
+La soluci\'on a orden cero es $a_m^{(0)} = \mathrm{constante}$. Entonces 
+los $a_m^{(0)}$ son los valores iniciales del problema, los cuales se 
+escogen como $a_{m = i}^{(0)} =1$ y $a_{m \neq i}^{(0)} = 0$, de modo 
+que a $t=0$ el sistema ocupa con certeza un estado con energ\'ia $E_i$. 
+De esta manera la ecuaci\'on para $a_m^{(1)}$ se reduce a 
+%
+\begin{eqnarray} 
+\dot{a}_m^{(1)} = - \frac{i}{\hbar} V_{mn} e^{i \omega_{mn} t} \,. 
+\end{eqnarray}
+%% 
+$|a_m^{(1)}|^2$ es la (densidad de) probabilidad a primer orden de 
+encontrar al sistema a tiempo $t$ en el estado $\ket{m}$, dado que a 
+$t=0$ estaba en el estado $\ket{n}$. 
+
+Ahora consideraremos cuatro casos con tratamiento perturbativo a primer 
+orden: (i) Excitaci\'on independiente del tiempo $V = V_0$, (ii) excitaci\'on 
+arm\'onica $V= V_0 \cos{\nu t}$, (iii) excitaci\'on de un cont\'inuo, 
+(iv) excitaci\'on por un campo de banda ancha. 
+
+En ellos suponemos que el sistema se encuentra inicialmente en el estado 
+$\Psi (\mbr,0) = u_i (\mbr) = \ket{i}$.  Esto significa que $C_i (0) =1$ y $C_{n\neq i} (0) = 0$. Deseamos conocer las probabilidades de transici\'on 
+hacia otros estados. 
+ 
+A primer orden ($n \to i$, $m \to n$), 
+%
+\begin{eqnarray} 
+ \dot{C}_n (t) \simeq   \dot{C}_n^{(1)} (t) 
+	= -i \hbar^{-1} V_{ni} e^{i \omega_{ni} t} 	\,.
+\end{eqnarray}
+%% 
+
+
+\vspace{3mm}
+\textit{Excitaci\'on independiente del tiempo}, $V = V_0$. 
+\newline Esta es mas propiamente una excitaci\'on tipo escal\'on debida, por 
+ejemplo a la acci\'on de un campo EM est\'atico. Integrando la ecuaci\'on 
+anterior,
+%
+\begin{eqnarray} 
+C_n^{(1)} &=& -i \hbar^{-1} \int_0^t V_0 e^{i \omega_{ni} t'} dt' 
+	= -i \hbar^{-1} V_{ni} \frac{ e^{i \omega_{ni} t} - 1 }{i \omega_{ni}} 	
+	\nonumber \\ 
+&=& \frac{1}{i \hbar} V_0  	e^{i \omega_{ni} t/2} 
+		\frac{ \sin{\omega_{ni}t/2} }{\omega_{ni}/2} 	\,, 
+\end{eqnarray}
+%% 
+la probabilidad de transici\'on al estado $\ket{n}$ es 
+%
+\begin{eqnarray} 
+ |C_n^{(1)}|^2 = \frac{|V_0|^2 t^2}{\hbar^2} 
+	\mathrm{sinc}^2{(\omega_{ni}t/2)} \,,
+\end{eqnarray}
+%% 
+donde $\mathrm{sinc}(x) =\sin{x}/x$ es llamado \textit{seno cociente}.
+Tenemos que hacer notar la dependencia cuadr\'atica en el tiempo 
+($t^2$). Obviamente, este resultado solo es v\'alido para tiempos cortos,  
+donde $\sin{x}/x \sim 1$,  
+%
+\begin{eqnarray} 
+ |C_n^{(1)}|^2 \simeq \frac{|V_0|^2}{\hbar^2} t^2 \,.
+ \end{eqnarray}
+%% 
+Tambi\'en vemos que si las frecuencias de transici\'on $\omega_{ni}$ 
+aumentan, la probabilidad de transici\'on disminuye r\'apidamente.
+ 
+Adem\'as, dado que el c\'alculo es perturbativo la probabilidad total de 
+transici\'on fuera de $\ket{i}$ debe ser peque\~na,  
+%
+\begin{eqnarray} 
+ P_T = 1 -  |C_i^{(1)}|^2 = \sum_n  |C_n^{(1)}|^2 \ll 1 \,.
+\end{eqnarray}
+%% 
+
+\vspace{3mm}
+\textit{Excitaci\'on arm\'onica}, $V= V_0 \cos{\nu t}$. 
+\newline Este es el caso, por ejemplo, de un campo monocrom\'atico de 
+frecuencia $\nu$ y amplitud constante,  
+%
+\begin{eqnarray} 
+C_n^{(1)} &=& \frac{V_0}{2i \hbar} \int_0^t  dt' e^{i \omega_{ni} t'} 
+	\left( e^{i \nu t'} + e^{- i \nu t'} \right) 		\nonumber \\
+&=& \frac{V_0}{2i \hbar } 	\left[ 
+	\frac{ e^{i (\omega_{ni} +\nu) t} - 1 }{i (\omega_{ni}  +\nu)} 	
+	+ \frac{ e^{i (\omega_{ni} -\nu) t} - 1 }{i (\omega_{ni}  -\nu)} \right] \\ 
+\end{eqnarray}
+%% 
+
+Si $\omega_{ni} > 0$ y $\omega_{ni} \approx \nu$, el t\'ermino con 
+$\omega_{ni} +\nu \approx 2\nu$ tiene oscilaciones r\'apidas que se promedian 
+a cero en un tiempo corto, y adem\'as tiene amplitud mucho menor que el 
+segundo t\'ermino, por lo que podemos despreciarlo. Esta es la aproximaci\'on 
+de onda rotante (RWA -rotating wave approximation), cuya validez se da para 
+frecuencias altas (infrarrojo, visible, UV, X). Por esta misma raz\'on, podemos 
+ignorar transiciones a niveles con energ\'ias muy diferentes a $\hbar \nu$. Las transiciones ser\'an probables solo si la frecuencia del campo aplicado es muy 
+cercana a la frecuencia de la transici\'on. 
+
+Con la RWA se tiene 
+%
+\begin{eqnarray} 
+ |C_n^{(1)}|^2 = \frac{|V_0|^2 }{4\hbar^2} t^2 
+	\mathrm{sinc}^2{[(\omega_{ni} -\nu) t/2]} \,.
+\end{eqnarray}
+%% 
+
+Con excitaci\'on monocrom\'atica es posible limitarse al acoplamiento entre  
+dos niveles \'unicamente. Designemos el nivel superior (inferior) con la letra 
+$a$ $(b)$, tal que $\ket{\Psi} = C_a(t) e^{-i \omega_a t} \ket{a} 
++ C_b(t) e^{-i \omega_b t} \ket{b}$. Para el \'atomo de hidr\'ogeno la 
+transici\'on mas baja es entre los niveles $\ket{b} = \ket{100}$ y 
+$\ket{a} = \ket{210}$.  
+
+El Hamiltoniano de la interacci\'on de un dipolo el\'ectrico con un campo 
+EM en la aproximaci\'on del dipolo ($r \ll \lambda$) es 
+$V = -e \mbr \cdot \mbE (\mbR,t)$, donde $-e \mbr$ es el momento dipolar 
+y $\mbR$ es la posici\'on del centro de masa del \'atomo. 
+Los elementos diagonales del operador dipolar se anulan, 
+$\bra{j} e \mbr \ket{j} = 0$, puesto que $\mbr$ es un operador 
+antisim\'etrico y $| u_j |^2$ es sim\'etrico. Los elementos no diagonales 
+son $e r_{ab} = ed$. Ignorando (por simplicidad) la dependencia 
+espacial  y usando la RWA tenemos 
+$V_{ab} (t) = -ed \,E = -ed \,E_0 \cos{\nu t}$. 
+
+Si $a$ ($b$) es el estado final (inicial) $n$ ($i$) se tiene la probabilidad de 
+que el \'atomo absorba energ\'ia del campo EM (absorci\'on estimulada), 
+%
+\begin{eqnarray} 
+|C_a^{(1)}|^2 = \frac{|edE_0|^2 }{4\hbar^2} t^2  
+	\mathrm{sinc}^2{[(\omega -\nu) t/2]} \,. 	\label{eq:abs_pert1}
+ \end{eqnarray}
+%% 
+Por el contrario, si $a=i$ y $b=n$, se tiene el proceso de emisi\'on 
+estimulada, encontrando que $ |C_a^{(1)}|^2 =  |C_b^{(1)}|^2$, es decir, 
+las probabilidades de absorci\'on y emisi\'on estimulada son iguales, 
+constituyendo un ejemplo de reversibilidad microsc\'opica. Por supuesto, 
+las probabilidades pueden decaer, lo cual tratamos en nota aparte. 
+De nuevo, el resultado es v\'alido \'unicamente para tiempos cortos. 
+Por supuesto, las probabilidades pueden decaer, lo cual tratamos en 
+nota aparte. 
+
+En resonancia, $\omega-\nu = \Delta =0$, la probabilidad de transici\'on 
+es $P_a (t) = |C_a^{(1)}|^2 = (|edE_0|^2 / 4\hbar^2) t^2$. No podemos 
+dejar que $t$ sea grande, porque entonces $P_a$ podr\'ia ser mayor que 
+uno! Si $t$ no es muy peque\~na necesitar\'iamos ir al siguiente orden 
+de perturbaci\'on, que corregir\'ia el resultado a menor orden. Podr\'iamos 
+escribir la condici\'on  de tiempos cortos de $P_a(t) \ll 1$ como 
+$t \ll 2\hbar/|edE_0|$.  
+
+\vspace{3mm}
+\textit{Excitaci\'on arm\'onica de un cont\'inuo.} %%%%%%
+\newline En ciertos casos se tiene una transici\'on desde o hacia un continuo 
+de niveles (fotoiionizaci\'on, emisi\'on espont\'anea, bandas electr\'onicas, 
+bandas fot\'onicas, etc). En estos casos el cont\'inuo est\'a descrito por una 
+distribuci\'on de niveles o densidad de modos $D(\omega)$ [ver, p. ej., ley 
+de Planck] y las frecuencias de transici\'on est\'an tan cercanas que las 
+cambiamos por una variable cont\'inua, $\omega_{ni} \to \omega$. 
+Escribimos la probabilidad de transici\'on como 
+%
+\begin{eqnarray} 
+P_T &\simeq& \sum_{n \neq i}  |C_n^{(1)}|^2 	\rightarrow 
+	\int D(\omega) |C^{(1)} (\omega)|^2 d\omega 	\nonumber \\ 
+&=& \int d\omega D(\omega) \frac{|V (\omega)|^2}{4\hbar^2} t^2 
+	\mathrm{sinc}^2{[(\omega -\nu) t/2]}  		\\ 
+	&=&  \int d\omega F(\omega) G(\omega) \,, 	\nonumber 
+\end{eqnarray}
+%% 
+donde 
+%
+\begin{eqnarray} 
+F(\omega) &=& D(\omega) \frac{|V (\omega)|^2}{4\hbar^2} \,, 
+	\qquad G(\omega) = t^2 \mathrm{sinc}^2{[(\omega -\nu) t/2]} \,. 
+	\nonumber \\
+\end{eqnarray}
+%% 
+  
+Ocurre con frecuencia que $D(\omega)$ y $|C(\omega)|^2$ tienen escalas 
+frecuenciales muy distintas, en las que la funci\'on $F(\omega)$ var\'ia muy 
+poco comparado con $G(\omega)$,  entonces 
+%
+\begin{eqnarray} 
+J = \int d\omega F(\omega) G(\omega) \sim 
+	F(\omega_0) \int G(\omega) d\omega \,.
+\end{eqnarray}
+%% 
+((Un comportamiento an\'alogo ocurre en el dominio temporal, lo que 
+lleva al m\'etodo de eliminaci\'on adiab\'atica, que es muy \'util para 
+resolver ecuaciones acopladas.)
+
+Por lo general es muy dif\'icil resolver la integral de $P_T$ en forma 
+anal\'itica, por lo que requerimos aproximaciones. Para tiempos muy 
+cortos tales que $|\omega_{ni}|  t \ll 1 \to \mathrm{sinc}{(x)} \to 1$, 
+%
+\begin{eqnarray} 
+P_T &\simeq& \frac{t^2}{4\hbar^2} \int D(\omega) |V (\omega)|^2 d\omega 	
+\end{eqnarray}
+%% 
+de modo que la raz\'on de transici\'on $\dot{P}_T \propto t$, que implica 
+que el sistema tarda en responder (p. ej., un fotodetector) a menos que 
+$D(\omega) |V (\omega)|^2$ sea muy ancha. 
+
+Para tiempos mas largos $F(\omega)$ var\'ia muy poco en el rango de 
+$G(\omega)$. Entonces $F(\omega) \to F(\nu)$ y 
+%
+\begin{eqnarray} 
+P_T &=& \frac{D(\nu) |V(\nu)|^2}{4\hbar^2} t^2 \int 
+	  \mathrm{sinc}^2{[(\omega -\nu) t/2]}  d\omega		\\ 
+	x &=& (\omega -\nu)/2 	\qquad \to dx = t d\omega/2 	\\ 
+P_T &=& \frac{D(\nu) |V(\nu)|^2}{2\hbar^2} t 
+	\int_{-\infty}^{\infty}    \mathrm{sinc}^2{x}  \,dx 	\nonumber \\ 
+P_T &=& \frac{\pi}{2\hbar^2} D(\nu) |V(\nu)|^2 t 		\,.
+\end{eqnarray}
+%% 
+Extendimos los l\'imites de la integral a $\pm \infty$ puesto que 
+$\mathrm{sinc}^2{x} \ll 1$ para $x \gg 1$. Es decir, las diferencias de 
+frecuencias que son grandes  casi no aportan a la integral.La raz\'on de 
+transici\'on es, entonces 
+% 
+\begin{eqnarray} 
+\Gamma &=& \dot{P}_T = - \partial_t |C_i^{(1)}|^2 	\nonumber \\ 
+	&=& \frac{\pi}{2\hbar^2} D(\nu) |V(\nu)|^2 = \mathrm{const.}		\,,
+\end{eqnarray}
+%% 
+que es la llamada \textit{Regla de Oro} de Fermi. Es proporcional a la 
+densidad de modos y a la intensidad del campo aplicado. 
+
+Para tiempos muy largos $P_T$ no es peque\~na y no podemos 
+suponer que $|C_i^{(1)}|^2 \simeq 1$. Entonces debemos multiplicar 
+$\Gamma$ por $|C_i^{(1)}|^2 \sim 1$, con lo que generalizamos la 
+Regla de Oro de Fermi: $\Gamma |C_i|^2 = - \partial_t |C_i|^2$,  y 
+obtenemos el comportamiento t\'ipico de decaimiento exponencial 
+$|C_i|^2 \propto e^{- \Gamma t}$. 
+
+\vspace{3mm}
+\textit{Excitaci\'on por luz de banda ancha.}
+\newline Un caso similar es el de excitaci\'on de un \'atomo de dos niveles 
+por un campo no monocrom\'atico, como el de radiaci\'on de un cuerpo negro, 
+cuyas frecuencias $\nu$ forman un cont\'inuo. En este caso $V = V(\nu)$, y 
+la probabilidad total de transici\'on toma la forma  
+%
+\begin{eqnarray}  
+P_T &=& \int d\nu \mathcal{U}(\nu) \frac{t^2}{\hbar^2}   
+	  \mathrm{sinc}^2{[(\omega -\nu) t/2]}   		\,,
+\end{eqnarray}
+%% 
+donde $\mathcal{U}(\nu) \propto E_0^2$ es la densidad espectral de 
+energ\'ia y la integral es sobre todas las frecuencias $\nu$. Ahora vemos que 
+$\mathcal{U}(\nu)$ es una curva mucho m\'as ancha que $(\sin{x}/x)^2$, por 
+lo que la sacamos de la integral como $\mathcal{U}(\omega)$. La raz\'on de 
+transici\'on $\dot{P}_T$ es 
+%
+\begin{eqnarray}  
+B(\omega) \mathcal{U}(\omega) 
+	= \frac{\pi}{3\hbar^2 \epsilon_0} \wp^2 \mathcal{U}(\omega) \,,
+\end{eqnarray}
+%% 
+donde el 3 surge de reemplazar $\wp^2$ por $\wp^2/3$ (  $\wp$ es el 
+momento dipolar del \'atomo) por que la radiaci\'on viene de todas las 
+direcciones, y $B(\omega)$ es el coeficiente de absorci\'on y emisi\'on 
+estimulada. 
+
+Ver apuntes de F\'isica de L\'aseres. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Excitaci\'on Monocrom\'atica: F\'ormula de Rabi} 
+El ancho de banda de algunos l\'aseres es muy angosto, lo que permite 
+usarlos para excitar selectivamente transiciones at\'omicas, es decir, sin 
+excitar a su vez otras transiciones. En un curso de l\'aseres aprendemos 
+que el n\'umero de fotones en un ancho de banda angosto puede ser muy 
+grande, de tal manera que el tratamiento perturbativo se vuelve engorroso si 
+tuvi\'eramos que calcular la probabilidad de transici\'on a varios \'ordenes 
+debido a que la excitaci\'on no sea d\'ebil. Afortunadamente, hay maneras 
+m\'as sencillas de realizar c\'alculos exactos, o muy aproximados, que son 
+v\'alidos para $\Omega$ arbitraria (pero $\Omega$ mucho menor que la 
+frecuencia de transici\'on, algo que se cumple en much\'isimos casos). En 
+esta secci\'on y las siguientes trataremos el tema, sus resultados principales 
+y m\'etodos alternativos, en la situaci\'on en la que se ignoran las p\'erdidas 
+(de energ\'ia y polarizaci\'on). Posteriormente tomaremos en cuenta estos 
+efectos.  
+
+Consideraremos un campo EM monocrom\'atico de frecuencia $\nu$ cerca de resonancia con la transici\'on de frecuencia $\omega =\omega_a - \omega_b$. 
+Los niveles superior e inferior de la transici\'on est\'an descritos por los estados 
+$\ket{a}$ y $\ket{b}$, respectivamente. 
+
+Adelantamos la aplicaci\'on de la RWA escribiendo el Hamiltoniano de la 
+interacci\'on como ($V_{mn} = \bra{m} V \ket{n}$)
+%
+\begin{eqnarray*} 
+V_{ab} &=& -d E_0 \cos{\nu t} 	\simeq 	- (1/2) d E_0 e^{-i \nu t} 	\\
+V_{ba} &=& -d E_0 \cos{\nu t} 	\simeq 	- (1/2) d E_0 e^{i \nu t} \,. 
+\end{eqnarray*}
+%% 
+Las ecuaciones para las amplitudes se obtienen de (\ref{eq:amplitudeEqsIP}) 
+y son 
+%
+\begin{subequations}
+\begin{eqnarray} 
+\dot{C}_a (t) &=& - \frac{i}{\hbar} \bra{a} V_0 \ket{b} 
+    e^{-i \nu t} e^{i \omega t} C_b (t)
+	= i \frac{\mu_0}{2} e^{i \Delta t} C_b (t) 	\label{eq:amp_a1} \nonumber \\ \\ 
+\dot{C}_b (t) &=& - \frac{i}{\hbar} \bra{b} V_0 \ket{a} e^{i \nu t} 
+	e^{-i \omega t} C_a (t)
+	= i \frac{\mu_0}{2} e^{-i \Delta t} C_a (t) 	\label{eq:amp_b1} \nonumber \\ 
+\end{eqnarray}
+\end{subequations}
+%% 
+donde $\mu_0 = d E_0 /\hbar$ y  $\Delta = \omega -\nu$. 
+
+Para resolver estas ecuaciones acopladas supongamos una soluci\'on de la 
+forma $C_b = e^{i \mu t} \to \dot{C}_b = i \mu e^{i \mu t}$, que insertamos en 
+la Ec. (\ref{eq:amp_b1}):  
+%
+\begin{eqnarray} 
+C_a (t) &=& \frac{2 \mu}{\mu_0} e^{i (\Delta +\mu)t} \,, \label{eq:amp_a2}  
+\end{eqnarray}
+%% 
+que insertamos a su vez en la Ec. (\ref{eq:amp_a1})
+%
+\begin{eqnarray*} 
+i \frac{2 \mu}{\mu_0} (\mu +\Delta) e^{i (\mu + \Delta)t} 
+	&=& i \frac{\mu_0}{2} e^{i (\mu + \Delta)t} 	\,, 	\\ 
+\mu^2 + \Delta \mu - \frac{\mu_o^2}{4} &=& 0 	\,.
+\end{eqnarray*}
+%% 
+Las soluciones de esta ecuaci\'on cuadr\'atica son  
+%
+\begin{eqnarray} 
+\mu_{\pm} &=& -\frac{\Delta}{2} \pm \frac{1}{2} \sqrt{\mu_0^2 +\Delta^2} \,. 
+\label{eq:mu_pm}  
+\end{eqnarray}
+%% 
+Las soluciones para $C_b$ y $C_a$ [habiendo sustitu\'ido $C_b$ en la 
+Ec.(\ref{eq:amp_b1})] toman las formas 
+%
+\begin{subequations}
+\begin{eqnarray} 
+C_b (t) &=& A e^{i \mu_+ t} + B e^{i\mu_- t}  \,, \\ %\label{eq:amp_b3}  
+C_a (t) &=& \frac{2}{\mu_0} e^{i \Delta t} 
+	\left[ A \mu_+ e^{i \mu_+ t} + B \mu_- e^{i \mu_- t} \right] \,. 
+\end{eqnarray}
+\end{subequations}
+%% 
+
+Para determinar las constantes $A$ y $B$ requerimos condiciones iniciales. 
+Para ello consideremos que el \'atomo inicia en su estado base, $C_b(0) =1$ 
+y $C_a (0) =0$, lo que significa que calcularemos la probabilidad de absorci\'on:  
+%
+\begin{eqnarray*} 
+C_b (0) &=& 1 = A + B   \,, 	\\  
+C_a (0) &=& 0 = \frac{2}{\mu_0} \left[ A \mu_+  + B \mu_-  \right] \,. 	 
+\end{eqnarray*}
+%% 
+Redefiniendo $\mu_0 = \Omega_0$ y usando 
+$\mu_+ \mu_- = - \frac{1}{4} \Omega_0^2$ se tiene 
+%
+\begin{eqnarray} 
+A &=& - \frac{\mu_-}{\Omega} \,, 	\qquad B = \frac{\mu_+}{\Omega} \,, 
+	\nonumber \\ 
+\Omega &=& \mu_+ - \mu_-    = \sqrt{\Omega_0 +\Delta^2}  \,. 
+\end{eqnarray}
+%% 
+Finalmente, la probabilidad de absorci\'on se obtiene como 
+%
+\begin{eqnarray} 
+C_a (t) &=& \frac{2}{\Omega_0} e^{i \Delta t} 
+	\left[ - \frac{\mu_- \mu_+}{\Omega}  e^{-i \Delta t/2}  e^{i \Omega t/2} 
+	\right. 	\nonumber \\ 
+	&& \left. + \frac{\mu_- \mu_+}{\Omega}  e^{-i \Delta t/2}  e^{-i \Omega t/2}
+	 \right]  	\nonumber \\ 
+&=& \frac{\Omega_0}{2 \Omega} e^{i \Delta t/2} 
+	\left[ e^{i \Omega t/2} - e^{-i \Omega t/2} \right] 	\nonumber \\ 
+&=& i \frac{\Omega_0}{\Omega} e^{i \Delta t/2}  \sin{(\Omega t/2)} \,, 
+	\nonumber \\
+|C_a (t)|^2 &=& \frac{\Omega_0^2}{\Omega^2} \sin^2{(\Omega t/2)}  \,. 
+\end{eqnarray}
+%% 
+Esta expresi\'on es llamada la \textit{F\'ormula de Rabi} y caracteriza la 
+interacci\'on coherente entre el \l\'aser y el \'atomo, en la que el primero 
+imparte su coherencia al segundo). Las oscilaciones propias de la 
+probabilidad de transici\'on ocurren a la frecuencia $\Omega/2$, donde 
+$\Omega_0 \equiv \wp E_0 /\hbar$ es la llamada \textit{Frecuencia de Rabi} 
+y $\Omega$ es una frecuencia de Rabi generalizada. Al estudiar procesos 
+de interacci\'on entre dos sistemas, las oscilaciones indican que hay 
+coherencia. 
+
+Comparemos la F\'ormula de Rabi con el caso perturbativo, 
+Ec.(\ref{eq:abs_pert1}), en el que la frecuencia de las oscilaciones ocurre esta 
+dada por la desinton\'ia entre las frecuencias del l\'aser y de la transici\'on. 
+Adem\'as, el factor $\Omega^{-2}$, dependiente de $\Omega_0$, indica dos 
+cosas: (i) la probabilidad se ensancha por potencia y (ii) la soluci\'on tambi\'en 
+est\'a permitida en resonancia, $\Delta =0$ (el denominador no es cero en 
+este caso), en cuyo caso $|C_a (t)|^2 = \sin^2{(\Omega t/2)}$ (oscilaciones 
+entre cero y uno). 
+
+La probabilidad de permanecer en el estado base se obtiene como: 
+%
+\begin{eqnarray} 
+C_b (t) &=& e^{i \Delta t/2} 
+	\left[ - \frac{\mu_-}{\Omega}  e^{i \Omega t/2} 
+	 + \frac{\mu_+}{\Omega}   e^{-i \Omega t/2} \right]  	\nonumber \\ 
+&=& e^{i \Delta t/2} \left[ \frac{\Delta +\Omega}{2\Omega} e^{i \Omega t/2} 
+	 - \frac{\Delta -\Omega}{2\Omega}   e^{-i \Omega t/2} \right] 
+	 \nonumber \\ 
+&=& e^{i \Delta t/2} \left[ \cos{(\Omega t/2)} 
+	+ i \frac{\Delta}{\Omega} \sin{(\Omega t/2)} \right] \,, \nonumber \\ 
+|C_b (t)|^2 &=& \cos^2{(\Omega t/2)} 
+	+ \frac{\Delta^2}{\Omega^2} \sin^2{(\Omega t/2)}  \,.
+\end{eqnarray}
+%% 
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Descripciones Matricial y de Operadores de Proyecci\'on}
+Consideremos el problema anterior desde una perspectiva mas algebraica, 
+que permitir\'a un tratamiento mas completo y a\~nadir mas resultados. 
+
+Primero definimos las matrices (operadores) de esp\'in de Pauli y la matriz 
+identidad $2 \times 2$:
+%
+\begin{eqnarray*}
+\sigma_x &=& \left( \begin{array}{cc}  0&1 \\ 1&0 \end{array} \right) \,, 
+\quad \sigma_y = \left( \begin{array}{cc} 
+	0&-i \\ i&0 \end{array} \right) \,, 	\quad 
+\sigma_z =\left( \begin{array}{cc} 1&0 \\ 0&-1 \end{array} \right) \,, \\
+\sigma_+ &=& \left( \begin{array}{cc} 0&1 \\ 0&0 \end{array} \right) \,, 
+\quad \sigma_- = \left( \begin{array}{cc} 
+	0&0 \\ 1&0 \end{array} \right) \,, 
+\qquad \mathbf{1} = \left( \begin{array}{cc} 
+	1&0 \\ 0&1 \end{array} \right) \,,
+\end{eqnarray*}
+%%
+y los vectores 
+%
+\begin{eqnarray*}
+\ket{a} &=& \left( \begin{array}{c}  1 \\ 0 \end{array} \right) \,, \qquad 
+\ket{b} = \left( \begin{array}{c}  0 \\ 1 \end{array} \right) \,, 
+\end{eqnarray*}
+%%
+Para una notaci\'on m\'as compacta podemos usar operadores de proyecci\'on 
+en lugar de matrices: 
+%
+\begin{eqnarray*}
+\sigma_+ &=& \ketbra{a}{b} \,, 	\qquad 
+	\sigma_- = \ketbra{b}{a} \,, 	\\ 
+\sigma_z &=& [\sigma_+, \sigma_-]   
+	= \ketbra{a}{a} - \ketbra{b}{b} 	\,, \\ 
+\mathbf{1} &=& \ketbra{a}{a} + \ketbra{b}{b} \,.	
+\end{eqnarray*}
+%%
+Esta \'ultima es la relaci\'on de completez.  
+
+Ahora escribimos la funci\'on de onda del sistema de dos niveles como 
+$\ket{\Psi (t)} = C_a (t) \ket{a} + C_b (t) \ket{b}$, y establecemos 
+el origen de la energ\'ia del sistema de dos niveles justo a la mitad, 
+tal que $\omega_a = - \omega_b = \omega /2$. Utilizando 
+$H_0 = \mathbf{1} H_0 \mathbf{1}$, $H_0 \ket{k} = \hbar \omega_k \ket{k}$ 
+y $\braket{m}{n} = \delta_{mn}$, el Hamiltoniano de la energ\'ia del \'atomo 
+se puede escribir como
+%
+\begin{eqnarray*} 
+H_0 &=& (\ketbra{a}{a} + \ketbra{b}{b}) H_0 
+ 	( \ketbra{a}{a} + \ketbra{b}{b} ) 		\\ 
+&=& (\ketbra{a}{a} + \ketbra{b}{b}) 
+ ( \hbar \omega_a  \ketbra{a}{a} + \hbar \omega_b  \ketbra{b}{b} ) \\ 
+&=& \hbar \omega_a  \ketbra{a}{a} 
+    +\hbar \omega_b  \ketbra{b}{b} \\  
+&=& (\hbar \omega /2)( \ketbra{a}{a} - \ketbra{b}{b} ) 
+	= (\hbar \omega /2) \sigma_z
+\end{eqnarray*}
+%% 
+
+El operador de la interacci\'on por acoplamiento dipolar es 
+$V(t) = -e \mbr \cdot \mbE (R,t)$. Por simplicidad 
+consideramos que el campo est\'a linealmente polarizado en la 
+direcci\'on $x$, entonces 
+$V(t) = -e x E_x \cos{\nu t} = - \wp E_x \cos{\nu t} $, donde 
+%
+\begin{eqnarray*}
+\wp &=& \wp_{ab} \ketbra{a}{b} +\wp_{ba} \ketbra{b}{a} 
+  = \left( \begin{array}{cc} 0& \wp_{ab}  \\ \wp_{ba} &0 
+\end{array} \right) \,.  
+\end{eqnarray*}
+%%
+Similarmente, $V(t)$ se puede escribir como
+%
+\begin{eqnarray*} 
+V(t) &=& - E_x(t) (\ketbra{a}{a} + \ketbra{b}{b}) \wp 
+ 	( \ketbra{a}{a} + \ketbra{b}{b} ) 		\\ 
+&=& -E_x(t) (\wp_{ab} \ketbra{a}{b} + \wp_{ba} \ketbra{b}{a} ) \\  
+&\simeq& - \frac{E_0}{2}  \left( \wp_{ab} e^{-i \nu t} \ketbra{a}{b}  
+	+ \wp_{ba} e^{i \nu t} \ketbra{b}{a}  \right) \,,
+\end{eqnarray*}
+%% 
+donde hemos aplicado la RWA (ignoramos los t\'erminos que oscilan a 
+frecuencias $\omega + \nu$) considerando la evoluci\'on libre del dipolo, 
+donde $\wp_{ab}$ contiene impl\'icitamente el factor $e^{i \omega t}$ y 
+$\wp_{ba}$ el factor $e^{i \omega t}$.  El Hamiltoniano completo 
+toma la forma  
+%
+\begin{eqnarray*}
+H &=& \frac{1}{2} 
+\left( \begin{array}{cc}  \hbar \omega & -\wp_{ab} E_0 e^{-i \nu t} \\ 
+	- \wp_{ba} E_0 e^{i \nu t} &- \hbar \omega  \end{array} \right) 	\\ 
+&=& \frac{\hbar}{2} 
+\left( \begin{array}{cc}  \omega & - \Omega_0 e^{-i \nu t} \\ 
+	- \Omega_0 e^{i \nu t} & - \omega  \end{array} \right) \,.
+\end{eqnarray*}
+%%
+
+Con esto la ecuaci\'on de Schr\"odinger 
+$\ket{\dot{\Psi}} = -(i/\hbar) \ket{\Psi}$ se escribe como 
+%
+\begin{eqnarray*}
+\left( \begin{array}{c} \dot{C}_a \\ \dot{C_b} \end{array}  \right)
+	&=& \frac{i}{2} 
+\left( \begin{array}{cc}  - \omega & \Omega_0 e^{-i \nu t} \\ 
+	 \Omega_0 e^{i \nu t} & \omega  \end{array} \right) 
+	 \left( \begin{array}{c} C_a \\ C_b \end{array}  \right) \,.
+\end{eqnarray*}
+%%
+Haciendo los cambios de variables $C_a(t) = c_a(t) e^{-i \nu t/2}$ y 
+$C_b(t) = c_b(t) e^{i \nu t/2}$ (cambio de la imagen de Schr\"odinger a la de 
+Interacci\'on) tenemos finalmente 
+%
+\begin{eqnarray}
+\left( \begin{array}{c} \dot{c}_a \\ \dot{c}_b \end{array}  \right)
+	&=& \frac{i}{2} 
+\left( \begin{array}{cc}  - \Delta & \Omega_0  \\ 
+	 \Omega_0  & \Delta  \end{array} \right) 
+	 \left( \begin{array}{c} c_a \\ c_b \end{array}  \right) \,.
+\end{eqnarray}
+%%
+Esto es completamente equivalente al m\'etodo visto anteriormente. 
+
+%%%%%%%%%%%%%%
+\subsection{Estados Vestidos Semicl\'asicos \label{dressedST}}  
+Una descripci\'on alternativa de la interacci\'on \'atomo-l\'aser de gran 
+importancia es la de usar los estados vestidos, que son los vectores propios 
+de la matriz en las ecuaciones para las amplitudes en lugar de los 
+estados del \'atomo. Obtendremos dichos vectores propios y la matriz de transformaci\'on entre las bases. 
+
+Tenemos que resolver la ecuaci\'on 
+%
+\begin{eqnarray*}
+\mathbf{M} \left[ \begin{array}{c} u \\ v \end{array} \right] 
+    = \left[ \begin{array}{cc} -\delta & \Omega_0 \\ 
+    \Omega_0 & \delta \end{array} \right]  
+    \left[ \begin{array}{c} u \\ v \end{array} \right] 
+    = \lambda \left[ \begin{array}{c} u \\ v \end{array} \right]
+\end{eqnarray*}
+%% 
+Valores propios ($\det(\mathbf{M} -\lambda) =0$):  
+%
+\begin{eqnarray*}
+\left| \begin{array}{cc} -\delta - \lambda & \Omega_0 \\ 
+    \Omega_0 & \delta -\lambda \end{array} \right| 
+    &=& -(\delta +\lambda)(\delta -\lambda) - \Omega_0^2 = 0  \\  
+\to \lambda^2 -\delta^2 - \Omega_0^2 &=& 0 \quad 
+    \to \lambda_{\pm} \pm \Omega = \pm \sqrt{\Omega_0^2 +\delta^2} .
+\end{eqnarray*}
+%% 
+La separaci\'on de energ\'ia entre los estados es 
+$\Delta E = 2\hbar \Omega$. 
+
+El vector propio para $\lambda_-$: 
+%
+\begin{eqnarray*}
+\left[ \begin{array}{cc} -\delta +\Omega & \Omega_0 \\ 
+    \Omega_0 & \delta +\Omega \end{array} \right]  
+    \left[ \begin{array}{c} u_1 \\ v_1 \end{array} \right] &=& 0 \\ 
+%
+(\Omega -\delta) u_1 + \Omega_0 v_1 &=& 0     \\ 
+\Omega_0 u_1 +(\delta +\Omega) v_1 &=& 0 
+\end{eqnarray*}
+%% 
+Hacemos $v_1 =1 \to u_1 = -\Omega_0/(\Omega -\delta)$. 
+
+Vector propio para $\lambda_+$: 
+%
+\begin{eqnarray*}
+\left[ \begin{array}{cc} -\delta -\Omega & \Omega_0 \\ 
+    \Omega_0 & \delta -\Omega \end{array} \right]  
+    \left[ \begin{array}{c} u_2 \\ v_2 \end{array} \right] &=& 0 \\ 
+%
+-(\Omega +\delta) u_2 + \Omega_0 v_2 &=& 0     \\ 
+\Omega_0 u_2 +(\delta -\Omega) v_2 &=& 0 
+\end{eqnarray*}
+%% 
+Hacemos $u_1 =1 \to v_1 = \Omega_0/(\Omega -\delta)$. 
+
+El factor de normalizaci\'on es $$N_j^2 = u_j^2 +v_j^2 
+= 1 + \frac{\Omega_0^2}{(\Omega -\delta)^2} 
+  = \frac{(\Omega -\delta)^2 +\Omega_0^2}{(\Omega -\delta)^2}$$
+por lo que los vectores normalizados son: 
+%
+\begin{eqnarray*}
+\ket{-} &=& \left[ \begin{array}{c} u_1 \\ v_1 \end{array} \right] 
+    = \frac{1}{ \sqrt{(\Omega -\delta)^2 +\Omega_0^2} } 
+    \left[ \begin{array}{c} -\Omega_0 \\ \Omega -\delta 
+    \end{array} \right] 
+    = \left[ \begin{array}{c} -\sin{\theta} \\ \cos{\theta}  
+    \end{array} \right]  \\ 
+    &=& -\sin{\theta} \ket{e} + \cos{\theta} \ket{g}    \\
+%
+\ket{+} &=& \left[ \begin{array}{c} u_1 \\ v_1 \end{array} \right] 
+    = \frac{1}{ \sqrt{(\Omega -\delta)^2 +\Omega_0^2} } 
+    \left[ \begin{array}{c} \Omega -\delta \\ \Omega_0  
+    \end{array} \right] 
+    = \left[ \begin{array}{c} \cos{\theta} \\ \sin{\theta}  
+    \end{array} \right] \\ 
+    &=& \cos{\theta} \ket{e} + \sin{\theta} \ket{g}    \\
+\end{eqnarray*}
+%% 
+
+La matriz de  transformaci\'on es 
+%
+\begin{eqnarray*}
+U &=& \left[ \begin{array}{cc} u_2 & v_2 \\ 
+    u_1 & v_1 \end{array} \right]  
+    = \left[ \begin{array}{cc} \cos{\theta} & \sin{\theta} \\ 
+    -\sin{\theta} & \cos{\theta} \end{array} \right]     \\ 
+U^{-1} &=& \left[ \begin{array}{cc} u_2 & u_1 \\ 
+    v_2 & v_1 \end{array} \right]  
+    = \left[ \begin{array}{cc} \cos{\theta} & -\sin{\theta} \\ 
+    \sin{\theta} & \cos{\theta} \end{array} \right] . 
+\end{eqnarray*}
+%% 
+
+%
+\begin{eqnarray*}
+\sin{2\theta} &=& 2 \cos{\theta} \,\sin{\theta} 
+ = \frac{2(\Omega -\delta) \Omega_0}{(\Omega -\delta)^2 +\Omega_0^2} \\ 
+&=& \frac{2(\Omega -\delta) \Omega_0}
+    {\Omega^2 +\delta^2 -2 \Omega \delta +\Omega_0^2} 
+    = \frac{2(\Omega -\delta) \Omega_0}
+    {2( \Omega_0^2 +\delta^2 -\Omega \delta )}     \\ 
+    &=& \frac{(\Omega -\delta) \Omega_0}{\Omega^2 -\delta \Omega} 
+    = \frac{\Omega_0}{\Omega} .
+\end{eqnarray*}
+%%
+%
+\begin{eqnarray*}
+\cos{2\theta} &=& \cos^2{\theta} -\sin^2{\theta} 
+ = \frac{(\Omega -\delta)^2 -\Omega_0^2}{(\Omega -\delta)^2 
+     +\Omega_0^2} \\ 
+&=& \frac{\Omega^2 +\delta^2 -2 \Omega \delta -\Omega_0^2}
+    {\Omega^2 +\delta^2 -2 \Omega \delta +\Omega_0^2} 
+    = \frac{2(\delta -\Omega) \delta} 
+    {2( \Omega^2 -\Omega \delta )}     \\ 
+    &=& \frac{-\delta}{\Omega} .
+\end{eqnarray*}
+%%
+
+Veamos casos especiales de los estados vestidos:  
+\newline (i) $\delta =0$, $\cos{\theta} = \sin{\theta} 
+=1/\sqrt{2}$, $\Delta E = 2\hbar \Omega_0$. Entonces 
+$\ket{\pm} = (\pm \ket{e} +\ket{g} )/ \sqrt{2}$. 
+\newline (i) $|\delta| \gg \Omega_0$ y $\delta >0$, 
+$\cos{\theta} \simeq 0$, $\sin{\theta} \simeq 1$, 
+$\Delta E = 2\hbar |\delta|$. Entonces 
+$\ket{+} \simeq \ket{g}$ y $\ket{-} \simeq -\ket{e}$. 
+\newline (i) $|\delta| \ll \Omega_0$ y $\delta <0$, 
+$\cos{\theta} \simeq 1$, $\sin{\theta} \simeq 0$, 
+$\Delta E = 2\hbar |\delta|$. Entonces 
+$\ket{+} \simeq \ket{e}$ y $\ket{-} \simeq \ket{g}$. 
+ 
+Los estados vestidos definen la matriz de transformaci\'on 
+$U$ que diagonaliza la matriz $\mathbf{M}$ como 
+%
+\begin{eqnarray*}
+U \mathbf{M} U^{-1} = \left[ \begin{array}{cc} 
+    \Omega & 0 \\ 0 & -\Omega \end{array} \right] \,.
+\end{eqnarray*}
+%%
+Esta matriz de transformaci\'on relaciona las amplitudes de 
+probabilidad de los estados vestidos con las de los estados 
+de la base original (base desnuda) por 
+%
+\begin{eqnarray*}
+\left[ \begin{array}{c} C_2(t) \\ C_1(t) \end{array} \right] 
+= U \left[ \begin{array}{c} C_a(t) \\ C_b(t) \end{array} \right]    \,.
+\end{eqnarray*}
+%%
+donde las amplitudes de probabilidad $C_1,\,C_2$ obedecen las 
+ecuaciones de movimiento  (proof?) 
+%
+\begin{eqnarray*}
+\dot{C}_1 &=& (-i/2) \Omega C_1 \,, 
+    \qquad \to C_1(t) = C_1^0 e^{-i \Omega t/2} \,,\\ 
+\dot{C}_2 &=& (i/2) \Omega C_2 \,, 
+    \qquad \quad \to C_2(t) = C_2^0 e^{i \Omega t/2} \,.  
+\end{eqnarray*}
+%%
+
+Obtendremos las soluciones de $[ C_a(t), \, C_b(t) ]$ en 
+t\'erminos de sus condiciones iniciales. Escribimos los valores 
+iniciales $[ C_2^0, \, C_1^0 ]$ en t\'erminos de 
+$[ C_a^0, \, C_b^0 ]$, 
+%
+\begin{eqnarray*}
+\left[ \begin{array}{c} C_2^0 \\ C_1^0 \end{array} \right] 
+&=& U \left[ \begin{array}{c} C_a^0 \\ C_b^0 \end{array} \right] 
+= \left[ \begin{array}{c} C_a^0\cos{\theta} + C_b^0 \sin{\theta} \\ 
+    -C_a^0\sin{\theta} + C_b^0\cos{\theta} \end{array} \right] 
+\end{eqnarray*}
+%%
+%
+\begin{eqnarray*}
+\left[ \begin{array}{c} C_2(t) \\ C_1(t) \end{array} \right] 
+&=& \left[ \begin{array}{c} e^{i\Omega t/2}
+    ( C_a^0\cos{\theta} + C_b^0 \sin{\theta} ) \\ 
+    e^{-i\Omega t/2}
+    (-C_a^0\sin{\theta} + C_b^0\cos{\theta} ) \end{array} \right] 
+\end{eqnarray*}
+%%
+Entonces 
+\begin{widetext}
+%
+\begin{eqnarray*}
+\left[ \begin{array}{c} C_a(t) \\ C_b(t) \end{array} \right]    
+&=& U^{-1} 
+\left[ \begin{array}{c} C_2(t) \\ C_1(t) \end{array} \right]  
+%
+  = \left[ \begin{array}{c} e^{i\Omega t/2}
+    ( C_a^0\cos^2{\theta} + C_b^0 \sin{\theta} \cos{\theta} ) 
+    + e^{-i\Omega t/2}
+    (C_a^0\sin^2{\theta} - C_b^0 \sin{\theta} \cos{\theta} ) \\ 
+e^{i\Omega t/2}
+    ( C_a^0 \sin{\theta} \cos{\theta} + C_b^0 \sin^2{\theta} ) 
+    + e^{-i\Omega t/2}
+    (-C_a^0 \sin{\theta} \cos{\theta} + C_b^0 \cos^2{\theta} )
+    \end{array} \right]     \\ 
+%
+&=& \left[ \begin{array}{c} e^{i\Omega t/2}
+ [ ((\Omega -\delta)/2\Omega) C_a^0 + (\Omega_0/2\Omega) C_b^0  ] 
+ + e^{-i\Omega t/2} 
+ [ ((\Omega +\delta)/2\Omega) C_a^0 - (\Omega_0/2\Omega) C_b^0  ] \\ 
+e^{i\Omega t/2} 
+    [ (\Omega_0/2\Omega) C_a^0 + ((\Omega +\delta)/2\Omega) C_b^0 ] 
+    + e^{-i\Omega t/2}
+    [ (-\Omega_0/2\Omega) C_a^0 + ((\Omega -\delta)/2\Omega) C_b^0 ]
+    \end{array} \right]      \\
+%
+&=& \left[ \begin{array}{c} 
+C_a^0 [ \cos{(\Omega t/2)} -(i\delta /\Omega) \sin{(\Omega t/2)} ] 
+    + (i\Omega_0 /\Omega) C_b^0 \sin{(\Omega t/2)}     \\ 
+    (i\Omega_0 /\Omega) C_a^0 \sin{(\Omega t/2)} 
+    +C_b^0 
+    [ \cos{(\Omega t/2)} +(i\delta /\Omega) \sin{(\Omega t/2)} ]
+ \end{array} \right]         \\ 
+%
+&=& \left[ \begin{array}{c} 
+ [ \cos{(\Omega t/2)} -(i\delta /\Omega) \sin{(\Omega t/2)} ] 
+    + (i\Omega_0 /\Omega)  \sin{(\Omega t/2)}     \\ 
+    (i\Omega_0 /\Omega) \sin{(\Omega t/2)} 
+    +[ \cos{(\Omega t/2)} +(i\delta /\Omega) \sin{(\Omega t/2)} ]
+ \end{array} \right]  
+ \left[ \begin{array}{c} C_a^0 \\ C_b^0 \end{array} \right] \,.
+\end{eqnarray*}
+%%
+
+\end{widetext} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Operador de Densidad} 
+La adici\'on fenomenol\'ogica de disipaci\'on no es correcta en muchas 
+situaciones, por lo que se recurre al operador de densidad. T\'ipicamente, 
+no conocemos el estado completo del vector para un sistema de muchas 
+part\'iculas. Cada \'atomo tiene una historia \'unica de emisiones, absorciones, colisiones, etc., pero conocemos ciertas propiedades estad\'isticas. El 
+operador de densidad contiene esa informaci\'on. Definimos el operador de 
+densidad como 
+%
+\begin{eqnarray}
+\rho &=& \overline{ \ketbra{\Psi}{\Psi} }	
+	= \sum_{\Psi} P_{\Psi} \ketbra{\Psi}{\Psi} 	\,.
+\end{eqnarray}
+%%
+La suma sobre $\Psi$ representa promedios cl\'asicos sobre el ensamble, 
+y puede implicar varias sumas e integrales. $P_{\Psi}$ es la fracci\'on de 
+sistemas con la funci\'on de onda $\ket{\Psi}$.  Para vectores de la forma 
+$\ket{\Psi} = \sum_n C_n \ket{n}$, el operador de densidad es 
+%
+\begin{eqnarray*}
+\rho &=& \sum_{\Psi} P_{\Psi} \sum_n \sum_m C_n C_m^\ast 
+	\ketbra{n}{m} 	\\ 
+&=& \sum_n \sum_m \rho_{nm} \ketbra{n}{m}  	\,.
+\end{eqnarray*}
+%%
+
+\vspace{2mm} %%%%%%%%%%%%%%%%%
+%\begin{widetext}
+\textbf{Ejemplo: Meystre +Sargent 4.2} Considere una colecci\'on de 
+\'atomos de dos niveles de los cuales 30\% est\'an descritos por la
+ funci\'on de onda $\ket{\Psi_1(t)} = 2^{-1/2} [e^{-i \omega_a t} \ket{a} 
++e^{-i \omega_b t} \ket{b} ]$, 50\% descritos por 
+$\ket{\Psi_2(t)} = 10^{-1/2} [ e^{-i \omega_a t} \ket{a} 
+-3e^{-i \omega_b t} \ket{b} ]$, y 20\% descritos por 
+$\ket{\Psi_3(t)} = e^{-i \omega_b t} \ket{b}$. ?`Cu\'al es la probabilidad 
+de que este sistema est\'e en el estado $\ket{\Psi_j}$? Demuestre que 
+$\rho^2 \neq \rho$. 
+
+\textit{Soluci\'on}
+%
+\begin{eqnarray*}
+\ket{\Psi_1} &=& \frac{1}{\sqrt{2}} \left( \begin{array}{c} e^{-i \omega_a t} \\
+	e^{-i \omega_b t}\end{array} \right) \,, \quad 
+\ket{\Psi_2} =\frac{1}{\sqrt{10}} \left( \begin{array}{c} e^{-i \omega_a t} \\
+	-3e^{-i \omega_b t}\end{array} \right) \,, \\
+\ket{\Psi_3} &=& \left( \begin{array}{c} 0 \\
+	e^{-i \omega_b t}\end{array} \right) \,,
+\end{eqnarray*}
+%%
+%
+\begin{eqnarray*}
+\rho &=& \sum_j P_j \ket{\Psi_j} \bra{\Psi_j} 	\\
+	&=&\frac{3}{10} \ket{\Psi_1} \bra{\Psi_1} 
+	+\frac{5}{10} \ket{\Psi_2} \bra{\Psi_2} 
+	+\frac{2}{10}\ket{\Psi_3} \bra{\Psi_3} 	\\
+&=& \frac{3}{20} \left( \begin{array}{cc} 1& e^{i \omega t} \\
+	e^{-i \omega t} &1 \end{array} \right) 
+	+\frac{1}{20} \left( \begin{array}{cc} 1& -3e^{i \omega t} \\
+	-3e^{-i \omega t} &9 \end{array} \right) 	\\
+	&& +\frac{4}{20} \left( \begin{array}{cc} 0& 0 \\
+	0 &1 \end{array} \right) 	\\
+	&=& \frac{1}{5} \left( \begin{array}{cc} 1& 0 \\
+	0 &4 \end{array} \right) \,, 	\\
+\rho^2 &=&\frac{1}{25} \left( \begin{array}{cc} 1& 0 \\
+	0 &16 \end{array} \right) \neq \rho \,. 	
+\end{eqnarray*}
+%%
+%
+\begin{eqnarray*}
+\bra{\Psi_1} \rho \ket{\Psi_1} &=& \frac{1}{10} 
+	\left( e^{i\omega_a t} \,, e^{i\omega_b t} \right) 
+	\left( \begin{array}{cc} 1& 0 \\ 0 &4 \end{array} \right) 
+\left( \begin{array}{c} e^{i \omega_a t} \\ e^{-i \omega_b t} 
+	\end{array} \right)  =\frac{1}{2} 	\,, 	\\
+\bra{\Psi_2} \rho \ket{\Psi_2} &=& \frac{37}{50} \,, \qquad
+	\bra{\Psi_3} \rho \ket{\Psi_3} =\frac{4}{5} \,.
+\end{eqnarray*}
+%%
+Extra: La probabilidad de que el sistema este en el estado base es 
+$\bra{\Psi_3} \rho \ket{\Psi_3} =4/5$ y de que este en el estado 
+excitado es $(1\,, 0) \rho (1\,,0)^T =1/5$.
+%\vspace{2cm}
+%\end{widetext}
+
+%\newpage
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Principales Propiedades}
+El operador de densidad obedece una ecuaci\'on: 
+%
+\begin{eqnarray}
+\dot{\rho} &=& \sum_{\Psi} P_{\Psi} \left[ | \dot{\Psi} \rangle \bra{\Psi}  
+	+ \ket{\Psi} \langle \dot{\Psi} | \right] 	\nonumber \\ 
+&=& - \frac{i}{\hbar} \sum_{\Psi} P_{\Psi} \left[ 
+	H \ketbra{\Psi}{\Psi} - \ketbra{\Psi}{\Psi} H \right] 
+	\nonumber \\ 
+&=& - \frac{i}{\hbar} (H \rho -\rho H) 	= - \frac{i}{\hbar} [H, \rho] 	\,.
+\end{eqnarray}
+%%
+Esta es la ecuaci\'on de Schr\"odinger para el operador de densidad $\rho$, 
+cuya soluci\'on es  
+%
+\begin{eqnarray}
+\rho (t) = e^{-iHt/\hbar} \rho(0)  e^{iHt/\hbar} \,.
+\end{eqnarray}
+%%
+
+Si se tiene una representaci\'on en t\'erminos de un conjunto completo de 
+estados $\ket{n}$ cualquier operador $\hat{O}$ puede expanderse como 
+%
+\begin{eqnarray}
+\hat{O} &=& \sum_{n,m} \bra{n} \hat{O} \ket{m} \ket{n} \bra{m}  
+	= \sum_{n,m} O_{nm} \ket{n} \bra{m} \,,
+\end{eqnarray}
+%%
+donde aplicamos la matriz identidad (matriz con unos en la diagonal 
+principal y ceros fuera de ella) $\mathbf{1} =\sum_k \ket{k} \bra{k}$, y 
+$O_{nm}$ son los elementos de matriz del operador $\hat{O}$. 
+
+Consideremos, por ejemplo, el operador de momento dipolar 
+$\mbd= e \mbr$: 
+%
+\begin{eqnarray}
+e\mbr &=& e \sum_{n,m=1}^2 \bra{n} \mbr \ket{m} \ket{n} \bra{m}  
+	\nonumber \\
+	&=& e \left[ \bra{a} \mbr \ket{b} \ket{a} \bra{b} 
+		+\bra{b} \mbr \ket{a} \ket{b} \bra{a}  \right] 		\nonumber \\
+	&=& \mbd_{ab} \sigma_{ab} +\mbd_{ba} \sigma_{ba} \,,
+\end{eqnarray}
+%%
+donde hicimos $\bra{a} \mbr \ket{a} = \bra{b} \mbr \ket{b} =0$, suponiendo 
+que los estados at\'omicos poseen paridades opuestas. 
+
+El valor esperado de un operador $\hat{O}$ esta dado por  
+%
+\begin{eqnarray}
+\vxp{\hat{O}} &=& \sum_{\Psi} P_{\Psi} \bra{\Psi} \hat{O}\ket{\Psi}  \,,
+\end{eqnarray}
+%%
+que toma en cuenta el peso $P_{\Psi}$ que cada estado tiene en el conjunto. 
+Aplicamos tambi\'en  
+$\rho = \sum_{\Psi} P_{\Psi} \ketbra{\Psi}{\Psi}$, 
+%
+\begin{eqnarray}
+\vxp{\hat{O}} &=&  \sum_{\Psi} P_{\Psi} \sum_k \bra{\Psi} \hat{O}\ket{k}
+		\braket{k}{\Psi} 	\nonumber \\ 
+&=& \sum_k \sum_{\Psi} P_{\Psi} \braket{k}{\Psi}  \bra{\Psi} \hat{O}\ket{k} 
+	= \sum_k \bra{k} \rho \hat{O} \ket{k} 	\nonumber  \\ 
+&=& \sum_k ( \rho \hat{O} )_{kk} 	= \Tr ( \rho \hat{O} ) \,,
+\end{eqnarray}
+%%
+donde la traza $\Tr$ indica la suma de los elementos en la diagonal principal 
+de la matriz. 
+
+Veamos la dependencia temporal del valor esperado del operador 
+$\hat{O}$: 
+%
+\begin{eqnarray}
+\vxp{\hat{O}(t)} &=& \Tr ( \rho(t) \hat{O}_S(0) ) 	
+	=  \Tr ( e^{-iHt/\hbar} \rho(0)  e^{iHt/\hbar} \hat{O}_S ) \nonumber \\ 
+	&=& \Tr (  \rho(0)  e^{iHt/\hbar} \hat{O}_S e^{-iHt/\hbar} ) \nonumber \\
+	&=& \Tr ( \hat{O}_H(t) \rho(0) ) \,, 
+\end{eqnarray}
+%%
+donde usamos la propiedad c\'iclica de la traza. Este resultado significa 
+que podemos obtener los valores esperados ya sea en la imagen de 
+Schr\"odinger (la primera forma) como en la imagen de Heisenberg.
+
+Los elementos de matriz vienen dados por 
+$\rho_{jk} = \bra{j} \rho \ket{k}$ y las ecuaciones para ellos son 
+%
+\begin{eqnarray}
+\dot{\rho}_{nm} &=& \bra{n} \dot{\rho} \ket{m} 
+	= - \frac{i}{\hbar}  \bra{n}  H \rho -\rho H \ket{m}		\nonumber \\ 
+&=& - \frac{i}{\hbar} \sum_k \left[  
+	\bra{n}  H \ketbra{k}{k} \rho \ket{m} 
+	-  \bra{n} \rho \ketbra{k}{k}  H \ket{m}  \right] 	\nonumber \\ 
+&=& - \frac{i}{\hbar} \sum_k \left[ H_{nk} \rho_{km} - \rho_{nk} H_{km} \right] \,.
+\end{eqnarray}
+%%
+
+Para entender mejor la relaci\'on entre funci\'on de onda y operador de 
+densidad y algunos de los resultados obtenidos para $\rho$ veamos el caso 
+particular de un sistema de dos niveles con funci\'on de onda 
+$\ket{\Psi} = C_a \ket{a} +C_b \ket{b}$.  Se tiene que 
+%
+\begin{eqnarray}
+\rho &=& \left( C_a \ket{a} +C_b \ket{b} \right) 
+	\left( C_a^\ast \bra{a} + \bra{b} C_b^\ast  \right)  	\nonumber \\ 
+&=& C_a C_a^{\ast} \ketbra{a}{a} + C_a C_b^{\ast} \ketbra{a}{b} 
+	+C_b C_a^{\ast} \ketbra{b}{a}  		\nonumber \\ 
+	&& + C_b C_b^{\ast}\ketbra{b}{b} 		\nonumber \\ 
+&=& \rho_{aa}  \ketbra{a}{a} +  \rho_{ab}  \ketbra{a}{b}  
+	+  \rho_{ba} \ketbra{b}{a}  + \rho_{bb}  \ketbra{b}{b}  \,. \nonumber \\
+\end{eqnarray}
+%%
+
+En notaci\'on matricial 
+%
+\begin{eqnarray}
+\ket{a} &=&  \left( \begin{array}{c} 1 \\ 0 \end{array} \right) \,, \qquad 
+	\ket{b} = \left( \begin{array}{c} 0 \\ 1 \end{array} \right) \,, \qquad 
+	\ket{\Psi} = \left( \begin{array}{c} C_a \\ C_b \end{array} \right) \,. 
+	\nonumber \\
+\end{eqnarray}
+%%
+%
+\begin{eqnarray}
+\rho &=&  \left( \begin{array}{c} C_a \\ C_b \end{array} \right) 
+	\left( \begin{array}{cc} C_a^{\ast} & C_b^{\ast} \end{array} \right) 	
+	\nonumber \\ 
+&=& \left( \begin{array}{cc}  C_a C_a^{\ast} & C_a C_b^{\ast}  \\ 
+	C_b C_a^{\ast}  & C_b C_b^{\ast}   \end{array} \right) 	
+	=  \left( \begin{array}{cc}  \rho_{aa} & \rho_{ab}  \\ 
+	\rho_{ba}  & \rho_{bb}   \end{array} \right) 	\,,
+\end{eqnarray}
+%%
+El t\'ermino $\ket{a}\bra{a}$, por mostrar un ejemplo, es 
+%
+\begin{eqnarray}
+\ket{a}\bra{a} &=&  \left( \begin{array}{c} 1 \\ 0 \end{array} \right) 
+	\left( \begin{array}{cc} 1 & 0 \end{array} \right) 	
+	= \left( \begin{array}{cc}  1 & 0  \\ 0  & 0   \end{array} \right) \,.
+\end{eqnarray}
+%%
+Este es el elemento de $\rho$ en la primera fila y primera columna. 
+De manera similar se pueden identificar los otros elementos. 
+
+
+Los t\'erminos de la diagonal, $\rho_{aa}$ y $\rho_{bb}$, son, 
+respectivamente, las probabilidades de ocupar el estado superior e inferior 
+del sistema, tambi\'en llamadas \textit{poblaciones}. Los t\'erminos fuera de 
+la diagonal, $\rho_{ba} = \rho_{ab}^{\ast}$, son las llamadas 
+\textit{coherencias}; en el caso de transiciones entre dos niveles 
+representan los elementos de matriz del momento dipolar.  
+
+Calculemos los valores esperados de los operadores elementales del sistema 
+de dos niveles. Para ello utilizamos su representaci\'on de operadores de 
+proyecci\'on, Secc~II.E: 
+%
+\begin{eqnarray}
+\vxp{\sigma_+} &=& \Tr ( \rho \sigma_+ ) 	\nonumber\\ 
+&=& \Tr \left[ \left( \rho_{aa}  \ketbra{a}{a} 
+	+  \rho_{ab}  \ketbra{a}{b}  +  \rho_{ba} \ketbra{b}{a}  
+	\right. \right. 	\nonumber\\  
+  && \left. \left. + \rho_{bb}  \ketbra{b}{b}  \right) \ketbra{a}{b}   
+	\right] 	\nonumber 	\\ 
+&=& \Tr \left[  \rho_{aa} \ketbra{a}{b}  
+	+  \rho_{ba}\ketbra{b}{b} \right] 	= \rho_{ba} \,, \\ 
+\vxp{\sigma_-} &=& \vxp{\sigma_+}^\ast = \rho_{ab} \,.
+\end{eqnarray}
+%%
+Con esto podemos definir la \textit{polarizaci\'on at\'omica}: 
+%
+\begin{eqnarray}
+\vxp{\mbd} = \mbd_{ba} \rho_{ab} +\mbd_{ab} \rho_{ba} \,,
+\end{eqnarray}
+%%
+y los componentes $x,y$ del operador de spin, 
+%
+\begin{eqnarray}
+\vxp{\sigma_x} &=& \vxp{\sigma_+} + \vxp{\sigma_-} 
+	= \rho_{ab} + \rho_{ba} 	\,,	\\ 
+\vxp{\sigma_y}	&=& i \vxp{\sigma_+} -i \vxp{\sigma_-} 
+	= i ( \rho_{ab} - \rho_{ba} ) 	\,.
+\end{eqnarray}
+%%
+
+Con la componente $z$ definimos la \textit{inversi\'on at\'omica}: 
+%
+\begin{eqnarray}
+\vxp{\sigma_z} &=& \Tr ( \rho \sigma_z ) 	\nonumber\\ 
+&=& \Tr \left[ \left( \rho_{aa} \ketbra{a}{a} 
+	+  \rho_{ab}  \ketbra{a}{b}  +  \rho_{ba} \ketbra{b}{a} 
+	\right. \right. 	\nonumber\\  
+  && \left. \left. + \rho_{bb} \ketbra{b}{b}  \right) 
+  \left( \ketbra{a}{a} - \ketbra{b}{b} \right) 
+	\right] 	\nonumber 	\\ 
+&=& \Tr \left[ \rho_{aa} \ketbra{a}{a} 
+	-  \rho_{ab} \ketbra{a}{b} + \rho_{ba} \ketbra{b}{a} \right. \nonumber \\
+	 && \left. - \rho_{bb} \ketbra{b}{b}  \right] 	\nonumber \\ 
+&=& \rho_{aa} - \rho_{bb} 	\,.
+\end{eqnarray}
+%%
+ 
+Partiendo del modelo dado por las Ecs.(\ref{eq:decayAmpl}), las ecuaciones 
+para los elementos del operador de densidad son:
+%
+\begin{eqnarray}
+\dot{\rho}_{aa} &=& \dot{C}_a C_a^{\ast} + C_a \dot{C}_a^{\ast}   
+    = -\gamma_a \rho_{aa} + \frac{i}{2} \Omega_0 (\rho_{ba} - \rho_{ab}) \,, 
+    	\nonumber \\ 
+\dot{\rho}_{bb} &=& \dot{C}_b C_b^{\ast} + C_b \dot{C}_b^{\ast}  
+  = -\gamma_b \rho_{bb} - \frac{i}{2} \Omega_0 (\rho_{ba} - \rho_{ab}) \,, 
+  	\nonumber \\ 
+\dot{\rho}_{ab} &=& \dot{C}_a C_b^{\ast} + C_a \dot{C}_b^{\ast}  \nonumber \\ 
+  	&=& - (\gamma_{ab} +i\Delta) \rho_{ab} 
+  	- \frac{i}{2} \Omega_0 (\rho_{aa} - \rho_{bb})  \,.
+\end{eqnarray}
+%%
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Emisi\'on Espont\'anea} 
+En la Secci\'on II-B vimos el caso de excitaci\'on de un nivel hacia un cont\'inuo. 
+El acoplamiento de uno o mas estados con un conjunto grande de estados muy 
+cercanos llev\'o a que la probabilidad de permanecer en un estado decae en el 
+tiempo de forma exponencial. En la Secci\'on III-A a\~nadimos la dispaci\'on de 
+manera fenomenol\'ogica, es decir, sabemos que la hay pero no hurgamos en 
+los detalles de su origen.   
+
+La emisi\'on espont\'anea es el proceso por el cual un \'atomo en estado 
+excitado decae a un estado de menor energ\'ia emitiendo un fot\'on. La 
+cuesti\'on es: ?`c\'omo ocurre este decaimiento? Este es un tema avanzado 
+de la \'optica cu\'antica. Sin embargo, la clave est\'a en el acoplamiento de un 
+sistema peque\~no (el \'atomo) con uno muy grande, un entorno. En este 
+caso, el sistema grande consta de los modos del campo electromagn\'etico 
+cuantizado de una cavidad tan grande que contiene un n\'umero muy grande y 
+cuasi-cont\'inuo de esos modos. En la pr\'actica, no nos interesa la evoluci\'on 
+de esos modos, s\'olo la del \'atomo. Por un proceso de \textit{eliminaci\'on} de 
+los modos del entorno la din\'amica se reduce a la del \'atomo con un precio a 
+pagar: la probabilidad de que el \'atomo permanezca en el estado excitado 
+decae como $P_a \propto e^{-\gamma t}$, donde 
+$\gamma \propto \wp^2 \omega_{ab}^3$, $\wp$ es el momento dipolar y 
+$\omega_{ab}$ es la frecuencia de la transici\'on entre los niveles inicial y 
+final.  Recu\'erdese que esta $\gamma$ es la principal dificultad para realizar 
+l\'aseres en UV y X con tecnolog\'ia similar a los del visible, porque la vida 
+media del estado excitado es tan corta que no alcanza a sostener la 
+poblaci\'on necesaria para la inversi\'on.   
+
+El mencionado proceso de eliminaci\'on del entorno, usando el m\'etodo 
+de Weisskopf y Wigner que considera acoplamiento d\'ebil entre \'atomo 
+y modos del entorno y en la aproximaci\'on de Markov, lleva al mencionado 
+decaimiento exponencial. El m\'etodo Weisskopf-Wigner en el contexto 
+del operador de densidad lleva a agregar a la ecuaci\'on para el operador 
+de densidad del \'atomo los t\'erminos 
+%
+\begin{eqnarray} 	\label{eq:mEq2LA_bb}
+\mathcal{L}_a \rho &=& \frac{\gamma_a}{2} (\bar{n} +1) 
+	\left( 2 \sigma_- \rho \sigma_+ -\sigma_+ \sigma_- \rho 
+	-\rho \sigma_+ \sigma_- \right) 	\nonumber \\
+	&& + \frac{\gamma_a}{2} \bar{n}  
+	\left( 2 \sigma_+ \rho \sigma_- -\sigma_- \sigma_+ \rho 
+	-\rho \sigma_- \sigma_+ \right)\,, 
+\end{eqnarray}
+%%
+donde $\bar{n}$ es el n\'umero promedio de fotones a temperatura 
+$T$. Si, adem\'as, el entorno tiene temperatura cero, $\bar{n} =0$ lo 
+anterior se reduce a 
+%
+\begin{eqnarray}
+\mathcal{L}_a \rho = \frac{\gamma_a}{2} \left( 2 \sigma_- \rho \sigma_+ 
+	-\sigma_+ \sigma_- \rho -\rho \sigma_+ \sigma_- \right) \,, 
+\end{eqnarray}
+%%
+que es una excelente aproximaci\'on a frecuencias \'opticas a\'un a 
+temperatura ambiente, $T = 300$K. Este t\'ermino justifica plenamente 
+el decaimiento por emisi\'on espont\'anea que inicialmente se a\~nadi\'o 
+fenomenol\'ogicamente. 
+
+\subsubsection{Ecuaciones de Bloch} 
+Una vez que hemos introducido formalmente la emisi\'on espont\'anea a 
+nuestro modelo de interacci\'on \'atomo-l\'aser procedemos a obtener las 
+ecuaciones de movimiento para los elementos de la matriz de densidad. 
+Estas son llamadas Ecuaciones de Bloch, que generalizan las ecuaciones 
+de un esp\'in acoplado a un campo magn\'etico. Las ecuaciones de Bloch 
+provienen de la llamada \textit{ecuaci\'on maestra} 
+%
+\begin{eqnarray}
+\dot{\rho} = -\frac{i}{\hbar} [H,\rho]  +\frac{\gamma_a}{2} 
+	\left( 2 \sigma_- \rho \sigma_+ -\sigma_+ \sigma_- \rho 
+	-\rho \sigma_+ \sigma_- \right) \,. 	\nonumber \\
+\end{eqnarray}
+%%
+Nos falta solamente especificar el Hamiltoniano (Secc. II.E), 
+%
+\begin{eqnarray}
+ H = \hbar \omega_0 \sigma_{aa} + \frac{\Omega_0}{2} 
+	(\sigma_+ e^{-i\nu t} 	+\sigma_- e^{i\nu t}) \,,
+\end{eqnarray}
+%%
+donde el primer t\'ermino es la energ\'ia del \'atomo no perturbado (con 
+energ\'ia de transici\'on $\hbar \omega_0$) y el segundo es la energ\'ia de 
+interacci\'on del \'atomo con el l\'aser. N\'otese que desplazamos el origen 
+de la energ\'ia del \'atomo de la mitad de la transici\'on a la del estado base.  
+
+De aqu\'i, proyectando por $\bra{j}$ por la izquierda y por $\ket{k}$ por la 
+derecha, donde $j,k =a,b$, en ambos lados de la ecuaci\'on, obtenemos las ecuaciones para $\rho_{jk} = \bra{j} \rho \ket{k}$: 
+\newline \textcolor{red}{Pendiente}
+
+La presencia de las frecuencias r\'apidas $\omega_0$ y $\nu$ hace 
+inconveniente usar estas ecuaciones para soluci\'on num\'erica. Entonces, 
+si definimos $\tilde{\rho}_{ab}(t) = \rho_{ab} e^{i\nu t}$ y 
+$\Delta = \omega_0 -\nu$, obtenemos las ecuaciones
+%
+\begin{eqnarray} 	\label{eq:BlochEq_rho}
+\dot{\tilde{\rho}}_{ab} 
+	&=& - \left( \frac{\gamma_a}{2} +i\Delta \right) \tilde{\rho}_{ab}
+	-i\frac{\Omega_0}{2} (\rho_{aa} -\rho_{bb}) 	\,, \nonumber \\ 
+\dot{\tilde{\rho}}_{aa} 
+	&=& -\gamma_a \rho_{aa} + i\frac{\Omega_0}{2} \tilde{\rho}_{ba} 
+	- i\frac{\Omega_0}{2} \tilde{\rho}_{ab} 	\,, 	\nonumber \\ 
+\dot{\tilde{\rho}}_{bb} 
+	&=& \gamma_a \rho_{aa} - i\frac{\Omega_0}{2} \tilde{\rho}_{ba} 
+	+ i\frac{\Omega_0}{2} \tilde{\rho}_{ab} 	\,, 	\\ 
+\dot{\tilde{\rho}}_{ab} 
+	&=& 	 \dot{\tilde{\rho}}_{ba}^\ast  \,. \nonumber
+\end{eqnarray}
+%%
+Decimos que estas ecuaciones evolucionan en un marco de referencia 
+rotando a la frecuencia del l\'aser $\nu$. \textcolor{blue}{Esto es similar a 
+fijarnos \'unicamente en el movimiento lento de un trompo ignorando su 
+rotaci\'on r\'apida, o solamente la inclinaci\'on de la Tierra en su \'orbita 
+alrededor del Sol, ignorando su rotaci\'on diaria.  }
+
+Posteriormente a\~nadiremos el efecto de temperatura a la ecuaci\'on 
+para $\rho$. 
+
+Las Ecs.(\ref{eq:BlochEq_rho}) forman un conjunto de 4 ecuaciones 
+homog\'eneas. Para resolverlo conviene reducirlo eliminando la variable 
+$\rho_{bb}$  usando la conservaci\'on de la probabilidad 
+$\rho_{aa} +\rho_{bb} =1$. [La forma obtenida no es muy com\'un en la 
+literatura pero adjuntamos la soluci\'on en una forma alternativa 
+presentada abajo.] Las nuevas ecuaciones son: 
+%
+\begin{eqnarray} 	\label{eq:BlochEq_rhoV2}
+\dot{\tilde{\rho}}_{ab} 
+	&=& - \left( \frac{\gamma_a}{2} +i\Delta \right) \tilde{\rho}_{ab}
+	-i\frac{\Omega_0}{2} (2\rho_{aa} -1) 	\,, \nonumber \\ 
+\dot{\tilde{\rho}}_{ba} 
+	&=& - \left( \frac{\gamma_a}{2} -i\Delta \right) \tilde{\rho}_{ba}
+	+i\frac{\Omega_0}{2} (2\rho_{aa} -1) 	\,, \nonumber \\ 
+\dot{\tilde{\rho}}_{aa} 
+	&=& -\gamma_a \rho_{aa} + i\frac{\Omega_0}{2} \tilde{\rho}_{ba} 
+	- i\frac{\Omega_0}{2} \tilde{\rho}_{ab} 	\,, 	
+\end{eqnarray}
+%%
+
+\subsubsection{Soluciones en Estado Estacionario} 
+Los elementos $\tilde{\rho}_{jk}(t)$ evolucionan en el tiempo en funci\'on de los 
+par\'ametros $\gamma_a$, $\Omega_0$ y $\Delta$. Obtenemos, sin embargo, excelente informaci\'on del sistema con las soluciones en estado estacionario, 
+es decir, a tiempos muy largos, cuando $t \to \infty$. En este caso los 
+elementos de matriz llegan a un valor constante 
+$\tilde{\rho}_{jk}(t \to \infty) = \tilde{\rho}_{jk}^{st}$, donde 
+$\dot{\tilde{\rho}}_{jk} (t \to \infty) =0$. Resolviendo el sistema de ecuaciones, 
+%
+\begin{subequations}
+\begin{eqnarray}
+\tilde{\rho}_{ab}^{st} &=& \frac{-\Omega_0 [2\Delta + i \gamma]}
+	{2\Omega_0^2 +\gamma^2 +4\Delta^2} \,, 
+	\qquad \tilde{\rho}_{ba}^{st} = \left( \tilde{\rho}_{ab}^{st} \right)^\ast , 
+	\quad \\ 
+\tilde{\rho}_{bb}^{st} &=& \frac{\Omega_0^2 +\gamma^2 +4\Delta^2}
+	{2\Omega_0^2 +\gamma^2 +4\Delta^2}  \,, \\ 
+\tilde{\rho}_{aa}^{st} &=& \frac{\Omega_0^2}{2\Omega_0^2 
+	+\gamma^2 +4\Delta^2}	\,.
+\end{eqnarray}
+\end{subequations}
+%%
+
+Veamos algunas propiedades y casos de particular inter\'es. 
+\newline (i) Puesto que el estado $\ket{a}$ decae al estado $\ket{b}$ la 
+poblaci\'on total se conserva a todo tiempo, $\rho_{aa} +\rho_{bb} = 1$, 
+entonces $\dot{\rho}_{aa} +\dot{\rho}_{bb} = 0$. 
+\newline (ii) $\rho_{aa}$ est\'a relacionado con la inversi\'on de la poblaci\'on 
+por la acci\'on del l\'aser. La curva es de forma Lorentziana, ensanchada por 
+la intensidad $\Omega_0^2 \propto E_0^2$ del l\'aser. A este efecto se le 
+denomina \textit{ensanchamiento por potencia}. 
+\newline (iii) Cuando $\Omega_0 \ll \gamma$ el \'atomo casi no absorbe 
+energ\'ia, por lo que permanece en su estado base, $\rho_{aa}^{st} \to 0$, 
+$\rho_{bb}^{st} \simeq 1$. Una situaci\'on similar ocurre cuando el l\'aser 
+est\'a muy fuera de sinton\'ia con la transici\'on at\'omica, 
+$\Delta \gg \Omega_0$. 
+\newline (iv) Cuando $\Omega_0 \gg \gamma, \Delta$ la absorci\'on es alta. 
+Sin embargo, en estado estacionario, la probabilidad de ocupaci\'on del 
+estado superior siempre es menor o igual a la del estado base, obteniendo 
+la igualdad cuando $\Delta =0$, $\rho_{aa}^{st} = \rho_{bb}^{st} = 1/2$. 
+\newline (v) $\rho_{ab}$ es la coherencia  o polarizaci\'on del \'atomo (versi\'on microsc\'opica del \'indice de refracci\'on complejo de un medio). La parte real 
+es llamada \textit{dispersi\'on} y la imaginaria es la \textit{absorci\'on}. 
+$\rho_{ab}$ es puramente imaginaria cuando $\Delta =0$. 
+\newline (vi) Cuando $\Omega \sim \gamma$ la interacci\'on \'atomo-l\'aser 
+es suficientemente fuerte, entrando en un r\'egimen no lineal llamado de \textit{saturaci\'on}, donde $\rho_{aa}$ ya no es despreciable. En este 
+r\'egimen es \'util el concepto de \textit{inversi\'on} de poblaci\'on, que no 
+aparece en el modelo cl\'asico del electr\'on, v\'alido en el r\'egimen 
+$\Omega_0 \ll \gamma_a$.  \newline (vii) Finalmente, es conveniente conocer 
+valores t\'ipicos de los par\'ametros $\gamma_a$, $\Omega_0$ y $\Delta$ en experimentos de \'optica cu\'antica. Usualmente el par\'ametro de referencia 
+es la raz\'on de emisi\'on espont\'anea $\gamma_a$, que para transiciones 
+\'opticas es del orden de MHz. La frecuencia de Rabi $\Omega_0$ puede 
+ser hasta unas veces $\gamma_a$. Si es m\'as fuerte tal vez sea necesario 
+hacer ajustes a nuestro modelo \'atomo-l\'aser. La desinton\'ia tambi\'en 
+puede ser unas veces $\gamma_a$.  
+
+\subsubsection{Soluciones dependientes del tiempo} 
+Las ecuaciones de Bloch son suficientemente complicadas para obtener 
+soluciones para valores arbitrarios de los par\'ametros 
+$\gamma_a,\Omega_0,\Delta$. Un caso particularemente com\'un y \'util 
+es cuando el l\'aser est\'a en resonancia con el \'atomo, $\Delta =0$. Una 
+forma de resolver las ecuaciones de Bloch es mediante transformadas de 
+Laplace, con condiciones iniciales $\tilde{\rho}_{bb} (0) =1$ y 
+$\tilde{\rho}_{aa} (0) = \tilde{\rho}_{ab} (0) = \tilde{\rho}_{ba} (0) = 0$. 
+Obtenemos
+%
+\begin{subequations} 	%\label{eq:BlochSolsApp}
+\begin{eqnarray} 	
+\tilde{\rho}_{ab}(t) &=& - i \frac{ Y/ \sqrt{2} }{1+Y^2}  f(t)
+  \mp i \sqrt{2} Y \frac{\gamma_a}{4 \delta} e^{-3\gamma_a t/4} \sinh{\delta t}	
+   \,,  	\nonumber \\   \\
+%
+\tilde{\rho}_{aa}(t) &=& \frac{ Y^2/2 }{1+ Y^2}  f(t)  \,, 	\\ 
+%
+\tilde{\rho}_{bb}(t) &=& 1 -\frac{ Y^2/2 }{1+ Y^2}   f(t)  \,, 
+\end{eqnarray}
+%%
+donde
+%
+\begin{eqnarray}
+f(t) &=& 1 -e^{-3\gamma_a t/4} \left( \cosh{\delta t}  
+	+ \frac{3 \gamma_a}{4 \delta} \sinh{\delta t} \right) \,, \nonumber \\ \\
+Y &=& \frac{ \sqrt{2} \Omega_0 }{\gamma_a} 	\,, \qquad 
+	\delta  = \frac{\gamma_a}{4} \sqrt{1 - 8Y^2} \,. 
+\end{eqnarray}
+\end{subequations} 
+%% 
+
+Cuando la excitaci\'on es d\'ebil, $ 8Y^2 \leq 1$, o bien 
+$\Omega_0 < \gamma /2$ las soluciones var\'ian mon\'otonamente. 
+Cuando $ 8Y^2 \geq 1$, o bien $\Omega_0 > \gamma /2$, se tiene 
+$\cosh{\delta \tau} \to \cos{\delta' \tau}$ y 
+$\sinh{\delta \tau}/\delta \to \sin{\delta' \tau}/\delta'$, donde 
+$\delta = i \delta' = (\gamma_a /\sqrt{8Y^2 -1}$. Las $\tilde{\rho}_{jk}(t)$ 
+se hacen oscilatorias para $\Omega_0 \gg \gamma_a$. 
+
+Otro caso en el que es posible una soluci\'on anal\'itica es cuando 
+$\gamma_a \to 0$ \ldots 
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Forma Alternativa de las Ecuaciones de Bloch 1}  
+En la pr\'actica, hay otras formas de representar las ecuaciones de Bloch. 
+El primer paso es recordar que $\vxp{\tilde{\sigma}_{jk}} = \tilde{\rho}_{kj}$ 
+(para las poblaciones podemos omitir la tilde). Luego definimos la llamada 
+\textit{inversi\'on} de poblaci\'on: 
+$\vxp{\sigma_z} = \vxp{\sigma_{aa}} -\vxp{\sigma_{bb}}$. Junto con la 
+conservaci\'on de la probabilidad $1 = \vxp{\sigma_{aa}} +\vxp{\sigma_{bb}}$ 
+relacionamos poblaciones e inversi\'on como 
+$\vxp{\sigma_{aa}} = (1+ \vxp{\sigma_z})/2$ y 
+$\vxp{\sigma_{bb}} = (1- \vxp{\sigma_z})/2$. De esta manera, el sistema 
+(\ref{eq:BlochEq_rho}) se reduce a tres ecuaciones inhomog\'eneas: 
+%
+\begin{eqnarray} 	\label{eq:BlochEq_+-z}
+\vxp{\dot{\sigma}_z} &=& - \gamma_a ( \vxp{\sigma_z} +1)  
+	+ i \Omega_0 \vxp{\tilde{\sigma}_+} 
+	- i \Omega_0 \vxp{\tilde{\sigma}_-}	\,, \nonumber \\ 
+\vxp{\dot{\tilde{\sigma}}_-}
+	&=& - \left( \frac{\gamma_a}{2} +i\Delta \right) \vxp{\tilde{\sigma}_-} 
+	-i\frac{\Omega_0}{2} \vxp{\sigma_z} 	\,, \nonumber \\ 
+\vxp{\dot{\tilde{\sigma}}_+}
+	&=& - \left( \frac{\gamma_a}{2} -i\Delta \right) 
+	\vxp{\tilde{\sigma}_+} +i\frac{\Omega_0}{2} \vxp{\sigma_z} 	\,, 
+\end{eqnarray}
+%%
+Adjuntamos la soluci\'on en nota aparte.  
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Forma Alternativa de las Ecuaciones de Bloch: 
+Modelo Vectorial} 
+Una descripci\'on muy \'util e ilustrativa de la interacci\'on de un sistema 
+de dos niveles con un campo es el modelo vectorial (Feynman, Vernon, 
+Hellwart??). Primero introducimos las variables 
+%
+\begin{subequations}
+\begin{eqnarray}
+\tilde{u} &=& \vxp{\tilde{\sigma}_x} = \tilde{\rho}_{ab} + \tilde{\rho}_{ba} \,, \\ 
+\tilde{v} &=& \vxp{\tilde{\sigma}_y} = i \tilde{\rho}_{ab} - i \tilde{\rho}_{ba} \,, \\ 
+\tilde{w} &=& \vxp{\sigma_z} = \tilde{\rho}_{aa} + \tilde{\rho}_{bb} \,, 
+\end{eqnarray}
+\end{subequations}
+%%
+con lo que definimos el \textit{vector de Bloch} 
+%
+\begin{eqnarray}
+\mbB &=& \tilde{u} \mbe_x + \tilde{v} \mbe_y +  \tilde{w} \mbe_z 
+	= \Tr [ \tilde{\rho} \tilde{\sigma} ] \,.
+\end{eqnarray}
+%%
+
+Con las ecuaciones (\ref{eq:BlochEq_rho}) formamos el conjunto de 
+ecuaciones para los componentes de $\mbB$: 
+%
+\begin{subequations}
+\begin{eqnarray}
+\dot{\tilde{u}} &=& -\frac{\gamma_a}{2} \tilde{u} - \Delta \tilde{v} \,, \\ 
+\dot{\tilde{v}} &=& \Delta \tilde{u} - \frac{\gamma_a}{2} \tilde{v} 
+	+\Omega_0 \tilde{w} \,, \\
+\dot{\tilde{w}} &=& -\gamma_a (\tilde{w} +1) -\Omega_0 \tilde{v} \,. 
+\end{eqnarray}
+\end{subequations}
+%%
+
+Las soluciones en estado estacionario son
+%
+\begin{subequations}
+\begin{eqnarray}
+\tilde{u}_{st} &=& \frac{\Delta \Omega_0}
+	{\Omega_0^2/2 +\Delta^2 +(\gamma_a/2)^2 } \,, \\ 
+\tilde{v}_{st} &=& -\frac{ \Omega_0 \gamma_a/2}
+	{\Omega_0^2/2 +\Delta^2 +(\gamma_a/2)^2 } \,, \\
+\tilde{w}_{st} &=& - \frac{(\gamma_a/2)^2 +\Delta^2}
+	{\Omega_0^2/2 +\Delta^2 +(\gamma_a/2)^2 }\,, 
+\end{eqnarray}
+\end{subequations}
+%%
+
+Hay que notar que los componentes del vector de Bloch son variables 
+reales, lo que facilita la interpretaci\'on del sistema como un vector en 
+un espacio real en 3D.
+
+Varios aspectos de estas soluciones son muy importantes que conviene 
+tener siempre muy presentes. (i) El valor m\'aximo de la inversi\'on de 
+poblaci\'on $\tilde{w}_{st}$ se obtiene cuando $\Delta=0$ y 
+$\Omega_0 \gg \gamma_a$, dando $\tilde{w}_st =0$, o bien 
+$\rho_{aa} = \rho_{bb} =1/2$; (ii) cuando $\Delta=0$ el movimiento del 
+vector de Bloch ocurre en el plano $y,z$ ($\tilde{u}(t)=0$); (iii)la inversi\'on 
+$\tilde{w}$ no tiene contraparte cl\'asica (donde el \'atomo no tiene niveles 
+de energ\'ia); (iv) las coherencias $\rho_{ab}$ y $\rho_{ba}$ representan 
+la polarizaci\'on inducida en el medio, 
+$\tilde{\rho}_{ab} = (\tilde{u} -i \tilde{v})/2$.
+
+El modelo vectorial permite visualizar la no linealidad de la interacci\'on  
+\'atomo-l\'aser utilizando el concepto de \textit{saturaci\'on}. Esta indica 
+que un cierto nivel de intensidad del l\'aser es suficiente para inducir 
+una respuesta no lineal en el \'atomo. Definiremos el par\'ametro de 
+saturaci\'on $I_S$ tal que 
+%
+\begin{eqnarray*}
+\tilde{w}_{st} &=& - \left[ 1 + 
+	\frac{\Omega_0^2 /2}{(\gamma_a/2)^2 +\Delta^2)} \right]^{-1} \\ 
+&=& - \left[ 1 + 
+	\frac{\Omega_0^2 /2}{(\gamma_a/2)^2} \cdot 
+	\frac{1}{1+ \frac{4\Delta^2}{\gamma_a^2}} \right]^{-1} \,.
+\end{eqnarray*}
+%%
+Definiendo  
+%
+\begin{eqnarray}
+I_S = \frac{2\Omega_0^2}{\gamma_a^2} \,, 	\qquad 
+\mcL (\Delta) = \left[ 1+ \frac{4\Delta^2}{\gamma_a^2} \right]^{-1} \,, 
+\end{eqnarray}
+%%
+entonces 
+%
+\begin{subequations}
+\begin{eqnarray}
+\tilde{w}_{st} &=& \frac{-1}{ 1+ I_S \mcL(\Delta) } \,,  \\ 
+\tilde{v}_{st} &=& -\frac{ 2(\Omega_0/\gamma_a) \mcL(\Delta)} 
+	{1+ I_S \mcL(\Delta) } \,, \\
+\tilde{u}_{st} &=& \frac{ (4\Delta \Omega_0 /\gamma_a) \mcL(\Delta) }
+	{1+ I_S \mcL(\Delta) } \,, 
+\end{eqnarray}
+\end{subequations}
+%%
+El par\'ametro de saturaci\'on $I_S$ es una medida adimensional de la 
+intensidad requerida para saturar el \'atomo, es decir, cuando su capacidad 
+de absorci\'on disminuye. Esto empieza a ocurrir cuando $I_S =1$ 
+($\Omega_0 = \gamma_a/\sqrt{2}$).
+
+\textcolor{red}{\'Area de un pulso:} 
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Desfasamiento, Eliminaci\'on Adiab\'atica y Ecuaciones 
+de Raz\'on} 
+Otro proceso de gran importancia es el de las colisiones el\'asticas entre 
+los \'atomos, las cuales solamente producen un desfasamiento entre 
+diferentes emisores, sin afectar los procesos de absorci\'on y emisi\'on. 
+Ahora debemos a\~nadir el t\'ermino 
+%
+\begin{eqnarray}
+\mathcal{L}_p \tilde{\rho} = 
+	 (\gamma_p /2) (\sigma_z \tilde{\rho} \sigma_z -\tilde{\rho}) 
+\end{eqnarray}
+%%
+a la ecuaci\'on para $\tilde{\rho}$, donde $\gamma_p$ se interpreta como 
+la frecuencia de las colisiones, que se refleja \'unicamente en las 
+ecuaciones para las coherencias a\~nadiendo t\'erminos de la forma 
+$(\dot{{\tilde{\rho}}}_{ab})_p = -\gamma_p \tilde{\rho}_{ab}$ 
+[$(\dot{{\tilde{\rho}}}_{aa})_p = (\dot{{\tilde{\rho}}}_{bb})_p = 0$]. 
+Por lo tanto, las coherencias tienen decaimiento adicional de la forma 
+$\tilde{\rho}_{ab} (t) \propto \tilde{\rho}_{ab} e^{- \gamma t}$), donde  
+%
+\begin{eqnarray}
+\gamma = \frac{\gamma_a}{2} +\gamma_p  \,. 
+\end{eqnarray}
+%%
+Las ecuaciones son ahora, 
+%
+\begin{eqnarray} 	%\label{eq:BlochEq_rho}
+\dot{\tilde{\rho}}_{ab} 
+	&=& - \left( \gamma +i\Delta \right) \tilde{\rho}_{ab}
+	-i\frac{\Omega_0}{2} (\rho_{aa} -\rho_{bb}) 	\,, \nonumber \\ 
+\dot{\tilde{\rho}}_{aa} 
+	&=& -\gamma_a \rho_{aa} + i\frac{\Omega_0}{2} \tilde{\rho}_{ba} 
+	- i\frac{\Omega_0}{2} \tilde{\rho}_{ab} 	\,, 	\nonumber \\ 
+\dot{\tilde{\rho}}_{bb} 
+	&=& \gamma_a \rho_{aa} - i\frac{\Omega_0}{2} \tilde{\rho}_{ba} 
+	+ i\frac{\Omega_0}{2} \tilde{\rho}_{ab} 	\,,
+\end{eqnarray}
+%%
+
+Si $\gamma_p \gg \gamma_a$, es decir, el desfasamiento es mucho 
+m\'as r\'apido que la emisi\'on espont\'anea, es posible simplificar el 
+sistema eliminando la variable r\'apida $\tilde{\rho}_{ab}$, que adquiere 
+su estado estacionario m\'as r\'apidamente que las poblaciones. 
+Haciendo $\dot{\tilde{\rho}}_{ab} =0$, entendiendo que 
+$\tilde{\rho}_{ab} \to \tilde{\rho}_{ab}^{st}$; 
+entonces 
+%
+\begin{eqnarray}
+\tilde{\rho}_{ab} &=& 
+	- i \frac{\Omega_0/2}{\gamma +i\Delta} (\rho_{aa} - \rho_{bb}) \,, 
+\end{eqnarray}
+%%
+que sustituimos en las ecuaciones para las poblaciones: 
+%
+\begin{subequations}
+\begin{eqnarray}
+\dot{\rho}_{aa} &=&  -\gamma_a \rho_{aa}  
+	- \frac{\Omega_0^2}{4} ( \rho_{aa} - \rho_{bb})  
+	\left[ \frac{1}{\gamma -i \Delta} + \frac{1}{\gamma +i\Delta} \right]   
+	\nonumber \\ 
+&=& -\gamma_a \rho_{aa} 
+	- \frac{ \gamma \Omega_0^2/2 }{ \Delta^2 +\gamma^2 } 
+	( \rho_{aa} - \rho_{bb}) 	\,, 
+\end{eqnarray}
+%%
+%
+\begin{eqnarray}
+\dot{\rho}_{bb} &=&  \gamma_a \rho_{aa}  
+	+ \frac{\Omega_0^2}{4} ( \rho_{aa} - \rho_{bb})  
+	\left[ \frac{1}{\gamma -i \Delta} + \frac{1}{\gamma +i\Delta} \right]    
+	\nonumber \\ 
+&=& \gamma_a \rho_{aa} 
+	+ \frac{ \gamma \Omega_0^2/2 }{ \Delta^2 +\gamma^2 } 
+	( \rho_{aa} - \rho_{bb}) 	\,. 
+\end{eqnarray}
+\end{subequations}
+%%
+Estas son llamadas \textit{Ecuaciones de Raz\'on}, en las que solamente 
+encontramos a las poblaciones o probabilidades de ocupaci\'on de los 
+niveles, debido a que las colisiones destruyen la coherencia entre ellos. 
+
+Este procedimiento, llamado \textit{eliminaci\'on adiab\'atica} es muy \'util 
+siempre que un sistema f\'isico presenta dos o mas escalas de tiempo 
+muy diferentes entre s\'i, es decir, una es mucho mas r\'apida que la otra. 
+En estos casos se dice que la variable r\'apida (eliminada) sigue 
+adiab\'aticamente a la variable lenta. 
+
+En s\'olidos hay procesos an\'alogos a las colisiones, como son las 
+vibraciones de la red, defectos, etc. Si $\gamma_p$ es similar o mayor a 
+$\gamma$ podemos aplicar el proceso de eliminaci\'on adiab\'atica visto 
+arriba. 
+
+\textbf{Ejemplo. Fase Relativa Aleatoria.}
+Una forma un poco m\'as formal de ver el efecto de desfasamiento es el  
+siguiente. Con frecuencia hay que realizar promedios estad\'isticos a las 
+variables de inter\'es adem\'as de los promedios cu\'anticos. Considere 
+un conjunto de vectores de estado de dos niveles $\ket{\psi}_j$ todos 
+con las mismas probabilidades $|C_a|^2$ y $|C_b|^2$, pero que tienen 
+una fase relativa aleatoria $\phi_j$ entre las amplitudes de probabilidad: 
+$\ket{\phi}_j = c_a \ket{a} + e^{i \phi_j} c_b \ket{b}$. 
+
+Para un sistema de $N$ \'atomos la probabilidad $P_j$ del $j$-\'esimo estado 
+es $1/N$, dado que todos las fases $\phi_j$ son igualmente probables. El 
+elemento no diagonal $\rho_{ab}$ para este problema es 
+%
+\begin{eqnarray*}
+\rho_{ab} &=& \sum_j P_j c_{aj} c_{bj}^\ast 
+	= c_a c_b^\ast \frac{1}{N} \sum_{j=1}^N e^{-i \phi_j} 	\\ 
+	&=& c_a c_b^\ast \frac{1}{N}  \int_0^{2\pi} d\phi \, e^{-i \phi} = 0 \,,
+\end{eqnarray*}
+%%
+es decir, la coherencia at\'omica entre los niveles $a$ y $b$ desaparece 
+completamente en el proceso de promediar. 
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Excitaci\'on T\'ermica y/o Incoherente} 
+Anteriormente vimos la Ec.~(\ref{eq:mEq2LA_bb}) para la interacci\'on 
+de un \'atomo de dos niveles con un campo EM coherente y un campo a  
+temperatura $T$, que aparece mediante el n\'umero de fotones t\'ermicos 
+$\bar{n}$. Supongamos ahora que el \'atomo es excitado solamente por 
+un campo incoherente, por lo que descartamos el t\'ermino 
+$(-i/\hbar)[H,\rho]$ y el campo, en lugar de deberse a la temperatura 
+suponemos que se debe a un l\'aser muy ruidoso. Hacemos, entonces, 
+el remplazo $\gamma_a \bar{n}/2 \to \Gamma$, y a\~nadimos a la 
+ecuaci\'on maestra el t\'ermino
+%
+\begin{eqnarray} 	\label{eq:mEq2LA_inc}
+\mathcal{L}_{\Gamma} \rho &=& \Gamma   \left( 2 \sigma_+ \rho \sigma_- 
+	-\sigma_- \sigma_+ \rho -\rho \sigma_- \sigma_+ \right)\,, 
+\end{eqnarray}
+%%
+Obtener ecuaciones y soluci\'on \ldots
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Coherencia vs Incoherencia en el \'Atomo de Dos NIveles} 
+Uno de los grandes objetivos de la \'optica cu\'antica es determinar las 
+fluctuaciones de la luz y de las fuentes que la producen. Para describir el 
+papel que tienen las fluctuaciones separamos los operadores at\'omicos 
+en una parte dada por su valor esperado (su media) a tiempos largos, 
+$ \vxp{\sigma_{jk}}_{st} =\alpha_{jk}$, mas 
+las fluctuaciones, $\Delta \sigma_{jk}(t)$, es decir,  
+%
+\begin{eqnarray} 	\label{eq:dipoleSplit}
+\sigma_{jk} (t) =\alpha_{jk}  +\Delta \sigma_{jk} (t) 	\,, 
+\end{eqnarray}
+%%
+donde, por definici\'on, $\vxp{\Delta \sigma_{jk}(t)} =0$,  tal que 
+%
+\begin{eqnarray}
+\vxp{\sigma_{eg} (0) \sigma_{ge} (\tau)}_{st}  
+&=& |\alpha_{eg} |^2 
+	+\vxp{\Delta \sigma_{eg} (0) \Delta \sigma_{ge} (\tau)}_{st} \,.
+	\nonumber \\
+\end{eqnarray}
+%%
+Mas adelante explicaremos el significado de esta funci\'on de dos tiempos. 
+Cuando el intervalo de tiempo $\tau$ entre los dos operadores es cero 
+se tiene que la intensidad de la emisi\'on es proporcional a
+%
+\begin{eqnarray} 
+\vxp{\sigma_{eg} \sigma_{ge}}_{st} 
+	&=& \vxp{\sigma_{ee}}_{st} = |\alpha_{eg} |^2   
+	+\vxp{\Delta \sigma_{eg} \Delta \sigma_{ge}}_{st}  \,. 
+\end{eqnarray}
+%%
+Decimos que el primer t\'ermino del lado derecho, $|\alpha_{eg} |^2$, 
+es la parte coherente, dependiente \'unicamente del valor esperado del 
+dipolo, y el segundo t\'ermino es la parte incoherente, 
+%
+\begin{eqnarray} 
+\vxp{\Delta \sigma_{eg} \Delta \sigma_{ge}}_{st} 
+	&=& \alpha_{ee} -|\alpha_{eg}|^2 		 \\  
+	&=& \frac{ 2\Omega_0^4}
+   	 { [ 2\Omega_0^2 +\gamma^2 +4\Delta^2 ]^2} \,.   \nonumber 
+\end{eqnarray}
+%%
+El t\'ermino ``incoherente'' se refiere a que depende de las 
+\textit{fluctuaciones}  de los operadores at\'omicos.
+
+Una relaci\'on importante es el cociente entre la parte coherente, llamada 
+tambi\'en el\'astica, y la incoherente, o inel\'astica: 
+%
+\begin{eqnarray}  
+\frac{I_{coh}}{I_{inc}} &=& \frac{|\vxp{\sigma_{eg}}_{st}|^2}
+	{\vxp{\Delta \sigma_{eg} \Delta \sigma_{ge}}_{st}}		\\ 
+&=& \frac{ \Omega_0^2 [\gamma_a^2 +4\Delta^2]/D^2 }
+	{ 2 \Omega_0^4 /D^2} 
+	= \frac{ \gamma_a^2 +4\Delta^2 }{ 2 \Omega_0^2} \,, \nonumber \\ 
+D &=& 2\Omega_0^2 +\gamma_a^2 +4\Delta^2 \,.
+\end{eqnarray}
+%%
+Este es justamente el inverso del par\'ametro de saturaci\'on $I_S$ visto 
+anteriormente, que es la intensidad de campo necesaria para saturar al 
+\'atomo. Un valor $I_S <1$ indica que la intensidad incoherente es mayor 
+que la coherente. 
+
+La raz\'on de emisi\'on de fotones es $\gamma_a \vxp{\sigma_{ee}}$, que 
+en el r\'egimen de saturaci\'on en un per\'iodo brillante es $\gamma_a/2$. 
+El n\'umero de fotones emitidos en el intervalo $[0,t]$ es 
+%
+\begin{eqnarray} 
+N(t) = \gamma_a \int_0^t \vxp{\sigma_{ee}(t')} \, dt' \,.
+\end{eqnarray}
+%%
+Equivalentemente, podemos calcular el tiempo promedio entre la 
+emisi\'on de dos fotones consecutivos, 
+$\bar{\tau} = [\gamma_a \vxp{\sigma_{ee}}_{st}]^{-1}$. 
+\textcolor{blue}{Comentar: funci\'on de retardo, etc.}
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Probabilidad de Detecci\'on de Uno y Dos Fotones: 
+Funciones de Correlaci\'on} 
+Apunte en proceso
+\subsection{Probabilidad de Detecci\'on de un Fot\'on} %%%%%%%%
+Consideremos un detector en equilibrio t\'ermico a temperatura ambiente 
+$T \sim 300$ K. La probabilidad de que los \'atomos sean excitados por la 
+energ\'ia t\'ermica es muy peque\~na [de la distribuci\'on de Boltzmann 
+$P_B \propto \exp{(-\hbar \omega/k_B T)} \sim \exp{(-40)} \to 0$]. Por lo 
+tanto, los \'atomos inician en su estado inferior y solo absorben radiaci\'on, 
+es decir, solo el operador de destrucci\'on juega un papel: 
+%
+\begin{eqnarray} 
+ \hat{E}^+ (x) \ket{i} \propto a \ket{i} = \ket{f} \,.
+\end{eqnarray}
+%%
+
+La probabilidad de transici\'on por absorci\'on de un fot\'on en la posici\'on 
+$\mbr$ al tiempo $t$, en $x= \mbr, t$, es proporcional a 
+%
+\begin{eqnarray} 
+W = W_{i \to f} &=& |\bra{f} \hat{E}^+ (x) \ket{i} |^2 	\nonumber \\
+    &=& \bra{i} \hat{E}^- (x) \ket{f} \bra{f} \hat{E}^+ (x) \ket{i} ,
+ \end{eqnarray}
+%%
+donde $\ket{i}$ y $\ket{f}$ son el estado inicial y final, respectivamente, 
+del sistema acoplado \'atomo-campo. No nos interesa el estado final, de 
+hecho, puede haber muchos de ellos, por lo que escribimos  
+%
+\begin{eqnarray}
+W &=& \sum_f |\bra{f} \hat{E}^+ (x) \ket{i} |^2 
+  = \sum_f \bra{i} \hat{E}^- (x) \ket{f} \bra{f} \hat{E}^+ (x) \ket{i} \nonumber \\ 
+&=& \bra{i} \hat{E}^- (x) \left[ \sum_f \ket{f} \bra{f} \right] 
+    \hat{E}^+ (x) \ket{i} 	\nonumber \\ 
+    &=& \bra{i} \hat{E}^- (x)  \hat{E}^+ (x) \ket{i} . 
+\end{eqnarray}
+%%
+
+Aunque sabemos que el \'atomo inicia en el estado base, normalmente 
+no conocemos el estado inicial del campo, incluyendo variaciones 
+estad\'isticas sobre $\ket{i}$. Usando el operador de densidad 
+$\rho = \sum_i P_i \ketbra{i}{i}$ tenemos 
+$W= \tr{\rho \hat{E}^- (x)  \hat{E}^+ (x)}$, que es la funci\'on de 
+correlaci\'on de primer orden!
+
+\subsection{Probabilidad de Detecci\'on de Dos Fotones} %%%%%%%%
+Experimento de Hanbury-Brown y Twiss
+%\newline Funciones de correlaci\'on 
+%\newline F\'ormula cu\'antica de regresi\'on
+
+La funci\'on de correlaci\'on $G^{(2)}$ se define operacionalmente como la 
+probabilidad de detecci\'on de un fot\'on a tiempo $t$ y otro al tiempo 
+$t+\tau$, 
+%
+\begin{eqnarray*}  	%\label{ec:G2operacional}
+|\Psi(t+\tau) \rangle &=& A_{ge} (t+\tau) A_{ge} (t) |\Psi (0) \rangle  	\\
+	&=& e^{iH(t+\tau)} A_{ge} e^{-iH(t+\tau)} e^{iHt} A_{ge} e^{-iHt} 
+		|\Psi (0) \rangle \\ 
+&=& e^{iH(t+\tau)} A_{ge} e^{-iH(t+\tau)} e^{iHt} A_{ge} |\Psi (t) \rangle \\ 
+&=& e^{iH(t+\tau)} A_{ge} e^{-iH(t+\tau)} e^{iHt} |\Psi(t)=g \rangle \\ 
+&=& e^{iH(t+\tau)} A_{ge} e^{-iH\tau}  |\Psi(t) \rangle \\ 
+&=& e^{iH(t+\tau)} A_{ge} |\Psi(t+\tau) \rangle \\
+&=&	e^{iH(t+\tau)} |\Psi(t+\tau)=g \rangle 
+\end{eqnarray*} 	
+%%
+%
+\begin{eqnarray*}  	\label{ec:G2operacional}
+G^{(2)} (t,t+\tau) &=& \left| A_{ge} (t+\tau) A_{ge} (t) |\Psi \rangle  \right|^2 	
+	\nonumber \\ 
+&=& \langle \Psi(0) | A_{eg} (t) A_{eg} (t+\tau)  \\ 
+	&& A_{ge} (t+\tau) A_{ge} (t) |\Psi(0) \rangle \\
+&=& \langle  A_{eg} (t) A_{eg} (t+\tau)  \\ 
+	&& A_{ge} (t+\tau) A_{ge} (t) |\Psi(0) \rangle \langle \Psi(0) |  \rangle \\
+&=& \langle  A_{eg} (t) A_{eg} (t+\tau)  A_{ge} (t+\tau) A_{ge} (t)\rho(0) \rangle \\
+&=& \langle  A_{eg} (t) A_{eg} (t+\tau)  A_{ge} (t+\tau) A_{ge} (t) \rangle \,.
+\end{eqnarray*} 	
+%%
+
+La detecci\'on de un fot\'on viene asociada al decaimiento del \'atomo por 
+emisi\'on espont\'anea, por lo que el \'atomo pasa del estado excitado al 
+estado base, descrito por el operador $A_{0j}$, perdiendo la memoria de la 
+historia previa; estad\'isticamente, sin embargo, todas las historias son 
+equivalentes si las condiciones iniciales se repiten. De este modo el sistema 
+alcanza el estado estacionario, en el cual las funciones a dos tiempos se 
+reducen a funciones del intervalo entre ellos, 
+$G^{(2)} (t,t+\tau) \to G^{(2)} (\tau)$,  donde 
+%
+\begin{eqnarray}
+G^{(2)} (\tau) 
+	= \langle A_{eg} (0) A_{eg} (\tau)  A_{ge} (\tau) A_{ge} (0) \rangle \,.
+\end{eqnarray} 	
+%%
+Cuando $\tau \to \infty$ los fotones son completamente 
+independientes, por lo que 
+%
+\begin{eqnarray}
+\langle A_{eg} (0) A_{eg} (\tau)  A_{ge} (\tau) A_{ge} (0) \rangle &\to&  
+	\langle A_{eg} A_{ge} \rangle(0) \langle A_{eg} A_{ge} \rangle(\tau) 	\nonumber \\ 
+	&=& \langle A_{ee} \rangle_{st}^2 \,, 
+\end{eqnarray} 	
+%%
+lo cual nos sirve para normalizar la correlaci\'on,
+%
+\begin{eqnarray}
+g^{(2)} (\tau) 
+	&=& \frac{ \langle A_{eg} (0) A_{eg} (\tau)  A_{ge} (\tau) A_{ge} (0) \rangle }
+	{ \langle A_{ee} \rangle_{st}^2 } \,, 
+\end{eqnarray} 	
+%%
+tal que  
+%
+\begin{eqnarray} 
+g^{(2)} (\tau \to \infty) = 1 \,. 
+\end{eqnarray} 	
+%%
+%
+\begin{eqnarray*}
+G^{(2)} (\tau) 
+	&=& \langle A_{eg} (0) A_{eg} (\tau)  A_{ge} (\tau) A_{ge} (0) \rangle 	\\
+	&=&  \langle A_{eg} (\tau)  A_{ge} (\tau) \rangle_{\rho(0)=\rho_{gg}} \\ 
+	&=& \langle A_{ee} (\tau) \rangle_{\rho(0)=\rho_{gg}}
+\end{eqnarray*} 	
+%%
+
+Usando la f\'ormula cu\'antica de regresi\'on la correlaci\'on $g_j^{(2)}$ se 
+puede reducir a la evoluci\'on de la poblaci\'on del estado excitado dado que 
+inici\'o en el estado base, normalizada por la poblaci\'on promedio 
+\cite{Carm99}, 
+%
+\begin{eqnarray}
+g^{(2)} (\tau) &=& \frac{ \langle A_{ee} (\tau)\rangle_{\rho(0)=\rho_{gg}} }
+	{ \langle A_{ee} \rangle_{st} }
+\end{eqnarray}
+%%
+es decir, la correlaci\'on se reduce a normalizar la poblaci\'on del estado 
+excitado. Esto \'ultimo, sin embargo, no ocurre para todos los sistemas 
+\'opticos (p. ej., fotones que emergen de una cavidad con \'atomos) \ldots 
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Excitaci\'on Con Campos Dependientes del Tiempo} 
+teorema del \'area; modelo LZ, STIRAP ?, etc
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Teorema del \'Area}
+La f\'ormula de Rabi, 
+%
+\begin{eqnarray} 	\label{eq:RabiFormula}
+|C_a (t)|^2 &=& \frac{\Omega_0^2}{\Omega^2} \sin^2{(\Omega t/2)}  \,,  
+\end{eqnarray}
+%% 
+que expresa la probabilidad de transici\'on en un \'atomo de dos niveles, 
+no se limita a excitaci\'on monocrom\'atica. Un caso de especial inter\'es 
+ocurre cuando cuando los l\'aseres son pulsados. En este caso decimos 
+que el pulso tiene un \textit{\'area}  
+$A = \int_{-\infty}^{\infty} \Omega_0 (t') dt' $. Si $A=\pi$ el \'atomo 
+experimenta una inversi\'on de la probabilidad: un \'atomo en estado 
+base es promovido a su estado excitado, y viceversa. Un pulso de \'area 
+$A=\pi/2$ crea una superposici\'on de amplitudes iguales entre los estados. 
+Este m\'etodo es usado rutinariamente en muchas aplicaciones, m\'as 
+notablemente en procesamiento cu\'antico de informaci\'on.   
+
+Efecto de la forma de los pulsos \ldots 
+
+Secuencias de pulsos de diferentes \'areas: eco de fotones,  
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Seguimiento Adiab\'atico}
+En algunas situaciones el m\'etodo de inversi\'on de poblaci\'on sugerido 
+por el teorema del \'area no es robusto: requiere de alta uniformidad en la 
+amplitud del pulso y exactitud en la resonancia $\Delta =0$ del centro del 
+espectro del pulso con la frecuencia de transici\'on. Un m\'etodo mucho 
+mas efectivo para crear inversi\'on de poblaci\'on utiliza campos con 
+frecuencia variable (adiabatic following), ya sea con amplitud constante 
+o pulsado.  
+
+\textcolor{red}{Ilustrar con los estados vestidos, Secc.~\ref{dressedST} !!!}
+
+Un modelo particular es el de Landau y Zener $\Omega_0 =cte$, 
+$\Delta = \beta^2 t$, donde $\beta^2$ es la pendiente de la desinton\'ia en 
+resonancia. Landau y Zener, independientemente, resolvieron el problema. 
+Si $-\infty < t < \infty$ encontraron que 
+$P_e (t \to \infty) = 1- \exp{ (-\pi \Omega_0^2/2\beta^2) }$. La duraci\'on 
+del salto alrededor de la resonancia hacia el primer m\'aximo es 
+$\tau_0 = \omega/\beta^2$. Si $\Omega > 3\beta$ la inversi\'on es total, 
+$P_e (t \to \infty) \to 1$. Por supuesto, hemos ignorado de momento que 
+hay decaimientos, por emisi\'on espont\'anea, por ejemplo. Sin embargo, 
+los resultados son robustos si el proceso ocurre en un tiempo mucho 
+menor que el de decaimiento, lo cual es factible; en realidad, el proceso 
+no requiere un tiempo muy largo. La soluci\'on de Landau y Zener es 
+idealizada pero muy efectiva y compacta. Existen otros modelos de 
+desinton\'ia y frecuencia de Rabi con dependientes del tiempo lenta dan 
+resultados similares.  
+
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{STIRAP}
+Ver Unidad sobre efectos en \'atomos multinivel. 
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Coherencia Cu\'antica} 
+Sea $G^{(m)}(x_1 \ldots x_m; y_m \ldots y_1)$ la funci\'on de coherencia 
+cl\'asica de orden $m$, 
+%
+\begin{eqnarray*}
+\lefteqn{G^{(m)}(x_1 \ldots x_m; y_m \ldots y_1) } \hspace{1cm}	\\
+&=& \langle E^-(x_1) \cdots E^-(x_m) E^+(y_m) \cdots E^+(y_1) \rangle \,, 
+\end{eqnarray*}
+%% 
+donde $x_i,y_i =\mathbf{r}_i t_i$. Un campo es coherente a orden $m$ si 
+$G^{(m)}$ es factorizable 
+%
+\begin{eqnarray*}
+\lefteqn{ G^{(m)}(x_1 \ldots x_m; y_m \ldots y_1) } \hspace{1cm}	\\
+&=&  \mathcal{E}^{\ast}(x_1) \cdots \mathcal{E}^{\ast}(x_m) 
+	\mathcal{E} (y_m) \cdots \mathcal{E} (y_1) \,. 
+\end{eqnarray*}
+%% 
+En la teor\'ia cu\'antica de la coherencia reemplazamos $E^{\pm}(x_i)$ 
+por operadores $\hat{E}^{\pm}(x_i)$, y los promedios 
+$\langle \cdots \rangle$ son ahora promedios cu\'anticos (valores 
+esperados): 
+%
+\begin{eqnarray*}
+\lefteqn{ G^{(m)}(x_1 \ldots x_m; y_m \ldots y_1) } \hspace{1cm}	\\
+&=& \langle \hat{E}^-(x_1) \cdots \hat{E}^-(x_m) \hat{E}^+(y_m) 
+    \cdots \hat{E}^+(y_1) \rangle  \\ 
+&=& \tr{ \rho \hat{E}^-(x_1) \cdots \hat{E}^-(x_m) \hat{E}^+(y_m) 
+    \cdots \hat{E}^+(y_1) } . 
+\end{eqnarray*}
+%% 
+
+Como ejemplos de campo EM consideremos una onda viajera unimodal en 
+espacio libre de amplitud 
+$\mcE_{\omega} = \sqrt{\hbar \omega /\epsilon_0 V}$,    
+$$ \hat{E}(\mbr,t) = \mcE_{\omega} a e^{-i\omega t} f(\mbr) 
++\mcE_{\omega} \adg e^{i\omega t} f^\ast (\mbr) , $$
+donde $\omega$ es la frecuencia angular, V es el volumen y $f(\mbr)$ 
+describe la estructura espacial del modo. Para una onda estacionaria en 
+una cavidad unidimensional 
+%
+\begin{eqnarray*}
+\hat{E}^+(x) &=& \mcE_{\omega} a e^{-i\omega t} \sin{kz} ,    \\ 
+\hat{E}^-(x) &=& \left[ \hat{E}^+(x) \right]^+  
+   = \mcE_{\omega} \adg e^{i\omega t} \sin{kz} , 
+\end{eqnarray*}
+%% 
+entonces 
+%
+\begin{eqnarray*}
+G^{(1)}(x_1,x_1) &=& \mcE_{\omega}^2 \sin^2{kz} \,\, \tr{(\rho \adg a)} \\ 
+G^{(1)}(x_1,x_2) &=& \mcE_{\omega}^2 \sin^2{kz_1} \sin^2{kz_2} 
+    e^{i\omega (t_1-t_2)} \tr{(\rho \adg a)}
+\end{eqnarray*}
+%% 
+Puesto que $\tr{(\rho \adg a)} = \bar{n}$ la correlaci\'on de primer 
+orden es \text{insensible} a la estad\'istica! Se requieren correlaciones 
+de orden superior para distinguir fuentes con diferentes estad\'isticas. 
+
+Consideremos ahora efectos del estado del campo EM en las correlaciones: 
+1) Campo en estado coherente 
+($a \ket{\alpha} = \alpha \ket{\alpha}$, 
+$\bra{\alpha} \adg = \bra{\alpha} \alpha^\ast$ ) 
+%
+\begin{eqnarray*}
+\lefteqn{ G^{(m)}(x_1 \ldots x_m; y_m \ldots y_1) } \hspace{2cm} \\
+&\propto& 
+\bra{\alpha} \adg (x_1) \cdots \adg (x_m) a(y_m) \cdots a(y_1) 
+    \ket{\alpha}  \\ 
+&=& \mcE^\ast (x_1) \ldots \mcE^\ast (x_m) \mcE (y_m) \ldots \mcE (y_1) , 
+\end{eqnarray*}
+%% 
+donde $\mcE (x_i) = \alpha e^{-i \omega t}$. La correlaci\'on de segundo orden normalizada es  
+%
+\begin{eqnarray*}
+g^{(2)}(x_1,x_2; x_2,x_1) &=& \frac{ G^{(2)} (x_1,x_2; x_2,x_1) }
+    {G^{(1)} (x_1) G^{(1)} (x_1)} \\ 
+  &=& \frac{ \mcE^\ast(x_1) \mcE^\ast(x_2) \mcE (x_2) \mcE (x_1) }
+    { \mcE^\ast(x_1) \mcE (x_1) \mcE^\ast(x_2) \mcE (x_2) } = 1 , 
+\end{eqnarray*}
+%% 
+esto es, el estado coherente de Glauber es coherente a todos los 
+\'ordenes!
+
+2) Campo en estado de Fock (n\'umero) $\ket{n}$, $\rho =\ketbra{n}{n}$ 
+(estado puro)
+%
+\begin{eqnarray*}
+G^{(1)}(x_1) &=& \bra{n} \hat{E}^- (x_1) \hat{E}^+ (x_1) \ket{n}   \\ 
+&=& |\mcE_{\omega} \sin{kz}|^2 \bra{n} \adg a \ket{n} 
+    = n |\mcE_{\omega} \sin{kz}|^2 ,     \\ 
+|G^{(1)}(x_1)|^2 &=& n^2 |\mcE_{\omega} \sin{kz}|^4 . 
+\end{eqnarray*}
+%% 
+%
+\begin{eqnarray*}
+G^{(2)}(x_1,x_2) 
+&=& \bra{n} \hat{E}^- (x_1) \hat{E}^- (x_1) \hat{E}^+ (x_1) 
+    \hat{E}^+ (x_1) \ket{n}   \\ 
+&=& |\mcE_{\omega} \sin{kz}|^4 \bra{n} \adg \adg a a \ket{n} \\  
+&=& n(n-1) |\mcE_{\omega} \sin{kz}|^4 = G^{(2)} (0) .
+   \end{eqnarray*}
+%% 
+Puesto que $G^{(2)}(x_1,x_2) \neq |G^{(1)}(x_1)|^2$ la correlaci\'on no 
+se factoriza. Entonces un estado de Fock no es coherente a segundo orden 
+(ni a \'ordenes superiores). Veamos la normalizaci\'on a $x=0$, 
+%
+\begin{eqnarray*}
+g^{(2)}(0) &=& \frac{ G^{(2)} (0) }{ |G^{(1)} (0)|^2 } \\ 
+  &=& \frac{n(n-1)}{n} = 1 - \frac{1}{n} . 
+\end{eqnarray*}
+%% 
+El estado de Fock presenta antibunching, $g^{(2)} < 1$, pero se aproxima 
+al l\'imite cl\'asico $g^{(2)} \to 1$ para $n \to \infty$. 
+
+\subsection{Campo EM en Equilibrio T\'ermico} %%%%%%%%%%%%%%%
+(P'aginas 9 y 10 de viejo apunte manuscrito)
+\newline Conclu\'imos la clase pasada escribiendo la forma general de 
+un campo EM como una superposici\'on de estados de una base completa 
+$\ket{n_q}$ ($q= \mbk \lambda$), 
+$$ \ket{\Psi} = \sum_q C_{\{n_q\}} \ket{\{n_q\}} .$$ 
+Los estados coherentes y comprimidos pueden escribirse de esta forma,  
+Sin embargo, el campo t\'ermico (CT) no puede escribirse en t\'erminos 
+de estados puros. como $\ket{\Psi}$ arriba. Un CT es una superposici\'on 
+\textit{incoherente} de ondas con amplitud y fase definidas, por lo que cada 
+onda contribuye en t\'erminos probabil\'isticos. Cuando \'unicamente 
+se puede especificar un conjunto de probabilidades de que el campo se 
+encuentre en un rango de estados, cada uno corresponde a a un estado de 
+un conjunto completo, entonces el estado se encuentra en una 
+\textit{mezcla estad\'istica} (no una superposici\'on). En QM estas 
+mezclas est\'an dadas por el operador de densidad. 
+
+Consideremos un campo en una cavidad en el que conocemos la probabilidad 
+$P_R$ ($\sum_R P_R$) de que el campo est\'e en el estado $\ket{R}$ (p. ej., 
+en un estado $\ket{n}$),   
+%
+\begin{eqnarray*}
+\vxp{O} &=& \bra{R} O \ket{R}  \qquad \qquad \text{estados puros} \\ 
+\vxp{O} &=& \sum_R P_R \bra{R} O \ket{R} \qquad \text{mezcla estad.} 
+\end{eqnarray*}
+%%
+
+Sea $\ket{s}$ una base completa de estados puros. Por el teorema de la 
+cerradura, $\sum_s \ketbra{s}{s} =1$, 
+%
+\begin{eqnarray*}
+\vxp{O} &=& \sum_R P_R \bra{R} O \ketbra{s}{s} \ket{R}  
+    = \sum_R P_R \braket{s}{R} \bra{R} O \ket{s}  \\  
+    &=& \sum_s  \bra{s} \rho O \ket{s} = \tr{\rho O} , 
+\end{eqnarray*}
+%%
+donde $\rho = \sum_R P_R \ketbra{R}{R}$ es el operador de densidad 
+que contiene exactamente la misma informaci\'on que $P_R$, y $\rho$ 
+esta determinada una vez que $P_R$ est\'e determinada para la base de 
+estados $\ket{R}$. La traza es la suma de los elementos diagonales de 
+la matriz para cualquier conjunto completo de estados. Esta 
+expresi\'on es mejor que $\vxp{O} = \sum_R P_R \bra{R} O \ket{R}$. 
+Si $O= \mathbf{1}$ entonces $\tr{\rho} =1, $
+%
+\begin{eqnarray*}
+\bra{R'} \rho \ket{R''} 
+    &=& \sum_R P_R \braket{R'}{R} \braket{R}{R''}     \\ 
+    &=& P_{R'} \delta_{R' \,R''} 
+\end{eqnarray*}
+%%
+solo los elementos diagonales son diferentes de cero, 
+%
+\begin{eqnarray*}
+\bra{s} \rho \ket{s'} = \sum_R P_R \braket{s}{R} \braket{R}{s'} . 
+\end{eqnarray*}
+%%
+Para un estado puro $\rho = \ketbra{R}{R} \to \rho^2 
+= \ket{R} \braket{R}{R} \bra{R}  = \rho$. Nota: 
+$\rho = \sum_n \sum_m \ketbra{n}{n} \rho \ketbra{m}{m} 
+    = \sum_{n,m} \rho_{nm} \ketbra{n}{m}$, 
+
+Un importante ejemplo de mezcla estad\'istica esta dado por la 
+excitaci\'on t\'ermica de fotones de un modo de una cavidad a temperatura 
+$T$, $P_n = \bar{n}^n /[(1+\bar{n})^{1+n}]$. Entonces 
+%
+\begin{eqnarray*}
+\rho &=& \sum_n P_n \ketbra{n}{n} 
+    = \sum_n \frac{\bar{n}^n}{(1+\bar{n})^{1+n}} \ketbra{n}{n} .
+\end{eqnarray*}
+%%
+
+Calculemos los valores esperados del campo y del n\'umero de 
+fotones de un CT: 
+%
+\begin{eqnarray*}
+\vxp{a} &=& \tr{a \rho} = P_n \sum_n \bra{n} a \ket{n}  \\ 
+&=& \sum_n P_n \sqrt{n} \braket{n}{n-1} = 0 . 
+\end{eqnarray*}
+%%
+%
+\begin{eqnarray*}
+\vxp{\adg a} &=& \tr{\adg a \rho} 
+    = P_n \sum_n \bra{n} \adg a \ket{n}  \\ 
+&=& \sum_n n P_n \braket{n}{n} = \bar{n} . 
+\end{eqnarray*}
+%%
+Para un CT multimodal 
+%
+\begin{eqnarray*}
+\vxp{\adg_q a_q} &=& \Pi_q \frac{\bar{n}^n_q}{(1+\bar{n})^{1+n_q}} \\ 
+\rho &=& \sum_q P_{n_q} \ketbra{\{n_q\}}{\{n_q\}} .
+\end{eqnarray*}
+%%
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Soluci\'on Formal Matricial de las Ecuaciones de Bloch y 
+Correlaciones a Dos Tiempos} 
+En esta secci\'on mostraremos el m\'etodo matricial para resolver las 
+ecuaciones de Bloch y correlaciones a dos tiempos, en preparaci\'on 
+para soluciones num\'ericas. Los detalles de las soluciones se encuentran 
+en notas aparte. Tomamos el caso particular del \'atomo de dos niveles 
+interactuando con un l\'aser monocrom\'atico.  
+
+Escribimos las ecuaciones de Bloch en forma matricial,  
+%
+\begin{eqnarray} 	\label{eq:SBloch}
+\langle \dot{\mathbf{s}} \rangle = 
+	\mathbf{M} \langle \mathbf{s} \rangle +\mathbf{b}  \,,	\\ 
+%
+\frac{d}{dt} \left( \langle \mathbf{s} \rangle 
+	+\mathbf{M}^{-1} \mathbf{b} \right) 
+&=& \mathbf{M} \left( \langle \mathbf{s} \rangle 
+	+\mathbf{M}^{-1}\mathbf{b} \right) 	\,, 	\nonumber 
+\end{eqnarray}
+%%
+donde $\mathbf{s} = (\sigma_-, \sigma_+,\sigma_z)^T$ es un vector que 
+contiene los operadores del pseudoesp\'in 
+$\sigma_{jk} = |j \rangle \langle k|$ que representan las poblaciones 
+($j=k$) y las coherencias ($j \neq k$), $\mathbf{M}$ es la matriz de los 
+coeficientes, y $\mathbf{b}$ es un vector diferente de cero cuando el 
+n\'umero de ecuaciones es menor que el de poblaciones m\'as coherencias. 
+
+La soluci\'on formal puede escribirse como 
+%
+\begin{subequations}
+\begin{eqnarray}
+\langle \mathbf{s}(t) \rangle &=& e^{ \mathbf{M} t } \left[ 
+	 \langle \mathbf{s}(0) \rangle +\mathbf{M}^{-1} \mathbf{b} \right] 
+	-\mathbf{M}^{-1} \mathbf{b}	\\
+&=& S^{-1} e^{\Lambda t} S \left[ \langle \mathbf{s}(0) \rangle 
+	+\mathbf{M}^{-1} \mathbf{b} \right] -\mathbf{M}^{-1} \mathbf{b} \,, 
+\end{eqnarray} 
+\end{subequations}
+%%
+donde $S$ es una matriz que diagonaliza $\mathbf{M}$, y $\Lambda$ 
+es la matriz diagonal con los valores propios $\lambda_m$.  
+
+La soluci\'on en estado estacionario ($t \to \infty$) de las ecuaciones de 
+Bloch es 
+%
+\begin{equation} 	\label{eq:Bloch_est}
+0 =\mathbf{M} \langle \mathbf{s} \rangle_{st} +\mathbf{b}  \,, 
+    \qquad \to \langle \mathbf{s} \rangle_{st} 
+       =\mathbf{M}^{-1} \mathbf{b} \,.  	
+\end{equation}
+%%
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+\subsection{Correlaciones a Dos Tiempos} 
+La f\'ormula cu\'antica de regresi\'on permite escribir ecuaciones para 
+funciones de correlaci\'on a dos (o m\'as) tiempos de la misma forma 
+que para un tiempo: 
+%
+\begin{eqnarray*}
+\frac{d}{d \tau} \langle \sigma_{+}(0) \mathbf{s} (\tau) \rangle_{st} 
+ &=& \mathbf{M} \langle \sigma_{+}(0) \mathbf{s} (\tau) \rangle_{st} 
+	+\mathbf{b} \langle \sigma_{+} \rangle_{st} \,,	\\ 
+%
+\frac{d}{d \tau} \langle \mathbf{s} (\tau) \sigma_{-}(0)  \rangle_{st} 
+ &=& \mathbf{M} \langle \mathbf{s} (\tau) \sigma_{-}(0)  \rangle_{st} 
+	+\mathbf{b} \langle \sigma_{-} \rangle_{st} \,,	\\ 
+%
+\frac{d}{d \tau} \langle \sigma_{+}(0) \mathbf{s} (\tau) 
+	\sigma_{-}(0) \rangle_{st}  
+ &=& \mathbf{M} \langle \sigma_{+}(0) \mathbf{s} (\tau) 
+ 	\sigma_{-}(0) \rangle_{st}  	\\ 
+	&& +\mathbf{b} \langle \sigma_{+} \sigma_{-} \rangle_{st} 	\,,
+\end{eqnarray*}
+%%
+
+Veamos una forma compacta de estas ecuaciones, 
+%
+\begin{eqnarray}
+\frac{d}{d\tau} \langle A_+(0) \mathbf{s}(\tau) A_-(0) \rangle_{st} 
+	&=& \mathbf{M} \langle A_+(0) \mathbf{s}(\tau) A_-(0) \rangle_{st} 
+	\nonumber \\ 
+	&& +\langle A_+ A_- \rangle_{st} \mathbf{b}	\,.   	
+\end{eqnarray}
+%%
+La FCR debe cumplir algunas condiciones pero nos limitaremos a un 
+procedimiento sencillo: (i) remover los brackets a 
+$\langle \mathbf{s} \rangle$, (ii) multiplicar $\mathbf{s}$ por la izquierda y 
+por la derecha por los operadores $A_+$  and $A_-$, respectivamente, 
+(iii) cambiar $t$ por $\tau$, y (iv) poner de nuevo los brackets. La soluci\'on 
+es formalmente id\'entica a la de un tiempo, 
+%
+\begin{eqnarray}
+\lefteqn{  \langle A_+(0) \mathbf{s}(\tau) A_-(0) \rangle_{st} 
+	= -\langle A_+ A_- \rangle_{st} \mathbf{M}^{-1} \mathbf{b} } 
+	\hspace{20mm}	 	\nonumber \\
+&& +e^{ \mathbf{M} \tau } \left[ \langle A_+ \mathbf{s} A_- \rangle_{st} 
+	 +\langle A_+ A_- \rangle_{st} \mathbf{M}^{-1} \mathbf{b} \right] \,. 
+	 \nonumber \\
+\end{eqnarray}
+%%
+Similarmente, podemos reemplazar $e^{ \mathbf{M} \tau }$ con 
+$S^{-1} e^{\Lambda \tau} S$. 
+
+\subsection{Correlaciones de Fotones} 	%%%%%%%%%%%
+
+Una de las funciones de correlaci\'on m\'as importantes es la que describe 
+la probabilidad de que el \'atomo emita un fot\'on a tiempo $\tau=0$ y otro 
+a tiempo $\tau$,  
+%
+\begin{eqnarray}
+G^{(2)}  (\tau) &=& \langle \sigma_+(0) \sigma_+ (\tau) \sigma_- (\tau)  
+	\sigma_-(0) \rangle_{st}  	\\
+ &=& \frac{1}{2} \left[ \langle \sigma_+ \sigma_- \rangle_{st} 
+ 	+ \langle \sigma_+(0) \sigma_+ \sigma_z (\tau)  \sigma_-(0) \rangle_{st}
+ 	\right] \,, 	\label{eq:G2_tau} \nonumber \\
+ \end{eqnarray}
+%%
+donde usamos $\sigma_+ \sigma_- = (1+\sigma_z)/2$. Resolveremos 
+entonces 
+%
+\begin{eqnarray}
+\frac{d}{d \tau} \langle \sigma_{+}(0) \mathbf{s} (\tau) 
+	\sigma_{-}(0) \rangle_{st}  	
+ &=& \mathbf{M} \langle \sigma_{+}(0) \mathbf{s} (\tau) 
+ 	\sigma_{-}(0) \rangle_{st}  		\nonumber 	\\ 
+	&& +\mathbf{b} \langle \sigma_{+} \sigma_{-} \rangle_{st} 	\,,  
+\end{eqnarray}
+%%
+cuya soluci\'on formal es 
+%
+\begin{eqnarray}
+\lefteqn{  \langle \sigma_{+}(0) \mathbf{s} (\tau) \sigma_{-}(0) \rangle_{st}  
+	= -\langle \sigma_+ \sigma_- \rangle_{st} \mathbf{M}^{-1} \mathbf{b} } 
+	\hspace{20mm}	 	\nonumber \\
+&& +e^{ \mathbf{M} \tau } \left[ \langle \sigma_+ \mathbf{s} \sigma_- \rangle_{st} 
+	 +\langle \sigma_+ \sigma_- \rangle_{st} \mathbf{M}^{-1} \mathbf{b} \right] \,, 
+	 \nonumber \\
+\end{eqnarray}
+%%
+y sus condiciones iniciales son
+%
+\begin{equation}
+\langle \sigma_+ \mathbf{s} \sigma_- \rangle_{st} 
+	= \langle \sigma_+ \sigma_- \rangle_{st} (0,0,-1)^T \,.
+\end{equation}
+%% 
+Ahora podemos escribir la soluci\'on como
+%
+\begin{eqnarray}
+\lefteqn{  \langle \sigma_{+}(0) \mathbf{s} (\tau) \sigma_{-}(0) \rangle_{st}  
+	= \langle \sigma_+ \sigma_- \rangle_{st} 
+	\left\{ - \mathbf{M}^{-1} \mathbf{b} \right. 	} 
+	\hspace{20mm}	 	\nonumber \\
+&& \left. +e^{ \mathbf{M} \tau } \left[ (0,0,-1) 
+	 + \mathbf{M}^{-1} \mathbf{b} \right] 	\right\} \,, 	\nonumber \\ 
+%
+&=& \langle \sigma_+ \sigma_- \rangle_{st} 
+	\langle \mathbf{s} (\tau) \rangle_{\rho(0)= |g \rangle \langle g| } \,.
+\end{eqnarray}
+%%
+Notemos que $(0,0,-1)^T$ es simplemente la condici\'on inicial 
+$\mathbf{s} (0)$ para un \'atomo preparado en su estado base, 
+$\rho(0) = |g \rangle \langle g|$. N\'otese que en este c\'alculo es 
+independiente de si $\Delta$ es cero o no en $\mathbf{M}$, a diferencia 
+del caso que veremos sobre el espectro.Sustituyendo el tercer elemento 
+de la ecuaci\'on anterior [$\mathbf{s}|_3 = \sigma_z$] en la 
+Ec.~(\ref{eq:G2_tau}) establece nuestro resultado: 
+%
+\begin{eqnarray}
+G^{(2)}  (\tau) &=& \langle \sigma_+ \sigma_- \rangle_{st} \frac{1}{2} 
+	\left[ 1+ \langle \sigma_z (\tau) \rangle_{\rho(0)= |g \rangle \langle g| }
+ 	\right] \,,  \nonumber \\ 
+&=& \rho_{ee}^{st} \rho_{ee}(\tau)_{\rho(0)= |g \rangle \langle g| } \,, \\ 
+%
+g^{(2)}  (\tau) &=& \frac{ \rho_{ee}(\tau)_{\rho(0)= |g \rangle \langle g| }}
+	{\rho_{ee}^{st}} \,.
+ \end{eqnarray}
+%%
+Mencionamos anteriormente que no es posible una soluci\'on anal\'itica 
+general a todo tiempo; para el caso de $\Delta=0$ la correlaci\'on de dos 
+fotones es   
+%
+\begin{eqnarray}
+g^{(2)}  (\tau) &=& 1- e^{-3\gamma \tau /4} \left( \cosh{\delta \tau} 
+	-\frac{3\gamma/4}{\delta} \sinh{\delta \tau} \right) \,, \nonumber \\
+ \end{eqnarray}
+%% 
+donde $\delta = \sqrt{(\gamma/4)^2 -\Omega_0^2}$. 
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+\subsection{Operadores de Fluctuaciones}
+Para las ecuaciones de Bloch, $\langle \mathbf{\dot{s}} \rangle = 
+\mathbf{M} \langle \mathbf{s} \rangle +\mathbf{b}$, vimos que el estado 
+estacionario ($t \to \infty$) es 
+$\langle \mathbf{s} \rangle_{st} =\mathbf{M}^{-1} \mathbf{b}$. Dividimos 
+el campo del dipolo en su media m\'as fluctuaciones, 
+$\mathbf{s}(t) = \langle \mathbf{s} \rangle_{st} +\Delta \mathbf{s}(t)$  
+lo cual, sustituyendo en las ecuaciones de Bloch, nos lleva a  
+%
+\begin{eqnarray}
+\frac{d}{dt} \langle \Delta \mathbf{s} \rangle +0
+&=& \mathbf{M} \left[ \langle \mathbf{s} \rangle_{st} 
+	+\langle \Delta \mathbf{s} \rangle \right] +\mathbf{b}  \nonumber \\
+&=& \mathbf{M} \langle \Delta \mathbf{s} \rangle 
+	+\mathbf{M} \langle \mathbf{s} \rangle_{st} +\mathbf{b}  
+	\nonumber 	\\
+\frac{d}{dt} \langle \Delta \mathbf{s} \rangle 
+	&=& \mathbf{M} \langle \Delta \mathbf{s} \rangle  \,.
+\end{eqnarray}
+%%
+Por supuesto, esta expresi\'on no tiene sentido porque, por definici\'on, 
+$\langle \Delta \mathbf{s} \rangle =0$. Debemos recurrir a la FCR para 
+calcular correlaciones a dos tiempos: (i) remover los brackets, multiplicar  
+$\Delta \mathbf{s}$ por la izquierda y por la derecha por operadores 
+apropiados $\Delta A_+$ y $\Delta A_-$, respectivamente, y (iii) colocar 
+de nuevo los brackets, obteniendo 
+%
+\begin{eqnarray}
+\frac{d}{d\tau} \langle \Delta A_+ \Delta \mathbf{s}(\tau) \Delta A_- \rangle 
+ &=& \mathbf{M} \langle \Delta A_+ \Delta \mathbf{s}(\tau) \Delta A_- \rangle  \,, 
+	\nonumber \\
+\end{eqnarray}
+%%
+con soluciones 
+%
+\begin{eqnarray*}
+\langle \Delta A_+ \Delta \mathbf{s}(\tau) \Delta A_- \rangle 
+ &=& e^{\mathbf{M} \tau} \langle \Delta A_+ \Delta \mathbf{s} 
+ 	\Delta A_- \rangle  	\\ 
+&=& S^{-1} e^{\Lambda t} S  \langle \Delta A_+ \Delta \mathbf{s} 
+ 	\Delta A_- \rangle 	\,.	
+\end{eqnarray*}
+%%
+Notemos que las ecuaciones para las correlaciones de operadores de 
+fluctuaci\'on forman un sistema homog\'eneo \ldots
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+\subsection{Espectro Incoherente} 
+Para la parte incoherente del espectro, 
+%
+\begin{eqnarray} 	%\label{eq:}
+S_{inc}(\omega) 
+&=& \frac{1}{ \pi \alpha_{ee} } \mathrm{Re} \left[  \int_0^{\infty} 
+	d\tau e^{-i \omega \tau} 	
+	\langle \Delta \sigma_+ (0 )\Delta \sigma_- (\tau) \rangle_{st} \right] \,,  
+	\nonumber \\ 
+\end{eqnarray}
+%%
+requirimos resolver la correlaci\'on para 
+$\langle \Delta \sigma_+(0) \Delta \sigma_-(\tau) \rangle_{st}$. Sin 
+embargo, por lo general, integramos de manera formal usando matrices
+%
+\begin{eqnarray} 	%\label{eq:}
+S_{inc}(\omega) 
+&=& \frac{1}{ \pi \alpha_{ee}  } \mathrm{Re} \left[  \int_0^{\infty} 
+	d\tau e^{-(i \omega \mathbf{1} -\mathbf{M}) \tau} 	
+	\langle \Delta \sigma_+ \Delta \mathbf{s} \rangle_{st} \right]_1   
+	\nonumber \\ 
+&=& \frac{1}{ \pi \alpha_{ee}  } \mathrm{Re} \left[ 
+	-(i \omega \mathbf{1} -\mathbf{M})^{-1} 
+	e^{-(i \omega \mathbf{1} -\mathbf{M}) \tau} \left. \right|_0^{\infty}  
+	 \right. 	\nonumber \\
+&&	\left. \times 
+	\langle \Delta \sigma_+ \Delta \mathbf{s} \rangle_{st} \right]_1 	
+	\nonumber \\ 
+&=& \frac{1}{ \pi \alpha_{ee}  } \mathrm{Re} \left[ 
+	(i \omega \mathbf{1} -\mathbf{M})^{-1} 
+	\langle \Delta \sigma_+ \Delta \mathbf{s} \rangle_{st} \right]_1 	\,, 	
+	\nonumber \\ 
+\end{eqnarray}
+%%
+donde $\mathbf{1}$ es la matriz identidad. El sub\'indice $1$ fuera de los 
+corchetes indica que solamente tomamos el primer elemento del vector 
+resultante. 
+
+Para apreciar mejor este m\'etodo notemos que la soluci\'on de la 
+correlaci\'on $\langle \Delta \sigma_+ (0 )\Delta \sigma_- (\tau) \rangle_{st}$ 
+se puede escribir como una suma de exponenciales, 
+%
+\begin{eqnarray}
+\langle \Delta \sigma_+(0) \Delta \sigma_-(\tau) \rangle_{st} 
+	= \sum_m C_m e^{\lambda_m \tau} \,, 
+\end{eqnarray}
+%%
+donde $\lambda_m$ son los valores propios de $\mathbf{M}$, con parte 
+real negativa. Entonces tenemos integrales tales como 
+%
+\begin{eqnarray} 	%\label{eq:integrals}
+\int_0^{\infty} d\tau e^{(-i \omega +\lambda_m) \tau} 
+	&=& \left. \frac{e^{(-i \omega +\lambda_m) \tau}}
+	{-i \omega +\lambda_m} \right|_0^{\infty} 
+	= \frac{-1}{-i \omega +\lambda_m} 	\,, \nonumber 	\\ 
+\mathrm{Re} \int_0^{\infty} d\tau e^{(-i \omega +\lambda_m) \tau} 
+	&=& - \mathrm{Re} \left[ \frac{i \omega +\lambda_m^\ast}
+	{ \omega^2 +|\lambda_m|^2} \right] 
+	= \frac{- \lambda_m}{ \omega^2 +\lambda_m^2} \,, \nonumber \\
+\end{eqnarray}
+%%
+donde los picos tienen forma Lorentziana. \textcolor{red}{REVISAR el caso 
+cuando $\lambda_m$ es complejo. ?`Qu\'e esta mal?}
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+\subsection{Manipulando las Integrales - Espectro Integrado} 
+El \'area debajo de la Lorentziana es una medida de la intensidad de un 
+pico espectral. Al integrar sobre todas las frecuencias obtenemos 
+%
+\begin{eqnarray} 
+\int_{-\infty}^{\infty} \frac{d\omega}{\omega^2 +a^2} 
+	&=& \left. \frac{1}{a} \tan^{-1}{\left( \frac{\omega}{a} \right)} 
+		\right|_{-\infty}^{\infty} 
+	=  \frac{1}{a} \left[ \frac{\pi}{2} -\frac{-\pi}{2} \right] 	\nonumber \\ 
+	&=& \pi/a	\,.
+\end{eqnarray}
+%%
+
+%%%%%%%%10%%%%%%%%20    REFERENCES    40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\begin{references} 
+%
+\bibitem{Carm93} H. J. Carmichael, \textit{An Open Systems Approach to 
+	Quantum Optics}, Lecture Notes in Physics Vol. 18 
+	(Springer-Verlag, Berlin, 1993).
+%
+\bibitem{Carm99} H. J. Carmichael, \textit{Statistical Methods in Quantum 
+Optics 1: Master Equations and Fokker-Planck Equations} (Springer-Verlag, 
+Berlin, 1999). 
+%
+\bibitem{Shore} B.~W. Shore, \textit{The Theory of Coherent Atomic 
+Excitation, Vol.1} (Wiley, New York, 1990).
+%
+\bibitem{BeMa11} P.~R. Berman and V.~S. Malinovsky, \textit{Principles 
+of Laser Spectroscopy and Quantum Optics} (Princeton University Press, 
+Princeton, 2011).
+%
+\bibitem{CaWa76} H. J. Carmichael and D. F. Walls, J. Phys. B 
+	\textbf{9}, 1199 (1976). 
+%
+\bibitem{Meystre} P. Meystre, \textit{Quantum Optics: Taming The Quantum} 
+(Springer-Verlag, Berlin?, 2021). 
+%
+\bibitem{MeSa4} P. Meystre and M. Sargent III, \textit{Elements of 
+Quantum Optics} (Springer-Verlag, Berlin, 2007). 
+%
+\bibitem{Scully} M. O. Scully and M. S. Zubairy, \textit{Quantum Optics} 
+(Cambridge University Press, Cambridge, 1997?).
+
+
+
+\end{references}
+
+
+\end{document}

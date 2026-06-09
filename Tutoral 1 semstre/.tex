@@ -1,0 +1,337 @@
+\documentclass[11pt]{beamer}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-decimal]{babel}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{lipsum}
+\usepackage{ragged2e}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{url}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+
+% Bibliografía
+\usepackage[backend=biber,style=authoryear,
+    doi=false,isbn=false,url=false,eprint=false]{biblatex}
+\addbibresource{bibliografia.bib}
+
+% Tema
+\usetheme{Boadilla}
+
+% Colores personalizados
+\definecolor{primaryColor}{RGB}{20,45,105}
+\definecolor{secondaryColor}{RGB}{0,100,160}
+\setbeamercolor{structure}{fg=primaryColor}
+\setbeamercolor{palette primary}{bg=primaryColor, fg=white}
+\setbeamercolor{palette secondary}{bg=secondaryColor, fg=white}
+\setbeamercolor{title}{bg=primaryColor, fg=white}
+
+% Información del título
+\title[Trayectorias Cuánticas]{Trayectorias Cuánticas Difusivas Para Simular Espectros de Fluorescencia Resonante}
+\author[Kevin Martínez Franco]{L.T. Kevin Martínez Franco \\ Dr. Héctor Manuel Castro Beltrán}
+\date{\today}
+\subtitle{Tutoral Primer Semestre Agosto - Diciembre 2024}
+
+% Logo - Ajusta la ruta
+\logo{\includegraphics[height=0.5cm]{ciicap.png}}
+
+\begin{document}
+
+
+        \begin{frame}
+		\maketitle
+	\end{frame}
+
+
+        \begin{frame}{Contenido}
+		\tableofcontents
+	\end{frame} 
+
+\section{Resumen}
+\begin{frame}{Resumen}
+\justifying
+Se presentan simulaciones de trayectorias de brincos cuánticos, diseñadas para analizar el fenómeno de la fluorescencia resonante intermitente. Este análisis se centra en la estadística de los tiempos de espera, así como en las distribuciones de períodos brillantes y oscuros, como un paso inicial en el estudio de sistemas capaces de generar espectros con picos angostos.
+\\
+Además, se incluye una simulación de detección heterodina en un átomo de dos niveles.
+
+\end{frame}
+
+
+
+
+\section{Introducción}
+\begin{frame}{Introducción}
+\justifying
+Contexto general:
+\begin{itemize}
+    \item La espectroscopía de fluorescencia es clave para estudiar sistemas cuánticos.
+    \item Fenómenos como la fluorescencia intermitente revelan detalles de la dinámica de átomos individuales.
+    \item La detección heterodina y homodina permiten espectros de alta resolución.
+\end{itemize}
+Teoría base: 
+\begin{itemize}
+    \item La teoría de trayectorias cuánticas modela eventos estocásticos como emisiones de fotones.
+    \item Se emplea para simular sistemas abiertos y analizar períodos brillantes y oscuros.
+\end{itemize}
+\end{frame}
+
+
+\section{Objetivos}
+\begin{frame}{Objetivos}
+Objetivo General:
+\begin{itemize}
+    \item Simular sistemas cuánticos de dos y tres niveles utilizando la teoría de Trayectorias Cuánticas (Función de onda de Monte Carlo).
+\end{itemize}
+
+Objetivos Específicos:
+\begin{itemize}
+    \item Simular un sistema de dos niveles, aplicando el modelo de trayectorias cuánticas para
+explorar su comportamiento estocástico.
+    \item Extender la simulación un sistema de tres niveles con intermitencia, analizando los efectos de este fenómeno en la dinámica del sistema.
+
+    \item Obtener distribuciones de tiempos de espera y tiempos oscuros para ambos sistemas,
+utilizando la ecuación maestra y trayectorias de brincos cuánticos.
+    \item Simular la detección heterodina en un sistema de dos niveles, evaluando su capacidad
+para obtener espectros de alta resolución.
+\end{itemize}
+
+
+
+
+
+\end{frame}
+
+
+\section{Metodología}
+    \subsection{Planteamiento del problema}    
+    \begin{frame}{Planteamiento del problema}
+        \justifying
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\linewidth]{Presentacion MMA/1 sistema.png}
+            \caption{Esquema del átomo de 3 niveles}
+            \label{fig:enter-label}
+        \end{figure}
+      
+    \end{frame}
+
+
+
+   
+        
+
+    \section{Resultados}
+    \subsection{Simulaciones del sistema} 
+    \begin{frame}{Simulación de las trayectorias. }
+        \justifying
+        En la Fig.~2, mostramos un fragmento de una trayectoria t\'ipica, mostrando per\'iodos brillantes con oscilaciones de Rabi, y per\'iodos oscuros. A la derecha Mostramos el promedio en un ensamble de 4000 trayectorias, el cual se compara muy bien con el resultado obtenido con la ecuaci\'on maestra. Par\'ametros: $\Omega=3.5\gamma$, $\Delta=0$, $\gamma=0.95$ , $\gamma_d=0.05\gamma$, $\gamma_a =0.015 \gamma$. 
+    
+        
+        \begin{center}
+        \includegraphics[width=1\linewidth]{Presentacion MMA/zoom y meq vs tj.png} 
+        \end{center}
+        
+
+        
+    \end{frame}
+
+
+
+
+
+\subsection{Estadística de tiempos oscuros}
+\begin{frame}{Estadística de tiempos oscuros}
+
+\centering
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{Tutoral 1 semstre/DistDurOscuros.png}
+    \caption{A la izquierda las duraciones de los per\'iodos oscuros y su distribuci\'on obtenidas de una trayectoria larga de duraci\'on $\gamma t = 10^6$. }
+    \label{fig:enter-label}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Estadística de tiempos oscuros}
+\justifying
+El procedimiento de c\'alculo de trayectorias permite recoger la informaci\'on de fotoemisiones y estad\'istica de los per\'iodos brillantes y oscuros. Esto se logra mejor si hacemos una trayectoria muy larga en lugar de muchas trayectorias cortas. Se pueden obtener las distribuciones de las duraciones de los periodos oscuros y brillantes, que siguen distribuciones exponenciales:\footnote{\fullcite{PlKn}}
+$$ P_O = \frac{1}{T_O} e^{-t/T_O}, \qquad  
+    P_B = \frac{1}{T_B} e^{-t/T_B} ,$$
+con duraciones promedio
+$$ T_O = \gamma_a^{-1}, \qquad T_B = \frac{2\Omega^2 + \gamma^2 + 4\Delta^2}{\gamma_d \Omega^2} .$$
+\end{frame}
+
+
+
+\subsection{Distribuciones de tiempos de espera}
+\begin{frame}{Distribución de tiempos de espera en un Sistema de Dos Niveles con Diferentes Frecuencias de Rabi}
+
+
+
+     La figura muestra la distribución de la emisión en un sistema de dos niveles bajo la influencia de campos con diferentes frecuencias de Rabi.
+    Se consideran dos casos:
+
+        \textbf{Frecuencia de Rabi \(\Omega = 1\)}: Representa un campo de intensidad moderada. \\
+       \textbf{Frecuencia de Rabi \(\Omega = 3\)}: Representa un campo más intenso.
+
+  
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{Presentacion MMA/2LA.png}
+   
+    \label{fig:enter-label}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Combinación de Distribuciones en un Sistema de Tres Niveles con Shelving}
+
+\textbf{Mezcla de Distribuciones Independientes}
+
+\begin{itemize}
+  
+
+    \item La dinámica del sistema implica:
+    \begin{itemize}
+        \item Transiciones entre \( |g\rangle \) y \( |e\rangle \) — comportamiento de un sistema de \textbf{dos niveles}
+        \item Transiciones hacia y desde \( |m\rangle \) — introducen \textbf{períodos oscuros} (no emisión de fotones)
+    \end{itemize}
+    \vspace{0.5em}
+    \item Las \textbf{distribuciones de tiempos de espera} del sistema de dos niveles y los \textbf{tiempos oscuros} asociados al estado metastable se \textbf{combinan de forma independiente} en la distribución total
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Distribución de tiempos de espera 3LA con frecuencia de $\Omega = 1$}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{Tutoral 1 semstre/debilfinal.png}
+ 
+    \label{fig:enter-label}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Distribución de tiempos de espera 3LA con frecuencia de $\Omega = 3.5$}
+\centering
+\begin{figure}
+    
+    \includegraphics[width=1\linewidth]{Tutoral 1 semstre/fuertefinal.png}
+
+    \label{fig:enter-label}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+          \frametitle{Esquema de Detección Heterodina}
+          \begin{figure}
+            \centering
+            \includegraphics[width=0.8\linewidth]{fig3.png}
+            \caption{Esquema de Detección Heterodina Balanceada}
+          \end{figure}
+        \end{frame}
+
+        \begin{frame}
+          \frametitle{Espectros de Detección Heterodina}
+          \begin{figure}
+            \centering
+            \includegraphics[width=0.8\linewidth]{fig4.png}
+            
+            \caption{Izquierda: Fluorescencia de un átomo de dos niveles muy fuera de resonancia.\footnote{\fullcite{hoffges1997jmod}} Derecha: Pico espectral causado por fluoroscencia intermitente \footnote{\fullcite{Tamm}}}
+          \end{figure}
+        \end{frame}
+
+
+
+\begin{frame}{Simulación de detección heterodina de un átomo de dos niveles}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\linewidth]{Tutoral 1 semstre/heterodine.png}
+        \caption{Simulación de la medición continua, la población del estado excitado y espectro del átomo de dos niveles en detección heterodina }
+        \label{fig:enter-label}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Conclusión}
+\justifying
+Se ha demostrado el poder de la teoría de trayectorias cuánticas para modelar y analizar fenómenos de fluorescencia resonante en sistemas de dos y tres niveles. Las simulaciones realizadas han permitido:
+\begin{enumerate}
+  
+
+  \item Comprender el Comportamiento Estocástico.
+
+  \item Validar Modelos Teóricos.
+
+  \item Explorar Dinámicas Complejas en el sistema de tres niveles.
+\end{enumerate}
+Finalmente, este trabajo sienta las bases para futuras investigaciones sobre espectros de alta resolución y otros fenómenos cuánticos avanzados, mostrando la relevancia de las trayectorias cuánticas para el estudio de sistemas abiertos.
+
+\end{frame}
+
+
+\section{Bibliografia}
+ \begin{frame}[allowframebreaks]
+    \smaller
+    \vspace{-0.4em}
+    \printbibliography
+\end{frame}
+
+\section{Anexos}
+    \begin{frame}{Constancia del Workshop}
+    \includegraphics[width=1\linewidth]{Reporte Semestre 1/constancia.png}
+    
+    \end{frame}
+
+    \begin{frame}{Póster del Workshop}
+    \centering
+    \includegraphics[width=0.5\linewidth]{Reporte Semestre 1/posterpdf_page-0001.jpg}
+        
+    \end{frame}
+    \begin{frame}{Cronograma}
+    \centering
+        \includegraphics[width=0.5\linewidth]{Tutoral 1 semstre/cronograma.png}
+        
+    \end{frame}
+    \begin{frame}{Algoritmo de Saltos Cuánticos}
+        \justifying
+        \vspace{0.3cm}
+    
+        \begin{enumerate}
+            \item \textbf{Inicialización}: El sistema comienza en un estado puro inicial $\ket{\psi(0)}$.
+            \item \textbf{Evolución Continua}: Se resuelve la ecuación de Schrödinger no hermítica:
+            \[
+            \frac{d}{dt}\ket{\psi(t)} = -\frac{i}{\hbar} H_{\text{eff}} \ket{\psi(t)}
+            \]
+            donde $H_{\text{eff}} = H - \frac{i}{2} \sum_j \gamma_j C_j^\dagger C_j$.
+            
+            \item \textbf{Detección de Saltos}: La probabilidad de salto en cada $\delta t$ se compara con un número aleatorio.
+            
+            \item \textbf{Salto Cuántico}: Si ocurre un salto, el estado colapsa a través de un operador $C_j$, y se normaliza:
+            \[
+            \ket{\psi(t)} \rightarrow \frac{C_j \ket{\psi(t)}}{\sqrt{\langle \psi(t) | C_j^\dagger C_j | \psi(t) \rangle}}.
+            \]
+            
+            \item \textbf{Repetición}: Se repiten los pasos 2-4 hasta completar el tiempo de evolución.
+        \end{enumerate}
+    
+    
+    
+        \vspace{0.2cm}
+        \footnotesize
+        \footfullcite{Carmichael}
+    \end{frame}
+
+    \begin{frame}{Algoritmo para Calcular Períodos Oscuros}
+    
+    \textbf{Descripción Simplificada del Algoritmo}
+    
+    \begin{enumerate} \item \textbf{Registro de Eventos de Colapso} \begin{itemize} \item Durante la simulación, se registran eventos de colapso en ciertos tiempos. \item Cada colapso corresponde a una transición específica en el sistema. \end{itemize} \vspace{0.5em} \item \textbf{Identificación de Períodos} \begin{itemize} \item \textbf{Períodos Brillantes}: Intervalos donde el sistema emite fluorescencia. \item \textbf{Períodos Oscuros}: Intervalos donde no hay emisión de fluorescencia. \end{itemize} \vspace{0.5em} \item \textbf{Detección de Transiciones Clave} \begin{itemize} \item Se enfocan en colapsos específicos que marcan el inicio y fin de los períodos. \item Por ejemplo, un colapso de tipo 1 indica el inicio de un período brillante. \end{itemize} \vspace{0.5em} \item \textbf{Cálculo de Duraciones} \begin{itemize} \item \textbf{Períodos Brillantes}: Duración = tiempo de fin - tiempo de inicio. \item \textbf{Períodos Oscuros}: Duración = inicio del siguiente período brillante - fin del período brillante actual. \end{itemize} \vspace{0.5em} \item \textbf{Almacenamiento y Análisis} \begin{itemize} \item Se guardan las duraciones para análisis estadístico. \item Permite calcular tiempos promedio y visualizar patrones de intermitencia. \end{itemize} \end{enumerate}
+    
+\end{frame}
+
+\end{document}

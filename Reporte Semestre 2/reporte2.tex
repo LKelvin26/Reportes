@@ -1,0 +1,595 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{float}
+\usepackage{enumitem}
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\usepackage{titlesec}
+
+\usepackage[backend=biber,style=numeric,sorting=none,maxnames=5,minnames=1,doi=false,isbn=false,url=false]{biblatex}
+
+% Estilo para títulos de sección
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\usepackage{atbegshi}
+\spanishdecimal{.}
+\begin{document}
+
+% Portada estilizada
+
+    \begin{center}
+    
+        % Logos e institución
+        \includegraphics[width=4cm]{Reporte Semestre 1/logos/uaem.png} \hfill
+        \includegraphics[width=5cm]{Reporte Semestre 1/logos/ciicap.png} \\[2cm]
+        
+        % Línea separadora superior
+        \hrulefill \\[0.4cm]
+
+        % Programa educativo
+        {\Large \textsc{Maestría en Ingeniería y Ciencias Aplicadas}} \\[0.5cm]
+
+        % Título del reporte
+        \hrulefill \\[0.4cm]
+        {\LARGE \textbf{Trayectorias Cuánticas Difusivas Para Simular\\
+        Espectros de Fluorescencia Resonante}} \\[0.4cm]
+        \hrulefill \\[0.5cm]
+
+        % Subtítulo y periodo
+        {\Large \textbf{Segundo Reporte Semestral}} \\[0.2cm]
+        {\large \textbf{Periodo: Enero-Agosto 2025}} \\[2cm]
+        
+        \vfill
+
+        % Información del estudiante
+        \textbf{Alumno:} \\[0.2cm]
+        {\Large L. T. Kevin Martínez Franco} \\[1.5cm]
+
+        % Información del asesor
+        \textbf{Asesor:} \\[0.2cm]
+        {\Large Dr. Héctor Manuel Castro Beltrán} \\[2cm]
+
+        % Fecha
+        {\large \textbf{\today}} \\[2cm]
+        
+        % Línea final
+        \hrulefill
+
+    \end{center}
+
+
+% Resumen
+\section*{Resumen}
+
+Este reporte presenta los avances realizados en la simulación de ecuaciones estocásticas de Schrodinger para obtener espectros de fluorescencia resonante en sistemas cuánticos abiertos, utilizando trayectorias cuánticas difusivas como herramienta principal. En esta etapa, se implementaron simulaciones tanto con la biblioteca QuTiP como con un código propio basado en ecuaciones estocásticas diferenciales, permitiendo obtener espectros y fotocorrientes en configuraciones de detección heterodina. Esta técnica supera las limitaciones impuestas por fotoconteo del campo transmitido por un filtro Fabry-Perot permitiendo alcanzar resoluciones del orden de Hz.
+
+La metodología se fundamenta en la resolución numérica de ecuaciones estocásticas para trayectorias difusivas, incorporando ruido complejo de Wiener en la detección heterodina. Se simularon dos casos representativos: un sistema de dos niveles muy fuera de resonancia, que presenta un espectro angosto de dispersión elástica, y un sistema de tres niveles con fluorescencia intermitente (shelving), que muestra un triplete espectral con un pico central estrecho asociado al tiempo de vida largo del estado metastable.
+
+Estos resultados confirman que las trayectorias cuánticas difusivas constituyen una herramienta eficaz para el estudio de la dinámica de emisión de luz, especialmente en esquemas de detección donde el fotoconteo no es viable. Este enfoque fortalece las bases para futuras simulaciones de sistemas más complejos y contribuye al desarrollo de espectroscopía cuántica de alta resolución.
+
+
+
+
+
+
+% Introducción
+\section*{Introducción}
+En el estudio previo del fenómeno de Fluorescencia Resonante Intermitente, se realizó un análisis basado en la detección y caracterización de las distribuciones de tiempos de espera entre fotones y de tiempos oscuros. Estas distribuciones proporcionaron información clave sobre las transiciones entre los estados cuánticos del sistema, permitiendo caracterizar el proceso de emisión de fotones en función del tiempo.
+Sin embargo, este enfoque se centró únicamente en la estadística de fotones, dejando fuera información crucial sobre las propiedades del campo óptico, como las amplitudes de campo, el squeezing y el espectro óptico.
+
+En este nuevo enfoque, se utilizará la detección heterodina, que permite acceder a la información de las amplitudes de campo y, por lo tanto, proporciona una visión complementaria del sistema cuántico. 
+%\sout{A diferencia de las distribuciones de tiempos de espera, %la detección heterodina captura las fluctuaciones de amplitud, %no fase del campo óptico, lo que }
+haciendo posible observar el espectro de emisión.
+
+La detección heterodina ha emergido como una herramienta clave en la espectroscopía cuántica, al permitir un análisis detallado del campo electromagnético emitido por átomos individuales con resoluciones espectrales sub-Hz. A diferencia de técnicas tradicionales de detección, la heterodina mezcla la luz de fluorescencia con un oscilador local coherente, revelando no solo la intensidad, sino también la fase y las fluctuaciones cuánticas del campo. Esta capacidad resulta esencial para el estudio de fenómenos sutiles como la dispersión coherente y el shelving, cuya comprensión demanda tanto precisión experimental como modelado teórico fino.
+
+Entre los estudios experimentales más relevantes se encuentran los de Höffges et al.[5,6], quienes combinaron la localización tridimensional de un solo ion en una trampa de radiofrecuencia con detección heterodina para medir con alta resolución la fluorescencia del sistema. Observaron componentes coherentes con un ancho de línea tan estrecho como 0.7 Hz, atribuibles a la dispersión elástica de la luz láser incidente. Este enfoque no solo permitió confirmar la existencia de emisión coherente predicha desde los trabajos de Weisskopf y Wigner y de Mollow, sino que también abrió la posibilidad de observar correlaciones de orden superior del campo, como el antibunching e incluso el squeezing en la fluorescencia de un solo ion.
+
+Complementariamente, el trabajo de Bühner y Tamm.[8] investigó cómo la dinámica estocástica de saltos cuánticos en un ion atrapado afecta el espectro de fluorescencia. Utilizando detección heterodina, identificaron una componente lorentziana adicional cuya anchura depende del tiempo promedio en que el ion permanece en un estado oscuro. Estos resultados demostraron cómo la emisión intermitente, modulada por la estructura interna del sistema, deja huellas cuantificables en el espectro observado.
+
+En este trabajo se aborda la simulación de tales fenómenos desde la perspectiva de la Teoría de Trayectorias Cuánticas [1, 4], un formalismo que describe la evolución estocástica de sistemas abiertos bajo medición continua. Particularmente, se implementan trayectorias difusivas adecuadas para detección heterodina— mediante ecuaciones estocásticas resueltas numéricamente con Python y la biblioteca QuTiP. Se simulan casos como el sistema de dos niveles y un sistema de shelving de tres niveles, con el objetivo de reproducir y entender las características espectrales observadas experimentalmente. Estas simulaciones constituyen un paso hacia la validación numérica de experimentos reales y la exploración de configuraciones más complejas en espectroscopía cuántica.
+
+
+\section*{Detección Heterodina Balanceada}
+
+La detección heterodina balanceada (DHt) es una técnica que permite medir las propiedades espectrales de un campo óptico mezclándolo con un oscilador local (OL) de frecuencia diferente $w_{lo} \neq w$. A diferencia de la homodina, en este esquema:
+
+\begin{itemize}
+\item El OL tiene una frecuencia $w_{lo}$ significativamente diferente a la del campo bajo estudio ($w$), típicamente separada por varios MHz o GHz.
+\item La diferencia de frecuencias $\Delta w= w_{lo}-w$ cae en el rango de radiofrecuencias, permitiendo su detección con fotodiodos.
+\item Se pierde la sensibilidad a la fase relativa entre los campos, pero se gana información espectral.
+\end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Reporte Semestre 1/deteccion h.png}
+    \caption{Esquema de detección heterodina balanceada. El emisor (círculo rojo) y el OL operan a frecuencias diferentes. generando una señal de batido en el rango de RF. (fig. por Kevin MF)}}
+    \label{fig:enter-label}
+\end{figure}
+
+Sean $\hat{a}$ y $\hat{b}$ los operadores de los modos del emisor (frecuencia $\omega$) y del OL (frecuencia $\omega_{lo}$), respectivamente.[8] . Tras el divisor de haz (DH) con $R=T=1/2$, los modos de salida son:
+
+\begin{eqnarray}
+\hat{c} = \frac{1}{\sqrt{2}} (\hat{a} + i\hat{b}), \quad
+\hat{d} = \frac{1}{\sqrt{2}} (i\hat{a} + \hat{b})
+\end{eqnarray}
+
+La diferencia de fotocorrientes es:
+
+\begin{eqnarray}
+\hat{n}_{cd} = \hat{c}^\dagger \hat{c} - \hat{d}^\dagger \hat{d} = -i(\hat{a}^\dagger \hat{b} - \hat{b}^\dagger \hat{a})
+\end{eqnarray}
+
+Considerando el OL en un estado coherente $\hat{b} = \beta\, e^{i(\omega_{lo}t + \phi)}$, la señal medida es:
+\begin{eqnarray}
+\hat{n}_{cd}(t) = i\beta\left(\hat{a}^\dagger e^{i(\omega{lo}t + \phi)} - \hat{a} e^{-i(\omega_{lo}t + \phi)}\right)
+\end{eqnarray}
+
+Esta señal contiene componentes en $\omega_{lo} \pm \omega$, pero al detectarse con fotodiodos (que responden a la intensidad), solo se conserva la componente de diferencia de frecuencia $\Delta\omega = \omega_{lo} - \omega$.
+
+
+La técnica es particularmente útil para estudiar:
+
+\begin{itemize}
+\item Estructura fina de espectros de emisión
+\item Dinámica de relajación de sistemas cuánticos
+\item Procesos de decoherencia
+\item Interacciones materia-luz en regímenes diversos
+\end{itemize}
+%%%%
+
+
+\section*{Objetivos}
+\textbf{Objetivo General:}
+
+Simular sistemas cuánticos de dos y tres niveles mediante la Teoría de Trayectorias Cuánticas, tanto en su formulación de brincos como en su versión difusiva, con el propósito de estudiar la detección heterodina en distintos regímenes incluyendo el fenómeno de shelving y la excitación fuera de resonancia, obteniendo como resultados principales la evolución de la función de onda y con ello las poblaciones, la fotocorriente y el espectro heterodino.\\
+
+\textbf{Objetivos Específicos:}
+\begin{itemize}
+    \item Simular un sistema de tres niveles con estructura de shelving bajo detección heterodina, analizando cómo la dinámica estocástica se refleja en la fotocorriente y el espectro de fluorescencia.
+    \item Simular un sistema de dos niveles bajo condiciones de excitación muy fuera de resonancia, utilizando detección heterodina para explorar la aparición de componentes coherentes e incoherentes en el espectro.
+    \item Implementar simulaciones numéricas utilizando  ecuaciones estocásticas diferenciales (SDEs) para trayectorias difusivas.
+    \item Obtener la evolución temporal de las poblaciones y compararlas con las soluciones obtenidas a partir de la ecuación maestra, utilizándolas como referencia para verificar la consistencia y precisión de las simulaciones estocásticas.
+    \item Calcular y analizar la fotocorriente heterodina obtenida en cada simulación, así como su espectro asociado, con énfasis en la resolución de componentes coherentes y modulación por saltos cuánticos.
+\end{itemize}
+
+
+
+% Metodología
+\section*{Metodología}
+\subsection*{Transición del formalismo de saltos al difusivo.}
+
+El formalismo de trayectorias cuánticas permite describir la evolución condicional de un sistema cuántico abierto bajo monitoreo continuo del entorno. Dependiendo del tipo de detección realizado sobre el entorno (fotoconteo, homodina, heterodina), se obtiene un \textit{desenrollado} (\textit{unraveling}) diferente de la dinámica descrita por la ecuación maestra.
+
+\paragraph{1. Evolución por saltos cuánticos (detección por fotoconteo).}
+
+En este caso, la dinámica del estado cuántico consiste en intervalos de evolución no unitaria bajo un Hamiltoniano efectivo no-Hermitiano, interrumpidos por saltos estocásticos que representan eventos de emisión[1]:
+
+\begin{equation}
+i\hbar \frac{d}{dt}|\Psi_c(t)\rangle = H_{\mathrm{eff}} |\Psi_c(t)\rangle,
+\end{equation}
+
+donde
+
+\begin{equation}
+H_{\mathrm{eff}} = H - \frac{i\hbar}{2} \sum_k \mathcal{C}_k^\dagger \mathcal{C}_k,
+\end{equation}
+
+y los \( \mathcal{C}_k = \sqrt{\gamma_k} A_{ij} \) representan los distintos canales de decaimiento del sistema. A cada paso temporal \( \delta t \), se evalúa la probabilidad de un salto en el canal \( k \):
+
+\begin{equation}
+p_k(t) = \delta t \cdot \langle \Psi_c(t) | \mathcal{C}_k^\dagger \mathcal{C}_k | \Psi_c(t) \rangle.
+\end{equation}
+
+Si ocurre un salto, el estado se actualiza y normaliza como:
+
+\[
+|\Psi_c(t)\rangle \rightarrow \frac{\mathcal{C}_k |\Psi_c(t)\rangle}{\|\mathcal{C}_k |\Psi_c(t)\rangle\|}.
+\]
+
+\paragraph{2. Evolución difusiva (detección heterodina).}
+
+Cuando el entorno se mide mediante detección heterodina, el sistema evoluciona de forma continua pero influenciada por ruido estocástico complejo. Esta evolución se describe mediante una ecuación de Schrödinger estocástica impulsada por un incremento de Wiener complejo \( dZ \), Lo que sigue es un tratamiento muy simplificado de la Ref.[4]:
+
+\begin{equation}
+\frac{d |\Psi_c \rangle}{dt} = \left\{ -i \mathcal{H}_{\text{eff}} + I_c^Z(t)  A_{ge}  \right\} |\Psi_c \rangle\,,
+\end{equation}
+    
+\begin{equation}
+\mathcal{H}_{\text{eff}} = H_{\text{sys}} - \frac{i}{2} \left( \gamma A_{eg} A_{ge} + \gamma_d A_{ea} A_{ae} + \gamma_a A_{ag} A_{ga} \right)
+\end{equation}
+
+con
+
+\begin{equation}
+\mathcal{H}_Z = \mathcal{H}_{\text{eff}} + i \left( \gamma \langle \bar{\sigma}_+ \rangle + \sqrt{\gamma} \, \eta_Z(t) \right) \sigma_-,
+\end{equation}
+
+donde el Hamiltoniano del Sistema $H_{\text{sys}}$ del átomod dos y tres niveles es:
+
+\begin{equation}
+    H_{\text{sys}} = \Delta\, A_{ee} + \frac{\Omega}{2} \left( A_{eg} + A_{ge}\right),
+\end{equation}
+
+y donde \( \eta_Z(t) = \frac{dZ}{dt} \) y
+
+\begin{equation}
+dZ = e^{i\omega' t} dW = \frac{1}{\sqrt{2}} (dW_1 + i dW_2),
+\end{equation}
+
+con \( dW_1, dW_2 \) incrementos de Wiener reales independientes. Este ruido complejo cumple:
+
+\begin{eqnarray} 	\label{eq:ComplexGaussNoise}
+\overline{dZ} = 0 \,, \qquad \overline{dZdZ} &=&0  \,, 
+	\qquad \overline{dZ^\ast dZ} =dt \,. 	\nonumber \\
+	\overline{\eta_Z(t) \eta_Z(t')} &=& \delta(t-t') \,. 
+\end{eqnarray}
+
+donde $I_c^Z()$ es la fotocorriente medida 
+% 
+\begin{subequations}
+\begin{eqnarray}
+ \\
+I_c^Z(t) &=& \gamma \langle A_{eg} \rangle_c + \sqrt{\gamma} \, \eta_Z(t)	\,,	\label{HeterodyneSSE}
+\end{eqnarray}
+\end{subequations}
+\begin{equation}
+Z_c(t) = 
+\end{equation}
+
+
+
+\textbf{Correlaci\'on de  fotocorrientes y espectro de emisión} 
+ la correlación de segundo orden de los fotocorrientes, en el régimen de retroalimentación nula, está dada por:
+%
+\begin{eqnarray} 	 \label{HomodyneAutoCorr}
+\overline{ I_c(t+\tau) I_c(t) } &=& \gamma^2 
+	\langle : \sigma_+ (t+\tau) \sigma_- (t) : \rangle 
+	+\gamma \delta (\tau) \,, \qquad
+\end{eqnarray}
+%%
+donde usamos la f\'ormula cu\'antica de regresi\'on [1] y la 
+Ec.(\ref{eq:ComplexGaussNoise}). El espectro de fluorescencia se 
+obtiene calculando la transformada de Fourier de esta correlaci\'on, 
+%
+\begin{eqnarray} 	 \label{SpectrumHom}
+S(\omega)-1 \propto \gamma \int_0^{\infty} dt\, \cos{\omega \tau} 
+	\langle  \sigma_+ (t+\tau) \sigma_- (t)  \rangle \,. \quad
+\end{eqnarray}
+%%
+\paragraph{3. Desenrollado cuántico y condición de consistencia.}
+
+Ambos esquemas anteriores son instancias de un mismo principio: representar la dinámica de un sistema abierto a través de una colección de trayectorias condicionadas, en vez de una única evolución mixta del operador densidad reducido \( \rho(t) \). En este contexto, el formalismo de trayectorias cuánticas proporciona una descomposición:
+
+\begin{equation}
+\rho(t) = \mathbb{E}\left[ |\psi_i(t)\rangle \langle \psi_i(t) | \right],
+\end{equation}
+donde \( |\psi_i(t)\rangle \) son las trayectorias puras condicionadas, y \( \mathbb{E}[\cdot] \) denota el promedio estocástico sobre mediciones. Esta descomposición debe satisfacer la condición de consistencia:
+
+\begin{equation}
+\sum_i p_i(t) \, |\psi_i(t)\rangle \langle \psi_i(t)| = \rho(t).
+\end{equation}
+
+Cada tipo de medición da lugar a un desenrollado distinto, con trayectorias individuales que pueden diferir profundamente (Fig[2]), aunque todas reproducen la misma evolución maestra en promedio. Esto demuestra que el formalismo de trayectorias no solo permite simular fenómenos específicos, sino que también enriquece nuestra comprensión conceptual de la dinámica cuántica bajo medición continua.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Reporte Semestre 2/imagenes/tj saltos y heterodina.png}
+    \caption{Comparativa de una trayectoria de saltos contra una difusiva con los mismos parámetros del fenómeno de la fluorescencia resonante intermitente.}
+    \label{fig:enter-label}
+\end{figure}
+
+La detección heterodina se simula utilizando la evolución estocástica de la función de onda, modelada a través de la siguiente metodología general:
+
+\begin{enumerate} \item \textbf{Definir los parámetros del sistema:} \begin{itemize} \item $\gamma$: Raz\'on de emisi\'on espont\'anea. 
+\item $\Omega$: Frecuencia de Rabi. \item $\Delta$: Desintonía. %\item $\eta$: Eficiencia del detector. 
+\end{itemize}
+
+\item \textbf{Definición del espacio de Hilbert del sistema y sus operadores asociados.}
+
+En el caso de un sistema de \textbf{dos niveles}, el espacio está compuesto por los estados base \( |g\rangle \) (estado fundamental) y \( |e\rangle \) (estado excitado), y los operadores relevantes son:
+\[
+A_{eg} = \sigma_+=|e\rangle\langle g|, \quad A_{ge} = \sigma_-= |g\rangle\langle e|, 
+\]
+
+Cuando se considera un sistema de \textbf{tres niveles} con un estado adicional \( |a\rangle \) (metastable o de \textit{shelving}), el espacio de Hilbert se expande para incluir dicho estado, aunque los estados \( |g\rangle \) y \( |e\rangle \) y sus operadores correspondientes permanecen inalterados. Es decir, el espacio de Hilbert de tres niveles incluye el de dos niveles como un subespacio. A este se le agregan los siguientes operadores:
+
+\[
+A_{aa} = |a\rangle\langle a|, \quad A_{ea} = |e\rangle\langle a|, \quad A_{ag} = |a\rangle\langle g|,
+\]
+
+junto con los ya existentes:
+\[
+A_{ee} = |e\rangle\langle e|, \quad A_{gg} = |g\rangle\langle g|, \quad A_{eg} = |e\rangle\langle g|.
+\]
+
+Estos operadores permiten describir no solo la dinámica coherente impulsada por el láser, sino también los procesos de decaimiento entre los tres estados, particularmente las transiciones \( |e\rangle \to |a\rangle \) y \( |a\rangle \to |g\rangle \), que son fundamentales para modelar fenómenos de fluorescencia intermitente.
+
+
+
+
+\item \textbf{Definición del Hamiltoniano del sistema \( H_{\text{sys}} \).}  
+Se considera que el sistema está impulsado por un campo láser coherente que acopla únicamente el estado fundamental \( |g\rangle \) con el estado excitado \( |e\rangle \). Bajo la \textit{aproximación de onda rotante} , el Hamiltoniano efectivo del sistema, tanto para el modelo de dos niveles como para el modelo de tres niveles con estado intermedio metastable (\textit{shelving}), adopta la misma forma funcional, dado que el acoplamiento láser afecta exclusivamente a la subestructura \( |g\rangle \leftrightarrow |e\rangle \).
+
+El Hamiltoniano se expresa como:
+\begin{equation}
+    H_{\text{sys}} = \Delta\, A_{ee} + \frac{\Omega}{2} \left( A_{eg} + A_{ge}\right),
+\end{equation}
+
+
+En el caso del sistema de tres niveles, se asume que el láser no interactúa directamente con el estado metastable \( |a\rangle \), por lo que la dinámica coherente descrita por \( H_{\text{sys}} \) permanece formalmente idéntica a la del sistema de dos niveles. La diferenciación entre ambos modelos radica en los canales de decaimiento incluidos en la descripción disipativa del sistema.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{Presentacion MMA/1 sistema.png}
+    \caption{Esquema del sistema de 3 niveles}
+    \label{fig:enter-label}
+\end{figure}
+\item \textbf{Definir los operadores de salto del sistema:}
+Dependiendo de los canales de emision espontanea para la simuacion es especialmente importante 
+\begin{itemize}
+    \item Para \textbf{dos niveles}: El operador de salto es $\sigma_- = A_{ge}$.
+    \item Para \textbf{tres niveles}: Los operadores de salto son:
+    \[ C_{eg} = \sqrt{\gamma} A_{ge}, \quad C_{ea} = \sqrt{\gamma_d} A_{ae}, \quad C_{ag} = \sqrt{\gamma_a} A_{ga} \]
+\end{itemize}
+
+\item Inicializar el estado cuántico $|\psi_0\rangle$.
+
+\item Evolucionar el sistema mediante el siguiente algoritmo estocástico:
+
+\begin{itemize}
+    \item Para cada paso de tiempo $dt$:
+    \begin{enumerate}
+        \item Generar variables aleatorias $dW_1$ y $dW_2$ para modelar el ruido.
+        \item Calcular el término estocástico $dZ = \frac{dW_1 + i dW_2}{\sqrt{2}}$.
+        \item Obtener la fotocorriente $I_t$ como:
+        \[ I_t = \gamma \langle \sigma_- \rangle + \sqrt{\gamma} \frac{dZ}{\eta dt} \]
+        \item Calcular la evolución de la función de onda para dos y tres niveles:
+        \begin{itemize}
+            \item \textbf{Dos niveles:}
+            \[ d\psi = \left(-i H_{\text{sys}} |\psi_t\rangle - \frac{1}{2} \sigma_+ \sigma_- |\psi_t\rangle \right) dt \]
+            \item \textbf{Tres niveles:}
+            \[ d\psi = \left(-i H_{\text{sys}} |\psi_t\rangle - \frac{1}{2} \sum_{c \in c_{ops}} c^\dagger c |\psi_t\rangle \right) dt \]
+        \end{itemize}
+    \end{enumerate}
+
+
+\end{itemize}
+\item A partir de el promedio de fotocorrientes de varias trayectorias obtener la auto-correlación de segundo orden para calcular el espectro de emisión.
+\end{enumerate}
+
+% Resultados
+\section*{Resultados Preliminares}
+
+\subsection*{Verificación de Simulaciones Estocásticas: Átomo de Dos Niveles}
+Se busca verificar la correcta implementación de las simulaciones estocásticas mediante la convergencia de la población del estado excitado a medida que se aumenta el número de trayectorias. Esta simulación se realiza en condiciones de resonancia ($\Omega = 3, \Delta = 0,\gamma =1$), permitiendo comparar el resultado promedio de las trayectorias con el cálculo de la ecuación maestra.\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Reporte Semestre 2/imagenes/2la tj.png}
+    \caption{Convergencia con el operador de densidad a medida que se aumenta las trayectorias heterodinas}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsection*{Dinámica del Átomo de Dos Niveles en Detección Heterodina}
+Se busca analizar el comportamiento del sistema cuántico en detección heterodina. Se grafican las componentes 
+$\langle \sigma_x \rangle$, $\langle \sigma_y \rangle$ y 
+$\langle \sigma_z \rangle$ del átomo de dos niveles.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Reporte Semestre 2/imagenes/sigma.png}
+    \caption{Evolución de $\langle \sigma_x \rangle$, $\langle \sigma_y \rangle$ y $\langle \sigma_z \rangle$\textbf{}de deteccion heterodina }
+    \label{fig:enter-label}
+\end{figure}
+En las simulaciones de trayectorias cuánticas difusivas bajo detección heterodina, se observa un fenómeno característico conocido como \textit{switching} en la evolución de ciertos componentes del vector de Bloch. Este comportamiento se manifiesta como una alternancia estocástica entre dos configuraciones cuánticas casi estacionarias del sistema, típicamente reflejadas en una evolución binaria (tipo dos niveles) de una componente como $\langle \sigma_x \rangle$, mientras que otras componentes como $\langle \sigma_z \rangle$ y $\langle \sigma_y \rangle$ exhiben oscilaciones tipo Rabi ruidosas.
+
+Debido a la naturaleza \textit{no lineal y estocástica} de la ecuación de Schrödinger condicionada , el principio de superposición deja de aplicarse en el sentido habitual: la evolución del estado puede inducir una \textit{localización dinámica} sobre una de las ramas de una superposición. Esto es un colapso efectivo del estado cuántico, no debido a una medición proyectiva, sino a la retroalimentación continua del entorno medida en tiempo real.
+
+En términos de estados \textit{vestidos} del átomo-láser, el switching puede interpretarse como una alternancia estocástica entre los dos estados coherentes del sistema que corresponden al pico central del triplete de Mollow. La componente $\langle \sigma_x \rangle$, en particular, refleja esta transición entre estados \( |+\rangle \sim (|g\rangle + |e\rangle)/\sqrt{2} \) y \( |-\rangle \sim (|g\rangle - |e\rangle)/\sqrt{2} \), alineados a lo largo del eje $\langle \sigma_x \rangle$ en la esfera de Bloch.
+
+Esta dinámica es coherente con la interpretación del triplete de Mollow como resultado de una cascada de emisión espontánea entre estados vestidos. El pico central está asociado a la interferencia constructiva entre vías de emisión cuántica, mientras que los sidebands están relacionados con oscilaciones de Rabi. El switching, por tanto, es una firma temporal de la estructura espectral del sistema, particularmente del componente coherente de la fluorescencia.
+
+Más allá de su interés fenomenológico, el switching pone en evidencia el potencial de las trayectorias cuánticas difusivas como herramienta para explorar la estructura interna del proceso de emisión bajo monitoreo cuántico continuo, revelando aspectos que no son visibles en la evolución promedio dada por la ecuación maestra.[6]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Reporte Semestre 2/imagenes/esfera xz.png}
+    \caption{Esfera en el plano xz}
+    \label{fig:enter-label}
+\end{figure}
+
+
+Al representar el plano $\langle \sigma_x \rangle$ ,$\langle \sigma_z \rangle$ de la esfera de Bloch, podremos observar cómo la trayectoria se acumula hacia los lados debido a la naturaleza de la detección heterodina. Esta acumulación refleja las fluctuaciones coherentes del sistema inducidas por la interacción del campo de Rabi ($\Omega$) y la retroalimentación de la señal de detección.
+
+
+
+\subsection*{Fotocorriente del Sistema en Detección Heterodina}
+La fotocorriente medida en un experimento de detección heterodina proporciona información sobre las fluctuaciones cuánticas del sistema. En esta simulación, se registra la fotocorriente $I(t)$ obtenida a partir de una trayectoria individual. Esta señal estocástica contiene componentes aleatorias asociadas a la retroalimentación continua de la medición y permite caracterizar la dinámica cuántica bajo monitoreo.
+
+A continuación, se presenta un ejemplo de fotocorriente para una trayectoria en condiciones de resonancia ($\Omega=3.5\gamma$, $\Delta=0$, $\gamma_d=0.95\gamma$, $\gamma_d=0.05\gamma$, y $\gamma_a =0.015 \gamma$). La señal presenta oscilaciones rápidas moduladas por una envolvente estocástica, lo que evidencia el carácter aleatorio de la evolución bajo medición.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Reporte Semestre 2/imagenes/fotocorrinete heterodina 3la.png}
+    \caption{Ejemplo de fotocorriente $I(t)$ para el promedio de 1000 trayectorias en detección heterodina.}
+    \label{fig:fotocorriente}
+\end{figure}
+
+\subsection*{Pico Angosto en Detección Heterodina (Dos Niveles)}
+Se simula un espectro con detección heterodina bajo una desintonía grande $( \Delta= 8\gamma)$, siguiendo el experimento de Hoffges et al.[5,6] El objetivo es observar un pico angosto que no sería detectable con un interferómetro Fabry-Pérot.\\
+El pico angosto confirma que la detección heterodina permite observar fenómenos espectrales que no serían visibles con técnicas convencionales.\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Reporte Semestre 2/imagenes/2la 8 detuning.png}
+    \caption{Parte inelástica del espectro a causa de la desintonía con un pico angosto de 0.79 hz de ancho}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\subsection*{Verificación de Simulaciones en Sistema de Tres Niveles}
+Se extiende la simulación estocástica al sistema de tres niveles. Se verifica la convergencia de la población del estado excitado con el resultado de la ecuación maestra.\\
+La coincidencia entre las trayectorias y la ecuación maestra valida la implementación del sistema de tres niveles.\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Reporte Semestre 2/imagenes/Convergencia 3la.png}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsection*{Pico Angosto en Sistema de Tres Niveles (Shelving)}
+Se simula el espectro para un sistema de tres niveles con shelving, donde se observa un pico angosto. Este fenómeno se justifica por la combinación de oscilaciones y decaimiento lento en la solución de la ecuación maestra, basado en el experimento de Buhner y Tamm.[8]\\
+La frecuencia de Rabi óptima para obtener el pico angosto del shelving en la simulación está dada por la siguiente expresión 
+    \begin{center}
+    \begin{equation}
+    \Omega_{\text{opt}} = \left[ \frac{(\gamma^2 + 4\Delta^2)(\gamma_+^2 + 4\Delta^2)}{2(2 + q)} \right]^{1/4}
+    \end{equation}
+    \end{center}
+
+
+\begin{itemize}
+    \item $\gamma$ es la tasa de decaimiento del estado excitado $|e\rangle$ hacia el estado base $|g\rangle$.
+
+    \item $\gamma_+ = \gamma + \gamma_d$, que es la tasa de decaimiento total del estado excitado.
+
+    \item $\Delta$ es la desintonía del láser.
+
+    \item $q = \dfrac{\gamma_d}{\gamma_a}$ es la relación entre las tasas de decaimiento:
+        \begin{itemize}
+            \item Del estado $|e\rangle$ hacia $|a\rangle$ ($\gamma_a$),
+            \item Y del estado $|a\rangle$ hacia $|g\rangle$ ($\gamma_d$).
+        \end{itemize}
+\end{itemize}
+
+Dados los siguientes valores de las tasas de decaimiento:
+\begin{itemize}
+    \item Tasa de decaimiento de $|e\rangle$ a $|a\rangle$: $\gamma_a = 0.015$
+    \item Tasa de decaimiento de $|a\rangle$ a $|g\rangle$: $\gamma_d = 0.05$
+    \item Tasa de decaimiento de $|e\rangle$ a $|g\rangle$: $\gamma = 0.95$
+\end{itemize}
+
+\subsection*{1. Cálculo de la tasa total $\gamma_+$}
+La tasa de decaimiento total del estado excitado se calcula como:
+\[
+\gamma_+ = \gamma + \gamma_d = 0.95 + 0.05 = \boxed{1.00}
+\]
+
+\subsection*{2. Cálculo del parámetro $q$}
+La relación entre las tasas de decaimiento está dada por:
+\[
+q = \frac{\gamma_d}{\gamma_a} = \frac{0.05}{0.015} \approx \boxed{3.\overline{3}}
+\]
+\[
+\Omega_{\text{opt}} = \left[ \frac{(0.95^2)(1.00^2)}{2(5.333)} \right]^{1/4} \approx 0.54
+\]
+\\
+Aparte de utilizar la frecuencia de Rabi óptima ($\Omega_{\text{opt}} = 0.54$), también se utilizará una frecuencia de Rabi de $\Omega = 3.5$, como se ha reportado en el artículo de R. Román-Ancheyta-[7], para observar el triplete de Mollow. En este régimen, se espera que el espectro muestre un pico angosto en el centro, acompañado por dos picos laterales, característicos de la estructura de Mollow.
+
+El uso de esta frecuencia más alta permite comparar las condiciones óptimas para el pico angosto del \textit{shelving} con las condiciones del triplete de Mollow, proporcionando una visión más completa de las transiciones cuánticas y su espectro de fluorescencia.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Reporte Semestre 2/imagenes/3la pico angosto.png}
+    \caption{Comparativa entre el espectro de 2 niveles y 3 niveles donde se ve claramente la diferencia en el pico angosto con parametros ($\Omega=3.5\gamma$, $\Delta=0$, $\gamma=0.95$, $\gamma_d=0.05\gamma$, y $\gamma_a =0.015 \gamma$) }
+    \label{fig:enter-label}
+\end{figure}
+
+\newpage
+%Trabajo Futuro
+\section*{Perspectiva del tercer semestre}
+Durante el tercer semestre, se abordarán diferentes líneas de investigación y formación académica con el objetivo de profundizar en fenómenos cuánticos avanzados y técnicas de detección en sistemas de múltiples niveles. A continuación, se detallan los principales puntos de enfoque:
+\begin{enumerate}
+    
+\item Detección Homodina Balanceada:
+El objetivo principal será utilizar la detección homodina 
+balanceada para observar el fenómeno de squeezing en sistemas cuánticos. A diferencia de la detección heterodina, la técnica homodina permite acceder a la información de una cuadratura específica del campo electromagnético, lo que hace posible observar fluctuaciones por debajo del límite cuántico.
+
+\item Simulación de Batimientos Cu\'anticos en un sistema de cuatro niveles con Detección Heterodina:
+Se propone utilizar la detección heterodina para simular el sistema de cuatro niveles donde aparecen fenómenos de quantum beats. Esta simulación se basará en resultados previos obtenidos en el grupo de investigación.%, los cuales proporcionan un punto de partida sólido para la implementación numérica. 
+
+\item Tópicos de Óptica Cuántica:
+Durante este semestre se cursará la materia Tópicos Selectos 
+(Óptica Cuántica), en la cual se abordarán conceptos avanzados como la detección homodina balanceada, fundamental para la medición precisa de señales débiles y fenómenos de squeezing. Además, se explorará otro tema de espectroscopía de alta resolución: la de los espectros dependientes del tiempo, 
+que est\'a siendo estudiado por el grupo del Dr. Castro. y
+% El curso proporcionará herramientas teóricas y prácticas necesarias para el desarrollo de experimentos y simulaciones que involucren fenómenos ópticos cuánticos de alta precisión.
+
+\item Colaboración en Estudios Radiaci\'on Cooperativa. Existe la posibilidad de aportar en este proyecto como una línea de trabajo paralela a la tesis principal. En particular, se colaborará en el estudio teórico y numérico de sistemas compuestos por dos átomos interactuando, donde pueden emerger fenómenos de \textit{subradiancia} y \textit{superradiancia}.  En dichos sistemas, es posible observar picos angostos en el espectro de emisión, los cuales están asociados a la supresión o el refuerzo colectivo de la radiación. 
+
+$i\,\frac{d}{dt}|\Psi_{c}(t)\rangle=\mathcal{H}_{Z}|\Psi_{c}(t)\rangle,$
+
+$\mathcal{H}_{Z}=H_{\text{sys}}+i\left(\gamma\langle\bar{\sigma}_{+}\rangle+\sqrt{\gamma}\,\eta_{Z}(t)\right)\sigma_{-},$
+
+
+
+donde $\eta_{Z}(t)=\frac{dZ}{dt}$ y
+
+$dZ=e^{i\omega^{\prime}t}dW=\frac{1}{\sqrt{2}}(dW_{1}+idW_{2}),$ (9)
+
+con $dW_{1},dW_{2}$ incrementos de Wiener reales independientes. Este ruido complejo cumple:
+
+$\begin{array}{rcl}\overline{dZ}=0\,,&\overline{dZ}dZ&=&0\,,&\overline{dZ^{*}dZ}=dt\,.\\ \eta_{Z}(t)\eta_{Z}(t^{\prime})&=&\delta(t-t^{\prime})\,.\end{array}$ 
+
+$\begin{array}{rcl}\frac{d|\Psi_{c}\rangle}{dt}&=&\left\{ -i\mathcal{H}_{Z}+I_{c}^{Z}\sigma_{-}\right\}|\Psi_{c}\rangle\,,\\ \\ I_{c}^{Z}(t)&=&\gamma\langle\bar{\sigma}_{+}\rangle+\sqrt{\gamma}\,\eta_{Z}(t).\end{array}$
+
+\end{enumerate}
+\newpage
+\section*{Anexos}
+
+
+\subsection*{Cronograma de actividades}
+\begin{document}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{9cm}|c|c|c|c|}
+\hline
+\textbf{Actividad} & \multicolumn{4}{c|}{\textbf{Semestre}} \\ \cline{2-5} 
+ & 1 & 2 & 3 & 4 \\ \hline
+Búsqueda de información y análisis del estado del Arte & \cellcolor{green} & & & \\ \hline
+Estudio detallado de ecuaciones maestras y teoría de trayectorias cuánticas & \cellcolor{green} & & & \\ \hline
+Definición del marco teórico y planteamiento del problema & \cellcolor{green} & & & \\ \hline
+Definición de la metodología de simulación numérica (trayectorias cuánticas) & & \cellcolor{green} & & \\ \hline
+Selección y adaptación de herramientas computacionales (QuTiP, Python) & & \cellcolor{green} & & \\ \hline
+Elaboración del diseño de simulación (condiciones iniciales, parámetros, algoritmos) & & \cellcolor{green} & & \\ \hline
+Programación de simulaciones de trayectorias cuánticas para sistemas simples & & \cellcolor{green} & & \\ \hline
+Simulación y ajuste de parámetros (ejecución y depuración de código) & & \cellcolor{green} & & \\ \hline
+Análisis preliminar de resultados de simulaciones & & \cellcolor{green} & & \\ \hline
+Comparación con experimentos previos y ecuaciones maestras & & & \cellcolor{green} & \\ \hline
+Validación y ajuste de modelos teóricos & & & \cellcolor{green} & \\ \hline
+Discusión de resultados, refinamiento de hipótesis & & & \cellcolor{green} & \\ \hline
+Redacción del informe de investigación (marco teórico, metodología, resultados) & & & \cellcolor{green} & \cellcolor{green} \\ \hline
+Preparación de presentaciones para congresos o seminarios & & & & \cellcolor{green} \\ \hline
+Defensa del proyecto & & & & \cellcolor{green}\\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\newpage
+\section*{Bibliografia}
+
+\begin{enumerate}
+
+    \item H. J. Carmichael, \textit{An Open Systems Approach to Quantum Optics} (Springer, Berlin, 1993).
+    \item H. J. Carmichael, in \textit{Coherence and Quantum Optics VII}, edited by J. H. Eberly, L. Mandel, and E. Wolf (Plenum Press, New York, 1996), p. 177.
+    \item Carmichael, H. J. . Stochastic Schrödinger equations: What they mean and what they can do. (Department of Physics, Chemical Physics Institute and Institute of Theoretical Science, University of Oregon 1993)
+    \item H. M. Wiseman and G. J. Milburn, Phys. Rev. A 47.
+1652 (1993).
+    \item J. T. Höffges, H. W. Baldauf, T. Eichler, S. R. Helmfrid, and H. Walther, Opt. Commun. \textbf{133}, 170 (1997).
+    \item J. T. Höffges, H. W. Baldauf, W. Lange, and H. Walther, J. Mod. Opt. \textbf{44}, 1099 (1997).
+    \item M. B. Plenio and P. L. Knight, Rev. Mod. Phys. \textbf{70}, 101 (1998).
+    \item V. Bühner and Ch. Tamm, Phys. Rev. A \textbf{61}, 061801 (2000).
+    \item R. Román-Ancheyta, O. de los Santos-Sánchez, L. Horvath, and H. M. Castro-Beltrán, \textit{Time-dependent spectra of a three-level atom in the presence of electron shelving}, Phys. Rev. A \textbf{98}, 013820 (2018).
+    \item M. O. Scully and M. S. Zubairy, \textit{Quantum Optics}, Cambridge University Press, Cambridge, 1997, p. 125.
+    
+    
+\end{enumerate}
+
+\end{document}
+\end{document}

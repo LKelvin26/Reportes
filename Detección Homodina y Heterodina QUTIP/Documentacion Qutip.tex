@@ -1,0 +1,121 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{enumitem}
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\usepackage{titlesec}
+\usepackage[backend=biber,style=numeric,sorting=none,maxnames=5,minnames=1,doi=false,isbn=false,url=false]{biblatex}
+\addbibresource{referencias.bib}
+% Estilo para títulos de sección
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\usepackage{atbegshi}
+\spanishdecimal{.}
+\begin{document}
+
+% Portada estilizada
+
+    \begin{center}
+    
+        % Logos e institución
+        \includegraphics[width=4cm]{Reporte Semestre 1/logos/uaem.png} \hfill
+        \includegraphics[width=5cm]{Reporte Semestre 1/logos/ciicap.png} \\[2cm]
+        
+        % Línea separadora superior
+        \hrulefill \\[0.4cm]
+
+        % Programa educativo
+        {\Large \textsc{Maestría en Ingeniería y Ciencias Aplicadas}} \\[0.5cm]
+
+        % Título del reporte
+        \hrulefill \\[0.4cm]
+        {\LARGE \textbf{Trayectorias Cuánticas Difusivas Para Simular\\
+        Espectros de Fluorescencia Resonante}} \\[0.4cm]
+        \hrulefill \\[0.5cm]
+
+        % Subtítulo y periodo
+        {\Large \textbf{Primer Reporte Semestral}} \\[0.2cm]
+        {\large \textbf{Periodo: Agosto-Diciembre 2024}} \\[2cm]
+        
+        \vfill
+
+        % Información del estudiante
+        \textbf{Alumno:} \\[0.2cm]
+        {\Large L. T. Kevin Martínez Franco} \\[1.5cm]
+
+        % Información del asesor
+        \textbf{Asesor:} \\[0.2cm]
+        {\Large Dr. Héctor Manuel Castro Beltrán} \\[2cm]
+
+        % Fecha
+        {\large \textbf{\today}} \\[2cm]
+        
+        % Línea final
+        \hrulefill
+
+    \end{center}
+
+
+% Resumen
+\section*{QuTIP : Stochastic Solver}
+Cuando un sistema cuántico esta sujeto a mediciones continuas, a través de detección homodina por ejemplo es posible simular el estado cuántico condicional usando ecuaciones estocásticas de Schrodinger y ecuación maestra. La solución de estas ecuaciones estocásticas son trayectorias cuánticas, que representan la evolución condicionada dado un registro de medición específico. \\
+
+En general, la evolución estocástica de un estado cuántico se calcula en QuTIP resolviendo la ecuación general \\
+\begin{equation}
+   dp(t) = d_1 \rho dt + \sum_n d_{2,n} \rho d W_n\\ 
+\end{equation}
+
+donde $ d W_n$ es un incremento de Wiener, donde el valor esperado $E[dw] =0$ y $E[dW^2] = dt$\\
+\begin{enumerate}
+
+
+    \item Medición Continua y Estado Condicionado: \\
+    Cuando un sistema cuántico está sujeto a una medición continua (por ejemplo, en detección homodina), su estado cambia de manera estocástica, es decir, de forma no determinista debido al efecto de la medición cuántica.\\
+    Para modelar esto, se utilizan ecuaciones estocásticas como la ecuación de Schrödinger estocástica (SSE) y la ecuación maestra estocástica (SME).
+
+    \item Trayectorias Cuánticas
+    La solución de estas ecuaciones da lugar a lo que se llaman trayectorias cuánticas, que representan la evolución condicionada del sistema dada una historia específica de medición.\\
+    En otras palabras, cada trayectoria muestra cómo evoluciona el estado cuántico dependiendo del resultado de la medición en el tiempo.\\
+
+    \item Evolución Estocástica y el Incremento de Wiener
+    La ecuación general que resuelve QuTiP incluye un término estocástico con un incremento de Wiener ($dW$) que representa una variable aleatoria con media 0 y una variancia $dt$. \\
+    Esto significa que la evolución del estado no es determinista, sino que depende de un ruido cuántico modelado por $dW$
+    
+
+
+\end{enumerate}
+
+En resumen, QuTiP simula la evolución de un sistema cuántico bajo medición continua resolviendo ecuaciones estocásticas, que dan lugar a trayectorias cuánticas. Estas trayectorias dependen de la historia de medición y contienen términos aleatorios descritos por procesos de Wiener.
+
+\section{Stochastic Schrodinger Equation}
+QuTIP toma la ecuación estocástica de Schrodinger del libro de Wiseman Quantum measurement and control" en la sección 4.4:\\
+\begin{equation}
+    d\psi(t) = -iH\psi(t)dt - \sum_n (\dfrac{S_n^\dagger S_n}{2} - \dfrac{e_n}{2} S_n + \dfrac{e_n^2}{8}) \psi(t)dt + \sum_n (S_n - \dfrac{e_n}{2})\psi(t) dW_n ,
+\end{equation}
+donde $H$ es el Hamiltoniano, $S_n$ son los operadores estocásticos de colapso, y $e_n$ es 
+\begin{equation}
+    e_n = \langle \psi (t) | S_n + S_n^\dagger | \psi(t) \rangle  
+\end{equation}
+
+En QuTIP, esta ecuación puede ser resuelta con la función ssesolve, que esta implementada definiendo $d_1$ y $d_{2,n}$ de la ecuación 1 como:
+\begin{equation}
+    d_1 = -iH - \dfrac{1}{2} \sum_n ( S_n^\dagger S_n - e_n S_n + \dfrac{e_i^2}{4}),
+\end{equation}
+y
+\begin{equation}
+    d_{2,n} = S_n - \dfrac{e_n}{2},
+\end{equation}
+
+La función ssesolve va a construir los operadores $d_1$ y $d_{2,n}$ cuando el usuario introduce el Hamiltoniano (H) y un lista de operadores ($sc_ops$). Al igual que la función para resolver trayectorias de brincos mcsolve, el numero de trayectorias y la semilla para el ruido pueden ser acomodados con los argumentos: ntraj y seeds, respectivamente. Si el usuario también requiere la salida de medición, las opciones de entrada {"store_measurement": True} deben estar incluidas.\\
+
+ La deteccion homodina esta activada por defecto. La detección heterodina puede ser fácilmente  simulada con el argumento 'heterodyne=True' en ssesolve.
+
+
+
+
+\end{document}

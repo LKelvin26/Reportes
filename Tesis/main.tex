@@ -1,0 +1,1114 @@
+\documentclass[11pt]{report}
+
+%-------------------------------
+% Define Packages and Formatting
+%-------------------------------
+
+\usepackage[utf8]{inputenc} % Enables the use of UTF-8 character encoding, allowing the direct input of special characters and symbols from various languages.
+\usepackage[T1]{fontenc} % Selects the T1 font encoding, improving font rendering and providing better support for accented characters and special symbols.
+\usepackage[spanish]{babel} % Sets language-specific typographical rules and hyphenation patterns for English, ensuring correct language formatting.
+\usepackage[a4paper, top=2.54cm, bottom=2.54cm, left=2.54cm, right=2.54cm]{geometry} % Set A4 paper size and margins % Set A4 paper size
+\usepackage{amsmath, amssymb} % Provides enhanced mathematical typesetting with additional symbols, environments, and tools from the AMS (American Mathematical Society).
+\usepackage{graphicx} % Allows the inclusion and manipulation of images (graphics) in the document.
+\usepackage{hyperref} % Creates hyperlinks and bookmarks in the PDF output, making cross-references, URLs, and citations clickable for easier navigation.
+\usepackage{endnotes} % Manages the bibliography, allowing the insertion and formatting of endnotes or footnotes for citations and references.
+
+\usepackage{csquotes} % Provides advanced facilities for inline and display quotations
+\usepackage{titlesec} % Add titlesec package
+\usepackage{caption} % Enhances caption formatting and customization options for figures and tables in the document.
+\usepackage{array} % Provides improved and customizable table column formatting and layout options.
+\usepackage{float} % Enhances control over the placement of figures and tables in the document.
+\usepackage{xcolor} % Enables the use of colored text and background in the document, enhancing visual presentation and highlighting.
+\usepackage[expansion=false]{microtype}
+\usepackage{tocloft} % Add tocloft package
+\usepackage{nomencl} % Provides functionality for creating a nomenclature or list of symbols.
+
+\usepackage[
+    backend=biber,
+    style=phys,
+    sorting=none,
+    giveninits=true,
+    articletitle=false,        % Sin títulos de artículos
+    biblabel=brackets,
+    chaptertitle=false,
+    pageranges=false
+]{biblatex}
+
+\makenomenclature % Enable the creation of a nomenclature or list of symbols.
+\addbibresource{referencias.bib}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+
+% Customize ToC formatting
+\renewcommand{\cftchapdotsep}{\cftdotsep} % Dotted lines for chapters
+\renewcommand{\cftchapleader}{\cftdotfill{\cftsecdotsep}} % Dotted lines for chapters
+
+
+% --------
+% Thesis
+%---------
+\begin{document}
+
+
+\input{Source_Folders/Title_Page}
+
+\clearpage % Separate page for Abstract
+\input{Source_Folders/Abstract}
+\addcontentsline{toc}{chapter}{Resumen} % Add Abstract to ToC
+
+\clearpage % Separate page for Acknowledgement
+\input{Source_Folders/Acknowledgement}
+\addcontentsline{toc}{chapter}{Agradecimientos} % Add Acknowledgement to ToC
+
+
+\clearpage % Separate page for ToC
+\tableofcontents
+
+\clearpage % Separate page for List of Figures
+\listoffigures
+\addcontentsline{toc}{chapter}{Lista de Figuras} % Add List of Figures to ToC
+
+\clearpage % Separate page for List of Tables
+\listoftables
+\addcontentsline{toc}{chapter}{Lista de Tablas} % Add List of Tables to ToC
+
+\clearpage
+\printnomenclature
+\addcontentsline{toc}{chapter}{Nomenclatura} % Add Nomenclature to ToC
+
+% -------------------
+% Start your Chapters 
+%--------------------
+
+%=====================================================
+% Capítulo 1 — Introducción
+%=====================================================
+
+
+\chapter{Introducción}
+\section{Flouroscencia Resonante Intermitente}
+%-----------------------------------------------------
+\subsection{Fenómenos interrumpidos aleatoriamente}
+
+En múltiples áreas de la ciencia encontramos fenómenos cuya evolución dista mucho de ser suave o determinista. En estos sistemas, la dinámica se ve interrumpida o modificada de manera aparentemente aleatoria. Lo interesante es que el tiempo que permanecen en cada fase no es constante ni sigue un patrón regular. La característica que diferencia estos fenómenos no es únicamente en sus fluctuaciones, sino en la presencia de transiciones abruptas que transforman comportamiento observable.
+
+Este tipo de dinámica obliga a modificar la manera en que se modelan los sistemas físicos. Mientras que en escenarios regulares suele bastar con describir promedios o ecuaciones diferenciales deterministas, en procesos interrumpidos aleatoriamente la estadística de los tiempos de permanencia y la distribución de eventos individuales se vuelven esenciales. \textbf{El promedio puede ocultar completamente la estructura real del fenómeno}.
+
+Ejemplos de este comportamiento pueden encontrarse en áreas muy distintas.
+En climatología, la alternancia entre regímenes meteorológicos estables y transiciones
+bruscas como la aparición de eventos extremos requiere modelos estocásticos que
+capturen cambios repentinos de dinámica. En finanzas, los mercados pueden experimentar
+periodos prolongados de estabilidad seguidos por caídas abruptas o crisis, cuya
+descripción adecuada depende de modelar correctamente la estadística de los eventos
+raros y las transiciones entre regímenes.
+
+Estos ejemplos nos llevan a una idea que atraviesa todos los casos anteriores: cuando las interrupciones aleatorias son las que mandan en la dinámica de un sistema, describirlo a través de promedios ya no basta. El promedio simplemente no logra atrapar lo que realmente está ocurriendo en la física del fenómeno. Y esto, aunque parezca una cuestión abstracta, aparece de forma especialmente nítida en el comportamiento de ciertos sistemas cuánticos cuando los observamos uno a uno.
+
+%-----------------------------------------------------
+\subsection{Descripción cualitativa de la fluorescencia intermitente}
+%--
+
+El fenómeno que estudiamos en esta tesis encaja justamente en esa categoría de procesos interrumpidos de forma aleatoria. La fluorescencia resonante intermitente puede entenderse con una analogía sencilla: imagina que en el sótano de tu casa hay un foco viejo. Cuando enciendes el interruptor, el foco prende, pero no de manera estable; empieza a parpadear sin un ritmo fijo. A veces el cuarto queda oscuro solo un instante, y otras veces la oscuridad dura varios segundos. No hay un patrón claro, solo una alternancia impredecible entre luz y oscuridad.
+
+Algo muy parecido ocurre en ciertos átomos, puntos cuánticos o moléculas cuando los observamos uno por uno. Durante algún tiempo emiten fotones de manera casi constante como si el foco estuviera bien encendido y, de pronto, la emisión se interrumpe: aparece un periodo oscuro. Después, sin previo aviso, la luz regresa. Ese “parpadeo” no es un defecto del experimento, sino una característica propia del sistema. Entender por qué aparecen esos periodos brillantes y oscuros, cuánto duran y cómo se distribuyen en el tiempo es justamente el objetivo de este trabajo, y para ello necesitamos describir el fenómeno con herramientas estadísticas y ecuaciones estocásticas que capturen esa naturaleza intermitente.
+
+Estudiar este fenómeno no es solo una cuestión teórica; tiene aplicaciones prácticas muy importantes. Por ejemplo, la comprensión detallada de los procesos de emisión intermitente y de las transiciones débiles está directamente relacionada con técnicas de microscopía de super-resolución, reconocidas con el Premio Nobel de Química otorgado a Eric Betzig, Stefan W. Hell y William E. Moerner por el desarrollo de la microscopía de fluorescencia a escala nanométrica. Asimismo, el estudio preciso de transiciones atómicas débiles es fundamental en el desarrollo y perfeccionamiento de relojes atómicos y en metrología de alta precisión, temas ampliamente discutidos en textos avanzados como Advances in Atomic Physics de Claude Cohen.
+
+\section{Origen microscópico de la emisión atómica}
+
+Para entender el origen de los periodos brillantes y oscuros que aparecen en la fluorescencia intermitente es necesario plantear primero una pregunta más básica: ¿qué significa realmente que un átomo emita luz? La fluorescencia, incluso en su forma más simple, es consecuencia de transiciones entre niveles de energía y de la interacción del átomo con el campo electromagnético.
+
+El desarrollo de la teoría cuántica a comienzos del siglo XX estuvo motivado por la necesidad de explicar la radiación del cuerpo negro. La hipótesis de Planck, al introducir la cuantización de la energía, abrió el camino hacia una descripción discreta de los sistemas atómicos. Poco después, el modelo de Bohr estableció una relación explícita entre los niveles de energía del átomo de hidrógeno y las frecuencias de la radiación emitida o absorbida.
+
+En el modelo de Bohr, las transiciones entre niveles $E_n$ y $E_m$ se asocian con la emisión o absorción de un cuanto de radiación cuya frecuencia satisface
+%
+\begin{equation}
+\hbar \omega_{nm} = E_R \left( \frac{1}{n^2} -  \frac{1}{m^2} \right),
+\end{equation}
+%
+donde $E_R$ es la energía de Rydberg. Esta expresión reproduce correctamente las líneas espectrales del hidrógeno y establece el vínculo entre la estructura energética del átomo y el espectro observado.
+
+Sin embargo, esta relación fija únicamente la condición energética de la transición. No explica cómo ocurre el proceso ni por qué un estado excitado decae en el tiempo. En la formulación de la mecánica cuántica no relativista, los niveles $E_n$ corresponden a estados estacionarios del Hamiltoniano atómico. Un estado excitado aislado, por sí mismo, no presenta una dinámica de decaimiento.
+
+La descripción de los procesos de absorción y emisión requiere entonces incorporar explícitamente la interacción con el campo electromagnético. Cuando el acoplamiento es débil, esta interacción puede tratarse mediante teoría de perturbaciones, suponiendo que la energía de interacción es pequeña comparada con la separación entre niveles.
+
+Una formulación consistente del problema exige, además, tratar al campo electromagnético como un sistema cuántico. En este marco, el estado de vacío no es trivial: posee fluctuaciones cuánticas con consecuencias físicas observables \cite{GlauberNobel}. El acoplamiento entre el dipolo atómico y estas fluctuaciones proporciona el mecanismo microscópico responsable del decaimiento radiativo de estados excitados.
+
+La emisión espontánea aparece así como el proceso fundamental que hace posible la fluorescencia. Es el canal mediante el cual el átomo intercambia energía de manera irreversible con el campo y permite la detección de fotones individuales. Cuando esta dinámica básica se combina con estructuras internas adicionales —como estados metaestables o canales de decaimiento débiles— pueden surgir escalas temporales muy distintas, dando lugar a los periodos brillantes y oscuros característicos de la fluorescencia resonante intermitente.
+
+\section{Sistemas cuánticos abiertos y disipación}
+
+Los sistemas en los que se estudia la fluorescencia resonante intermitente pertenecen a la clase de sistemas cuánticos abiertos. A diferencia de los sistemas aislados, cuya evolución está gobernada por una dinámica unitaria, un sistema abierto intercambia energía e información con su entorno. La emisión espontánea constituye precisamente uno de los mecanismos fundamentales de esa interacción irreversible.
+
+La descripción adecuada de estos procesos requiere herramientas que vayan más allá de la ecuación de Schrödinger para estados puros, incorporando formalismos como ecuaciones maestras y operadores de Lindblad, que permiten capturar la disipación y las fluctuaciones responsables de la dinámica intermitente.
+
+
+\section{Sistemas cuánticos abiertos y fluorescencia resonante}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{sistemas_abiertos.png}
+\caption{Esquema general de un sistema cuántico abierto. La región de interacción intercambia energía e información con distintos canales coherentes e incoherentes.}
+\label{fig:sistema_abierto}
+\end{figure}
+
+La Figura \ref{fig:sistema_abierto} muestra un esquema general de un sistema cuántico abierto. En este tipo de sistemas, la región de interacción no está aislada, sino que intercambia energía e información con su entorno a través de distintos canales de entrada y salida, que pueden ser coherentes o incoherentes.
+
+En el contexto de la fluorescencia resonante intermitente, la región de interacción corresponde a un átomo individual (o ion, punto cuántico, etc.) sometido a la acción de un campo láser casi resonante. Desde el punto de vista teórico, el sistema está descrito por un Hamiltoniano que incluye la estructura interna del átomo y el acoplamiento coherente con el campo de excitación.
+
+La \textbf{entrada coherente} representada en la figura corresponde al láser monocromático que impulsa la transición atómica. Este campo posee fase bien definida y genera oscilaciones de Rabi entre los niveles relevantes. En el marco teórico, aparece como un término coherente en el Hamiltoniano de interacción.
+
+Las posibles \textbf{entradas incoherentes} pueden representar ruido ambiental, bombeo no coherente o acoplamientos adicionales con grados de libertad externos. Aunque en el caso ideal de fluorescencia resonante se busca minimizar estas contribuciones, en sistemas reales pueden desempeñar un papel relevante.
+
+En cuanto a las salidas, la \textbf{salida coherente} está asociada a la componente elástica de la luz dispersada, que conserva la fase del láser incidente (dispersión Rayleigh). Cuando la geometría del sistema favorece un modo específico —por ejemplo, en presencia de una cavidad o estructura direccional— puede aparecer una \textbf{salida coherente dirigida}.
+
+Las \textbf{salidas incoherentes} representan la emisión espontánea hacia el continuo de modos del vacío. Estos fotones fluorescentes son los que se detectan experimentalmente y constituyen la señal principal en estudios de fluorescencia resonante. Matemáticamente, estos procesos se describen mediante términos disipativos en una ecuación maestra del tipo Lindblad.
+
+La intermitencia característica de la fluorescencia resonante surge cuando, además del canal radiativo principal, existen transiciones débiles hacia estados metaestables. Estos canales adicionales introducen escalas temporales largas en la dinámica, generando periodos brillantes —dominados por emisión espontánea frecuente— y periodos oscuros en los que el sistema permanece atrapado en un estado que no fluoresce.
+
+De esta manera, la fluorescencia resonante intermitente se interpreta de forma natural dentro del marco de los sistemas cuánticos abiertos: la dinámica observable es el resultado del equilibrio entre excitación coherente y procesos disipativos irreversibles.
+
+\section{Descripción estocástica de la dinámica condicionada}
+
+El desarrollo de la Física Atómica y la Óptica Cuántica experimentó un cambio cualitativo a partir de la década de 1980, cuando se logró atrapar y manipular átomos e iones individuales mediante trampas electromagnéticas y técnicas láser. La posibilidad de observar sistemas cuánticos uno a uno permitió acceder directamente a la dinámica temporal de procesos radiativos que anteriormente sólo podían describirse mediante promedios de conjuntos.
+
+En este contexto, las técnicas de detección interferométrica desempeñaron un papel central. La detección heterodina de la fluorescencia consiste en mezclar la luz emitida por el sistema —generalmente débil— con un haz de referencia intenso, denominado oscilador local. El análisis espectral se obtiene a partir de la transformada de Fourier de la función de autocorrelación de la fotocorriente medida. Este método ha permitido alcanzar resoluciones espectrales extremadamente altas, del orden de 1 Hz, muy por debajo de los anchos naturales típicos de transiciones ópticas, que se encuentran en el rango de MHz.
+
+Mediciones de este tipo revelaron que la fluorescencia de átomos individuales puede presentar estructuras espectrales subnaturales asociadas a dinámicas lentas, como las transiciones hacia estados metaestables responsables de la intermitencia. Tales observaciones pusieron de manifiesto que la dinámica radiativa no sólo está determinada por el ancho natural de la transición principal, sino también por escalas temporales adicionales inducidas por canales débiles de decaimiento.
+
+Desde el punto de vista teórico, estas observaciones requieren una descripción que vaya más allá de la ecuación maestra promedio. Si bien la ecuación de Lindblad proporciona la evolución de la matriz densidad no condicionada, los experimentos de detección continua acceden a realizaciones individuales del proceso de emisión. En consecuencia, la dinámica relevante es la dinámica condicionada al registro de detección.
+
+Esta necesidad condujo al desarrollo del formalismo de trayectorias cuánticas y ecuaciones de Schrödinger estocásticas. En el caso de detección directa de fotones, la dinámica se describe mediante trayectorias con saltos cuánticos discretos, formalismo desarrollado sistemáticamente, entre otros, por Plenio y Knight. En este marco, la evolución del estado está gobernada por un Hamiltoniano efectivo no hermítico interrumpido por saltos asociados a la detección de fotones individuales.
+
+Por otro lado, cuando la fluorescencia se mide mediante detección homodina o heterodina, el proceso de medición no produce eventos discretos claramente identificables, sino una señal continua proporcional a un cuadratura del campo. En este caso, la dinámica condicionada es de tipo difusivo y se describe mediante ecuaciones de Schrödinger estocásticas con términos de ruido gaussiano. La elección del esquema de detección determina, por tanto, la forma concreta de la trayectoria cuántica.
+
+En el caso de la fluorescencia resonante intermitente, ambos enfoques resultan relevantes. La detección directa permite modelar los periodos brillantes como secuencias de saltos frecuentes, mientras que los periodos oscuros corresponden a la ausencia prolongada de eventos. La detección homodina condicionada, en cambio, conduce a una descripción continua en la que la intermitencia se manifiesta como fluctuaciones lentas en la señal medida.
+
+Así, las ecuaciones de Schrödinger estocásticas constituyen la herramienta natural para describir la dinámica microscópica de la fluorescencia intermitente, al permitir conectar el modelo teórico del sistema abierto con el tipo específico de medición realizada experimentalmente.
+%----------------------------
+\chapter{Desarrollo Teórico}
+\subsection{Introduciendo a la teoría de sistemas cuánticos abiertos}
+
+
+\section{Operador de densidad}
+
+En muchos sistemas cuánticos de interés físico no se conoce completamente el estado cuántico del sistema. En particular, cuando se consideran ensambles de partículas o sistemas que interactúan con un entorno, la descripción mediante un único vector de estado puede resultar insuficiente. En estos casos es conveniente utilizar el formalismo del operador de densidad, el cual permite describir estados estadísticos de sistemas cuánticos.
+
+Sea un ensamble de sistemas preparados en diferentes estados cuánticos $|\Psi\rangle$ con probabilidades clásicas $P_{\Psi}$. El operador de densidad se define como
+
+\begin{equation}
+\rho = \sum_{\Psi} P_{\Psi} |\Psi\rangle \langle \Psi|,
+\end{equation}
+
+donde $P_{\Psi}$ representa la fracción del ensamble descrita por el estado $|\Psi\rangle$, con $\sum_{\Psi} P_{\Psi} = 1$.
+
+Si los estados se expanden en una base ortonormal completa $\{|n\rangle\}$ como
+
+\begin{equation}
+|\Psi\rangle = \sum_n C_n |n\rangle,
+\end{equation}
+
+el operador de densidad puede escribirse como
+
+\begin{equation}
+\rho =
+\sum_{\Psi} P_{\Psi}
+\sum_{n,m} C_n C_m^*
+|n\rangle \langle m|
+=
+\sum_{n,m} \rho_{nm}|n\rangle\langle m|,
+\end{equation}
+
+donde $\rho_{nm}$ son los elementos de matriz del operador de densidad en la base considerada.
+
+\subsection{Propiedades matemáticas}
+
+El operador de densidad posee varias propiedades fundamentales que garantizan su interpretación física.
+
+\paragraph{Hermiticidad}
+
+El operador de densidad es hermítico,
+
+\begin{equation}
+\rho^\dagger = \rho,
+\end{equation}
+
+lo que implica que sus valores propios son reales.
+
+\paragraph{Traza unitaria}
+
+La traza del operador de densidad es igual a uno,
+
+\begin{equation}
+\mathrm{Tr}(\rho) = 1,
+\end{equation}
+
+lo cual refleja que la probabilidad total del sistema está normalizada.
+
+\paragraph{Positividad}
+
+Para cualquier estado $|\psi\rangle$ del espacio de Hilbert se cumple
+
+\begin{equation}
+\langle \psi|\rho|\psi\rangle \ge 0,
+\end{equation}
+
+lo que garantiza que todas las probabilidades físicas asociadas al sistema son no negativas.
+
+Estas propiedades implican además que los valores propios de $\rho$ se encuentran en el intervalo $[0,1]$. Cuando el sistema se encuentra en un estado puro se cumple $\rho^2=\rho$, mientras que para estados mixtos se tiene $\mathrm{Tr}(\rho^2)<1$.
+
+\subsection{Ecuación de evolución}
+
+La evolución temporal del operador de densidad puede obtenerse a partir de la ecuación de Schrödinger. Derivando con respecto al tiempo se obtiene
+
+\begin{equation}
+\dot{\rho} =
+\sum_{\Psi} P_{\Psi}
+\left(
+|\dot{\Psi}\rangle\langle\Psi|
++
+|\Psi\rangle\langle\dot{\Psi}|
+\right).
+\end{equation}
+\\
+Utilizando la ecuación de Schrödinger
+
+\begin{equation}
+i\hbar |\dot{\Psi}\rangle = H|\Psi\rangle,
+\end{equation}
+\\
+se obtiene la ecuación de evolución
+
+\begin{equation}
+\dot{\rho} = -\frac{i}{\hbar}[H,\rho],
+\end{equation}
+\\
+conocida como ecuación de von Neumann o ecuación de Liouville cuántica. Su solución formal es
+
+\begin{equation}
+\rho(t) =
+e^{-iHt/\hbar}\rho(0)e^{iHt/\hbar}.
+\end{equation}
+
+\subsection{Valores esperados}
+
+En el formalismo del operador de densidad, el valor esperado de un operador observable $\hat{O}$ se expresa como
+
+\begin{equation}
+\langle \hat{O} \rangle =
+\mathrm{Tr}(\rho \hat{O}),
+\end{equation}
+
+donde $\mathrm{Tr}$ denota la traza del operador.
+
+La dependencia temporal del valor esperado puede escribirse como
+
+\begin{equation}
+\langle \hat{O}(t) \rangle
+=
+\mathrm{Tr}[\rho(t)\hat{O}_S]
+=
+\mathrm{Tr}[\rho(0)\hat{O}_H(t)],
+\end{equation}
+
+lo que muestra que los valores esperados pueden calcularse tanto en la imagen de Schrödinger como en la imagen de Heisenberg.
+
+\subsection{Sistema de dos niveles}
+
+Para un sistema de dos niveles con estados $|e\rangle$ (excitado) y $|g\rangle$ (fundamental), el operador de densidad puede escribirse como
+
+\begin{equation}
+\rho =
+\rho_{ee}|e\rangle\langle e|
++
+\rho_{eg}|e\rangle\langle g|
++
+\rho_{ge}|g\rangle\langle e|
++
+\rho_{gg}|g\rangle\langle g|.
+\end{equation}
+
+En representación matricial,
+
+\begin{equation}
+\rho =
+\begin{pmatrix}
+\rho_{ee} & \rho_{eg} \\
+\rho_{ge} & \rho_{gg}
+\end{pmatrix}.
+\end{equation}
+
+Los elementos diagonales $\rho_{ee}$ y $\rho_{gg}$ representan las probabilidades de ocupación de cada nivel energético, conocidas como \textit{poblaciones}. Los elementos fuera de la diagonal $\rho_{eg}$ y $\rho_{ge}$ se denominan \textit{coherencias} y contienen información sobre la correlación cuántica entre los estados del sistema.
+
+El valor esperado del operador dipolar puede escribirse en términos de los elementos de la matriz de densidad como
+
+\begin{equation}
+\langle \hat{d} \rangle =
+d_{ge}\rho_{eg} + d_{eg}\rho_{ge}.
+\end{equation}
+
+Asimismo, los valores esperados de los operadores de pseudoespín del sistema de dos niveles se expresan como
+
+\begin{align}
+\langle \sigma_x \rangle &= \rho_{eg} + \rho_{ge}, \\
+\langle \sigma_y \rangle &= i(\rho_{eg} - \rho_{ge}), \\
+\langle \sigma_z \rangle &= \rho_{ee} - \rho_{gg}.
+\end{align}
+
+% Añadir definición de sigma + y sigma -
+La cantidad $\langle \sigma_z \rangle$ describe la inversión de población del sistema.
+
+\subsection{Emisión espontánea}
+% Mas formalidad, citar un libro pára ver como se llega a la ecuacion 2.19 
+%El orden, primero el liunviliano
+
+La emisión espontánea es el proceso mediante el cual un átomo inicialmente en un estado excitado decae hacia un estado de menor energía emitiendo un fotón. Desde el punto de vista de la óptica cuántica, este fenómeno surge del acoplamiento entre un sistema cuántico microscópico, en este caso el átomo, y un entorno con un número muy grande de grados de libertad.
+
+En el caso de un átomo interactuando con el campo electromagnético cuantizado, el entorno está constituido por los modos del campo electromagnético. Si el volumen considerado es suficientemente grande, el número de modos disponibles es extremadamente grande y su espectro puede aproximarse como cuasi-continuo. En muchas situaciones de interés, no resulta necesario describir explícitamente la dinámica de todos estos modos del campo; en cambio, se busca una descripción efectiva únicamente de la dinámica del átomo.
+
+Eliminando los grados de libertad del entorno se obtiene una dinámica reducida para el sistema atómico. Como consecuencia de este procedimiento, la probabilidad de encontrar al átomo en el estado excitado decae exponencialmente en el tiempo,
+
+\begin{equation}
+P_e(t) \propto e^{-\gamma t},
+\end{equation}
+
+donde $\gamma$ es la tasa de decaimiento espontáneo. Esta tasa depende del momento dipolar de la transición y de la frecuencia de transición entre los niveles atómicos, de manera aproximada como
+
+\begin{equation}
+\gamma \propto |\mathbf{d}_{eg}|^2 \omega_{eg}^3 ,
+\end{equation}
+
+donde $\mathbf{d}_{eg}$ es el momento dipolar de la transición y $\omega_{eg}$ es la frecuencia correspondiente a la diferencia de energía entre los estados $|e\rangle$ y $|g\rangle$.
+
+Una derivación rigurosa de este comportamiento puede obtenerse mediante el método de Weisskopf--Wigner, el cual considera el acoplamiento débil entre el átomo y los modos del campo electromagnético. Bajo la aproximación de Markov, este método conduce a una dinámica efectiva del sistema descrita mediante una ecuación maestra para el operador de densidad.
+
+En el formalismo del operador de densidad, la contribución de la emisión espontánea se introduce mediante un término disipativo de tipo Lindblad que describe el acoplamiento con el entorno. Dicho término puede escribirse como
+
+\begin{equation}
+\mathcal{L}_a \rho =
+\frac{\gamma}{2}(\bar{n}+1)
+\left(
+2\sigma_- \rho \sigma_+ -
+\sigma_+\sigma_- \rho -
+\rho \sigma_+\sigma_-
+\right)
++
+\frac{\gamma}{2}\bar{n}
+\left(
+2\sigma_+ \rho \sigma_- -
+\sigma_- \sigma_+ \rho -
+\rho \sigma_- \sigma_+
+\right),
+\end{equation}
+
+donde $\bar{n}$ es el número promedio de fotones térmicos del entorno a temperatura $T$, y los operadores
+
+\begin{equation}
+\sigma_+ = |e\rangle\langle g|, \qquad
+\sigma_- = |g\rangle\langle e|
+\end{equation}
+
+corresponden a los operadores de excitación y desexcitación del sistema de dos niveles.
+
+En el régimen óptico, incluso a temperatura ambiente, el número promedio de fotones térmicos es extremadamente pequeño ($\bar{n} \approx 0$). En este caso, el término disipativo se reduce a
+
+\begin{equation}
+\mathcal{L}_a \rho =
+\frac{\gamma}{2}
+\left(
+2\sigma_- \rho \sigma_+ -
+\sigma_+\sigma_- \rho -
+\rho \sigma_+\sigma_-
+\right).
+\end{equation}
+
+Este término describe la pérdida irreversible de excitación del átomo asociada al proceso de emisión espontánea.
+%Empezar por el atomo de dos niveles, luego emision espontanea.
+\subsection{Hamiltoniano de fluorescencia resonante de un átomo de dos niveles}
+
+Consideremos un átomo de dos niveles interactuando con un campo electromagnético clásico monocromático. Los estados atómicos se denotan como $|e\rangle$ y $|g\rangle$, correspondientes al estado excitado y al estado fundamental, respectivamente. La diferencia de energía entre estos niveles define la frecuencia de transición atómica $\omega_{eg}$.
+
+El Hamiltoniano total del sistema puede escribirse como
+
+\begin{equation}
+H = H_0 + H_I ,
+\end{equation}
+
+donde $H_0$ es el Hamiltoniano libre del átomo y $H_I$ describe la interacción con el campo electromagnético.
+
+El Hamiltoniano libre del átomo de dos niveles puede expresarse como
+
+\begin{equation}
+H_0 = \frac{\hbar \omega_{eg}}{2}\sigma_z ,
+\end{equation}
+
+donde
+
+\begin{equation}
+\sigma_z = |e\rangle\langle e| - |g\rangle\langle g|
+\end{equation}
+
+es el operador de pseudoespín asociado al sistema de dos niveles.
+
+La interacción entre el átomo y el campo electromagnético se describe mediante el Hamiltoniano dipolar
+
+\begin{equation}
+H_I = -\hat{\mathbf{d}}\cdot \mathbf{E}(t),
+\end{equation}
+
+donde $\hat{\mathbf{d}}$ es el operador de momento dipolar del átomo y $\mathbf{E}(t)$ representa el campo eléctrico clásico aplicado.
+
+Para un campo monocromático linealmente polarizado se tiene
+
+\begin{equation}
+\mathbf{E}(t) = \mathbf{E}_0 \cos(\omega_L t),
+\end{equation}
+
+donde $\omega_L$ es la frecuencia del láser.
+
+El operador dipolar del sistema de dos niveles puede escribirse como
+
+\begin{equation}
+\hat{\mathbf{d}} =
+\mathbf{d}_{eg}\sigma_- + \mathbf{d}_{ge}\sigma_+ ,
+\end{equation}
+
+donde
+
+\begin{equation}
+\sigma_+ = |e\rangle\langle g|, \qquad
+\sigma_- = |g\rangle\langle e|.
+\end{equation}
+
+Sustituyendo estas expresiones en el Hamiltoniano de interacción se obtiene
+
+\begin{equation}
+H_I = -(\mathbf{d}_{eg}\sigma_- + \mathbf{d}_{ge}\sigma_+)\cdot \mathbf{E}_0 \cos(\omega_L t).
+\end{equation}
+
+Es conveniente definir la frecuencia de Rabi
+
+\begin{equation}
+\Omega = \frac{\mathbf{d}_{eg}\cdot \mathbf{E}_0}{\hbar}.
+\end{equation}
+
+Bajo la aproximación de onda rotante (Rotating Wave Approximation, RWA), se descartan los términos que oscilan rápidamente con frecuencia $2\omega_L$. En estas condiciones el Hamiltoniano de interacción toma la forma
+
+\begin{equation}
+H_I =
+\frac{\hbar \Omega}{2}
+\left(
+\sigma_+ e^{-i\omega_L t}
++
+\sigma_- e^{i\omega_L t}
+\right).
+\end{equation}
+
+Finalmente, al pasar al marco rotante definido por la frecuencia del láser, el Hamiltoniano efectivo del sistema se escribe como
+%Definir mejor como se llega a la sigiente ecuacion$
+\begin{equation}
+H =
+-\frac{\hbar \Delta}{2}\sigma_z
++
+\frac{\hbar \Omega}{2}
+(\sigma_+ + \sigma_-),
+\end{equation}
+
+donde
+
+\begin{equation}
+\Delta = \omega_L - \omega_{eg}
+\end{equation}
+
+es la desintonía (detuning) entre la frecuencia del láser y la frecuencia de transición atómica.
+
+Este Hamiltoniano describe la interacción coherente entre el átomo de dos niveles y el campo láser, y constituye el punto de partida para el estudio de la fluorescencia resonante y de las ecuaciones ópticas de Bloch que gobiernan la dinámica del sistema.
+\section{Ecuación maestra}
+
+Una vez introducido el proceso de emisión espontánea en el modelo de interacción entre un átomo de dos niveles y un campo láser, es posible obtener las ecuaciones de movimiento para los elementos de la matriz de densidad del sistema. Estas ecuaciones describen la evolución temporal de las poblaciones y coherencias del átomo y constituyen la generalización cuántica de las ecuaciones que describen la dinámica de un espín en un campo magnético.
+
+La dinámica del sistema abierto formado por el átomo y su interacción con el entorno electromagnético puede describirse mediante una ecuación maestra para el operador de densidad,
+
+\begin{equation}
+\dot{\rho} =
+-\frac{i}{\hbar}[H,\rho]
++
+\frac{\gamma}{2}
+\left(
+2\sigma_- \rho \sigma_+ -
+\sigma_+\sigma_- \rho -
+\rho \sigma_+\sigma_-
+\right),
+\end{equation}
+
+donde $\gamma$ es la tasa de decaimiento espontáneo, mientras que
+
+\begin{equation}
+\sigma_+ = |e\rangle\langle g|,
+\qquad
+\sigma_- = |g\rangle\langle e|
+\end{equation}
+
+son los operadores de excitación y desexcitación del sistema de dos niveles.
+
+Para completar la descripción del sistema es necesario especificar el Hamiltoniano que describe la interacción coherente entre el átomo y el campo láser. En el marco rotante asociado a la frecuencia del láser, el Hamiltoniano efectivo puede escribirse como
+
+\begin{equation}
+H =
+\hbar \Delta \sigma_+\sigma_-
++
+\frac{\hbar\Omega}{2}
+(\sigma_+ + \sigma_-),
+\end{equation}
+
+donde $\Omega$ es la frecuencia de Rabi y
+
+\begin{equation}
+\Delta = \omega_{eg} - \nu
+\end{equation}
+
+es la desintonía entre la frecuencia de transición atómica $\omega_{eg}$ y la frecuencia del láser $\nu$.
+
+Sustituyendo este Hamiltoniano en la ecuación maestra se obtiene la dinámica completa del sistema. Para obtener las ecuaciones de movimiento de los elementos de la matriz de densidad se proyecta la ecuación maestra en la base $\{|e\rangle,|g\rangle\}$,
+
+\begin{equation}
+\rho_{jk} = \langle j|\rho|k\rangle ,
+\qquad j,k = e,g.
+\end{equation}
+
+De esta manera se obtienen las ecuaciones para las coherencias
+
+\begin{equation}
+\dot{\tilde{\rho}}_{eg}
+=
+-\left(
+\frac{\gamma}{2}+i\Delta
+\right)
+\tilde{\rho}_{eg}
+-
+i\frac{\Omega}{2}
+(\rho_{ee}-\rho_{gg}),
+\end{equation}
+
+\begin{equation}
+\dot{\tilde{\rho}}_{ge}
+=
+-\left(
+\frac{\gamma}{2}-i\Delta
+\right)
+\tilde{\rho}_{ge}
++
+i\frac{\Omega}{2}
+(\rho_{ee}-\rho_{gg}),
+\end{equation}
+
+y para las poblaciones
+
+\begin{equation}
+\dot{\rho}_{ee}
+=
+-\gamma \rho_{ee}
++
+i\frac{\Omega}{2}
+(\tilde{\rho}_{ge}-\tilde{\rho}_{eg}),
+\end{equation}
+
+\begin{equation}
+\dot{\rho}_{gg}
+=
+\gamma \rho_{ee}
+-
+i\frac{\Omega}{2}
+(\tilde{\rho}_{ge}-\tilde{\rho}_{eg}).
+\end{equation}
+
+Estas ecuaciones están escritas en un marco de referencia que rota a la frecuencia del láser, lo cual elimina las oscilaciones rápidas asociadas al campo externo y permite describir únicamente la dinámica relevante del sistema.
+
+Debido a la conservación de la probabilidad,
+
+\begin{equation}
+\rho_{ee}+\rho_{gg}=1,
+\end{equation}
+
+el sistema puede reducirse eliminando una de las poblaciones. En términos de $\rho_{ee}$ y de las coherencias se obtiene
+
+\begin{equation}
+\dot{\tilde{\rho}}_{eg}
+=
+-\left(
+\frac{\gamma}{2}+i\Delta
+\right)
+\tilde{\rho}_{eg}
+-
+i\frac{\Omega}{2}
+(2\rho_{ee}-1),
+\end{equation}
+
+\begin{equation}
+\dot{\tilde{\rho}}_{ge}
+=
+-\left(
+\frac{\gamma}{2}-i\Delta
+\right)
+\tilde{\rho}_{ge}
++
+i\frac{\Omega}{2}
+(2\rho_{ee}-1),
+\end{equation}
+
+\begin{equation}
+\dot{\rho}_{ee}
+=
+-\gamma \rho_{ee}
++
+i\frac{\Omega}{2}
+(\tilde{\rho}_{ge}-\tilde{\rho}_{eg}).
+\end{equation}
+
+Este conjunto de ecuaciones describe completamente la dinámica del átomo de dos niveles bajo excitación coherente por un campo láser en presencia de emisión espontánea. En la literatura se conocen comúnmente como \textit{ecuaciones ópticas de Bloch}.
+
+\subsection{Soluciones en estado estacionario}
+
+Los elementos de la matriz de densidad $\tilde{\rho}_{jk}(t)$ evolucionan en el tiempo en función de los parámetros del sistema, tales como la tasa de emisión espontánea $\gamma$, la frecuencia de Rabi $\Omega$ y la desintonía $\Delta$. Sin embargo, una gran cantidad de información física puede obtenerse analizando las soluciones en estado estacionario, es decir, en el límite de tiempos largos $t \rightarrow \infty$.
+
+En este régimen transitorio inicial ha desaparecido y los elementos de la matriz de densidad alcanzan valores constantes,
+
+\begin{equation}
+\tilde{\rho}_{jk}(t \to \infty) = \tilde{\rho}^{\,st}_{jk},
+\end{equation}
+
+de modo que
+
+\begin{equation}
+\dot{\tilde{\rho}}_{jk}(t\to\infty)=0 .
+\end{equation}
+
+Resolviendo el sistema de ecuaciones ópticas de Bloch bajo esta condición se obtienen las soluciones estacionarias
+
+\begin{equation}
+\tilde{\rho}^{\,st}_{eg} =
+-\frac{\Omega\left(2\Delta+i\gamma\right)}
+{2\Omega^2+\gamma^2+4\Delta^2},
+\end{equation}
+
+\begin{equation}
+\tilde{\rho}^{\,st}_{ge} =
+\left(\tilde{\rho}^{\,st}_{eg}\right)^*,
+\end{equation}
+
+\begin{equation}
+\rho^{\,st}_{gg} =
+\frac{\Omega^2+\gamma^2+4\Delta^2}
+{2\Omega^2+\gamma^2+4\Delta^2},
+\end{equation}
+
+\begin{equation}
+\rho^{\,st}_{ee} =
+\frac{\Omega^2}
+{2\Omega^2+\gamma^2+4\Delta^2}.
+\end{equation}
+
+A partir de estas expresiones es posible identificar varias propiedades físicas importantes del sistema.
+
+\paragraph{Conservación de la probabilidad}
+
+Debido a que el estado excitado $|e\rangle$ decae hacia el estado fundamental $|g\rangle$, la probabilidad total se conserva en todo momento,
+
+\begin{equation}
+\rho_{ee}+\rho_{gg}=1.
+\end{equation}
+
+\paragraph{Ensanchamiento por potencia}
+
+La población del estado excitado $\rho_{ee}$ presenta un perfil Lorentziano en función de la desintonía $\Delta$. El ancho de esta curva aumenta con la intensidad del campo láser, dado que $\Omega^2 \propto E_0^2$. Este fenómeno se conoce como \textit{ensanchamiento por potencia}.
+
+\paragraph{Excitación débil}
+
+En el régimen de excitación débil, $\Omega \ll \gamma$, el átomo absorbe muy poca energía del campo láser y permanece principalmente en el estado base,
+
+\begin{equation}
+\rho^{\,st}_{ee} \rightarrow 0,
+\qquad
+\rho^{\,st}_{gg} \approx 1.
+\end{equation}
+
+Una situación similar ocurre cuando el láser se encuentra muy desintonizado de la transición atómica, es decir, cuando $|\Delta| \gg \gamma$.
+
+\paragraph{Régimen de saturación}
+
+Cuando la interacción átomo--láser es suficientemente fuerte, $\Omega \gg \gamma, |\Delta|$, el sistema entra en el régimen de saturación. En este caso la población del estado excitado aumenta significativamente, pero en estado estacionario nunca supera la población del estado fundamental. En resonancia ($\Delta=0$) se obtiene
+
+\begin{equation}
+\rho^{\,st}_{ee}=\rho^{\,st}_{gg}=\frac{1}{2}.
+\end{equation}
+
+\paragraph{Coherencias y polarización atómica}
+
+El elemento fuera de la diagonal $\rho_{eg}$ representa la coherencia del sistema o, de manera equivalente, la polarización microscópica del átomo. La parte real de esta cantidad está asociada con la dispersión del medio, mientras que la parte imaginaria describe los procesos de absorción. En resonancia ($\Delta=0$) la coherencia es puramente imaginaria.
+
+\paragraph{Escalas típicas de los parámetros}
+
+En experimentos de óptica cuántica con transiciones ópticas, la tasa de emisión espontánea $\gamma$ suele ser del orden de algunos MHz. La frecuencia de Rabi $\Omega$ puede alcanzar valores comparables a $\gamma$, mientras que la desintonía $\Delta$ suele variar en rangos similares. Estos parámetros determinan el régimen dinámico de interacción entre el átomo y el campo láser.
+
+\subsection{Soluciones dependientes del tiempo}
+
+Las ecuaciones ópticas de Bloch obtenidas a partir de la ecuación maestra constituyen un sistema acoplado de ecuaciones diferenciales que, en general, no admite soluciones analíticas simples para valores arbitrarios de los parámetros $\gamma$, $\Omega$ y $\Delta$. No obstante, existen casos particulares de gran interés físico en los cuales es posible obtener soluciones analíticas.
+
+Uno de los casos más relevantes ocurre cuando el láser se encuentra en resonancia con la transición atómica, es decir,
+
+\begin{equation}
+\Delta = 0 .
+\end{equation}
+
+En esta situación las ecuaciones pueden resolverse convenientemente mediante transformadas de Laplace. Considerando que inicialmente el átomo se encuentra en el estado fundamental, las condiciones iniciales son
+
+\begin{equation}
+\tilde{\rho}_{gg}(0)=1, 
+\qquad
+\tilde{\rho}_{ee}(0)=\tilde{\rho}_{eg}(0)=\tilde{\rho}_{ge}(0)=0 .
+\end{equation}
+
+La solución temporal de las ecuaciones de Bloch toma la forma
+
+\begin{equation}
+\tilde{\rho}_{eg}(t)
+=
+-\frac{iY}{\sqrt{2}(1+Y^2)}f(t)
+\mp
+\frac{i\sqrt{2}Y\gamma}{4\delta}
+e^{-3\gamma t/4}\sinh(\delta t),
+\end{equation}
+
+\begin{equation}
+\tilde{\rho}_{ee}(t)
+=
+\frac{Y^2/2}{1+Y^2}f(t),
+\end{equation}
+
+\begin{equation}
+\tilde{\rho}_{gg}(t)
+=
+1-\frac{Y^2/2}{1+Y^2}f(t),
+\end{equation}
+
+donde la función auxiliar $f(t)$ está dada por
+
+\begin{equation}
+f(t)=
+1-
+e^{-3\gamma t/4}
+\left(
+\cosh(\delta t)
++
+\frac{3\gamma}{4\delta}\sinh(\delta t)
+\right),
+\end{equation}
+
+y se han definido los parámetros adimensionales
+
+\begin{equation}
+Y=\frac{\sqrt{2}\Omega}{\gamma},
+\qquad
+\delta=
+\frac{\gamma}{4}\sqrt{1-8Y^2}.
+\end{equation}
+
+Estas soluciones permiten distinguir distintos regímenes dinámicos dependiendo de la intensidad del campo láser.
+
+\paragraph{Excitación débil}
+
+Cuando la excitación es débil, es decir
+
+\begin{equation}
+8Y^2 \leq 1
+\quad
+(\Omega < \gamma/2),
+\end{equation}
+
+las soluciones evolucionan de manera monótona hacia el estado estacionario, sin presentar oscilaciones.
+
+\paragraph{Régimen de oscilaciones de Rabi amortiguadas}
+
+Cuando la intensidad del láser aumenta de modo que
+
+\begin{equation}
+8Y^2 > 1
+\quad
+(\Omega > \gamma/2),
+\end{equation}
+
+el parámetro $\delta$ se vuelve imaginario. En este caso puede escribirse
+
+\begin{equation}
+\delta = i\delta',
+\end{equation}
+
+lo cual transforma las funciones hiperbólicas en funciones trigonométricas,
+
+\begin{equation}
+\cosh(\delta t) \rightarrow \cos(\delta' t),
+\qquad
+\frac{\sinh(\delta t)}{\delta} \rightarrow
+\frac{\sin(\delta' t)}{\delta'}.
+\end{equation}
+
+Como consecuencia, las poblaciones y coherencias del sistema exhiben oscilaciones amortiguadas conocidas como \textit{oscilaciones de Rabi amortiguadas}. En el límite de excitación fuerte $\Omega \gg \gamma$ estas oscilaciones dominan la dinámica temporal del sistema.
+
+Finalmente, otro límite de interés corresponde al caso $\gamma \rightarrow 0$, donde desaparece la disipación y la dinámica del sistema queda gobernada únicamente por la interacción coherente entre el átomo y el campo láser.
+
+
+\section{Ecuaciones Estocásticas de Schrödinger}
+
+En la sección anterior se introdujo la ecuación maestra que describe la dinámica promedio de un sistema cuántico abierto mediante la evolución del operador densidad. Esta ecuación incorpora de manera efectiva los procesos de disipación y decoherencia inducidos por el entorno electromagnético.
+
+Sin embargo, la ecuación maestra describe únicamente el comportamiento promedio de un ensamble de sistemas idénticos. En muchos experimentos de óptica cuántica es posible realizar mediciones continuas del campo emitido por un solo sistema, por lo que resulta natural preguntarse cómo evoluciona el estado cuántico condicionado al resultado de dichas mediciones.
+
+Para establecer esta conexión se introducen las ecuaciones estocásticas de Schrödinger (SSE), también conocidas como ecuaciones de evolución condicionada. Estas ecuaciones describen trayectorias individuales del sistema cuántico, cuya dinámica es aleatoria debido al carácter probabilístico de los procesos de medición. Al promediar sobre muchas trayectorias estocásticas se recupera exactamente la dinámica promedio descrita por la ecuación maestra \cite{Carmichael1993,WisemanMilburn2010}.
+
+
+Es importante notar que una misma ecuación maestra admite infinitas descomposiciones estocásticas, conocidas como \textit{unravelings}. Cada una corresponde a una dinámica condicionada distinta. Sin embargo, solo algunas de estas descomposiciones poseen una interpretación física directa, ya que están asociadas con esquemas experimentales específicos de detección, como el conteo de fotones (trayectorias de saltos cuánticos) o la detección homodina y heterodina (trayectorias difusivas) \cite{Carmichael1993,WisemanMilburn2010}.
+
+\subsection{Trayectorias de saltos cuánticos}
+
+El formalismo de trayectorias de saltos cuánticos proporciona una descripción estocástica de la evolución temporal de sistemas cuánticos abiertos en la cual los procesos de emisión espontánea aparecen como eventos discretos que ocurren aleatoriamente en el tiempo \cite{Carmichael1993}.
+
+Este enfoque es particularmente adecuado para describir la fluorescencia resonante de un átomo de dos niveles, donde cada emisión de un fotón corresponde a la transición del estado excitado $|e\rangle$ al estado fundamental $|g\rangle$.
+
+\subsection{Descomposición de la ecuación maestra}
+
+La ecuación maestra en forma de Lindblad para un átomo de dos niveles interactuando con un campo láser puede escribirse como
+
+\begin{equation}
+\dot{\rho} =
+-\frac{i}{\hbar}[H,\rho]
++
+\gamma
+\left(
+\sigma_- \rho \sigma_+
+-
+\frac{1}{2}
+\sigma_+\sigma_- \rho
+-
+\frac{1}{2}
+\rho\sigma_+\sigma_-
+\right),
+\end{equation}
+
+donde $\gamma$ es la tasa de emisión espontánea y los operadores
+
+\begin{equation}
+\sigma_+ = |e\rangle\langle g|, 
+\qquad
+\sigma_- = |g\rangle\langle e|
+\end{equation}
+
+son los operadores de subida y bajada del átomo.
+
+El Hamiltoniano en el marco rotante del láser es
+
+\begin{equation}
+H =
+\hbar\Delta \sigma_+\sigma_-
++
+\frac{\hbar\Omega}{2}
+(\sigma_+ + \sigma_-),
+\end{equation}
+
+donde $\Delta = \omega_0 - \omega_L$ es la desintonía entre la transición atómica y el láser, y $\Omega$ es la frecuencia de Rabi.
+
+Para construir la dinámica por trayectorias es útil reescribir la ecuación maestra separando la evolución continua de los eventos de salto. Esto conduce a la introducción de un Hamiltoniano efectivo no Hermitiano
+
+\begin{equation}
+H_{\mathrm{eff}}
+=
+H
+-
+\frac{i\hbar}{2}
+C^\dagger C ,
+\end{equation}
+
+donde el operador de colapso asociado a la emisión espontánea es
+
+\begin{equation}
+C = \sqrt{\gamma}\,\sigma_- .
+\end{equation}
+
+El término no hermitiano describe la evolución del sistema en ausencia de detecciones, mientras que el operador $C$ genera los saltos cuánticos asociados a la emisión de un fotón.
+
+\subsection{Interpretación en términos de trayectorias}
+
+La solución formal de la ecuación maestra puede interpretarse como una suma sobre todas las posibles historias de emisión de fotones. Cada trayectoria corresponde a una secuencia particular de tiempos de emisión
+
+\[
+t_1, t_2, \ldots , t_m ,
+\]
+
+donde $m$ es el número total de emisiones ocurridas hasta el tiempo $t$.
+
+Entre dos emisiones consecutivas el estado del sistema evoluciona de manera continua bajo el Hamiltoniano efectivo $H_{\mathrm{eff}}$. Cuando ocurre una detección de fotón, el estado del sistema experimenta un salto cuántico descrito por la acción del operador de colapso $C$.
+
+El operador densidad condicional no normalizado asociado a una trayectoria dada puede escribirse como
+
+\begin{equation}
+\bar{\rho}_c(t)
+=
+U_{\mathrm{eff}}(t-t_m)
+C
+U_{\mathrm{eff}}(t_m-t_{m-1})
+C
+\cdots
+C
+U_{\mathrm{eff}}(t_1)
+\rho(0)
+U_{\mathrm{eff}}^\dagger(t_1)
+\cdots ,
+\end{equation}
+
+donde
+
+\begin{equation}
+U_{\mathrm{eff}}(t)=
+e^{-iH_{\mathrm{eff}}t/\hbar}
+\end{equation}
+
+es el operador de evolución efectiva.
+
+El estado condicionado normalizado se obtiene finalmente como
+
+\begin{equation}
+\rho_c(t)=
+\frac{\bar{\rho}_c(t)}
+{\mathrm{Tr}[\bar{\rho}_c(t)]}.
+\end{equation}
+
+Al promediar sobre todas las trayectorias estocásticas posibles se recupera la solución de la ecuación maestra original, estableciendo así la equivalencia entre la descripción por trayectorias cuánticas y la dinámica promedio del sistema.
+\subsection*{Distribuciones de Tiempos de Espera y el Fenómeno de la Fluorescencia Resonante Intermitente}
+
+Las distribuciones de tiempos de espera caracterizan la estadística temporal entre eventos de emisión consecutivos, revelando correlaciones cuánticas como el antibunching. En sistemas que exhiben el fenómeno de \textit{Fluorescencia Resonante Intermitente} o shelving, estas distribuciones se manifiestan como secuencias alternantes de \textit{tiempos brillantes} (períodos de emisión intensa) y \textit{tiempos oscuros} (períodos de nula emisión) \cite{Knight1990}.
+
+Para un átomo de dos niveles, la distribución de tiempos de espera viene dada por:
+\begin{equation}
+w(\tau) = \gamma \langle \sigma_+\sigma_-\rangle_{ss} e^{-\gamma \langle \sigma_+\sigma_-\rangle_{ss} \tau},
+\label{eq:waiting_time_2level}
+\end{equation}
+pero cuando se considera la dinámica condicionada a no-detecciones, se obtiene la distribución correcta:
+\begin{equation}
+w(\tau) = \gamma |\langle \sigma_-\rangle(\tau)|^2 e^{-\gamma \int_0^\tau |\langle \sigma_-\rangle(\tau')|^2 d\tau'},
+\label{eq:waiting_time_conditional}
+\end{equation}
+donde $\langle \sigma_-\rangle(\tau)$ es la evolución del operador de dipolo condicionada a no haber detecciones.
+
+En la Florescencia Intermitente, la dinámica de atrapamiento en estados metaestables genera estadísticas de parpadeo observables experimentalmente, donde los tiempos brillantes corresponden a la emisión desde el estado excitado y los tiempos oscuros al atrapamiento en el estado metaestable \cite{Wiseman1993}.
+
+\subsection*{Interpretación de Resultados}
+
+La forma de $w(\tau)$ revela información crucial sobre la estadística del proceso de emisión:
+
+\begin{itemize}
+\item \textbf{Emisión Poissoniana:} Para una fuente coherente ideal, $w(\tau) = \gamma e^{-\gamma\tau}$, mostrando una decadencia exponencial simple.
+
+\item \textbf{Antibunching:} $w(0) = 0$ indica que los fotones tienden a emitirse separados en tiempo, característico de sistemas como átomos individuales o puntos cuánticos.
+
+\item \textbf{Bunching:} $w(0) > w(\tau)$ para $\tau$ pequeños sugiere que los fotones tienden a emitirse en grupos.
+\end{itemize} 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Reporte Semestre 3/imagenes/Trayectoria de saltos.png}
+    \caption{(a) Trayectoria de saltos cuánticos mostrando periodos brillantes y oscuros en un sistema de 3 niveles con $\Omega = 3.5\gamma$ y $\Delta t=0.001$. }
+    \label{fig:quantum_jumps_shelving}
+\end{figure}
+
+
+\subsection*{Aplicación a la Floursecencia Intermitente}
+
+El formalismo de los tiempos de espera puede extenderse para caracterizar fenómenos más complejos, como el parpadeo cuántico o intermitencia, donde un emisor alterna aleatoriamente entre periodos de emisión brillante 
+y periodos de emisión oscura. El problema del \"shelving\" o almacenamiento en un estado metaestable es un mecanismo físico que da lugar a este comportamiento.
+
+
+
+
+El procedimiento de c\'alculo de trayectorias permite recoger la informaci\'on de fotoemisiones y estad\'istica de los per\'iodos brillantes y oscuros[3]. Esto se logra mejor si hacemos una trayectoria muy larga en lugar de muchas trayectorias cortas. Se pueden obtener las distribuciones de las duraciones de los periodos oscuros y brillantes, que siguen distribuciones exponenciales: 
+$$ P_O = \frac{1}{T_O} e^{-t/T_O}, \qquad  
+    P_B = \frac{1}{T_B} e^{-t/T_B} ,$$
+con duraciones promedio
+$$ T_O = \gamma_a^{-1}, \qquad T_B = \frac{2\Omega^2 + \gamma^2 + 4\Delta^2}{\gamma_d \Omega^2} .$$
+\\
+
+\begin{itemize}
+    \item \textbf{Distribución de Duración de Periodos Brillantes ($P_O(t)$):} Mide la estadística de la duración de los periodos de alta tasa de emisión. Corresponde a los tiempos entre una serie de saltos del estado excitado al estado base y termina cuando entra al estado metaestable.
+
+    \item \textbf{Distribución de Duración de Periodos Oscuros (\(P_O(t)\)):} Mide la estadística de la duración de los periodos de nula emisión de fotones. Corresponde a los tiempos de permanencia en el estado metaestable, que finalizan con un salto de regreso al estado base.
+    
+    \item \textbf{Distribución de Regreso al Estado Metaestable (\(P_{OB}(t)\)):} Esta distribución caracteriza la duración total de un ciclo completo de parpadeo. Se obtiene al medir la suma de un tiempo oscuro (\(t_O\)) y el tiempo brillante (\(t_B\)) inmediatamente siguiente, usando como condición inicial el estado metaestable. No es una distribución de tiempos de espera en el sentido estricto, sino la distribución de la \textbf{suma de dos variables aleatorias independientes}. Su forma analítica, dada por la convolución de \(P_O(t)\) y \(P_B(t)\), es:
+    $$
+     P_{OB}(t) =   \dfrac{1}{T_B - T_O} \left( e^{-t/T_B} - e^{-t/T_O} \right)
+    $$
+  
+
+    El tiempo promedio para completar este ciclo es simplemente la suma de los promedios individuales:
+    \[
+    T_{OB} = T_O + T_B.
+    \]
+\end{itemize}
+
+\subsection{Ecuaciones de saltos}
+
+\subsection{Ecuaciones difusivas}
+
+\subsection{Esquema de deteccion Homodina/Heterodina Balanceada}
+La detección heterodina balanceada (DHt) y la deteccion homodina balanceada (DHB) son tecnicas que permiten medir las propiedades espectrales de un campo óptico mezclándolo con un oscilador local (OL) en el caso de la homodina la frecuencia $w_{lo} \neq w$ es la misma y en el caso de la heterodina la frecuencia es diferente .
+
+
+
+\begin{itemize}
+\item El OL tiene una frecuencia $w_{lo}$ significativamente diferente a la del campo bajo estudio ($w$), típicamente separada por varios MHz o GHz.
+\item La diferencia de frecuencias $\Delta w= w_{lo}-w$ cae en el rango de radiofrecuencias, permitiendo su detección con fotodiodos.
+\item Se pierde la sensibilidad a la fase relativa entre los campos, pero se gana información espectral.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Tesis/Figures/Deteccion difusiva.png}
+    \caption{Esquema de detección heterodina/homodina balanceada. El emisor (círculo rojo) y el OL operan a frecuencias diferentes. generando una señal de batido en el rango de RF.}
+    \label{fig:Deteccion_difusiva}
+\end{figure}
+
+La figura ~\ref{fig:Deteccion_difusiva} muestra este esquema de medición de la florescencia atómica. Sean $\hat{a}$ y $\hat{b}$ los operadores de los modos del emisor (frecuencia $\omega$) y del OL (frecuencia $\omega_{lo}$), respectivamente.[8] . Tras el divisor de haz (DH) con $R=T=1/2$, los modos de salida son:
+
+\begin{eqnarray}
+\hat{c} = \frac{1}{\sqrt{2}} (\hat{a} + i\hat{b}), \quad
+\hat{d} = \frac{1}{\sqrt{2}} (i\hat{a} + \hat{b})
+\end{eqnarray}
+
+La diferencia de fotocorrientes es:
+
+\begin{eqnarray}
+\hat{n}_{cd} = \hat{c}^\dagger \hat{c} - \hat{d}^\dagger \hat{d} = -i(\hat{a}^\dagger \hat{b} - \hat{b}^\dagger \hat{a})
+\end{eqnarray}
+
+Considerando el OL en un estado coherente $\hat{b} = \beta\, e^{i(\omega_{lo}t + \phi)}$, la señal medida es:
+\begin{eqnarray}
+\hat{n}_{cd}(t) = i\beta\left(\hat{a}^\dagger e^{i(\omega{lo}t + \phi)} - \hat{a} e^{-i(\omega_{lo}t + \phi)}\right)
+\end{eqnarray}
+
+Esta señal contiene componentes en $\omega_{lo} \pm \omega$, pero al detectarse con fotodiodos (que responden a la intensidad), solo se conserva la componente de diferencia de frecuencia $\Delta\omega = \omega_{lo} - \omega$.
+
+\section{Recuperar la ecuación maestra a partir de las ESS}
+
+%----------------------------
+
+\chapter{Florescencia intermitente}
+\section{Átomo de 3 niveles con estado mestastable}
+
+%----------------------------
+\chapter{Espectro detección homodina y heterodina.}
+\
+%----------------------------
+\chapter{Apéndices}
+
+\printbibliography[heading=bibintoc]
+% Insert your Appedix B here
+
+\end{document}

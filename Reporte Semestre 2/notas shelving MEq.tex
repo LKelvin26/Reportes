@@ -1,0 +1,1983 @@
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%75
+%
+% NOTES for internal use
+%
+%\documentclass[preprint,aps,eqsecnum,showpacs,amsmath]{revtex4}		
+\documentclass[twocolumn,aps,eqsecnum,showkeys,amsmath]{revtex4-2}		
+\usepackage{graphics}
+\usepackage{cancel}
+\usepackage{color}  
+\usepackage[colorlinks,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}% add hypertext capabilities
+
+ 
+\begin{document}
+
+\title{Single-Laser Lambda Three-Level Atom Resonance Fluorescence}  
+
+\author{H.~M. Castro-Beltr\'an} 
+%\email{hcastro@uaem.mx} 
+\affiliation{Centro de Investigaci\'on en Ingenier\'{\i}a y 
+Ciencias Aplicadas, Universidad Aut\'onoma del Estado de Morelos, \\
+Avenida Universidad 1001, 62209 Cuernavaca, Morelos, M\'exico}
+
+%\draft
+\date{\today}
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\begin{abstract}
+Here, we obtain analytical results for the density operator, photon correlations, 
+and full spectrum of resonance fluorescence of a three-level atom with only 
+one driven transition and two decay channels from the excited state to the 
+ground state. We use both direct and fluctuation operator approaches. These 
+notes were the starting point for the paper H.~M. Castro-Beltran, R. 
+Roman-Ancheyta, and L. Gutierrez, Phys. Rev. A, \textbf{93}, 033801 
+(2016). Some calculations are found in only one of these documents.  
+NOTES IN PROGRESS
+\end{abstract}
+
+%\pacs{42.50.Ar, 42.50.Lc, 03.65.-w}
+\keywords{resonance fluorescence, antibunching, electron shelving, 
+non-Gaussian fluctuations.}
+\maketitle
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Atom-Laser Interaction}
+%
+\begin{figure}[b]
+\includegraphics{3LA_onelaser.pdf} 
+\caption{\label{fig:3LA} 
+Scheme of the three-level atom-laser 
+interaction and spontaneous decay rates. }
+\end{figure}
+%% 
+We consider a single three-level atom where only one transition is driven 
+by a laser, but the excited state $|e \rangle$ has two decay channels: one 
+directly to the ground state $|g \rangle$, and one via a long-lived 
+intermediate (ancilla) state $|a \rangle$, see Fig.~\ref{fig:3LA}. In the latter, 
+the excited state decays at the rate $\gamma_d$ to $|a \rangle$ and from 
+this to the ground state at the rate $\gamma_a$. 
+
+With changes in notation, we reproduce results from Ref.~\cite{EvKe02} 
+and generate many new ones reported in Ref.\cite{CaRG16}. 
+
+The Hamiltonian and master equation are, in the frame rotating at the laser 
+frequency, 
+%
+\begin{eqnarray}
+\mathcal{H} &=& \Delta \, \sigma_{eg} \sigma_{ge} 
+	+\frac{\Omega}{2} ( \sigma_{eg} +\sigma_{ge}) 	 \,, 		\\
+%
+\dot{\rho}(t) &=& -i \Delta [\sigma_{eg} \sigma_{ge} ,\rho] 
+	-i \frac{\Omega}{2} [\sigma_{eg} +\sigma_{ge} ,\rho]    \nonumber \\ 
+&& +\frac{\gamma}{2} (2\sigma_{ge} \rho \sigma_{eg} 
+  -\sigma_{eg} \sigma_{ge} \rho  -\rho \sigma_{eg} \sigma_{ge})     
+  \nonumber \\
+&& + \frac{\gamma_d}{2} (2\sigma_{ae} \rho \sigma_{ea} 
+  -\sigma_{ea} \sigma_{ae} \rho -\rho \sigma_{ea} \sigma_{ae}) 	\nonumber \\ 
+&& +\frac{\gamma}{2} (2\sigma_{ga} \rho \sigma_{ag} 
+  -\sigma_{ag} \sigma_{ga} \rho  -\rho \sigma_{ag} \sigma_{ga}) \,, 
+\end{eqnarray}
+%%
+where $\Omega$ is the Rabi frequency, $\Delta$ is the detuning of the laser 
+from the atomic transition, and $\sigma_{\pm}^j$ are Pauli spin operators for 
+the undriven transitions. In the notation used in \cite{Carm99}, the $rho$'s 
+and $sigma$'s wear a tilde to indicate they are in the frame rotating at the 
+laser frequency. For simplicity, \textit{we do not use such tildes}. 
+
+We need a complete set of spin operators in projector form: 
+%
+\begin{eqnarray*}
+\sigma_{jk} &=& |j \rangle\langle k| \,, 
+	\qquad \sigma_{kj} = \sigma_{jk}^+ \,, \qquad j,k=g,e,a   
+\end{eqnarray*}
+%%
+from which we derive some important products: 
+%
+\begin{eqnarray*}
+\sigma_{jk} \sigma_{lm} &=& \sigma_{jm} \delta_{kl}  \,, 
+\qquad  j,k,l,m =g,e,a 	\,, 
+\end{eqnarray*}
+%%
+allowing to simplify the master equation as 
+%
+\begin{eqnarray}
+\dot{\rho}(t) &=& -i \Delta [\sigma_{ee} ,\rho] 
+	-i \frac{\Omega}{2} [\sigma_{eg} +\sigma_{ge} ,\rho]    \nonumber \\ 
+&& -	\frac{(\gamma +\gamma_d)}{2} (\sigma_{ee} \rho +\rho \sigma_{ee}) 
+    -\frac{\gamma_a}{2} (\sigma_{aa} \rho +\rho \sigma_{aa}) 
+        \nonumber \\
+&& +\gamma \rho_{ee} \sigma_{gg}  +\gamma_d \rho_{ee} \sigma_{aa}    
+    +\gamma_a \rho_{aa} \sigma_{gg}  \,.     \label{masterEqC}
+\end{eqnarray}
+%%
+
+We obtain two sets of equations. The first one is:  
+%
+\begin{eqnarray} 	\label{eq:dotrho_jk}
+\dot{\rho}_{eg} &=& i\frac{\Omega}{2} (\rho_{ee} -\rho_{gg})
+ -\left( \frac{\gamma_+}{2}  +i\Delta \right) \rho_{eg} \,, \\
+%
+\dot{\rho}_{ge} &=& -i\frac{\Omega}{2} (\rho_{ee} -\rho_{gg})
+ -\left( \frac{\gamma_+}{2}  -i\Delta \right) \rho_{ge} 	\,,
+ 	\nonumber 	\\
+%
+\dot{\rho}_{ee} &=& -i\frac{\Omega}{2} (\rho_{ge} -\rho_{eg})
+ 	-\gamma_+ \rho_{ee} 	\,,	\nonumber 	\\
+%
+\dot{\rho}_{gg} &=& i\frac{\Omega}{2} (\rho_{ge} -\rho_{eg})  
+	+\gamma_- \rho_{ee} -\gamma_a \rho_{gg} 
+	+\gamma_a \,.	 	\nonumber 	
+\end{eqnarray}
+%%
+where
+%
+\begin{eqnarray}
+\gamma_+ &=& \gamma + \gamma_d \,, 	\qquad 
+\gamma_- = \gamma - \gamma_a \,.
+\end{eqnarray}
+%%
+This system of equations is a reduced one since the equation 
+$\dot{\rho}_{aa} = \gamma_d \rho_{ee} -\gamma_a \rho_{aa}$ was 
+eliminated due to the conservation of population, 
+$\rho_{gg} +\rho_{ee} +\rho_{aa} =1$, replaced in the equation 
+$\dot{\rho}_{gg} = i (\Omega/2) (\rho_{ge} -\rho_{eg})  
+	+\gamma \rho_{ee} +\gamma_a \rho_{aa}$.
+
+The other set of equations involves the coherences linking the states 
+$|e \rangle$ and $|g \rangle$ to the state $|a \rangle$, 
+%
+\begin{eqnarray*}
+\dot{\rho}_{ga} &=& -i\frac{\Omega}{2} \rho_{ea} 
+	-\frac{\gamma_a}{2} \rho_{ga} 	\,,\\
+\dot{\rho}_{ea} &=& -i\frac{\Omega}{2} \rho_{ga} -\left( i\Delta 
+	+\frac{\gamma +\gamma_d +\gamma_a}{2}  \right) \rho_{ea} \,, \\
+\dot{\rho}_{\nu \mu} &=& \dot{\rho}_{\mu \nu}^{\ast} 	\,.
+\end{eqnarray*}
+%%
+These coherences have zero mean and vanish for times 
+$t \sim \gamma^{-1}$. The two sets are decoupled; only the first one 
+is relevant for the observables of interest, which involve only the driven 
+transition. 
+
+Noticing that $\langle \sigma_{jk} \rangle =\rho_{kj}$ we rewrite the 
+Bloch equations  (\ref{eq:dotrho_jk}) as 
+%
+\begin{eqnarray} 	\label{eq:dotsigma_jk}
+\langle \dot{\sigma}_{-} \rangle 
+&=& -\left( \frac{\gamma_+}{2} +i\Delta \right) 
+	\langle \sigma_{-} \rangle 
+ +i\frac{\Omega}{2} (\langle \sigma_{ee} \rangle 
+ 	-\langle \sigma_{gg} \rangle)	\,,  \nonumber  	\\
+%
+\langle \dot{\sigma}_{+} \rangle 
+&=& -\left( \frac{\gamma_+}{2} -i\Delta \right) 
+	\langle \sigma_{+} \rangle 
+ -i\frac{\Omega}{2} (\langle \sigma_{ee} \rangle -\langle 
+ 	\sigma_{gg} \rangle)  \,,	\nonumber 	\\
+%
+\langle \dot{\sigma}_{ee} \rangle 
+&=& i\frac{\Omega}{2} (\langle \sigma_{-} \rangle 
+	-\langle \sigma_{+} \rangle)
+ 	-\gamma_+ \langle \sigma_{ee} \rangle	\,, \nonumber 	\\
+%
+\langle \dot{\sigma}_{gg} \rangle 
+&=& -i\frac{\Omega}{2} (\langle \sigma_{-} \rangle 
+	-\langle \sigma_{+} \rangle)  
+	+\gamma_- \langle \sigma_{ee} \rangle  	
+	 -\gamma_a \langle \sigma_{gg} \rangle  +\gamma_a \,.	
+	\nonumber \\	
+\end{eqnarray}
+%%
+
+We write this set in compact form as 
+%
+\begin{subequations}
+\begin{eqnarray}
+\langle \dot{\mathbf{s}} \rangle 
+	&=& \mathbf{M} \langle \mathbf{s} \rangle +\mathbf{b} 	\,, \\ 
+\mathbf{s} &\equiv&   
+	\left( \sigma_-,  \sigma_+, \sigma_{ee}, \sigma_{gg}  \right)^T 	\,, \\ 
+\mathbf{b} &=& (0,0,0,\gamma_a)^T 	\,,  
+\end{eqnarray}
+\end{subequations}
+%%
+%
+\begin{eqnarray} 	\label{eq:matrixM}
+\mathbf{M} &=& \left( \begin{array}{cccc}
+-\frac{1}{2}(\gamma_+ +i2\Delta) & 0 & i\Omega/2 & -i\Omega/2 \\ 
+0 & -\frac{1}{2}(\gamma_+ -i2\Delta) & -i\Omega/2 & i\Omega/2 	 \\ 
+i\Omega/2 & -i\Omega/2 & -\gamma_+ & 0 		\\ 
+-i\Omega/2 & i\Omega/2 & \gamma_- & -\gamma_a 
+\end{array}  \right) 	\nonumber \\ 
+\end{eqnarray}
+%%
+Formal solutions for the Bloch equations 
+%
+\begin{equation}
+\frac{d}{dt} \left( \langle \mathbf{s} \rangle 
+	+\mathbf{M}^{-1} \mathbf{b} \right) = 
+\mathbf{M} \left( \langle \mathbf{s} \rangle 
+	+\mathbf{M}^{-1}\mathbf{b} \right) 	
+\end{equation}
+%%
+are given by 
+%
+\begin{eqnarray}
+\langle \mathbf{s}(t) \rangle &=& e^{\mathbf{M} t} \left[ 
+ 	\langle \mathbf{s}(0) \rangle +\mathbf{M}^{-1} \mathbf{b} \right] 
+	-\mathbf{M}^{-1} \mathbf{b} 	\\
+&=& S^{-1} e^{\lambda t} S \left[ 
+	\langle \mathbf{s}(0) \rangle +\mathbf{M}^{-1} \mathbf{b} \right] 
+	-\mathbf{M}^{-1} \mathbf{b} 	\,, \nonumber 
+\end{eqnarray}
+%%
+where $S$ is a matrix that diagonalizes $\mathbf{M}$, whose 
+eigenvalues are given in the matrix 
+$\lambda= diag(\lambda_1, \lambda_2, \lambda_+, \lambda_-)$. 
+An exact general analytical solution is not possible. 
+
+It looks hopeless to perform a full matrix treatment (inverse, eigenvectors, 
+eigenvalues, diagonalization matrix) analytically. Even the on-resonance 
+case, $\Delta=0$, is complicated, see Section \ref{sec:MatrixEigensystem}. 
+Only one eigenvalue and its corresponding eigenvector can be obtained 
+easily: $\lambda_1 =-\gamma_+/2$, $\mathbf{r}_1 =(1,1,0,0)^T$. 
+Mathematica gives very complicated exact expressions for the other 
+eigenvalues and eigenvectors.
+
+However, approximate solutions, with simple expressions of the eigenvalues 
+for $\Delta=0$, are obtained later. 
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%% 
+\section{Steady State of Density Operator} 
+We start with the equations for $\rho$ including $\rho_{aa}$,
+%
+\begin{eqnarray}
+\dot{\rho}_{ee} &=& 0 = -i\frac{\Omega}{2} (\rho_{ge} -\rho_{eg})
+ 	-\gamma_+ \rho_{ee}	\\ 
+\dot{\rho}_{aa} &=& 0 = \gamma_d \rho_{ee} -\gamma_a \rho_{aa} \\
+\dot{\rho}_{gg} &=& 0 = i\frac{\Omega}{2} (\rho_{ge} -\rho_{eg})  
+ +\gamma_- \rho_{ee} -\gamma_a \rho_{gg} +\gamma_a   \\
+\dot{\rho}_{ge} &=& 0 = -i\frac{\Omega}{2} (\rho_{ee} -\rho_{gg})
+	-\left( \frac{\gamma_+}{2} -i\Delta \right) \rho_{ge} 	\\
+\dot{\rho}_{eg} &=& 0 = i\frac{\Omega}{2} (\rho_{ee} -\rho_{gg})
+	-\left( \frac{\gamma_+}{2} +i\Delta \right) \rho_{eg} 	\,.
+\end{eqnarray}
+%%
+
+For the rest of this Section we mean $\rho$ to be in the steady 
+state ($\rho^{st}$). Adding B1 and B3 
+%
+\begin{eqnarray}
+0 &=& -\gamma_+ \rho_{ee} - \gamma_- \rho_{ee} 
+	-\gamma_a \rho_{gg} +\gamma_a 		\nonumber \\
+\to \rho_{gg} &=& 1- \frac{\gamma_d +\gamma_a}{\gamma_a} \rho_{ee} \,.
+\end{eqnarray}
+%%
+
+Inserting B6 in B4
+%
+\begin{eqnarray*}
+0 &=& -\left( \frac{\gamma_+}{2} -i\Delta \right) \rho_{ge} \\
+    && -i\frac{\Omega}{2} \left[ \rho_{ee} 
+    -\left( 1- \frac{\gamma_d +\gamma_a}{\gamma_a}  \rho_{ee} \right)
+    \right]     \\
+&=& -\left( \frac{\gamma_+}{2} -i\Delta \right) \rho_{ge} 
+    -i\frac{\Omega}{2} \left[  (2+q) \rho_{ee} -1 \right]     \\ 
+\rho_{ge} &=& 
+   \frac{ -i\Omega \left[ (2+q) \rho_{ee} -1 \right]}{\gamma_+ -i2\Delta} \,,    
+       \qquad \quad \rho_{eg} = \rho_{ge}^{\ast}   \,,
+\end{eqnarray*}
+%%
+donde $q= \gamma_d /\gamma_a$. Then
+%
+\begin{eqnarray}
+\rho_{ge} -\rho_{eg} &=& 
+	- \frac{ i 2\gamma_+ \Omega \left[ (2+q) \rho_{ee} -1 \right]}
+       {\gamma_+^2 +4\Delta^2}     	\nonumber \\
+-i \frac{\Omega}{2} \left( \rho_{ge} -\rho_{eg} \right) 
+&=& - \gamma_+ \Omega^2  \left[ \frac{ (2+q) \rho_{ee} -1 }
+       {\gamma_+^2 +4\Delta^2} \right]     
+\end{eqnarray}
+%%
+We used $q=\gamma_d/\gamma_a$. Substituting B7 into B1 
+%
+\begin{eqnarray}
+0 &=& \frac{ \Omega^2 \gamma_+}{\gamma_+^2 +4\Delta^2} 
+       -\gamma_+ \rho_{ee}     
+- \frac{ \Omega^2 \gamma_+ (2+q) \rho_{ee} }
+       {\gamma_+^2 +4\Delta^2}      \nonumber  \\ 
+&=& -\left[ 1+  \frac{ \Omega^2 (2+q) }
+       {\gamma_+^2 +4\Delta^2} \right] \rho_{ee} 
+	+\frac{ \Omega^2 }{\gamma_+^2 +4\Delta^2}    \nonumber  \\
+&=& -\left[ \gamma_+^2 +4\Delta^2 +\Omega^2 (2+q) 
+    \right] \rho_{ee} +\Omega^2 		 \nonumber \\
+\rho_{ee}^{st} &=& \frac{\Omega^2}{ (2+q) \Omega^2  
+    +\gamma_+^2 +4\Delta^2 } 	\,.
+\end{eqnarray}
+%%
+
+Substituting B8 into B2 
+%
+\begin{eqnarray} 
+0 &=& \gamma_d \rho_{ee} -\gamma_a \rho_{aa} 
+    \qquad \to \rho_{aa} =q \rho_{ee}   \nonumber  \\
+\rho_{aa}^{st} &=& 
+	\frac{q\Omega^2}{ (2+q) \Omega^2  +\gamma_+^2 +4\Delta^2 } \,.
+\end{eqnarray}
+%%
+
+Substituting B8 and B9 into $1=\rho_{ee} +\rho_{aa} +\rho_{gg}$
+%
+\begin{eqnarray} 
+\rho_{gg}^{st} &=& 1- \rho_{ee} -\rho_{aa} = 1-(1+q) \rho_{ee}     
+    \nonumber     \\
+&=& 1- \frac{ (1+q) \Omega^2}{ (2+q) \Omega^2  
+    +\gamma_+^2 +4\Delta^2 }     \nonumber \\
+&=& \frac{ \Omega^2 +\gamma_+^2 +4\Delta^2 }
+    { (2+q) \Omega^2 +\gamma_+^2 +4\Delta^2 } 	\,.
+\end{eqnarray}
+%%
+
+Substituting B8 and B10 into B4, 
+%
+\begin{eqnarray*}
+\left( \frac{\gamma_+}{2} -i\Delta \right) \rho_{ge}  
+&=& -i\frac{\Omega}{2} (\rho_{ee} -\rho_{gg})   \\ 
+(\gamma_+  -i2\Delta) \rho_{ge} 
+ &=& \frac{ i \Omega [\gamma_+^2 +4\Delta^2] }
+    { (2+q) \Omega^2 +\gamma_+^2 +4\Delta^2 }    \\ 
+&=& \frac{ i \Omega (\gamma_+  -i2\Delta) (\gamma_+  +i2\Delta)}
+    { (2+q) \Omega^2 +\gamma_+^2 +4\Delta^2 }    \\ 
+\end{eqnarray*}
+%%
+%
+\begin{eqnarray}
+\rho_{ge}^{st} &=& \frac{ -\Omega [2\Delta -i \gamma_+] }
+  	 { (2+q) \Omega^2 +\gamma_+^2 +4\Delta^2 }    \\ 
+\rho_{eg}^{st} &=& \frac{ -\Omega [2\Delta +i \gamma_+] }
+  	{ (2+q) \Omega^2 +\gamma_+^2 +4\Delta^2 } 	\,.
+\end{eqnarray}
+%%
+
+Defining 
+$\alpha_- =\langle \sigma_- \rangle_{st} =\rho_{eg}^{st} $, 
+$\alpha_+ =\alpha_-^{\ast}$, 
+$\alpha_{ee} =\langle \sigma_+ \sigma_- \rangle_{st} =\rho_{ee}^{st}$, 
+$\alpha_{gg} =\langle \sigma_- \sigma_+ \rangle_{st} =\rho_{gg}^{st} $, 
+$\alpha_{aa} =\langle \sigma_+^a \sigma_-^a \rangle_{st} =\rho_{aa}^{st}$, 
+the steady state of the relevant elements of the density matrix are  
+%
+\begin{subequations}
+\begin{eqnarray}
+\alpha_{\mp} &=& \frac{-\Omega[2\Delta \pm i \gamma_+]}{D} \,,  \\ 
+\alpha_{gg} &=& \frac{\Omega^2 +\gamma_+^2 +4\Delta^2}{D} 
+	\,, \\ 
+\alpha_{ee} &=& \frac{\Omega^2}{D} \,, 	\\ 
+\alpha_{aa} &=& q\frac{ \Omega^2}{D} \,, 	 
+\end{eqnarray}
+%%
+where 
+%
+\begin{eqnarray}
+D &=& (2 +q)\Omega^2 +\gamma_+^2 +4\Delta^2 	\,,  \\
+D_0 &=& (2+q)\Omega^2 +\gamma_+^2 \,, 	\qquad 	\Delta=0 \,, 
+	\nonumber
+\end{eqnarray}
+\end{subequations}
+%%
+and
+%
+\begin{eqnarray}
+q = \gamma_d/\gamma_a 	\,.
+\end{eqnarray}
+%%
+For $\gamma_d=0$, we recover the 2LA results. Evers and Keitel 
+\cite{EvKe02} find that $\gamma_d \sim 3.3 \gamma_a$ is very close 
+to the optimum value for the appearance of the extra narrow peak. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Fluctuations and Saturation}
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Shelving: Bright and Dark Periods} 
+This system features long bright and dark periods if 
+$\gamma \gg \gamma_d\,, \gamma_a$. We outline the random telegraph 
+model (RTM) approach to calculate the average bright and dark periods,  
+proposed by Pegg and Knight \cite{PeKn88a,PeKn88b,EvKe02}. An 
+alternative approach is given by Cohen-Tannoudji and Dalibard  
+\cite{CTDal86}.  
+
+Let us assume the atom is initially in the $| g \rangle - | e \rangle$ subspace 
+so that $\rho_{aa}(0)=0$. We will find the expectation value $T_B$ for the 
+atom to stay in the $| g \rangle - | e \rangle$ subspace without moving into 
+$| a \rangle$. If the atom is still in this subspace at a later time $t=t_1$, the 
+life expectancy at this time is again $T_B$. If $P_{ge}(t_1)$ is the probability 
+of remaining in the $| g \rangle - | e \rangle$ subspace without moving into 
+$| a \rangle$ in the time $t_1$, we have  
+%
+\begin{eqnarray}
+T_B &=& P_{ge}(t_1) (t_1+ T_B) +[1- P_{ge}(t_1)] f t_1 \,, 
+\end{eqnarray}
+%%
+where $0 \leq f \leq 1$. The second term is the probability of not staying 
+in the above subspace multiplied by the time $f t_1$ at which the atom 
+moves to the state $| a \rangle$. Thus, 
+%
+\begin{eqnarray}
+T_B &=& \frac{t_1 P_{ge}(t_1)}{ 1- P_{ge}(t_1) } +f t_1  
+\end{eqnarray}
+%%
+(we write this step differently from \cite{PeKn88a,PeKn88b,EvKe02}, etc). 
+For large $t_1$, the atom may jump out of $| g \rangle - | e \rangle$ and 
+back into it. To avoid multiple transitions between subspaces we make 
+$t_1 \to 0$ so that $P_{ge} (t_1) \to 1$ and 
+%
+\begin{eqnarray}
+\lim_{t_1 \to 0} [1- P_{ge} (t_1)] &=& \lim_{t_1 \to 0} \rho_{aa} (t_1) \,.
+\end{eqnarray}
+%%
+We obtain 
+%
+\begin{eqnarray}
+T_B &=& \lim_{t_1 \to 0} \frac{t_1}{\rho_{aa} (t_1)}  	\\ 
+T_B^{-1} &=& \left( \frac{ d \rho_{aa} }{dt} \right)_{t=0} \,,
+\end{eqnarray}
+%%
+with the condition $\rho_{aa}(0) =0$. 
+
+A similar argument for the atom to stay continuously in $| a \rangle$ yields 
+the average dark period $T_D$. Let us assume the atom is initially in the 
+trapping state $| a \rangle$, $\rho_{aa}(0)=1$. If the atom is still in 
+$| a \rangle$ at a later time $t=t_1$ the life expectancy at this time is again 
+$T_D$. If $P_{a}(t_1)$ is the probability of remaining in $| a \rangle$ 
+without moving into the $| g \rangle - | e \rangle$ subspace in the time 
+$t_1$, we have  
+%
+\begin{eqnarray}
+T_D &=& P_{a}(t_1) (t_1+ T_D) +[1- P_{a}(t_1)] f t_1 \,, 
+\end{eqnarray}
+%%
+where $0 \leq f \leq 1$. The second term is the probability of not staying 
+in $| a \rangle$ by the time $f t_1$ at which the atom moves to the 
+subspace $| g \rangle - | e \rangle$. Thus, 
+%
+\begin{eqnarray}
+T_D &=& \frac{t_1 P_{a}(t_1)}{ 1- P_{a}(t_1) } +f t_1  	\,.
+\end{eqnarray}
+%%
+For large $t_1$, the atom may jump to $| g \rangle - | e \rangle$ and 
+back into $| a \rangle$. To avoid multiple transitions between subspaces 
+we make $t_1 \to 0$ so that $P_{a} (t_1) \to 1$ and 
+%
+\begin{eqnarray}
+T_D^{-1} &=& \lim_{t_1 \to 0} \frac{ 1- P_a (t_1) }{t_1} 		\quad \to 
+ 	\lim_{t_1 \to 0} \frac{ \rho_{aa} (0) - \rho_{aa} (t_1) }{t_1} 	\nonumber \\
+&=& - \left( \frac{ d \rho_{aa} }{dt} \right)_{t=0} \,,
+\end{eqnarray}
+%%
+with the condition $\rho_{aa}(0) =1$. 
+
+Now, we apply the above results. We only need the equation for the trapping 
+state, $\dot{\rho}_{aa} = \gamma_d \rho_{ee} -\gamma_a \rho_{aa}$, 
+evaluated in the quasi-steady state (steady state of the two-level system of 
+the bright transition), here denoted as $t=0$. For the bright period 
+$\rho_{aa}(0) =0$ and $\rho_{ee}(0) \to (\rho_{ee}^{st})^{2LA}$, 
+%
+\begin{eqnarray}    
+T_B^{-1} &=& (\dot{\rho}_{aa})_{t=0} 	\to (\rho_{ee}^{st})^{2LA} \,, \nonumber  \\  
+T_B &=& \frac{2\Omega^2 +\gamma^2 +4\Delta^2}{\gamma_d \Omega^2} \,. 
+\end{eqnarray}
+%% 
+For the dark period $\rho_{aa}(0) =1$ and $\rho_{ee}(0) \to 0$,
+%
+\begin{eqnarray}    
+T_D^{-1} &=& (\dot{\rho}_{aa})_{t=0} \,, 	\qquad \to 
+	T_D = \gamma_a^{-1} \,.
+\end{eqnarray}
+%% 
+
+\textcolor{red}{How do we get them?} 
+The distributions of lengths of dark and bright periods are 
+%
+\begin{eqnarray}    
+P_D = \frac{1}{T_D} e^{-t/T_D}	 \,, 	\qquad 
+	P_B = \frac{1}{T_B} e^{-t/T_B}	\,, 
+\end{eqnarray}
+%% 
+respectively.
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+\subsection{Scattering Rate} 
+The photon scattering rate, the frequency of photon emissions, is 
+$r_s =\gamma \langle \sigma_{ee} \rangle$, which in the saturation regime 
+in a bright period is $r_s^{st}=\gamma/2$. Then, the number of photons 
+emitted in the  interval $[0,t]$ is 
+%
+\begin{eqnarray} 
+N(t) = \gamma \int_0^t \langle \sigma_{ee} (t') \rangle \, dt' \,.
+\end{eqnarray}
+%%
+Equivalently, we may calculate the average time interval between two 
+consecutive photons 
+%
+\begin{eqnarray} 	\label{eq:meantau}
+ \bar{\tau} &=& \frac{1}{\gamma \alpha_{ee} } 
+	=\frac{(2 +q)\Omega^2 +\gamma_+^2 +4 \Delta^2}
+	{\gamma \Omega^2} 	\,,		
+\end{eqnarray}
+%% 
+which is larger than the case of the 2LA, increased by the additional coupling 
+of the excited state to the long-lived state. Of course, as an average time, it 
+includes the effect of dark periods, which enhance the emission fluctuations. 
+So, it is better to rely on photon correlations or the waiting-time distribution. 
+The Mandel's Q parameter for the shelving case was studied in 
+\cite{MeSc90}.  
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+\subsection{Waiting-Time Distribution} 
+See \cite{CTDa86} and ?? for WTD of the shelving problem. Can we study 
+this theme with the master equation approach? The mean time between 
+two consecutive photons should be given by Eq.(\ref{eq:meantau}) anyway.
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+\subsection{Weak Ergodicity Breaking} 
+%
+\begin{eqnarray} 
+\langle \sigma_{ee} \rangle_{st} 
+	=? \int_0^t \langle \sigma_{ee} (t') \rangle \, dt' \,.
+\end{eqnarray}
+%%
+How long should dark periods be for this?
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Two-Time Correlations} 
+In our work, we investigate several two-time correlation functions. 
+The quantum regression formula allows to write equations for the 
+correlation functions: 
+%
+\begin{subequations}
+\begin{eqnarray}
+\frac{d}{d \tau} \langle \sigma_{+}(0) \mathbf{s} (\tau) \rangle_{st} 
+ &=& \mathbf{M} \langle \sigma_{+}(0) \mathbf{s} (\tau) \rangle_{st} 
+	+\mathbf{b} \langle \sigma_{+} \rangle_{st} 	\,, \qquad 	\\ 
+%
+\frac{d}{d \tau} \langle \mathbf{s} (\tau) \sigma_{-}(0)  \rangle_{st} 
+ &=& \mathbf{M} \langle \mathbf{s} (\tau) \sigma_{-}(0)  \rangle_{st} 
+	+\mathbf{b} \langle \sigma_{-} \rangle_{st} 	\,, 
+\end{eqnarray}
+%%
+\begin{eqnarray}
+%
+\frac{d}{d \tau} \langle \sigma_{+}(0) \mathbf{s} (\tau) 
+	\sigma_{-}(0) \rangle_{st}  
+ &=& \mathbf{M} \langle \sigma_{+}(0) \mathbf{s} (\tau) 
+ 	\sigma_{-}(0) \rangle_{st}  		\nonumber \\ 
+	&& +\mathbf{b} \langle \sigma_{+} \sigma_{-} \rangle_{st} 	\,,
+\end{eqnarray}
+\end{subequations}
+%%
+with solutions (compacted to just one formula)
+%
+\begin{eqnarray}
+\langle A_+ \mathbf{s}(t) A_- \rangle 
+	&=& e^{\mathbf{M} t} \left[ \langle A_+ \mathbf{s}(0) A_- \rangle 
+	+\mathbf{M}^{-1} \mathbf{b} \langle A_+ A_- \rangle_{st} \right] 
+	\nonumber \\
+	&& 	-\mathbf{M}^{-1} \mathbf{b}  \langle A_+ A_- \rangle_{st} \,.
+\end{eqnarray}
+%%
+
+The above corelations have initial conditions: 
+%
+\begin{subequations}
+\begin{eqnarray} 
+\langle \sigma_+ \mathbf{s} \rangle 
+  	&=& \left\{ \alpha_{ee}, 0, 0,  \alpha_+ \right\}   \,,     \\
+\langle \mathbf{s} \sigma_-  \rangle 
+	&=&  \left\{ 0, \alpha_{ee}, 0, \alpha_- \right\}    \,,     \\ 
+\langle \sigma_+ \mathbf{s} \sigma_- \rangle 
+	&=& \left\{ 0, 0, 0, \alpha_{ee}  \right\}        \,.
+\end{eqnarray}
+\end{subequations}
+%%
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40
+%%%%%%%%50
+\subsection{Fluctuation Operator Approach}
+We also solve for two-time correlations of fluctuation operators. From the 
+Bloch equations $\langle \mathbf{\dot{s}} \rangle = 
+\mathbf{M} \langle \mathbf{s} \rangle +\mathbf{b}$, the steady state 
+($t \to \infty$) is 
+%
+\begin{equation}
+0 =\mathbf{M} \langle \mathbf{s} \rangle_{st} +\mathbf{b}  \,, 
+    \qquad \to \langle \mathbf{s} \rangle_{st} 
+       =\mathbf{M}^{-1} \mathbf{b} \,.  \label{eq:SBlochss}	
+\end{equation}
+%%
+We split the field (dipole) into a mean plus fluctuations, 
+$\mathbf{s}(t) = \langle \mathbf{s} \rangle_{st} +\Delta \mathbf{s}(t)$ 
+leading to 
+%
+\begin{eqnarray}
+\frac{d}{dt} \langle \Delta \mathbf{s} \rangle +0
+&=& \mathbf{M} \left[ \langle \mathbf{s} \rangle_{st} 
+	+\langle \Delta \mathbf{s} \rangle \right] +\mathbf{b}  \nonumber \\
+&=& \mathbf{M} \langle \Delta \mathbf{s} \rangle 
+	+\mathbf{M} \langle \mathbf{s} \rangle_{st} +\mathbf{b}  
+	\nonumber 	\\
+\frac{d}{dt} \langle \Delta \mathbf{s} \rangle 
+	&=& \mathbf{M} \langle \Delta \mathbf{s} \rangle  \,.
+\end{eqnarray}
+%%
+Of course, this is meaningless because, by definition, 
+$\langle \Delta \mathbf{s} \rangle =0$. We have to resort to the QRF 
+to calculate two-time correlations: (i) remove the brackets, multiply 
+$\Delta \mathbf{s}$ from the left and from the right by suitable operators 
+$\Delta A_+$ and $\Delta A_-$, respectively, and (iii) put again the 
+brackets, obtaining 
+%
+\begin{eqnarray}
+\frac{d}{d\tau} \langle \Delta A_+ \Delta \mathbf{s}(\tau) \Delta A_- \rangle 
+ &=& \mathbf{M} \langle \Delta A_+ \Delta \mathbf{s}(\tau) \Delta A_- \rangle  \,, 
+ 	\qquad	
+\end{eqnarray}
+%%
+with solutions 
+%
+\begin{eqnarray} 	\label{eq:FlucCorrSol}
+\langle \Delta A_+ \Delta \mathbf{s}(\tau) \Delta A_- \rangle 
+ &=& e^{\mathbf{M} \tau} \langle \Delta A_+ \Delta \mathbf{s} 
+ 	\Delta A_- \rangle  	\\ 
+&=& S^{-1} e^{\lambda t} S  \langle \Delta A_+ \Delta \mathbf{s} 
+ 	\Delta A_- \rangle 	\,.	\nonumber
+\end{eqnarray}
+%%
+Again, there are no exact analytical solutions for the full time-dependent 
+problem. 
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30
+\subsection{Initial Conditions for Correlations of Fluctuation Operators} 
+We define the vector  
+$\Delta \mathbf{s} \equiv  \left( \Delta \sigma_-, 
+\Delta \sigma_+, \Delta \sigma_{ee}, \Delta \sigma_{gg}  \right)^T$. 
+The initial conditions of the correlations are: 
+%
+\begin{eqnarray} 	 \label{eq:corre2st}
+\lefteqn{  \langle \Delta \sigma_+ \Delta \mathbf{s} \rangle = 
+\left( \begin{array}{c}  \alpha_{ee} -\alpha_+ \alpha_- \\  -\alpha_+^2 \\ 
+-\alpha_+ \alpha_{ee} \\ \alpha_+(1- \alpha_{gg}) \end{array} 	\right)  } 
+	\hspace{1.5cm} 	\\
+&=& \frac{\Omega^2}{D^2} \left( \begin{array}{c} (2+q) \Omega^2  	\\ 
+	\gamma_+^2 +i4\Delta \gamma_+ -4\Delta^2 		\\ 
+\Omega [2\Delta -i \gamma_+] 	\\
+-(1+q) \Omega [2\Delta -i \gamma_+] 	\end{array} \right) \,. \nonumber
+\end{eqnarray} 
+%%
+ 
+ The first element, for example, is calculated as 
+%
+\begin{eqnarray*} 
+\langle \Delta \sigma_+ \Delta \sigma_- \rangle_{st} 
+	&=& \langle [\sigma_+  - \langle \sigma_+  \rangle_{st}] 
+	[\sigma_-  - \langle \sigma_-  \rangle_{st}] \rangle_{st} 	\\ 
+	&=& \alpha_{ee} -|\alpha_+|^2 	\\  
+&=& \frac{ \Omega^2 }{(2+q)\Omega^2 +\gamma_+^2 +4\Delta^2 }     \\ 
+    && -\frac{ \Omega^2[\gamma_+^2 +4\Delta^2] }
+    { [(2+q)\Omega^2 +\gamma_+^2 +4\Delta^2 ]^2}  \\ 
+&=& \frac{ (2+q)\Omega^4}
+    { [(2+q)\Omega^2 +\gamma_+^2 +4\Delta^2 ]^2} \,. 
+\end{eqnarray*}
+%%
+Also, we can calculate 
+%
+\begin{eqnarray} 	 \label{eq:corre2stb} 
+\lefteqn{  \langle \Delta \mathbf{s}  \Delta \sigma_- \rangle = 
+\left( \begin{array}{c}  -\alpha_-^2 \\    \alpha_{ee} -\alpha_+ \alpha_- \\   
+-\alpha_- \alpha_{ee} \\ \alpha_- (1- \alpha_{gg}) \end{array} 	\right) } 
+	\hspace{15mm} 	\\ 
+&=& \frac{\Omega^2}{D^2} \left( \begin{array}{c} 
+\gamma_+^2 -i4\Delta \gamma_+ -4\Delta^2 	\\ 
+(2+q) \Omega^2 	\\  	\Omega [2\Delta +i \gamma_+] 	\\
+-(1+q) \Omega [2\Delta +i \gamma_+] 	\end{array} \right) \,,		\nonumber	
+\end{eqnarray} 
+%%
+
+For the third-order correlations,
+%
+\begin{eqnarray} 	\label{eq:corre3st}
+\lefteqn{   \langle \Delta \sigma_+ \Delta \mathbf{s} 
+\Delta \sigma_- \rangle = \left( \begin{array}{c} 
+2\alpha_- (\alpha_+ \alpha_- -\alpha_{ee}) \\  
+2\alpha_+ (\alpha_+ \alpha_- -\alpha_{ee}) \\ 
+\alpha_e (2\alpha_+ \alpha_- -\alpha_{ee}) \\
+(\alpha_g -1) (2\alpha_+ \alpha_- -\alpha_{ee}) \end{array}  \right) } 
+	\hspace{2mm}  \\ 
+&=&\frac{\Omega^4}{D^3} \left( \begin{array}{c} 
+2(2+q) \Omega [2\Delta +i \gamma_+] 	\\
+2(2+q) \Omega [2\Delta -i \gamma_+] 	\\ 
+-[(2+q) \Omega^2 -\gamma_+^2 -4\Delta^2] 	\\
+-(1+q) [(2+q) \Omega^2 -\gamma_+^2 -4\Delta^2]
+	\end{array} \right) 		\,.  \nonumber 
+\end{eqnarray} 
+%%
+
+%\begin{widetext}
+%\end{widetext} 
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Stationary Power Spectrum} 
+The stationary power spectrum is given by the Wiener-Khintchine spectrum, 
+which consists of the Fourier transform of the field autocorrelation function,  
+%
+\begin{eqnarray}
+S(\omega) &=& \frac{1}{ \pi \alpha_{ee} } \mathrm{Re}
+\int_0^{\infty} d\tau e^{-i \omega \tau} 
+	\langle \sigma_+ (0) \sigma_- (\tau) \rangle_{st}  	\,.
+\end{eqnarray}
+%%
+The factor $(\pi \alpha_{ee} )^{-1}$ allows to normalize the spectrum as 
+$\int_{-\infty}^{\infty} S(\omega) d \omega =1$. 
+
+To reveal more clearly the role of fluctuations, we split the atomic 
+operators into a mean,  $\alpha_{jk}$, plus fluctuations, 
+$\Delta \sigma_{jk}(t)$, that is,  
+%
+\begin{eqnarray} 	\label{eq:dipoleSplit}
+\sigma_{jk} (t) = \langle \sigma_{jk}  \rangle_{st} 
+	+\Delta \sigma_{jk} (t) 	\,, 
+\end{eqnarray}
+%%
+where, by definition, $\langle \Delta \sigma_{\pm}(t)\rangle =0$,  
+such that 
+%
+\begin{subequations}
+\begin{eqnarray}
+\langle \sigma_+(0) \sigma_-(\tau) \rangle_{st}  
+&=& |\alpha_+ |^2 
+	+\langle \Delta \sigma_+(0) \Delta \sigma_-(\tau) \rangle_{st} \,. \qquad
+\end{eqnarray}
+%%
+At zero interval, $\tau=0$, 
+%
+\begin{eqnarray} 
+\langle \sigma_+ \sigma_- \rangle_{st} 
+	&=& |\alpha_+ |^2   
+	+\langle \Delta \sigma_+ \Delta \sigma_- \rangle_{st}  \,, 
+\end{eqnarray}
+\end{subequations}
+%%
+where the first term on the rhs is the coherent part of the dipole emission, 
+and the second term is the incoherent intensity, 
+%
+\begin{eqnarray} 
+\langle \Delta \sigma_+ \Delta \sigma_- \rangle_{st} 
+&=& \alpha_{ee} -|\alpha_+|^2 		 \\  
+&=& \frac{ (2+q)\Omega^4}
+    { [(2+q)\Omega^2 +\gamma_+^2 +4\Delta^2 ]^2} \,.   \nonumber 
+\end{eqnarray}
+%%
+
+An important relation is the ratio of coherent (elastic) to incoherent 
+(inelastic) intensity: 
+%
+\begin{eqnarray} 
+\frac{I_{coh}}{I_{inc}} &=& \frac{|\langle \sigma_+  \rangle_{st}|^2}
+	{\langle \Delta \sigma_+ \Delta \sigma_- \rangle_{st}}		\\ 
+&=& \frac{ \Omega^2 [\gamma_+^2 +4\Delta^2]/D^2 }
+	{(2+q) \Omega^4 /D^2} 
+	= \frac{ \gamma_+^2 +4\Delta^2 }{(2+q) \Omega^2}  \,. 
+	\nonumber 
+\end{eqnarray}
+%%
+This is the inverse of the saturation parameter $s$, which gives the 
+intensity of the driving field necessary to saturate the atom, where 
+the incoherent intensity is larger than the coherent one. Later, we will 
+explain some results in terms of this parameter.
+
+The splitting (\ref{eq:dipoleSplit}) separates the spectrum in two parts: 
+%
+\begin{eqnarray} 	\label{eq:3LASpectrum?}
+S(\omega) &=& S_{coh}(\omega) +S_{inc}(\omega) 	\,,
+\end{eqnarray}
+%%
+where 
+%
+\begin{eqnarray}
+S_{coh}(\omega) &=& \frac{|\alpha_+ |^2}{ \pi \alpha_{ee}  }
+	\mathrm{Re} \int_0^{\infty}  e^{-i \omega \tau} d\tau 
+	= \frac{|\alpha_+ |^2}{ \pi \alpha_{ee}  } 
+	\delta(\omega)	\,, 	\qquad 
+\end{eqnarray}
+%%
+is the coherent spectrum due to elastic scattering, and 
+%
+\begin{eqnarray} 	\label{eq:Sinc}
+S_{inc}(\omega) 
+&=& \frac{1}{ \pi \alpha_{ee}  } \mathrm{Re} \int_0^{\infty} 
+	d\tau e^{-i \omega \tau} 
+	\langle \Delta \sigma_+(0) \Delta \sigma_-(\tau) \rangle_{st} 
+	\,, 	\nonumber \\
+\end{eqnarray}
+%%
+is the incoherent (inelastic) spectrum due to atomic fluctuations.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Coherent (delta) Spectrum and The Incoherent Narrow Peak}
+The coherent spectrum is 
+%
+\begin{eqnarray} 	\label{eq:SCoh3LA}
+S_{coh}(\omega) 
+&=& \frac{ \Omega^2[\gamma_+^2 +4\Delta^2]/D^2 }
+    {\pi \Omega^2/D} \delta(\omega)	    \\
+   &=& \frac{ \gamma_+^2 +4\Delta^2 }
+    {\pi [(2+q)\Omega^2 +\gamma_+^2 +4\Delta^2 ] } \delta(\omega)	   \,. 
+    \nonumber 	 
+\end{eqnarray}
+%%
+
+The total intensity emitted by the excited state should not differ from that 
+of the 2LA spectrum, regardless of now having two decay channels. But 
+(\ref{eq:SCoh3LA}) is smaller than the elastic peak of the 2LA spectrum 
+(where $\gamma_d=q=0$). Evers and Keitel \cite{EvKe02} showed that 
+the elastic peak is split into a smaller elastic peak plus a very narrow 
+inelastic one, which carries the difference in intensity. This peak is due 
+to the shelving of the electronic population in the long-lived state. 
+Hegerfeldt and Plenio \cite{HePl95} and Garraway et al \cite{GaKK95} 
+first predicted this effect for the $V$ and $\Lambda$ 3LA configurations. 
+This means that we must replace Eq.(\ref{eq:3LASpectrum?}) with 
+%
+\begin{eqnarray} 	\label{eq:Full3LASpectrum}
+S(\omega) &=& S_{coh}(\omega) +S_{ep}(\omega) 
+	+S_{inc}^{Mollow}(\omega) \,.
+\end{eqnarray}
+%%
+
+Writing $\pi S_{coh}^{NLA} =I^{NLA} \delta(\omega)$, $N=2,3,$ the 
+relative intensity of the narrow inelastic peak is   
+%
+\begin{eqnarray}
+I_{ep} &=& \frac{|\alpha_+^{2LA} |^2}{ \alpha_{ee}^{2LA} } 
+	-\frac{|\alpha_+^{3LA} |^2}{ \alpha_{ee}^{3LA} } 	\\
+&=& \frac{ \Omega^2 [q(\gamma^2 +4\Delta^2) -2\gamma_d \gamma_+]}
+	{[2\Omega^2 +\gamma^2 +4\Delta^2 ]
+	[(2+q)\Omega^2 +\gamma_+^2 +4\Delta^2 ] } \,. 
+	\nonumber 	
+%\\ &=& \frac{ \Omega^2 [\gamma^2 +4\Delta^2 
+%	-2\gamma_a(\gamma  +\gamma_d)]}
+%	{[2\Omega^2 +\gamma^2 +4\Delta^2 ]
+%	[ \Omega^2 +\frac{1}{q}(2\Omega^2 +(\gamma +\gamma_d)^2 
+%	+4\Delta^2) ] } \,. 	\nonumber 
+\end{eqnarray}
+%% 
+
+The Rabi frequency for the maximum intensity of the extra peak, from 
+$d I_{ep}/d \Omega =0$, is given by 
+%
+\begin{eqnarray}
+\Omega_{opt} &=& \left[ \frac{ (\gamma^2 +4\Delta^2) 
+\left[ \gamma_+^2 +4\Delta^2 \right] }{ 2(2+q) } \right]^{1/4} \,.
+\end{eqnarray}
+%%
+\textcolor{blue}{En resonancia, si 
+$(\gamma, \gamma_d, \gamma_a) =(0.95,\,0.050,\, 0.015$, $q=10/3$, 
+valores cercanos a los usados en nuestros artículos (hab\'iamos 
+usado $\gamma=1$), entonces $\Omega_{opt} = 0.539 \gamma$. 
+Si $\gamma_a = 0.0015$, m\'as cercano a la situaci\'on real, entonces 
+$\Omega_{opt} = 0.336169 \gamma$. Recordemos que $\gamma_a$ es un 
+par\'ametro efectivo, dependiente del bombeo a una transici\'on de 
+escape. As\'i que podemos suponer que $\Omega_{opt}/\gamma$ estar\'ia 
+en el rango $0.3, 0.6$. Para que el espectro muestre el triplete de Mollow 
+se requiere $\Omega_{opt} \geq 2 \gamma$. } \textcolor{red}{Obtener 
+par\'ametros reales de $^{171} \mathrm{Yb}^+$.}
+
+\textit{Note}: Had we chosen not to normalize the spectrum $I_{ep}$ 
+would be 
+%
+\begin{eqnarray} 	\label{eq:I_narrowpeak}
+I_{ep} &=& \left( |\langle \sigma_{eg} \rangle_{st} |^2 \right)_{2LA}
+	- \left( |\langle \sigma_{eg} \rangle_{st} |^2 \right)_{3LA} 	\nonumber \\ 
+&=& \frac{ \Omega^4 [(2+q) \gamma^2 -2\gamma_+^2 +4\Delta^2 q ]}
+	{[2\Omega^2 +\gamma^2 +4\Delta^2 ]^2
+	[(2+q)\Omega^2 +\gamma_+^2 +4\Delta^2 ]^2 }  . \nonumber 	
+\end{eqnarray}
+%% 
+
+Evers and Keitel \cite{EvKe02} show that the width of the extra peak is 
+accurately given by 
+%
+\begin{eqnarray} 	\label{eq:widthextra}
+\Gamma_{ep} &=& T_D^{-1} +T_B^{-1} 	
+	= \frac{ (2+q)\Omega^2 +\gamma^2 +4\Delta^2 }
+	{2\Omega^2 +\gamma^2 +4\Delta^2} \gamma_a 	\nonumber \\ 
+&=& \gamma_a \left[ 1+ \frac{ q\Omega^2 }
+	{2\Omega^2 +\gamma^2 +4\Delta^2}  \right] 	\,, 
+\end{eqnarray}
+%%
+which we later use as the eigenvalue $\lambda_2$. They then assume 
+$I_{ep} =\pi \Gamma_{ep} A_{ep}$, where the width obtained above is 
+rewritten as 
+%
+\begin{eqnarray}
+\Gamma_{ep} &=& 
+	\frac{ \Omega^2 +q^{-1}(2\Omega^2 +\gamma^2 +4\Delta^2)}
+	{2\Omega^2 +\gamma^2 +4\Delta^2} \gamma_d 	\,, 	 
+\end{eqnarray}
+%%
+and the amplitude is 
+%
+\begin{eqnarray}
+A_{ep} &=& \frac{ \Omega^2 ( \gamma^2 +4\Delta^2 )/\pi \gamma_d }
+	{ [ \Omega^2 +q^{-1}(2\Omega^2 +\gamma^2 +4\Delta^2) ]^2 }  \,. 	
+	\nonumber \\
+\end{eqnarray}
+%%
+Assuming a Lorentzian shape of the extra peak, 
+%
+\begin{eqnarray}
+S_{ep}(\omega) &=& \frac{I_{ep}}{\pi} \frac{\Gamma_{ep}}
+	{(\omega -\omega_L)^2 +\Gamma_{ep}^2} 	\,.
+\end{eqnarray}
+%%
+
+Later, we calculate the full spectrum analytically in the resonance case in
+the limit $\gamma \gg \gamma_d, \gamma_a$. In this case, the spectral 
+components have such Lorentzian shape, where 
+$\Gamma_{ep}, A_{ep},I_{ep}$ are readily identified.  
+
+In \cite{EvKe02} it is also found that $\gamma_d \sim 3.3 \gamma_a$ 
+is very close to the optimum value for the appearance of the extra peak. 
+
+\textcolor{red}{Try to write the spectrum in terms of $T_B$ and $T_D$} 
+\cite{HePl95}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Incoherent (Mollow) Spectrum} 
+An approximated analytical solution of the correlation 
+$\langle \Delta \sigma_+(0) \Delta \sigma_-(\tau) \rangle_{st}$ in the 
+limiting case of $\Delta =0$ is possible using Laplace transform, written 
+as a sum of exponentials [see Eq.(\ref{eq:p_tau})],
+%
+\begin{eqnarray}
+\langle \Delta \sigma_+(0) \Delta \sigma_-(\tau) \rangle_{st} 
+	= \sum_m C_m e^{\lambda_m \tau} \,, 
+\end{eqnarray}
+%%
+where $\lambda_m$ are the eigenvalues of $\mathbf{M}$, with negative 
+real part. Hence, we have simple integrals of the type
+%
+\begin{eqnarray} 	%\label{eq:integrals}
+\int_0^{\infty} d\tau e^{(-i \omega +\lambda_m) \tau} 
+	&=& \left. \frac{e^{(-i \omega +\lambda_m) \tau}}
+	{-i \omega +\lambda_m} \right|_0^{\infty} 
+	= \frac{-1}{-i \omega +\lambda_m} \,,	\nonumber 	\\ 
+\mathrm{Re} \int_0^{\infty} d\tau e^{(-i \omega +\lambda_m) \tau} 
+	&=& - \mathrm{Re} \left[ \frac{i \omega +\lambda_m}
+	{ \omega^2 +\lambda_m^2} \right] 
+	= \frac{- \lambda_m}{ \omega^2 +\lambda_m^2} \,. \nonumber \\
+\end{eqnarray}
+%%
+
+For numerical work (and for any $\Delta$) a matrix analysis is more 
+convenient, formally integrating the correlation written as
+Eq.(\ref{eq:FlucCorrSol}), 
+%
+\begin{eqnarray} 	%\label{eq:}
+S_{inc}(\omega) 
+&=& \frac{1}{ \pi \alpha_{ee}  } \mathrm{Re} \left[  \int_0^{\infty} 
+	d\tau e^{-(i \omega \mathbf{1} -\mathbf{M}) \tau} 	
+	\langle \Delta \sigma_+ \Delta \mathbf{s} \rangle_{st} \right]_1   
+	\nonumber \\ 
+&=& \frac{1}{ \pi \alpha_{ee}  } \mathrm{Re} \left[ 
+	-(i \omega \mathbf{1} -\mathbf{M})^{-1} 
+	e^{-(i \omega \mathbf{1} -\mathbf{M}) \tau} \left. \right|_0^{\infty}  
+	 \right. 	\nonumber \\
+&&	\left. \times 
+	\langle \Delta \sigma_+ \Delta \mathbf{s} \rangle_{st} \right]_1 	
+	\nonumber \\ 
+&=& \frac{1}{ \pi \alpha_{ee}  } \mathrm{Re} \left[ 
+	(i \omega \mathbf{1} -\mathbf{M})^{-1} 
+	\langle \Delta \sigma_+ \Delta \mathbf{s} \rangle_{st} \right]_1 	\,, 	
+	\nonumber \\ 
+\end{eqnarray}
+%%
+where $\mathbf{1}$ is the $4 \times 4$ identity matrix. The subindex $1$ 
+outside the square brackets indicates that only the first element of the 
+resulting vector is to be taken.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Integrated Spectra} 
+Now, we sketch the calculation of the intensity of a peak. First, the 
+components of the incoherent spectra can be well approximated by 
+Lorentzians, 
+%
+\begin{eqnarray} 
+S_m(\omega) = \frac{\lambda_m}{\omega^2 +\lambda_m^2} 
+	= \frac{- a_m}{\omega^2 +a_m^2} 	\,
+\end{eqnarray}
+%%
+since the eigenvalues (\ref{eq:eigenvalues}) have negative real parts, 
+$\lambda_m = -a_m$. Then, we integrate over all frequencies, 
+%
+\begin{eqnarray} 
+\int_{-\infty}^{\infty} \frac{d\omega}{\omega^2 +a^2} 
+	&=& \left. \frac{1}{a} \tan^{-1}{\left( \frac{\omega}{a} \right)} 
+		\right|_{-\infty}^{\infty} 
+	=  \frac{1}{a} \left[ \frac{\pi}{2} -\frac{-\pi}{2} \right] 	\nonumber \\ 
+	&=& \pi/a	\,.
+\end{eqnarray}
+%%
+This result is also used to calculate (alternatively) the variance (noise) 
+of a quadrature,  
+%
+\begin{eqnarray} 
+\int_{-\infty}^{\infty} S_{\phi}(\omega) d \omega \propto V_{\phi} 
+	= \langle : (\Delta \sigma_{\phi})^2 :  \rangle_{st} 	\,. 
+\end{eqnarray}
+%%
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+%\section{Quadrature Spectra} 
+%See CHD theory file and \cite{CaRG16}.  
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Photon Correlations} 
+See Eq.(\ref{eq:G2shelving})
+%
+\begin{eqnarray} 
+g^{(2)} (\tau) &=& \frac{\langle \sigma_{+}(0)  \sigma_{ee} (\tau) 
+ 	\sigma_{-}(0) \rangle_{st}}{\alpha_{ee}^2} 
+	= \frac{\langle \sigma_{ee} (\tau) \rangle}{\alpha_{ee}} 	\\
+&=& 1- e^{\lambda_2 \tau} +\frac{ 1+ Y^2 +(q/2)Y^2 }{1+ Y^2} f(\tau)  \,.
+	\nonumber 
+\end{eqnarray}
+%%
+The last equation is valid for $\Delta=0$. 
+
+Photon correlation by fluctuation operator approach using 
+$\sigma_{jk} = \alpha_{jk} + \Delta \sigma_{jk}$ we have
+%
+\begin{eqnarray*} 
+G^{(2)} (\tau) &=& \alpha_{ee} \left( \alpha_{+} \alpha_{-} 
+	+\langle \Delta \sigma_{+}\Delta \sigma_{-} \rangle_{st} \right) 	\\ 
+	&& +\alpha_+ \langle \Delta \sigma_{ee} (\tau) 	
+		\Delta \sigma_{-}(0) \rangle_{st} 	\\
+	&& +\alpha_- \langle \Delta \sigma_{+} (0) 	
+		\Delta \sigma_{ee}(\tau) \rangle_{st}		\\ 
+	&& +\langle \Delta \sigma_{+}(0) \Delta \sigma_{ee} (\tau)  	
+ 	\Delta \sigma_{-}(0) \rangle_{st} 		\\ 
+%
+&=& \alpha_{ee}^2  +2 \mathrm{Re} \left[ \alpha_-  \langle 
+	\Delta \sigma_{+} (0) \Delta \sigma_{ee}(\tau) \rangle_{st} \right] \\ 
+ &&  +\langle \Delta \sigma_{+}(0) \Delta \sigma_{ee} (\tau)  	
+ 	\Delta \sigma_{-}(0) \rangle_{st} \,.	
+\end{eqnarray*}
+%%
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+%\begin{widetext}
+\section{Approximate Analytic Solutions} 
+Solutions obtained by Ricardo Rom\'an Ancheyta for the on-resonance 
+case, $\Delta=0$, in the limit $\gamma \gg \gamma_d, \gamma_a$, 
+and reorganized by HMCB. 
+
+We define a pseudo-Bloch vector $x_{jk} (\tau)$ for the expectation 
+values of atomic operators $A_{jk}$ and two-time correlations. The 
+equations of motion for the several correlation functions (Table 1) are:  
+%
+\begin{eqnarray*} 	
+\frac{d}{d\tau} x_-  
+&=& -\frac{\gamma_+}{2}  x_- 	+i w ( x_{ee}	- x_{gg} )		\,, \\
+%
+\frac{d}{d\tau}  x_+
+&=& -\frac{\gamma_+}{2} x_+ 	-i w ( x_{ee} 	- x_{gg} ) 		\,,	\\
+%
+\frac{d}{d\tau} x_{ee}  
+&=& i w ( x_-  - x_+ )	 -\gamma_+ x_{ee} 	\,, \\
+%
+\frac{d}{d\tau} x_{gg} 
+&=& -i w ( x_-  - x_+ )  +\gamma_- x_{ee}    	
+	 -\gamma_a x_{gg}   +\gamma_a \beta \,,	
+\end{eqnarray*}
+%%
+where $w=\Omega/2$. See Table 1 for definitions of $\beta$ and $\mu$. 
+
+% 
+\begin{table}[t]
+\caption{Initial conditions and parameters of the Bloch equations and 
+correlation functions. 
+$\mathbf{s} \equiv (\sigma_{ge}, \sigma_{eg}, \sigma_{ee}, \sigma_{gg)^T}$, 
+$\mathbf{x}(0) = ( \mu,0,0,\beta)^T$, $\beta$ is a factor in the 
+inhomogeneous term. Two-time functions should have the ``st'' subindex.} 
+\begin{ruledtabular}
+\begin{tabular}{ccccc} 		%\hline  \hline
+$x_{jk} (\tau)$ & $x_{jk}(0)$ & $\beta$ & $\mu$ & $A_-$ \\ \hline
+%
+$\langle \sigma_{jk} (t) \rangle$  & $(0,0,0,1)^T$ & 1 & 0 & $\mathbf{1}$	\\ 
+%
+$\langle \sigma_{eg}(0) \sigma_{jk}(\tau) \rangle$ & 
+	$(\alpha_{ee},0,0,\alpha_{eg})^T$  & $\alpha_{eg}$ & $\alpha_{ee}$ & 
+	$\mathbf{1}$ 	\\ 
+%
+$\langle \sigma_{eg}(0) \sigma_{jk}(\tau) \sigma_{ge}(0) \rangle$ 
+	 & $(0,0,0,\alpha_{ee})^T$ & $\alpha_{ee}$ & 0  & $\sigma_{ge}$    \\  
+%
+$\langle \Delta \sigma_{eg}(0) \Delta \sigma_{jk}(\tau) \rangle$ 
+	&  $\mathrm{see \,\,Eq.}~(\ref{eq:corre2st})$ & 0 & -- & $\mathbf{1}$  \\ 
+%
+$\langle \Delta \sigma_{eg}(0) \Delta \sigma_{jk}(\tau) \Delta \sigma_{ge} (0) \rangle$  
+	&  $\mathrm{see \,\,Eq.}~(\ref{eq:corre3st})$ & 0 & -- & 
+	$\Delta \sigma_{ge}$ 		
+\label{default}
+\end{tabular}	
+\end{ruledtabular}
+\end{table}
+%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Solutions in the Laplace Domain} %%%%%%%%%
+Upon Laplace transformation, we have 
+%
+\begin{eqnarray*} 	
+s a - x_-(0) &=& i w (c -d) -(\gamma_+/2) a 	\\ 
+s b - x_+(0) &=& -i w (c -d) -(\gamma_+/2) b 	\\ 
+s c - x_{ee}(0) &=& i w (a-b) -\gamma_+ c 		\\ 
+s d - x_{gg}(0) &=& -i w (a-b) +\gamma_- c -\gamma_a d 
+	+\frac{\gamma_a \beta}{s} \,,
+\end{eqnarray*} 
+%% 
+where $(a,b,c,d)^T$ is the pseudo-Bloch vector in the Laplace space 
+with initial conditions $\mathbf{x}(0) = ( \mu,0,0,\beta)^T$,  
+%
+\begin{eqnarray*} 	
+a (s +\gamma_+/2) &=& i w (c -d)  +\mu 	\\ 
+b (s +\gamma_+/2) &=& -i w (c -d)  	\\ 
+c (s +\gamma_+) &=& i w (a-b)  		\\ 
+d (s +\gamma_a)  &=& -i w (a-b) +\gamma_- c  
+	+\frac{\gamma_a \beta}{s} + \beta \frac{s}{s} \,.
+\end{eqnarray*} 
+%% 
+
+%
+\begin{subequations}
+\begin{eqnarray} 	
+a &=& i w\frac{c -d}{s +\gamma_+/2}  +\frac{\mu}{s +\gamma_+/2}  \\ 
+b &=& -i w\frac{c -d}{s +\gamma_+/2}  	\\ 
+c &=& i w \frac{a-b}{s +\gamma_+}   		\\ 
+d &=& -i w \frac{a-b}{s +\gamma_a} +\gamma_- \frac{c}{s+ \gamma_a}  
+	+ \frac{\beta}{s} \,.
+\end{eqnarray} 
+\end{subequations}
+%% 
+From (8.1a,b) 
+%
+\begin{eqnarray*} 	
+a-b &=& 
+	2 i w\frac{c -d}{s +\gamma_+/2}  +\frac{\mu}{s +\gamma_+/2} \,,
+\end{eqnarray*} 
+%% 
+and substituting it in (8.1c,d):
+%
+\begin{eqnarray} 	
+c &=& - \frac{2w^2 (c-d)}{ (s+\gamma_+) (s +\gamma_+/2) }   
+	+\frac{i w \mu}{ (s+\gamma_+) (s +\gamma_+/2) } 	\,, 	
+	\nonumber \\ \\
+d &=& \frac{2w^2 (c-d)}{(s +\gamma_a)(s +\gamma_+/2)} 
+	-\frac{i w \mu}{ (s+\gamma_a) (s +\gamma_+/2) } 	\nonumber \\
+	&&+\gamma_- \frac{c}{s+ \gamma_a}  + \frac{\beta}{s} \,.
+\end{eqnarray} 
+%% 
+From (7.2) 
+%
+\begin{eqnarray} 	
+\frac{c-d}{ s +\gamma_+/2 } &=& -\frac{c(s+\gamma_+)}{2w^2}  
+	+\frac{i \mu/2w}{s +\gamma_+/2} 	\,,  	
+\end{eqnarray} 
+%% 
+and substituting it in (7.3): 
+\begin{widetext} 
+%
+\begin{eqnarray} 	
+d &=& \frac{2w^2}{s +\gamma_a} \left[ -\frac{c(s+\gamma_+)}{2w^2}  
+	+\frac{i \mu /2w}{s +\gamma_+/2}  \right] 	
+	 -\frac{i w \mu}{ (s+\gamma_a) (s +\gamma_+/2) } 
+	+\gamma_- \frac{c}{s+ \gamma_a}  + \frac{\beta}{s} 	\nonumber \\
+&=& - \frac{c(s+\gamma_+ -\gamma_-)}{s +\gamma_a} 
+	+ \frac{\beta}{s} +c -c 	\nonumber \\ 
+c-d &=& c \left[ \frac{s +\gamma_d +\gamma_a}{s +\gamma_a} +1 \right] 
+	- \frac{\beta}{s}
+\end{eqnarray} 
+%% 
+
+Substituting $c-d$ from (7.4) in (7.5)
+%
+\begin{subequations}
+\begin{eqnarray} 	
+c \left[ \frac{s+\gamma_d +\gamma_a}{s+ \gamma_a} +1 
+	+ \frac{ (s+\gamma_+) (s +\gamma_+/2) }{2w^2} \right] 
+	  &=& \frac{i \mu}{2w} +\frac{\beta}{s} 		\nonumber	\\ 
+%
+c \left[ (s+\gamma_d +\gamma_a) +(s+ \gamma_a)  
+	+ \frac{1}{2w^2} (s+ \gamma_a) (s+\gamma_+) (s +\gamma_+/2) \right] 
+	&=& \frac{i \mu}{2w}(s+ \gamma_a)  
+	+\frac{\beta(s+ \gamma_a)}{s} 	 \nonumber	\\ 
+%
+c \left[ 2(s+\gamma_a +\gamma_d/2)   
+	+ \frac{1}{2w^2} (s+ \gamma_a) (s+\gamma_+) (s +\gamma_+/2) \right] 
+	 &=& \frac{i \mu}{2w}(s+ \gamma_a)  
+	 +\frac{\beta(s+ \gamma_a)}{s} 	\,.
+\end{eqnarray} 
+%% 
+
+We've obtained a decoupled expression for $c(s)$. We substitute 
+(7.4) into (7.1a,b): 
+%
+\begin{eqnarray} 	
+a(s) &=& i w \left[ -\frac{c(s)(s+\gamma_+)}{2w^2}  
+	+\frac{i \mu/2w}{s +\gamma_+/2} \right]  
+	+\frac{\mu}{s+ \gamma_+/2}
+	= - \frac{i}{2w} (s+\gamma_+) c(s) 
+	+\frac{\mu/2}{s+ \gamma_+/2} \,,	\\ 
+b(s) &=& -i w \left[ -\frac{c(s)(s+\gamma_+)}{2w^2}  
+	+\frac{i \mu/2w}{s +\gamma_+/2} \right]  
+	= \frac{i}{2w} (s+\gamma_+) c(s) 
+	+\frac{\mu/2}{s+ \gamma_+/2} \,,
+\end{eqnarray}
+%% 
+and substitute (7.6b,c) into (7.1d) 
+%
+\begin{eqnarray} 	
+d(s) &=& -i w \frac{-i c(s)}{w} \frac{s+\gamma_+}{s +\gamma_a} 
+	+\gamma_- \frac{c(s)}{s+ \gamma_a}  + \frac{\beta}{s} 
+	= -\frac{s+\gamma_+ -\gamma_-}{s +\gamma_a} c(s)
+	 + \frac{\beta}{s} \,.
+\end{eqnarray} 
+\end{subequations}
+%% 
+
+We can simply substitute (7.6a) into (7.6b-d). However, it would be very 
+difficult to obtain the inverse Laplace transform. This does not look 
+amenable to further analytical work. Here comes a brilliant insight from 
+Ricardo (which comes with a price, but he found a way to deal with it 
+--see further below). We first rewrite (8.6a) as
+%
+\begin{eqnarray*} 	
+c(s) \left[ \frac{2}{\Omega^2} (s+ \gamma_a) (s+\gamma_+) (s +\gamma_+/2) 
+	+2(s+\gamma_a +\gamma_d/2)   \right] 
+  &=& \frac{i \mu}{\Omega}(s+ \gamma_a)  +\frac{\beta(s+ \gamma_a)}{s} 	
+  	\nonumber \\ 
+%
+c(s) \left[ (s+ \gamma_a) (s+\gamma_+) (s +\gamma_+/2) 
+	+\Omega^2 (s+\gamma_a +\gamma_d/2)   \right] 
+  	&=& \frac{i \mu \Omega}{2}(s+ \gamma_a)  
+  	+\frac{\Omega^2 \beta}{2} \frac{(s+ \gamma_a)}{s} 	\,.
+  	\nonumber 
+\end{eqnarray*} 
+%% 
+By dropping the small term $\Omega^2 \gamma_d/2$, the factor 
+$s+ \gamma_a$ is eliminated,  greatly simplifying the expression 
+for inverse Laplace transform:   
+%
+\begin{subequations}
+\begin{eqnarray} 	
+c(s) &=& \frac{\Omega^2 \beta}{2} \frac{1}{s \left[ \left( s +\frac{3 \gamma_+}{4} 
+	\right)^2 - \delta^2  \right]}	
+	+ \frac{i \mu \Omega}{2} \frac{1}{\left[ \left( s +\frac{3 \gamma_+}{4} 
+	\right)^2 - \delta^2  \right]} 	\,,
+\end{eqnarray}
+%% 
+where $\delta^2 = (\gamma_+/4)^2 -\Omega^2$. Substituting (8.7a) into 
+(7.6b-d): 
+%
+\begin{eqnarray} 	
+a(s) &=& - i \frac{\Omega \beta}{2} 
+	\frac{(s+\gamma_+)}{s \left[ \left( s +\frac{3 \gamma_+}{4} 
+	\right)^2 - \delta^2  \right]}	
+	+ \frac{\mu}{2} \frac{(s+\gamma_+)}
+	{\left[ \left( s +\frac{3 \gamma_+}{4} 
+	\right)^2 - \delta^2  \right]}   
+	+\frac{\mu/2}{s+ \gamma_+/2} \,,	\\ 
+%
+b(s) &=& \frac{i \Omega \beta}{2} 
+	\frac{(s+\gamma_+)}{s \left[ \left( s +\frac{3 \gamma_+}{4} 
+	\right)^2 - \delta^2  \right]}	
+	- \frac{\mu}{2} \frac{(s+\gamma_+)}{\left[ \left( s +\frac{3 \gamma_+}{4} 
+	\right)^2 - \delta^2  \right]} +\frac{\mu/2}{s+ \gamma_+/2} 	\,, 	\\
+%
+d(s) &=& -\frac{\Omega^2 \beta}{2} \frac{(s+\gamma_d +\gamma_a)}
+	{ s (s +\gamma_a) \left[ \left( s +\frac{3 \gamma_+}{4} 
+	\right)^2 - \delta^2  \right] }	
+	- \frac{i \mu \Omega}{2} \frac{(s+\gamma_d +\gamma_a)}{(s +\gamma_a) 		\left[ \left( s +\frac{3 \gamma_+}{4} 
+	\right)^2 - \delta^2  \right]}  + \frac{\beta}{s}	\,.
+\end{eqnarray}
+\end{subequations}
+%% 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Time-Domain Solutions for Bloch Equations and Third Order 
+Correlations} %%%%%%%%%
+Equations (7.7) are approximate solutions in the Laplace space. We 
+now obtain the corresponding solutions in the time domain for $\mu=0$. 
+We begin with the inverse transform of $c(s)$, the simplest of these solutions:  
+%
+\begin{eqnarray*} 	
+c(s) &=& \frac{\Omega^2 \beta}{2} \frac{1}{s \left[ \left( s +\frac{3 \gamma_+}{4} 
+	\right)^2 - \delta^2  \right]}	
+	= \frac{\Omega^2 \beta}{2} \left[ \frac{A}{s} 
+	+\frac{Bs +C}{ \left( s +\frac{3 \gamma_+}{4} \right)^2 - \delta^2 } \right]  \,.
+\end{eqnarray*}
+%% 
+We find $A =-B =(\Omega^2 +\gamma_+^2/2)^{-1}$, $C =-3 \gamma_+ A/2$, so 
+%
+\begin{eqnarray} 	
+c(s) &=& \frac{\Omega^2 \beta A}{2} \left[ \frac{1}{s} 
+	-\frac{s +3 \gamma_+/2}
+	{ \left( s +\frac{3 \gamma_+}{4} \right)^2 - \delta^2 } \right]  
+	= \frac{\Omega^2 \beta/2}{\Omega^2 +\gamma_+^2/2} \left[ \frac{1}{s} 
+	-\frac{s +3 \gamma_+/4}
+	{ \left( s +\frac{3 \gamma_+}{4} \right)^2 - \delta^2 } 
+	 -\frac{3 \gamma_+}{4 \delta} \frac{\delta}
+	{ \left( s +\frac{3 \gamma_+}{4} \right)^2 - \delta^2 }  \right]  \,, 
+\end{eqnarray}
+%% 
+The inverse Laplace transform, $\mathcal{L}^{-1} [c(s)]$, is readily obtained 
+%
+\begin{eqnarray} 	
+\langle \sigma_{ee} (t) \rangle 
+&=& \frac{\Omega^2/2}{\Omega^2 +\gamma_+^2/2} 
+	\left[ 1 -e^{-3\gamma_+ t/4} \cosh{\delta t} 
+	-\frac{3 \gamma_+}{4 \delta} e^{-3\gamma_+ t/4} \sinh{\delta t}  
+	 \right] 	\nonumber \\  
+	&=& \frac{\Omega^2/2}{\Omega^2 +\gamma_+^2/2} \left\{ 1 
+	-\frac{1}{2} \left[ \left( 1+\frac{3 \gamma_+}{4 \delta} \right) e^{\lambda_+ t}  	
+	+ \left( 1-\frac{3 \gamma_+}{4 \delta} \right) e^{\lambda_- t} 
+	 \right] \right\} 	\,.  
+\end{eqnarray}
+%% 
+%
+\begin{eqnarray} 	\label{eq:G2shelving}
+\langle \sigma_+ (0) \sigma_{ee} (\tau) \sigma_-(0) \rangle_{st} 
+&=& \frac{\Omega^2 \alpha_{ee}/2}{\Omega^2 +\gamma_+^2/2} 
+	\left[ 1 -e^{-3\gamma_+ \tau/4} \cosh{\delta \tau} 
+	-\frac{3 \gamma_+}{4 \delta} e^{-3\gamma_+ \tau/4} \sinh{\delta \tau}  
+	 \right] 	\nonumber \\  
+&=& \frac{\Omega^2 \alpha_{ee}/2}{\Omega^2 +\gamma_+^2/2} \left\{ 1 
+	-\frac{1}{2} \left[ \left( 1+\frac{3 \gamma_+}{4 \delta} \right) e^{\lambda_+ \tau}  	
+	+ \left( 1-\frac{3 \gamma_+}{4 \delta} \right) e^{\lambda_- \tau} 
+	 \right] \right\} 	\,.  
+\end{eqnarray}
+%% 
+where $\lambda_{\pm} = -(3\gamma_+/4) \pm \delta$. 
+Now we solve for $a(s)$: 
+%
+\begin{eqnarray*} 	
+a(s) &=& - \frac{i \Omega \beta}{2} 
+	\frac{ s+\gamma_+}{s \left[ \left( s +\frac{3 \gamma_+}{4} \right)^2 
+	- \delta^2  \right]} 	
+	= - \frac{i \Omega \beta}{2} \left[ \frac{A}{s} 
+	+\frac{Bs +C}{ \left( s +\frac{3 \gamma_+}{4} \right)^2 - \delta^2 } \right]  \,.
+\end{eqnarray*}
+%% 
+We find $A =-B =\gamma_+/(\Omega^2 +\gamma_+^2/2)$, 
+$C = 1 -\frac{3 \gamma_+}{2} A 
+=1 -\frac{3 \gamma_+}{4} A -\frac{3 \gamma_+}{4} A  $, so 
+%
+\begin{eqnarray} 	
+a(s) &=& - \frac{i \gamma_+ \Omega  \beta/2 }{\Omega^2 +\gamma_+^2/2} 
+	\left[ \frac{1}{s} 
+	-\frac{s+3\gamma_+/4}{ \left( s +\frac{3 \gamma_+}{4} \right)^2 - \delta^2 } 
+	- \frac{3 \gamma_+/4}{ \left( s +\frac{3 \gamma_+}{4} \right)^2 - \delta^2 } 
+	\right] 	-\frac{i \Omega \beta}{2} 
+	\frac{1}{ \left( s +\frac{3 \gamma_+}{4} \right)^2 - \delta^2 }	\,, 
+\end{eqnarray}
+%% 
+The inverse Laplace transform, $\mathcal{L}^{-1} [a(s)]$, is then obtained 
+%
+\begin{eqnarray} 	
+\langle \sigma_{-} (t) \rangle 
+&=&- \frac{i \gamma_+ \Omega/2 }{\Omega^2 +\gamma_+^2/2}
+	\left[ 1 -e^{-3\gamma_+ t/4} \cosh{\delta t} 
+	-\frac{3 \gamma_+}{4 \delta} e^{-3\gamma_+ t/4} \sinh{\delta t}  
+	 \right] 	-\frac{i \Omega}{2 \delta} \sinh{\delta t} 	\nonumber \\  
+&=& - \frac{i \gamma_+ \Omega/2 }{\Omega^2 +\gamma_+^2/2}  
+	\left\{ 1 
+	-\frac{1}{2} \left[ \left( 1+\frac{3 \gamma_+}{4 \delta} \right) e^{\lambda_+ t}  	
+	+ \left( 1-\frac{3 \gamma_+}{4 \delta} \right) e^{\lambda_- t} 
+	 \right] \right\} 
+ -\frac{i \Omega}{4 \delta} \left( e^{\lambda_+ t} -e^{\lambda_- t} \right) \,,  
+\end{eqnarray}
+%% 
+%
+\begin{eqnarray} 	
+\langle \sigma_+ (0) \sigma_{-} (\tau) \sigma_-(0) \rangle_{st} 
+&=&- \frac{i \gamma_+ \Omega  \alpha_{ee}/2 }{\Omega^2 +\gamma_+^2/2}
+	\left[ 1 -e^{-3\gamma_+ \tau/4} \cosh{\delta \tau} 
+	-\frac{3 \gamma_+}{4 \delta} e^{-3\gamma_+ \tau/4} \sinh{\delta \tau}  
+	 \right] 	-\frac{i \Omega \alpha_{ee}}{2 \delta} \sinh{\delta \tau}   
+	 \nonumber \\  
+&=& - \frac{i \gamma_+ \Omega  \alpha_{ee}/2 }{\Omega^2 +\gamma_+^2/2}  
+	\left\{ 1 -\frac{1}{2} \left[ 
+	\left( 1+\frac{3 \gamma_+}{4 \delta} \right) e^{\lambda_+ \tau}  	
+	+ \left( 1-\frac{3 \gamma_+}{4 \delta} \right) e^{\lambda_- \tau} 
+	 \right] \right\} 
+	 -\frac{i \Omega \alpha_{ee}}{4 \delta} \left( e^{\lambda_+ \tau} 
+	 -e^{\lambda_- \tau} \right) \,.	\nonumber \\   
+\end{eqnarray}
+%% 
+%\end{widetext}
+
+We recall that 
+$\langle \sigma_{+} (t) \rangle = \langle \sigma_{-} (t) \rangle^{\ast}$ 
+and 	$\langle \sigma_+ (0) \sigma_{+} (\tau) \sigma_-(0) \rangle_{st} 
+= \langle \sigma_+ (0) \sigma_{-} (\tau) \sigma_-(0) \rangle_{st}^{\ast} $. 
+Also 
+%
+\begin{eqnarray} 	
+\langle \sigma_{gg} (t) \rangle &=& ?? 
+	=1- \frac{\Omega^2/2}{\Omega^2 +\gamma_+^2/2} 
+	\left[ 1-e^{-3\gamma_+ t/4} \left( \cosh{\delta t}  
+	+ \frac{3 \gamma_+}{4 \delta} \sinh{\delta t} \right)   \right] 	\\ 
+\langle \sigma_+ (0) \sigma_{gg} (\tau) \sigma_-(0) \rangle_{st} &=& ??
+\end{eqnarray}
+%% 
+
+We mentioned above that dropping a small term came with a price: the 
+system solved is just that of the two-level atom (with $\gamma$ replaced by 
+$\gamma_+ =\gamma + \gamma_d$), thus missing the small eigenvalue 
+$\lambda_2$ corresponding to the slow time scale of our three-level system. 
+To compensate for said approximation, Ricardo proposed to: 
+%
+\begin{itemize}
+\item replace the \textit{one} of the first term 
+of the expression between braces, $\{1 +\frac{1}{2} (\cdots) \}$, by 
+$e^{\lambda_2 t}$, i.e., $\{ e^{\lambda_2 t} +\frac{1}{2} (\cdots) \}$, 
+where $\lambda_2$ is a small eigenvalue defined below;
+\item add a term $\alpha_{jk} [ 1- e^{\lambda_2 t} ]$ to the corresponding 
+$\langle \sigma_{jk} (t) \rangle$ and the associated correlation. 
+\end{itemize}
+%%
+These amendments may seem arbitrary but work very well 
+provided $\gamma_d, \gamma_a \ll \gamma$ (at least to one order in 
+magnitude). Later, we will justify them more formally.  
+
+The expectation values of the atomic operators are (with 
+$Y =\sqrt{2} \Omega/\gamma_+$):  
+%
+\begin{subequations} 	\label{eq:BlochSols}
+\begin{eqnarray} 	
+\langle \sigma_{\mp} (t) \rangle 
+&=& 	\mp i \frac{ Y/ \sqrt{2} }{1+Y^2}  f(t)  
+\mp i  \frac{ \sqrt{2} \gamma_+ Y }{8 \delta} 
+	\left( e^{\lambda_+ t} -e^{\lambda_- t} \right) 	
+	+\alpha_{\mp} \left( 1- e^{\lambda_2 t} \right) \,,  \\   
+%
+\langle \sigma_{ee} (t) \rangle &=& 	
+   \frac{ Y^2/2 }{1+ Y^2} f(t) +\alpha_{ee} \left( 1- e^{\lambda_2 t} \right) \,, 	\\ 
+%
+\langle \sigma_{gg} (t) \rangle 
+	&=& e^{\lambda_2 t}  -\frac{ Y^2/2 }{1+ Y^2} f(t)    
+  	+\alpha_{gg} \left( 1- e^{\lambda_2 t} \right) \,, 	 
+\end{eqnarray}
+\end{subequations} 
+%% 
+where 
+%
+\begin{eqnarray} 	
+f(t) &=& e^{\lambda_2 t} -\frac{1}{2}  \left[ 
+	\left( 1+\frac{3 \gamma_+}{4 \delta} \right) e^{\lambda_+ t}  	
++ \left( 1-\frac{3 \gamma_+}{4 \delta} \right) e^{\lambda_- t}  \right]   \,, 
+\end{eqnarray}
+%% 
+%
+%\begin{subequations}  	
+\begin{eqnarray} 	\label{eq:eigenvalues}
+\lambda_1 = -\gamma_+/2 \,, 	\qquad \qquad 
+\lambda_2 = -\gamma_a \left( 1+ q \frac{\Omega^2 }
+	{ 2 \Omega^2 +\gamma^2 }  \right)  \,, 	\qquad \qquad 
+\lambda_{\pm} = -\frac{3\gamma_+}{4} \pm \delta  \,,  
+\end{eqnarray} 
+%\end{subequations} 
+%% 
+and 
+%
+\begin{eqnarray} 	
+\delta &=& (\gamma_+/4) \sqrt{1-8Y^2} 	\,. 
+\end{eqnarray}
+%%  
+$\lambda_1$ is exact (indeed absent from these results, but appears in the 
+second-order correlation); $\lambda_2 = -\Gamma_{ep}$ is approximated 
+from the random telegraph approach, Eq.(\ref{eq:widthextra}), 
+Refs.(\cite{EvKe02,PeKn88a}); and $\lambda_{\pm}$ are obtained as a 
+result of the approximations in the Laplace space. These 
+$\lambda_{2,\pm}$ are nearly identical to the exact eigenvalues when 
+$\gamma \gg \gamma_d,\gamma_a$. 
+
+%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%\%
+
+%
+%\begin{widetext} 
+%
+\begin{subequations} 	\label{eq:BlochSolsApp}
+\begin{eqnarray} 	
+\langle \sigma_{\mp} (t) \rangle &=& 
+	\mp i \frac{ Y/ \sqrt{2} }{1+Y^2}  \left[ e^{\lambda_2 t} 
+	 -e^{-3\gamma_+ t/4} \left( \cosh{\delta t}  
+	+ \frac{3 \gamma_+}{4 \delta} \sinh{\delta t} \right) \right] 
+  \mp i \sqrt{2} Y \frac{\gamma_+}{4 \delta} e^{-3\gamma_+ t/4} \sinh{\delta t}	
+  +\alpha_{\mp} \left( 1- e^{\lambda_2 t} \right) \,,  	\nonumber \\   \\
+%
+\langle \sigma_{ee} (t) \rangle &=& 
+	\frac{ Y^2/2 }{1+ Y^2}  \left[ e^{\lambda_2 t} 
+	-e^{-3\gamma_+ t/4} \left( \cosh{\delta t}  
+	+ \frac{3 \gamma_+}{4 \delta} \sinh{\delta t} \right)    \right] 
+  	+\frac{Y^2/ 2}{1+Y^2 +(q/2)Y^2} \left( 1- e^{\lambda_2 t} \right) \,, 		\\ 
+%
+\langle \sigma_{gg} (t) \rangle &=& e^{\lambda_2 t}
+	-\frac{ Y^2/2 }{1+ Y^2}   \left[ e^{\lambda_2 t} 
+	-e^{-3\gamma_+ t/4} \left( \cosh{\delta t}  
+	+ \frac{3 \gamma_+}{4 \delta} \sinh{\delta t} \right)   \right] 
+  	+\frac{1+(Y^2/ 2)}{1+Y^2 +(q/2)Y^2} \left( 1- e^{\lambda_2 t} \right) \,. 	
+\end{eqnarray}
+\end{subequations} 
+%% 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Time-Domain Solutions for the Second Order Correlations} 
+%\begin{widetext}
+IN PROCESS. Similarly, we obtain 
+%
+\begin{eqnarray} 	\label{eq:p_tauApp}
+\langle \sigma_+(0)  \sigma_{\mp}(\tau) \rangle_{st} 
+&=& \pm \frac{ Y^2/2 }{ (1+Y^2 +(q/2)Y^2)^2 }
+	\pm  \frac{qY^4/4}{(1+Y^2) \left( 1+Y^2 +(q/2)Y^2 \right)^2} 
+		e^{\lambda_2 \tau} 
+	+\frac{Y^2/4}{ 1+Y^2 +(q/2)Y^2 } e^{\lambda_1 \tau}   \nonumber \\ 
+&& \mp \frac{Y^2 [1-Y^2 -(1-5Y^2)(\gamma_+/4\delta)] }
+	{8(1+Y^2) \left( 1+Y^2 +(q/2)Y^2 \right)} e^{\lambda_+ \tau} 
+	 \mp \frac{Y^2 [1-Y^2 +(1-5Y^2)(\gamma_+/4\delta)] }
+	{8(1+Y^2) \left( 1+Y^2 +(q/2)Y^2 \right)} e^{\lambda_- \tau} \nonumber \\
+&=& \pm \frac{ Y^2/2 }{ (1+Y^2 +(q/2)Y^2)^2 }
+	+\frac{Y^2/4}{ 1+Y^2 +(q/2)Y^2 } e^{\lambda_1 \tau} 
+	\pm \frac{qY^4/4}{(1+Y^2) \left( 1+Y^2 +(q/2)Y^2 \right)^2} 
+		e^{\lambda_2 \tau} 	\nonumber \\ 
+&& \mp \frac{Y^2/4 }{(1+Y^2) \left( 1+Y^2 +(q/2)Y^2 \right)} 
+	e^{-3\gamma_+ \tau /4} \left[ (1-Y^2) \cosh{\delta \tau} 
+	 \mp \frac{1-5Y^2}{4\delta/\gamma_+} \sinh{\delta \tau}  	\right] 	\,, 
+\end{eqnarray}
+%% 
+which we use to obtain the solutions for the correlations of fluctuations, 
+%
+\begin{eqnarray} 		
+\langle \Delta \sigma_+(0) \Delta \sigma_{\mp}(\tau) \rangle_{st} 
+	&=& \langle \sigma_+(0) \sigma_{\mp}(\tau) \rangle_{st}  
+	-\langle \sigma_+ \rangle_{st}  \langle \sigma_{\mp} \rangle_{st} \,, 
+	\nonumber 		\label{eq:corr2split}	\\ 
+&=& C_1 e^{\lambda_1 \tau} \mp C_+ e^{\lambda_+ \tau}     
+	\mp C_- e^{\lambda_- \tau}  \pm  C_2 e^{\lambda_2 \tau} 	\,, 
+	\label{eq:p_tau}	
+\end{eqnarray}
+%%
+where 
+%
+\begin{subequations} 	\label{eq:p-coef}
+\begin{eqnarray} 		
+C_1  &=& \frac{1}{4} \frac{Y^2}{ 1+Y^2 +(q/2)Y^2 } 	\,, \\ 
+C_2 &=&  \frac{q}{4} \frac{Y^4}{ (1+Y^2) \left( 1+Y^2 +(q/2)Y^2 \right)^2}	\,,  
+	\label{eq:C2} \\ 
+C_{\mp} &=&   \frac{1}{8} \frac{ Y^2[1-Y^2 \pm (1-5Y^2)(\gamma_+/4\delta)] }
+	{ (1+Y^2) \left( 1+Y^2 +(q/2)Y^2 \right)} 	  \,.
+\end{eqnarray} 
+\end{subequations} 
+%%
+
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Eigenvalues and Eigenvectors On-Resonance 
+\label{sec:MatrixEigensystem}} 
+%
+\begin{eqnarray} 	
+| \mathbf{M} -\lambda \mathbf{1} | &=& \left| \begin{array}{cccc}
+-\frac{1}{2} \gamma_+ -\lambda & 0 & i\Omega/2 & -i\Omega/2 \\ 
+0 & -\frac{1}{2} \gamma_+ -\lambda & -i\Omega/2 & i\Omega/2 	 \\ 
+i\Omega/2 & -i\Omega/2 & -\gamma_+ -\lambda & 0 		\\ 
+-i\Omega/2 & i\Omega/2 & \gamma_- & -\gamma_a -\lambda
+\end{array}  \right| 	=0 	\,.
+\end{eqnarray}
+%%
+We take the first column of the determinant above to obtain the coefficients 
+of the minors:
+%
+\begin{eqnarray*} 	
+0 &=& -(\frac{1}{2} \gamma_+ +\lambda) 
+	\left| \begin{array}{ccc}
+	-\frac{1}{2} \gamma_+ -\lambda & -i\Omega/2 & i\Omega/2 	 \\ 
+	-i\Omega/2 & -\gamma_+ -\lambda & 0 		\\ 
+	i\Omega/2 & \gamma_- & -\gamma_a -\lambda
+	\end{array}  \right| 	+0 	\\ 
+%
+&& +i \frac{\Omega}{2}  \left| \begin{array}{ccc}
+	0 & i\Omega/2 & -i\Omega/2 \\ 
+	-\frac{1}{2} \gamma_+ -\lambda & -i\Omega/2 & i\Omega/2 	 \\ 
+	i\Omega/2 & \gamma_- & -\gamma_a -\lambda
+	\end{array}  \right| 	
+%
+	- \left( - i \frac{\Omega}{2} \right)  \left| \begin{array}{ccc}
+	0 & i\Omega/2 & -i\Omega/2 \\ 
+	-\frac{1}{2} \gamma_+ -\lambda & -i\Omega/2 & i\Omega/2 	 \\ 
+	-i\Omega/2 & -\gamma_+ -\lambda & 0 		\\ 
+	\end{array}  \right| 	\,.
+\end{eqnarray*}
+%%
+We chose the third, first, and first columns, respectively, of the above minors 
+to obtain the next minors: 
+%
+\begin{eqnarray*} 	
+0 &=& -(\frac{1}{2} \gamma_+ +\lambda) \left[ i \frac{\Omega}{2}
+	\left| \begin{array}{cc} 	-i\Omega/2 & -\gamma_+ -\lambda 		\\ 
+	i\Omega/2 & \gamma_- 	\end{array}  \right| 
+%	
+-(\gamma_a +\lambda) \left| \begin{array}{cc}
+	-\frac{1}{2} \gamma_+ -\lambda & -i\Omega/2 	 \\ 
+	-i\Omega/2 & -\gamma_+ -\lambda 		
+	\end{array}  \right|	\right] 	\\ 
+%
+&& +i \frac{\Omega}{2} \left[  (\frac{1}{2} \gamma_+ +\lambda) 
+	 \left| \begin{array}{cc} 	i\Omega/2 & -i\Omega/2 \\ 
+	\gamma_- & -\gamma_a -\lambda   \end{array}  \right| 	
+% 
++ i \frac{\Omega}{2} \left| \begin{array}{cc}
+	i \Omega/2 & -i\Omega/2  		\\ 
+	-i \Omega/2 & i\Omega/2 	\end{array}  	\right| 	\right] \\
+%
+&& +i \frac{\Omega}{2} \left[  (\frac{1}{2} \gamma_+ +\lambda) 
+	 \left| \begin{array}{cc} 	i\Omega/2 & -i\Omega/2 \\ 
+	-\gamma_+ -\lambda & 0  \end{array}  \right| 	
+% 
+- i \frac{\Omega}{2} \left| \begin{array}{cc}
+	i \Omega/2 & -i\Omega/2  		\\ 
+	-i \Omega/2 & i\Omega/2 	\end{array}  	\right|   \right] 
+\end{eqnarray*}
+%%
+
+%
+\begin{eqnarray*} 	
+0 &=& (\frac{1}{2} \gamma_+ +\lambda) \left\{ - i \frac{\Omega}{2} 
+	\left[  - i \frac{\Omega}{2} \gamma_-   
+	+i \frac{\Omega}{2} (\gamma_+ +\lambda)  \right] 
+	+(\gamma_a +\lambda) \left[ (\frac{\gamma_+}{2} +\lambda) 
+	(\gamma_+ +\lambda) +\frac{\Omega^2}{4} \right] \right\}  		\\ 
+%
+&& +(\frac{1}{2} \gamma_+ +\lambda) \left\{ i \frac{\Omega}{2} 
+	\left[  - i \frac{\Omega}{2} (\gamma_a +\lambda)    
+	+i \frac{\Omega}{2} \gamma_-  \right] +0 \right\} 
++(\frac{1}{2} \gamma_+ +\lambda) \left\{ i \frac{\Omega}{2} 
+	\left[ 0 - i \frac{\Omega}{2} (\gamma_+ +\lambda) \right] +0 \right\} \,.
+\end{eqnarray*}
+%%
+We readily find the eigenvalue $\lambda_1 =-\gamma_+/2$. 
+Now we calculate the corresponding eigenvector: 
+%
+\begin{eqnarray*} 	
+( \mathbf{M} -\lambda_1 \mathbf{1} ) \mathbf{r}_1 
+&=& \left( \begin{array}{cccc}
+	0 & 0 & i\Omega/2 & -i\Omega/2 \\ 
+	0 & 0 & -i\Omega/2 & i\Omega/2 	 \\ 
+	i\Omega/2 & -i\Omega/2 & -\gamma_+/2 & 0 		\\ 
+	-i\Omega/2 & i\Omega/2 & \gamma_- & (\gamma_+ -2\gamma_a)/2 
+	\end{array}  \right) 
+\left( \begin{array}{c}  r_{11} \\ r_{12} \\ r_{13} \\ r_{14} 	\end{array}  \right)  
+	= 0 \,,  	
+\end{eqnarray*}
+%%
+%
+\begin{eqnarray*} 	
+0 &=& 0(r_{11} +r_{12}) +i \frac{\Omega}{2} ( r_{13} -r_{14} ) \,, 
+	\qquad \to r_{11} = r_{12} =1 \,, \qquad r_{13} = r_{14} \,,	\\ 
+0 &=& i\frac{\Omega}{2} ( r_{11} -r_{12} ) -\frac{\gamma_+}{2} r_{13} +0 r_{14} \,, 
+	\qquad \to r_{13} =r_{14} =0 \,, 	\\
+0 &=& -i\frac{\Omega}{2} ( r_{11} -r_{12} ) +\gamma_- r_{13} 
+	+ (\frac{\gamma_+}{2} -\gamma_a) r_{14} \,,
+\end{eqnarray*}
+%%
+We write the first eigenvector as $\mathbf{r}_1 =(1,1,0,0)^T$.  
+
+The characteristic equation for the other three eigenvalues is
+%
+\begin{eqnarray*} 	
+0 &=& \left\{ - i \frac{\Omega}{2} 	\left[  
+	- i \frac{\Omega}{2} (\gamma -\gamma_a)   
+	+i \frac{\Omega}{2} (\gamma +\gamma_d +\lambda)  \right] 
+	+(\gamma_a +\lambda) \left[ (\frac{\gamma +\gamma_d}{2} +\lambda) 
+	(\gamma +\gamma_d +\lambda) +\frac{\Omega^2}{4} \right] \right\}  	\\ 
+%
+&& + \left\{ i \frac{\Omega}{2} \left[ -i \frac{\Omega}{2} (\gamma_a +\lambda)    
+	+i \frac{\Omega}{2} (\gamma -\gamma_a)  \right]  \right\} 
++ \left\{ i \frac{\Omega}{2} 
+	\left[ - i \frac{\Omega}{2} (\gamma +\gamma_d +\lambda) \right]  \right\} \\ 
+%
+&=& \frac{\Omega^2}{4} ( 2 \gamma_a +\gamma_d +2 \lambda ) 
++(\gamma_a +\lambda) (\frac{\gamma +\gamma_d}{2} +\lambda) 
+	(\gamma +\gamma_d +\lambda) 
++\frac{\Omega^2}{4} ( 2 \gamma_a +\gamma_d +2 \lambda ) \\ 
+%
+&=& \Omega^2 ( \lambda +\gamma_a +\frac{\gamma_d}{2} ) 
+	+(\gamma_a +\lambda) \left[ \frac{( \gamma +\gamma_d)^2}{2} 
+	+3\lambda \frac{( \gamma +\gamma_d)}{2} 	+\lambda^2 \right] 	\\ 
+%
+0 &=& \lambda^3 +\lambda^2 \left[ \gamma_a +\frac{3 \gamma_+}{2} \right] 
++\lambda \left[ \Omega^2 +\frac{3 \gamma_a \gamma_+}{2}   
+	+\frac{\gamma_+^2}{2} \right] 
++\left[ \Omega^2 (\gamma_a +\frac{\gamma_d}{2}) 
+	+\frac{\gamma_a  \gamma_+^2}{2} \right] 	\,.
+\end{eqnarray*}
+%%
+\end{widetext}
+Mathematica gives exact expressions for $\lambda_{2,+,-}$ (and their 
+eigenvectors) but they are too complicated. The approximated expressions 
+Eqs.(\ref{eq:eigenvalues}b,c), obtained in Sections VI-A and IX are, 
+however, very good. 
+
+\textcolor{red}{TO DO: Calculate numerically the exact eigenvalues and 
+compare them to the approximated analytical ones.}
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Replacing the Laser with an Incoherent Field}
+%
+%\begin{figure}[b]
+%\includegraphics{3LA_incoherent.pdf} 
+%\caption{\label{fig:3LA} 
+%Scheme of the three-level atom-laser 
+%interaction and spontaneous decay rates. }
+%\end{figure}
+%% 
+Here, we revisit the model studied in the previous sections by replacing 
+the laser driving the $|g \rangle - |e \rangle$ transition with a broadband 
+incoherent field. Instead of the atom-laser Hamiltonian, we have now a 
+new term in the Liouvillian describing this kind of excitation that could 
+somewhat be interpreted as blackbody radiation of average photon 
+number $\bar{n}$. This could be produced by scrambling the phase of 
+a laser or if the laser operates below threshold. The spontaneous 
+emission scheme is the same as in the laser problem. 
+
+The master equation is 
+%
+\begin{eqnarray}
+\dot{\rho}(t) &=&  \kappa (2\sigma_{eg} \rho \sigma_{ge} 
+  	-\sigma_{ge} \sigma_{eg} \rho  -\rho \sigma_{ge} \sigma_{eg})     
+  	\nonumber \\
+&&+\frac{\gamma}{2} (2\sigma_{ge} \rho \sigma_{eg} 
+  	-\sigma_{eg} \sigma_{ge} \rho  -\rho \sigma_{eg} \sigma_{ge})     
+  	\nonumber \\
+&& + \frac{\gamma_d}{2} (2\sigma_{ae} \rho \sigma_{ea} 
+  	-\sigma_{ea} \sigma_{ae} \rho -\rho \sigma_{ea} \sigma_{ae}) 	
+	\nonumber \\ 
+&& +\frac{\gamma}{2} (2\sigma_{ga} \rho \sigma_{ag} 
+  	-\sigma_{ag} \sigma_{ga} \rho  -\rho \sigma_{ag} \sigma_{ga}) \,, 
+\end{eqnarray}
+%%
+where $\kappa = \gamma \bar{n}/2$ is the incoherent excitation rate. 
+Actually, $\kappa$ would not depend on $\bar{n}$ if the reservoir is at 
+zero temperature, so let us make it an independent rate parameter. 
+The master equation can be simplified as 
+%
+\begin{eqnarray}
+\dot{\rho}(t) &=& \kappa ( 2 \rho_{gg} \sigma_{ee} -\sigma_{gg} \rho 
+	-\rho \sigma_{gg} ) 	\nonumber \\
+&& -\frac{\gamma_+}{2} (\sigma_{ee} \rho +\rho \sigma_{ee}) 
+    -\frac{\gamma_a}{2} (\sigma_{aa} \rho +\rho \sigma_{aa}) 
+        \nonumber \\
+&& +\gamma \rho_{ee} \sigma_{gg}  +\gamma_d \rho_{ee} \sigma_{aa}    
+    +\gamma_a \rho_{aa} \sigma_{gg}  \,.     \label{masterEqInc}
+\end{eqnarray}
+%%
+
+The equations for the populations are decoupled from those of the 
+coherences. Moreover, the latter are zero at all times. The relevant 
+equations are ($\gamma_+ = \gamma + \gamma_d$)
+%
+\begin{subequations}
+\begin{eqnarray}
+\dot{\rho}_{ee} &=& 2\kappa \rho_{gg} -\gamma_+ \rho_{ee} 	\,, \\ 
+\dot{\rho}_{gg} &=& -2\kappa \rho_{gg} +\gamma \rho_{ee} 
+	+\gamma_a \rho_{aa} 	\,, \\  
+\dot{\rho}_{aa} &=& \gamma_d \rho_{ee} -\gamma_a \rho_{aa} 	\,.
+\end{eqnarray}
+\end{subequations}
+%%
+Using the conservation of population, $\rho_{aa} = 1- \rho_{ee} -\rho_{gg}$, 
+the system of equations is reduced to 
+%
+\begin{subequations}
+\begin{eqnarray}
+\dot{\rho}_{ee} &=& 2\kappa \rho_{gg} -\gamma_+ \rho_{ee} 	\,, \\ 
+\dot{\rho}_{gg} &=& -(2\kappa +\gamma_a) \rho_{gg} 
+	+\gamma_- \rho_{ee} +\gamma_a  	 	\,.
+\end{eqnarray}
+\end{subequations}
+%%
+where $\gamma_- = \gamma -\gamma_a$. 
+
+These equations can be written in matrix form:
+%
+\begin{eqnarray}
+\dot{\mathbf{r}}(t) = \mathbf{M} \mathbf{r}(0) +\mathbf{b} 	\,,
+\end{eqnarray}
+%%
+where 
+%
+\begin{eqnarray}
+\mathbf{r} = \left( \begin{array}{c} \rho_{ee} \\ \rho_{gg} \end{array}  \right) \,, 
+	\qquad \qquad
+\mathbf{b} = \left( \begin{array}{c} 0 \\ \gamma_a \end{array}  \right) \,, \\
+\mathbf{M} = \left( \begin{array}{cc} -\gamma_+ & 2\kappa \\ 
+	\gamma_- & -(2\kappa +\gamma_a)  \end{array}  \right) \,.  
+\end{eqnarray}
+%%
+ 
+The steady state solutions (where $\dot{\rho}_{jj} =0$) are: 
+%
+\begin{subequations}
+\begin{eqnarray}
+\rho_{ee}^{st} &=& \frac{ 2\kappa \gamma_a }
+		{ \gamma_+ \gamma_a +2\kappa (\gamma_d +\gamma_a) } \,, \\
+\rho_{gg}^{st} &=& \frac{ \gamma_+ \gamma_a }
+		{ \gamma_+ \gamma_a +2\kappa (\gamma_d +\gamma_a) } \,, \\ 
+\rho_{aa}^{st} &=& \frac{ 2\kappa \gamma_d }
+		{ \gamma_+ \gamma_a +2\kappa (\gamma_d +\gamma_a) } \,. 
+\end{eqnarray}
+\end{subequations}
+%%
+It can be verified that the populations add to one. 
+
+Using Mathematica, with the FullSimplify option, the eigenvalues of 
+$\mathbf{M}$ are found to be
+%
+\begin{subequations}
+\begin{eqnarray}
+\lambda_{\pm} &=& - \frac{2\kappa +\gamma_+ +\gamma_a}{2} \nonumber \\
+	&&\pm \frac{1}{2} 
+	\sqrt{ 8\kappa \gamma_- +(2\kappa -\gamma_+ +\gamma_a)^2  } \,, \\
+\lambda_+ &\ll& \lambda_- \,.  
+\end{eqnarray}
+\end{subequations}
+%%
+(plot vs $\kappa$). Try to simplify and/or write special cases.  
+
+$$ f(t) = A e^{\lambda_+ t} +B e^{\lambda_- t}$$ 
+
+\textcolor{blue}{Bright and dark times and distributions ??}
+
+\textcolor{red}{REVISAR modelo y ecuaciones. Buscar en Zoller, Marte 
+and Walls; Schenzle; otros}
+
+
+Por hacer: (a) Figura del nuevo sistema de tres niveles. (b) Verificar 
+las ecuaciones y soluciones en estado estacionario. (c) Graficar 
+$\rho_{ee}^{st}$, $\rho_{gg}^{st}$  y $\rho_{aa}^{st}$ en funci\'on de 
+$\kappa/\gamma$. (d) Obtener las soluciones para $\rho_{ee}(t)$ y 
+$\rho_{gg}(t)$ (T. de Laplace o con Mathematica). (e) Obtener 
+y graficar $T_B$ en funci\'on de $\kappa/\gamma$. (f) Comparar 
+poblaciones entre casos l\'aser y l\'ampara. (g) Graficar $\lambda_{\pm}$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%  REFERENCES		
+%\newpage
+\begin{references} %\begin{thebibliography}
+%
+\bibitem{EvKe02} J. Evers and Ch. H. Keitel, Phys. Rev. A 
+\textbf{65}, 033813 (2002). 
+%
+\bibitem{BuTa00} V. B\"uhner and Chr. Tamm, Phys. Rev. A 
+\textbf{61}, 061801 (2000). 
+%
+\bibitem{MeSc90} M. Merz and A. Schenzle, Appl. Phys. B 
+\textbf{50}, 115 (1990). 
+%
+\bibitem{CaRG16} H.~M. Castro-Beltran, R. Roman-Ancheyta, and 
+L. Gutierrez, Phys. Rev. A \textbf{93}, 033801 (2016). 
+%
+\bibitem{CaWa76} H.~J. Carmichael and D.~F. Walls, J. Phys. B 
+	{\bf 9}, 1199 (1976).
+%
+\bibitem{DeCC02} A. Denisov, H.~M. Castro-Beltran, and H.~J. Carmichael, 
+	Phys. Rev. Lett. {\bf 88}, 243601 (2002).
+%
+%\bibitem{Carm93} H.~J. Carmichael, \textit{An Open Systems Approach to 
+%Quantum Optics} (Springer-Verlag, Berlin, 1993).
+%
+\bibitem{Carm99} H.~J. Carmichael, \textit{Statistical Methods in 
+Quantum Optics 1: Master Equations and Fokker-Planck Equations} 
+(Springer-Verlag, Berlin, 1999).
+%
+\bibitem{PeKn88a} D.~T. Pegg and P.~L. Knight, ``Interrupted 
+fluorescence, quantum jumps, and wave-function collapse," 
+Phys. Rev. A \textbf{37}, 4303 (1988). 
+%
+\bibitem{PeKn88b} D.~T. Pegg and P.~L. Knight, ``Interrupted 
+fluorescence, quantum jumps, and wave-function collapse, p.2?" 
+J. Phys. D: Appl. Phys. \textbf{21}, S128 (1988). 
+%
+\bibitem{CTDa86} C. Cohen-Tannoudji and J. Dalibard, Europhys. Lett. 
+\textbf{1}, 441 (1986). 
+%
+\bibitem{PlKn97} M.~B. Plenio and P.~L. Knight, Rev. Mod. Phys. 
+{\bf 70}, 101 (1997). 
+%
+\bibitem{HePl95} G.~C. Hegerfeldt and M.B. Plenio, Phys. Rev. A 
+\textbf{52}, 3333 (1995). 
+%
+\bibitem{GaKK95} B.~M. Garraway, M.~S. Kim, and P.~L. Knight, 
+	Optics Commun. \textbf{117}, 550 (1995).
+%
+
+
+\end{references} %\end{thebibliography}
+
+
+\end{document}			%%% END OF DOCUMENT
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50
+%
+\begin{table}[t]
+\caption{What's wrong with this table? Latex error: Bad math environment.}
+\begin{center}
+\begin{array}{|l|c|c|c|c|} 		\hline 
+Equations & function	& initial 	& \beta 	& \mu 		\\ \hline 
+Bloch & \langle \sigma_{jk} (t) \rangle  &(0,0,0,1)^T & 1 	& 0 		\\ \hline 
+2nd \,order & \langle \sigma_+(0) \sigma_{jk}(\tau) \rangle_{st} 
+	&  (\alpha_{ee},0,0,\alpha_+)^T & \alpha_+ & \alpha_{ee} 		\\ \hline
+3rd \,order & \langle \sigma_+(0) \sigma_{jk}(\tau) \sigma_-(0) \rangle_{st} 
+	 & (0,0,0,\alpha_{ee})^T 	& \alpha_{ee} & 0     		\\ \hline
+\end{array}
+\end{center}
+\label{default}
+\end{table}
+%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Time Evolution} 
+Time-dependent solution of the Bloch equations 
+$\dot{\mathbf{s}} =\mathbf{M} \mathbf{s} +\mathbf{b}$, where 
+$\mathbf{s} =(\rho_{eg}, \rho_{ge}, \rho_{ee}, \rho_{gg})^T$, 
+%
+\begin{equation}
+\mathbf{M} \equiv  \left( \begin{array}{cccc} -\left( \frac{\gamma}{2} 
++\frac{\gamma_d}{2} +i\Delta \right) &0 &-i\frac{\Omega}{2} 
+&i\frac{\Omega}{2} \\ 0 &-\left( \frac{\gamma}{2} +\frac{\gamma_d}{2} 
+-i\Delta \right) &i\frac{\Omega}{2} &-i\frac{\Omega}{2} \\
+i\frac{\Omega}{2} &-i\frac{\Omega}{2} &-(\gamma	+\gamma_d) &0 \\ 
+-i\frac{\Omega}{2} &i\frac{\Omega}{2} &\gamma &0
+\end{array}  \right) \,, \qquad 
+%
+\mathbf{b} =\left( \begin{array}{c} 0 \\ 0 \\ 0\\ \gamma_a \end{array} 
+	\right) \,. 
+\end{equation}
+%%
+and of the Bloch equations for the dipole fluctuations are \ldots 
+$d \langle \Delta \mathbf{s} \rangle /d\tau =
+\mathbf{M} \langle \Delta \mathbf{s} \rangle$, (CHECK) 
+

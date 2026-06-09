@@ -1,0 +1,1209 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{enumitem}
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\usepackage{titlesec}
+\usepackage[backend=biber,style=numeric,sorting=none,maxnames=5,minnames=1,doi=false,isbn=false,url=false]{biblatex}
+\addbibresource{referencias.bib}
+% Estilo para títulos de sección
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\usepackage{atbegshi}
+\spanishdecimal{.}
+
+%
+% vectors (the most common ones)
+\newcommand{\mbd}{\mathbf{d}}
+\newcommand{\mbe}{\mathbf{e}}
+\newcommand{\mbi}{\mathbf{i}}
+\newcommand{\mbj}{\mathbf{j}}
+\newcommand{\mbk}{\mathbf{k}}
+\newcommand{\mbp}{\mathbf{p}} 
+\newcommand{\mbq}{\mathbf{q}}
+\newcommand{\mbr}{\mathbf{r}}
+%\newcommand{\mbrp}{\mathbf{r}^{\prime}}
+\newcommand{\mbv}{\mathbf{v}}
+\newcommand{\mbB}{\mathbf{B}}
+\newcommand{\mbE}{\mathbf{E}}
+\newcommand{\mbR}{\mathbf{R}}
+
+\newcommand{\mcE}{\mathcal{E}} 
+\newcommand{\mcH}{\mathcal{H}} 	%Hamiltonian 
+\newcommand{\mcL}{\mathcal{L}} 
+\newcommand{\mcV}{\mathcal{V}} 	%Hamiltonian
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\qed}{\mathrm{Q.E.D.}}
+\newcommand{\p}{\partial}
+%\newcommand{\lan}{\langle}     \newcommand{\ran}{\rangle}
+\newcommand{\adg}{a^{\dag}}
+\newcommand{\Adg}{A^{\dag}} 	
+\newcommand{\Hdg}{H^{\dag}} 	 
+\newcommand{\Udg}{U^{\dag}} 	
+%\newcommand{\lan}{\langle}
+%\newcommand{\ran}{\rangle}
+
+
+\providecommand{\abs}[1]{\left\lvert#1\right\rvert}
+\providecommand{\norm}[1]{\lVert #1 \rVert}
+\providecommand{\vxp}[1]{\langle #1 \rangle}
+\providecommand{\bra}[1]{\langle #1 \rvert}
+\providecommand{\ket}[1]{\lvert #1 \rangle}
+\providecommand{\bbra}[1]{\langle #1 \rvert\rvert}
+\providecommand{\kket}[1]{\lvert\lvert #1 \rangle}
+\providecommand{\kkket}[1]{\lvert #1 \rangle\rangle}
+\providecommand{\braket}[2]{\langle #1 \rvert #2 \rangle}
+%\providecommand{\vxp3}[3]{\langle #1 |#2| #3 \rangle}
+\providecommand{\tr}[1]{\text{tr}\left[ #1 \right]}
+\newcommand{\ketbra}[2]{\left| {#1} \right\rangle\left\langle {#2}\right|}
+%\newcommand{\mmax}{_{\text{max}}}
+
+\newcommand{\mru}[1]{\mathrm{#1}} %unidades fisicas
+\newcommand{\inc}[1]{\mathrm{(#1)}} %incisos en formulas desplegadas
+\newcommand{\tbn}[1]{\textbf{#1}} %numero de problema
+%%%
+<
+\begin{document}
+
+% Portada estilizada
+
+    \begin{center}
+    
+        % Logos e institución
+        \includegraphics[width=4cm]{Reporte Semestre 1/logos/uaem.png} \hfill
+        \includegraphics[width=5cm]{Reporte Semestre 1/logos/ciicap.png} \\[2cm]
+        
+        % Línea separadora superior
+        \hrulefill \\[0.4cm]
+
+        % Programa educativo
+        {\Large \textsc{Maestría en Ingeniería y Ciencias Aplicadas}} \\[0.5cm]
+
+        % Título del reporte
+        \hrulefill \\[0.4cm]
+        {\LARGE \textbf{Capitulos de tesis en desorden}} \\[0.4cm]
+        \hrulefill \\[0.5cm]
+
+        % Subtítulo y periodo
+        {\Large \textbf{Segundo Reporte Semestral}} \\[0.2cm]
+        {\large \textbf{Periodo: Enero-Junio 2025}} \\[2cm]
+        
+        \vfill
+
+        % Información del estudiante
+        \textbf{Alumno:} \\[0.2cm]
+        {\Large L. T. Kevin Martínez Franco} \\[1.5cm]
+
+        % Información del asesor
+        \textbf{Asesor:} \\[0.2cm]
+        {\Large Dr. Héctor Manuel Castro Beltrán} \\[2cm]
+
+        % Fecha
+        {\large \textbf{\today}} \\[2cm]
+        
+        % Línea final
+        \hrulefill
+
+    \end{center}
+
+
+
+
+
+
+% Introducción
+\section{Operador de densidad}
+El operador de densidad (también llamado matriz de densidad) es una herramienta fundamental en mecánica cuántica que se usa para describir el estado de un sistema cuántico, especialmente cuando:
+
+\begin{itemize}
+    \item No tenemos conocimiento completo del estado del sistema (es decir, no sabemos con certeza cuál es el vector de estado).
+
+    \item El sistema está en una mezcla estadística de estados posibles (no en un estado puro).
+
+    \item Estamos tratando con sistemas abiertos que interactúan con un entorno.
+\end{itemize}
+
+La adici\'on fenomenol\'ogica de disipaci\'on no es correcta en muchas 
+situaciones, por lo que se recurre al operador de densidad. T\'ipicamente, 
+no conocemos el estado completo del vector para un sistema de muchas 
+part\'iculas. Cada \'atomo tiene una historia \'unica de emisiones, absorciones, colisiones, etc., pero conocemos ciertas propiedades estad\'isticas. El 
+operador de densidad contiene esa informaci\'on. Definimos el operador de 
+densidad como 
+%
+\begin{eqnarray}
+\rho &=& \overline{ \ketbra{\Psi}{\Psi} }	
+	= \sum_{\Psi} P_{\Psi} \ketbra{\Psi}{\Psi} 	\,.
+\end{eqnarray}
+%%
+La suma sobre $\Psi$ representa promedios cl\'asicos sobre el ensamble, 
+y puede implicar varias sumas e integrales. $P_{\Psi}$ es la fracci\'on de 
+sistemas con la funci\'on de onda $\ket{\Psi}$.  Para vectores de la forma 
+$\ket{\Psi} = \sum_n C_n \ket{n}$, el operador de densidad es 
+%
+\begin{eqnarray*}
+\rho &=& \sum_{\Psi} P_{\Psi} \sum_n \sum_m C_n C_m^\ast 
+	\ketbra{n}{m} 	\\ 
+&=& \sum_n \sum_m \rho_{nm} \ketbra{n}{m}  	\,.
+\end{eqnarray*}
+%%
+
+
+
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Principales Propiedades}
+El operador de densidad obedece una ecuaci\'on: 
+%
+\begin{eqnarray}
+\dot{\rho} &=& \sum_{\Psi} P_{\Psi} \left[ | \dot{\Psi} \rangle \bra{\Psi}  
+	+ \ket{\Psi} \langle \dot{\Psi} | \right] 	\nonumber \\ 
+&=& - \frac{i}{\hbar} \sum_{\Psi} P_{\Psi} \left[ 
+	H \ketbra{\Psi}{\Psi} - \ketbra{\Psi}{\Psi} H \right] 
+	\nonumber \\ 
+&=& - \frac{i}{\hbar} (H \rho -\rho H) 	= - \frac{i}{\hbar} [H, \rho] 	\,.
+\end{eqnarray}
+%%
+Esta es la ecuaci\'on de Schr\"odinger para el operador de densidad $\rho$, 
+cuya soluci\'on es  
+%
+\begin{eqnarray}
+\rho (t) = e^{-iHt/\hbar} \rho(0)  e^{iHt/\hbar} \,.
+\end{eqnarray}
+%%
+
+Si se tiene una representaci\'on en t\'erminos de un conjunto completo de 
+estados $\ket{n}$ cualquier operador $\hat{O}$ puede expanderse como 
+%
+\begin{eqnarray}
+\hat{O} &=& \sum_{n,m} \bra{n} \hat{O} \ket{m} \ket{n} \bra{m}  
+	= \sum_{n,m} O_{nm} \ket{n} \bra{m} \,,
+\end{eqnarray}
+%%
+donde aplicamos la matriz identidad (matriz con unos en la diagonal 
+principal y ceros fuera de ella) $\mathbf{1} =\sum_k \ket{k} \bra{k}$, y 
+$O_{nm}$ son los elementos de matriz del operador $\hat{O}$. 
+
+Consideremos, por ejemplo, el operador de momento dipolar 
+$\mbd= e \mbr$: 
+%
+\begin{eqnarray}
+e\mbr &=& e \sum_{n,m=1}^2 \bra{n} \mbr \ket{m} \ket{n} \bra{m}  
+	\nonumber \\
+	&=& e \left[ \bra{a} \mbr \ket{b} \ket{a} \bra{b} 
+		+\bra{b} \mbr \ket{a} \ket{b} \bra{a}  \right] 		\nonumber \\
+	&=& \mbd_{ab} \sigma_{ab} +\mbd_{ba} \sigma_{ba} \,,
+\end{eqnarray}
+%%
+donde hicimos $\bra{a} \mbr \ket{a} = \bra{b} \mbr \ket{b} =0$, suponiendo 
+que los estados at\'omicos poseen paridades opuestas. 
+
+El valor esperado de un operador $\hat{O}$ esta dado por  
+%
+\begin{eqnarray}
+\vxp{\hat{O}} &=& \sum_{\Psi} P_{\Psi} \bra{\Psi} \hat{O}\ket{\Psi}  \,,
+\end{eqnarray}
+%%
+que toma en cuenta el peso $P_{\Psi}$ que cada estado tiene en el conjunto. 
+Aplicamos tambi\'en  
+$\rho = \sum_{\Psi} P_{\Psi} \ketbra{\Psi}{\Psi}$, 
+%
+\begin{eqnarray}
+\vxp{\hat{O}} &=&  \sum_{\Psi} P_{\Psi} \sum_k \bra{\Psi} \hat{O}\ket{k}
+		\braket{k}{\Psi} 	\nonumber \\ 
+&=& \sum_k \sum_{\Psi} P_{\Psi} \braket{k}{\Psi}  \bra{\Psi} \hat{O}\ket{k} 
+	= \sum_k \bra{k} \rho \hat{O} \ket{k} 	\nonumber  \\ 
+&=& \sum_k ( \rho \hat{O} )_{kk} 	= \Tr ( \rho \hat{O} ) \,,
+\end{eqnarray}
+%%
+donde la traza $\Tr$ indica la suma de los elementos en la diagonal principal 
+de la matriz. 
+
+Veamos la dependencia temporal del valor esperado del operador 
+$\hat{O}$: 
+%
+\begin{eqnarray}
+\vxp{\hat{O}(t)} &=& \Tr ( \rho(t) \hat{O}_S(0) ) 	
+	=  \Tr ( e^{-iHt/\hbar} \rho(0)  e^{iHt/\hbar} \hat{O}_S ) \nonumber \\ 
+	&=& \Tr (  \rho(0)  e^{iHt/\hbar} \hat{O}_S e^{-iHt/\hbar} ) \nonumber \\
+	&=& \Tr ( \hat{O}_H(t) \rho(0) ) \,, 
+\end{eqnarray}
+%%
+donde usamos la propiedad c\'iclica de la traza. Este resultado significa 
+que podemos obtener los valores esperados ya sea en la imagen de 
+Schr\"odinger (la primera forma) como en la imagen de Heisenberg.
+
+Los elementos de matriz vienen dados por 
+$\rho_{jk} = \bra{j} \rho \ket{k}$ y las ecuaciones para ellos son 
+%
+\begin{eqnarray}
+\dot{\rho}_{nm} &=& \bra{n} \dot{\rho} \ket{m} 
+	= - \frac{i}{\hbar}  \bra{n}  H \rho -\rho H \ket{m}		\nonumber \\ 
+&=& - \frac{i}{\hbar} \sum_k \left[  
+	\bra{n}  H \ketbra{k}{k} \rho \ket{m} 
+	-  \bra{n} \rho \ketbra{k}{k}  H \ket{m}  \right] 	\nonumber \\ 
+&=& - \frac{i}{\hbar} \sum_k \left[ H_{nk} \rho_{km} - \rho_{nk} H_{km} \right] \,.
+\end{eqnarray}
+%%
+
+Para entender mejor la relaci\'on entre funci\'on de onda y operador de 
+densidad y algunos de los resultados obtenidos para $\rho$ veamos el caso 
+particular de un sistema de dos niveles con funci\'on de onda 
+$\ket{\Psi} = C_a \ket{a} +C_b \ket{b}$.  Se tiene que 
+%
+\begin{eqnarray}
+\rho &=& \left( C_a \ket{a} +C_b \ket{b} \right) 
+	\left( C_a^\ast \bra{a} + \bra{b} C_b^\ast  \right)  	\nonumber \\ 
+&=& C_a C_a^{\ast} \ketbra{a}{a} + C_a C_b^{\ast} \ketbra{a}{b} 
+	+C_b C_a^{\ast} \ketbra{b}{a}  		\nonumber \\ 
+	&& + C_b C_b^{\ast}\ketbra{b}{b} 		\nonumber \\ 
+&=& \rho_{aa}  \ketbra{a}{a} +  \rho_{ab}  \ketbra{a}{b}  
+	+  \rho_{ba} \ketbra{b}{a}  + \rho_{bb}  \ketbra{b}{b}  \,. \nonumber \\
+\end{eqnarray}
+%%
+
+En notaci\'on matricial 
+%
+\begin{eqnarray}
+\ket{a} &=&  \left( \begin{array}{c} 1 \\ 0 \end{array} \right) \,, \qquad 
+	\ket{b} = \left( \begin{array}{c} 0 \\ 1 \end{array} \right) \,, \qquad 
+	\ket{\Psi} = \left( \begin{array}{c} C_a \\ C_b \end{array} \right) \,. 
+	\nonumber \\
+\end{eqnarray}
+%%
+%
+\begin{eqnarray}
+\rho &=&  \left( \begin{array}{c} C_a \\ C_b \end{array} \right) 
+	\left( \begin{array}{cc} C_a^{\ast} & C_b^{\ast} \end{array} \right) 	
+	\nonumber \\ 
+&=& \left( \begin{array}{cc}  C_a C_a^{\ast} & C_a C_b^{\ast}  \\ 
+	C_b C_a^{\ast}  & C_b C_b^{\ast}   \end{array} \right) 	
+	=  \left( \begin{array}{cc}  \rho_{aa} & \rho_{ab}  \\ 
+	\rho_{ba}  & \rho_{bb}   \end{array} \right) 	\,,
+\end{eqnarray}
+%%
+El t\'ermino $\ket{a}\bra{a}$, por mostrar un ejemplo, es 
+%
+\begin{eqnarray}
+\ket{a}\bra{a} &=&  \left( \begin{array}{c} 1 \\ 0 \end{array} \right) 
+	\left( \begin{array}{cc} 1 & 0 \end{array} \right) 	
+	= \left( \begin{array}{cc}  1 & 0  \\ 0  & 0   \end{array} \right) \,.
+\end{eqnarray}
+%%
+Este es el elemento de $\rho$ en la primera fila y primera columna. 
+De manera similar se pueden identificar los otros elementos. 
+
+
+Los t\'erminos de la diagonal, $\rho_{aa}$ y $\rho_{bb}$, son, 
+respectivamente, las probabilidades de ocupar el estado superior e inferior 
+del sistema, tambi\'en llamadas \textit{poblaciones}. Los t\'erminos fuera de 
+la diagonal, $\rho_{ba} = \rho_{ab}^{\ast}$, son las llamadas 
+\textit{coherencias}; en el caso de transiciones entre dos niveles 
+representan los elementos de matriz del momento dipolar.  
+
+Calculemos los valores esperados de los operadores elementales del sistema 
+de dos niveles. Para ello utilizamos su representaci\'on de operadores de 
+proyecci\'on, Secc~II.E: 
+%
+\begin{eqnarray}
+\vxp{\sigma_+} &=& \Tr ( \rho \sigma_+ ) 	\nonumber\\ 
+&=& \Tr \left[ \left( \rho_{aa}  \ketbra{a}{a} 
+	+  \rho_{ab}  \ketbra{a}{b}  +  \rho_{ba} \ketbra{b}{a}  
+	\right. \right. 	\nonumber\\  
+  && \left. \left. + \rho_{bb}  \ketbra{b}{b}  \right) \ketbra{a}{b}   
+	\right] 	\nonumber 	\\ 
+&=& \Tr \left[  \rho_{aa} \ketbra{a}{b}  
+	+  \rho_{ba}\ketbra{b}{b} \right] 	= \rho_{ba} \,, \\ 
+\vxp{\sigma_-} &=& \vxp{\sigma_+}^\ast = \rho_{ab} \,.
+\end{eqnarray}
+%%
+Con esto podemos definir la \textit{polarizaci\'on at\'omica}: 
+%
+\begin{eqnarray}
+\vxp{\mbd} = \mbd_{ba} \rho_{ab} +\mbd_{ab} \rho_{ba} \,,
+\end{eqnarray}
+%%
+y los componentes $x,y$ del operador de spin, 
+%
+\begin{eqnarray}
+\vxp{\sigma_x} &=& \vxp{\sigma_+} + \vxp{\sigma_-} 
+	= \rho_{ab} + \rho_{ba} 	\,,	\\ 
+\vxp{\sigma_y}	&=& i \vxp{\sigma_+} -i \vxp{\sigma_-} 
+	= i ( \rho_{ab} - \rho_{ba} ) 	\,.
+\end{eqnarray}
+%%
+
+Con la componente $z$ definimos la \textit{inversi\'on at\'omica}: 
+%
+\begin{eqnarray}
+\vxp{\sigma_z} &=& \Tr ( \rho \sigma_z ) 	\nonumber\\ 
+&=& \Tr \left[ \left( \rho_{aa} \ketbra{a}{a} 
+	+  \rho_{ab}  \ketbra{a}{b}  +  \rho_{ba} \ketbra{b}{a} 
+	\right. \right. 	\nonumber\\  
+  && \left. \left. + \rho_{bb} \ketbra{b}{b}  \right) 
+  \left( \ketbra{a}{a} - \ketbra{b}{b} \right) 
+	\right] 	\nonumber 	\\ 
+&=& \Tr \left[ \rho_{aa} \ketbra{a}{a} 
+	-  \rho_{ab} \ketbra{a}{b} + \rho_{ba} \ketbra{b}{a} \right. \nonumber \\
+	 && \left. - \rho_{bb} \ketbra{b}{b}  \right] 	\nonumber \\ 
+&=& \rho_{aa} - \rho_{bb} 	\,.
+\end{eqnarray}
+%%
+ 
+Partiendo del modelo dado por las Ecs.(\ref{eq:decayAmpl}), las ecuaciones 
+para los elementos del operador de densidad son:
+%
+\begin{eqnarray}
+\dot{\rho}_{aa} &=& \dot{C}_a C_a^{\ast} + C_a \dot{C}_a^{\ast}   
+    = -\gamma_a \rho_{aa} + \frac{i}{2} \Omega_0 (\rho_{ba} - \rho_{ab}) \,, 
+    	\nonumber \\ 
+\dot{\rho}_{bb} &=& \dot{C}_b C_b^{\ast} + C_b \dot{C}_b^{\ast}  
+  = -\gamma_b \rho_{bb} - \frac{i}{2} \Omega_0 (\rho_{ba} - \rho_{ab}) \,, 
+  	\nonumber \\ 
+\dot{\rho}_{ab} &=& \dot{C}_a C_b^{\ast} + C_a \dot{C}_b^{\ast}  \nonumber \\ 
+  	&=& - (\gamma_{ab} +i\Delta) \rho_{ab} 
+  	- \frac{i}{2} \Omega_0 (\rho_{aa} - \rho_{bb})  \,.
+\end{eqnarray}
+%%
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Emisi\'on Espont\'anea} 
+En la Secci\'on II-B vimos el caso de excitaci\'on de un nivel hacia un cont\'inuo. 
+El acoplamiento de uno o mas estados con un conjunto grande de estados muy 
+cercanos llev\'o a que la probabilidad de permanecer en un estado decae en el 
+tiempo de forma exponencial. En la Secci\'on III-A a\~nadimos la dispaci\'on de 
+manera fenomenol\'ogica, es decir, sabemos que la hay pero no hurgamos en 
+los detalles de su origen.   
+
+La emisi\'on espont\'anea es el proceso por el cual un \'atomo en estado 
+excitado decae a un estado de menor energ\'ia emitiendo un fot\'on. La 
+cuesti\'on es: ?`c\'omo ocurre este decaimiento? Este es un tema avanzado 
+de la \'optica cu\'antica. Sin embargo, la clave est\'a en el acoplamiento de un 
+sistema peque\~no (el \'atomo) con uno muy grande, un entorno. En este 
+caso, el sistema grande consta de los modos del campo electromagn\'etico 
+cuantizado de una cavidad tan grande que contiene un n\'umero muy grande y 
+cuasi-cont\'inuo de esos modos. En la pr\'actica, no nos interesa la evoluci\'on 
+de esos modos, s\'olo la del \'atomo. Por un proceso de \textit{eliminaci\'on} de 
+los modos del entorno la din\'amica se reduce a la del \'atomo con un precio a 
+pagar: la probabilidad de que el \'atomo permanezca en el estado excitado 
+decae como $P_a \propto e^{-\gamma t}$, donde 
+$\gamma \propto \wp^2 \omega_{ab}^3$, $\wp$ es el momento dipolar y 
+$\omega_{ab}$ es la frecuencia de la transici\'on entre los niveles inicial y 
+final.  Recu\'erdese que esta $\gamma$ es la principal dificultad para realizar 
+l\'aseres en UV y X con tecnolog\'ia similar a los del visible, porque la vida 
+media del estado excitado es tan corta que no alcanza a sostener la 
+poblaci\'on necesaria para la inversi\'on.   
+
+El mencionado proceso de eliminaci\'on del entorno, usando el m\'etodo 
+de Weisskopf y Wigner que considera acoplamiento d\'ebil entre \'atomo 
+y modos del entorno y en la aproximaci\'on de Markov, lleva al mencionado 
+decaimiento exponencial. El m\'etodo Weisskopf-Wigner en el contexto 
+del operador de densidad lleva a agregar a la ecuaci\'on para el operador 
+de densidad del \'atomo los t\'erminos 
+%
+\begin{eqnarray} 	\label{eq:mEq2LA_bb}
+\mathcal{L}_a \rho &=& \frac{\gamma_a}{2} (\bar{n} +1) 
+	\left( 2 \sigma_- \rho \sigma_+ -\sigma_+ \sigma_- \rho 
+	-\rho \sigma_+ \sigma_- \right) 	\nonumber \\
+	&& + \frac{\gamma_a}{2} \bar{n}  
+	\left( 2 \sigma_+ \rho \sigma_- -\sigma_- \sigma_+ \rho 
+	-\rho \sigma_- \sigma_+ \right)\,, 
+\end{eqnarray}
+%%
+donde $\bar{n}$ es el n\'umero promedio de fotones a temperatura 
+$T$. Si, adem\'as, el entorno tiene temperatura cero, $\bar{n} =0$ lo 
+anterior se reduce a 
+%
+\begin{eqnarray}
+\mathcal{L}_a \rho = \frac{\gamma_a}{2} \left( 2 \sigma_- \rho \sigma_+ 
+	-\sigma_+ \sigma_- \rho -\rho \sigma_+ \sigma_- \right) \,, 
+\end{eqnarray}
+%%
+que es una excelente aproximaci\'on a frecuencias \'opticas a\'un a 
+temperatura ambiente, $T = 300$K. Este t\'ermino justifica plenamente 
+el decaimiento por emisi\'on espont\'anea que inicialmente se a\~nadi\'o 
+fenomenol\'ogicamente. 
+
+\subsubsection{Ecuaciones de Bloch} 
+Una vez que hemos introducido formalmente la emisi\'on espont\'anea a 
+nuestro modelo de interacci\'on \'atomo-l\'aser procedemos a obtener las 
+ecuaciones de movimiento para los elementos de la matriz de densidad. 
+Estas son llamadas Ecuaciones de Bloch, que generalizan las ecuaciones 
+de un esp\'in acoplado a un campo magn\'etico. Las ecuaciones de Bloch 
+provienen de la llamada \textit{ecuaci\'on maestra} 
+%
+\begin{eqnarray}
+\dot{\rho} = -\frac{i}{\hbar} [H,\rho]  +\frac{\gamma_a}{2} 
+	\left( 2 \sigma_- \rho \sigma_+ -\sigma_+ \sigma_- \rho 
+	-\rho \sigma_+ \sigma_- \right) \,. 	\nonumber \\
+\end{eqnarray}
+%%
+Nos falta solamente especificar el Hamiltoniano (Secc. II.E), 
+%
+\begin{eqnarray}
+ H = \hbar \omega_0 \sigma_{aa} + \frac{\Omega_0}{2} 
+	(\sigma_+ e^{-i\nu t} 	+\sigma_- e^{i\nu t}) \,,
+\end{eqnarray}
+%%
+donde el primer t\'ermino es la energ\'ia del \'atomo no perturbado (con 
+energ\'ia de transici\'on $\hbar \omega_0$) y el segundo es la energ\'ia de 
+interacci\'on del \'atomo con el l\'aser. N\'otese que desplazamos el origen 
+de la energ\'ia del \'atomo de la mitad de la transici\'on a la del estado base.  
+
+De aqu\'i, proyectando por $\bra{j}$ por la izquierda y por $\ket{k}$ por la 
+derecha, donde $j,k =a,b$, en ambos lados de la ecuaci\'on, obtenemos las ecuaciones para $\rho_{jk} = \bra{j} \rho \ket{k}$: 
+\newline \textcolor{red}{Pendiente}
+
+La presencia de las frecuencias r\'apidas $\omega_0$ y $\nu$ hace 
+inconveniente usar estas ecuaciones para soluci\'on num\'erica. Entonces, 
+si definimos $\tilde{\rho}_{ab}(t) = \rho_{ab} e^{i\nu t}$ y 
+$\Delta = \omega_0 -\nu$, obtenemos las ecuaciones
+%
+\begin{eqnarray} 	\label{eq:BlochEq_rho}
+\dot{\tilde{\rho}}_{ab} 
+	&=& - \left( \frac{\gamma_a}{2} +i\Delta \right) \tilde{\rho}_{ab}
+	-i\frac{\Omega_0}{2} (\rho_{aa} -\rho_{bb}) 	\,, \nonumber \\ 
+\dot{\tilde{\rho}}_{aa} 
+	&=& -\gamma_a \rho_{aa} + i\frac{\Omega_0}{2} \tilde{\rho}_{ba} 
+	- i\frac{\Omega_0}{2} \tilde{\rho}_{ab} 	\,, 	\nonumber \\ 
+\dot{\tilde{\rho}}_{bb} 
+	&=& \gamma_a \rho_{aa} - i\frac{\Omega_0}{2} \tilde{\rho}_{ba} 
+	+ i\frac{\Omega_0}{2} \tilde{\rho}_{ab} 	\,, 	\\ 
+\dot{\tilde{\rho}}_{ab} 
+	&=& 	 \dot{\tilde{\rho}}_{ba}^\ast  \,. \nonumber
+\end{eqnarray}
+%%
+Decimos que estas ecuaciones evolucionan en un marco de referencia 
+rotando a la frecuencia del l\'aser $\nu$. \textcolor{blue}{Esto es similar a 
+fijarnos \'unicamente en el movimiento lento de un trompo ignorando su 
+rotaci\'on r\'apida, o solamente la inclinaci\'on de la Tierra en su \'orbita 
+alrededor del Sol, ignorando su rotaci\'on diaria.  }
+
+Posteriormente a\~nadiremos el efecto de temperatura a la ecuaci\'on 
+para $\rho$. 
+
+Las Ecs.(\ref{eq:BlochEq_rho}) forman un conjunto de 4 ecuaciones 
+homog\'eneas. Para resolverlo conviene reducirlo eliminando la variable 
+$\rho_{bb}$  usando la conservaci\'on de la probabilidad 
+$\rho_{aa} +\rho_{bb} =1$. [La forma obtenida no es muy com\'un en la 
+literatura pero adjuntamos la soluci\'on en una forma alternativa 
+presentada abajo.] Las nuevas ecuaciones son: 
+%
+\begin{eqnarray} 	\label{eq:BlochEq_rhoV2}
+\dot{\tilde{\rho}}_{ab} 
+	&=& - \left( \frac{\gamma_a}{2} +i\Delta \right) \tilde{\rho}_{ab}
+	-i\frac{\Omega_0}{2} (2\rho_{aa} -1) 	\,, \nonumber \\ 
+\dot{\tilde{\rho}}_{ba} 
+	&=& - \left( \frac{\gamma_a}{2} -i\Delta \right) \tilde{\rho}_{ba}
+	+i\frac{\Omega_0}{2} (2\rho_{aa} -1) 	\,, \nonumber \\ 
+\dot{\tilde{\rho}}_{aa} 
+	&=& -\gamma_a \rho_{aa} + i\frac{\Omega_0}{2} \tilde{\rho}_{ba} 
+	- i\frac{\Omega_0}{2} \tilde{\rho}_{ab} 	\,, 	
+\end{eqnarray}
+%%
+
+\subsubsection{Soluciones en Estado Estacionario} 
+Los elementos $\tilde{\rho}_{jk}(t)$ evolucionan en el tiempo en funci\'on de los 
+par\'ametros $\gamma_a$, $\Omega_0$ y $\Delta$. Obtenemos, sin embargo, excelente informaci\'on del sistema con las soluciones en estado estacionario, 
+es decir, a tiempos muy largos, cuando $t \to \infty$. En este caso los 
+elementos de matriz llegan a un valor constante 
+$\tilde{\rho}_{jk}(t \to \infty) = \tilde{\rho}_{jk}^{st}$, donde 
+$\dot{\tilde{\rho}}_{jk} (t \to \infty) =0$. Resolviendo el sistema de ecuaciones, 
+%
+\begin{subequations}
+\begin{eqnarray}
+\tilde{\rho}_{ab}^{st} &=& \frac{-\Omega_0 [2\Delta + i \gamma]}
+	{2\Omega_0^2 +\gamma^2 +4\Delta^2} \,, 
+	\qquad \tilde{\rho}_{ba}^{st} = \left( \tilde{\rho}_{ab}^{st} \right)^\ast , 
+	\quad \\ 
+\tilde{\rho}_{bb}^{st} &=& \frac{\Omega_0^2 +\gamma^2 +4\Delta^2}
+	{2\Omega_0^2 +\gamma^2 +4\Delta^2}  \,, \\ 
+\tilde{\rho}_{aa}^{st} &=& \frac{\Omega_0^2}{2\Omega_0^2 
+	+\gamma^2 +4\Delta^2}	\,.
+\end{eqnarray}
+\end{subequations}
+%%
+
+Veamos algunas propiedades y casos de particular inter\'es. 
+\newline (i) Puesto que el estado $\ket{a}$ decae al estado $\ket{b}$ la 
+poblaci\'on total se conserva a todo tiempo, $\rho_{aa} +\rho_{bb} = 1$, 
+entonces $\dot{\rho}_{aa} +\dot{\rho}_{bb} = 0$. 
+\newline (ii) $\rho_{aa}$ est\'a relacionado con la inversi\'on de la poblaci\'on 
+por la acci\'on del l\'aser. La curva es de forma Lorentziana, ensanchada por 
+la intensidad $\Omega_0^2 \propto E_0^2$ del l\'aser. A este efecto se le 
+denomina \textit{ensanchamiento por potencia}. 
+\newline (iii) Cuando $\Omega_0 \ll \gamma$ el \'atomo casi no absorbe 
+energ\'ia, por lo que permanece en su estado base, $\rho_{aa}^{st} \to 0$, 
+$\rho_{bb}^{st} \simeq 1$. Una situaci\'on similar ocurre cuando el l\'aser 
+est\'a muy fuera de sinton\'ia con la transici\'on at\'omica, 
+$\Delta \gg \Omega_0$. 
+\newline (iv) Cuando $\Omega_0 \gg \gamma, \Delta$ la absorci\'on es alta. 
+Sin embargo, en estado estacionario, la probabilidad de ocupaci\'on del 
+estado superior siempre es menor o igual a la del estado base, obteniendo 
+la igualdad cuando $\Delta =0$, $\rho_{aa}^{st} = \rho_{bb}^{st} = 1/2$. 
+\newline (v) $\rho_{ab}$ es la coherencia  o polarizaci\'on del \'atomo (versi\'on microsc\'opica del \'indice de refracci\'on complejo de un medio). La parte real 
+es llamada \textit{dispersi\'on} y la imaginaria es la \textit{absorci\'on}. 
+$\rho_{ab}$ es puramente imaginaria cuando $\Delta =0$. 
+\newline (vi) Cuando $\Omega \sim \gamma$ la interacci\'on \'atomo-l\'aser 
+es suficientemente fuerte, entrando en un r\'egimen no lineal llamado de \textit{saturaci\'on}, donde $\rho_{aa}$ ya no es despreciable. En este 
+r\'egimen es \'util el concepto de \textit{inversi\'on} de poblaci\'on, que no 
+aparece en el modelo cl\'asico del electr\'on, v\'alido en el r\'egimen 
+$\Omega_0 \ll \gamma_a$.  \newline (vii) Finalmente, es conveniente conocer 
+valores t\'ipicos de los par\'ametros $\gamma_a$, $\Omega_0$ y $\Delta$ en experimentos de \'optica cu\'antica. Usualmente el par\'ametro de referencia 
+es la raz\'on de emisi\'on espont\'anea $\gamma_a$, que para transiciones 
+\'opticas es del orden de MHz. La frecuencia de Rabi $\Omega_0$ puede 
+ser hasta unas veces $\gamma_a$. Si es m\'as fuerte tal vez sea necesario 
+hacer ajustes a nuestro modelo \'atomo-l\'aser. La desinton\'ia tambi\'en 
+puede ser unas veces $\gamma_a$.  
+
+\subsubsection{Soluciones dependientes del tiempo} 
+Las ecuaciones de Bloch son suficientemente complicadas para obtener 
+soluciones para valores arbitrarios de los par\'ametros 
+$\gamma_a,\Omega_0,\Delta$. Un caso particularemente com\'un y \'util 
+es cuando el l\'aser est\'a en resonancia con el \'atomo, $\Delta =0$. Una 
+forma de resolver las ecuaciones de Bloch es mediante transformadas de 
+Laplace, con condiciones iniciales $\tilde{\rho}_{bb} (0) =1$ y 
+$\tilde{\rho}_{aa} (0) = \tilde{\rho}_{ab} (0) = \tilde{\rho}_{ba} (0) = 0$. 
+Obtenemos
+%
+\begin{subequations} 	%\label{eq:BlochSolsApp}
+\begin{eqnarray} 	
+\tilde{\rho}_{ab}(t) &=& - i \frac{ Y/ \sqrt{2} }{1+Y^2}  f(t)
+  \mp i \sqrt{2} Y \frac{\gamma_a}{4 \delta} e^{-3\gamma_a t/4} \sinh{\delta t}	
+   \,,  	\nonumber \\   \\
+%
+\tilde{\rho}_{aa}(t) &=& \frac{ Y^2/2 }{1+ Y^2}  f(t)  \,, 	\\ 
+%
+\tilde{\rho}_{bb}(t) &=& 1 -\frac{ Y^2/2 }{1+ Y^2}   f(t)  \,, 
+\end{eqnarray}
+%%
+donde
+%
+\begin{eqnarray}
+f(t) &=& 1 -e^{-3\gamma_a t/4} \left( \cosh{\delta t}  
+	+ \frac{3 \gamma_a}{4 \delta} \sinh{\delta t} \right) \,, \nonumber \\ \\
+Y &=& \frac{ \sqrt{2} \Omega_0 }{\gamma_a} 	\,, \qquad 
+	\delta  = \frac{\gamma_a}{4} \sqrt{1 - 8Y^2} \,. 
+\end{eqnarray}
+\end{subequations} 
+%% 
+
+Cuando la excitaci\'on es d\'ebil, $ 8Y^2 \leq 1$, o bien 
+$\Omega_0 < \gamma /2$ las soluciones var\'ian mon\'otonamente. 
+Cuando $ 8Y^2 \geq 1$, o bien $\Omega_0 > \gamma /2$, se tiene 
+$\cosh{\delta \tau} \to \cos{\delta' \tau}$ y 
+$\sinh{\delta \tau}/\delta \to \sin{\delta' \tau}/\delta'$, donde 
+$\delta = i \delta' = (\gamma_a /\sqrt{8Y^2 -1}$. Las $\tilde{\rho}_{jk}(t)$ 
+se hacen oscilatorias para $\Omega_0 \gg \gamma_a$. 
+
+Otro caso en el que es posible una soluci\'on anal\'itica es cuando 
+$\gamma_a \to 0$ \ldots 
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Forma Alternativa de las Ecuaciones de Bloch 1}  
+En la pr\'actica, hay otras formas de representar las ecuaciones de Bloch. 
+El primer paso es recordar que $\vxp{\tilde{\sigma}_{jk}} = \tilde{\rho}_{kj}$ 
+(para las poblaciones podemos omitir la tilde). Luego definimos la llamada 
+\textit{inversi\'on} de poblaci\'on: 
+$\vxp{\sigma_z} = \vxp{\sigma_{aa}} -\vxp{\sigma_{bb}}$. Junto con la 
+conservaci\'on de la probabilidad $1 = \vxp{\sigma_{aa}} +\vxp{\sigma_{bb}}$ 
+relacionamos poblaciones e inversi\'on como 
+$\vxp{\sigma_{aa}} = (1+ \vxp{\sigma_z})/2$ y 
+$\vxp{\sigma_{bb}} = (1- \vxp{\sigma_z})/2$. De esta manera, el sistema 
+(\ref{eq:BlochEq_rho}) se reduce a tres ecuaciones inhomog\'eneas: 
+%
+\begin{eqnarray} 	\label{eq:BlochEq_+-z}
+\vxp{\dot{\sigma}_z} &=& - \gamma_a ( \vxp{\sigma_z} +1)  
+	+ i \Omega_0 \vxp{\tilde{\sigma}_+} 
+	- i \Omega_0 \vxp{\tilde{\sigma}_-}	\,, \nonumber \\ 
+\vxp{\dot{\tilde{\sigma}}_-}
+	&=& - \left( \frac{\gamma_a}{2} +i\Delta \right) \vxp{\tilde{\sigma}_-} 
+	-i\frac{\Omega_0}{2} \vxp{\sigma_z} 	\,, \nonumber \\ 
+\vxp{\dot{\tilde{\sigma}}_+}
+	&=& - \left( \frac{\gamma_a}{2} -i\Delta \right) 
+	\vxp{\tilde{\sigma}_+} +i\frac{\Omega_0}{2} \vxp{\sigma_z} 	\,, 
+\end{eqnarray}
+%%
+Adjuntamos la soluci\'on en nota aparte.  
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Forma Alternativa de las Ecuaciones de Bloch: 
+Modelo Vectorial} 
+Una descripci\'on muy \'util e ilustrativa de la interacci\'on de un sistema 
+de dos niveles con un campo es el modelo vectorial (Feynman, Vernon, 
+Hellwart??). Primero introducimos las variables 
+%
+\begin{subequations}
+\begin{eqnarray}
+\tilde{u} &=& \vxp{\tilde{\sigma}_x} = \tilde{\rho}_{ab} + \tilde{\rho}_{ba} \,, \\ 
+\tilde{v} &=& \vxp{\tilde{\sigma}_y} = i \tilde{\rho}_{ab} - i \tilde{\rho}_{ba} \,, \\ 
+\tilde{w} &=& \vxp{\sigma_z} = \tilde{\rho}_{aa} + \tilde{\rho}_{bb} \,, 
+\end{eqnarray}
+\end{subequations}
+%%
+con lo que definimos el \textit{vector de Bloch} 
+%
+\begin{eqnarray}
+\mbB &=& \tilde{u} \mbe_x + \tilde{v} \mbe_y +  \tilde{w} \mbe_z 
+	= \Tr [ \tilde{\rho} \tilde{\sigma} ] \,.
+\end{eqnarray}
+%%
+
+Con las ecuaciones (\ref{eq:BlochEq_rho}) formamos el conjunto de 
+ecuaciones para los componentes de $\mbB$: 
+%
+\begin{subequations}
+\begin{eqnarray}
+\dot{\tilde{u}} &=& -\frac{\gamma_a}{2} \tilde{u} - \Delta \tilde{v} \,, \\ 
+\dot{\tilde{v}} &=& \Delta \tilde{u} - \frac{\gamma_a}{2} \tilde{v} 
+	+\Omega_0 \tilde{w} \,, \\
+\dot{\tilde{w}} &=& -\gamma_a (\tilde{w} +1) -\Omega_0 \tilde{v} \,. 
+\end{eqnarray}
+\end{subequations}
+%%
+
+Las soluciones en estado estacionario son
+%
+\begin{subequations}
+\begin{eqnarray}
+\tilde{u}_{st} &=& \frac{\Delta \Omega_0}
+	{\Omega_0^2/2 +\Delta^2 +(\gamma_a/2)^2 } \,, \\ 
+\tilde{v}_{st} &=& -\frac{ \Omega_0 \gamma_a/2}
+	{\Omega_0^2/2 +\Delta^2 +(\gamma_a/2)^2 } \,, \\
+\tilde{w}_{st} &=& - \frac{(\gamma_a/2)^2 +\Delta^2}
+	{\Omega_0^2/2 +\Delta^2 +(\gamma_a/2)^2 }\,, 
+\end{eqnarray}
+\end{subequations}
+%%
+
+Hay que notar que los componentes del vector de Bloch son variables 
+reales, lo que facilita la interpretaci\'on del sistema como un vector en 
+un espacio real en 3D.
+
+Varios aspectos de estas soluciones son muy importantes que conviene 
+tener siempre muy presentes. (i) El valor m\'aximo de la inversi\'on de 
+poblaci\'on $\tilde{w}_{st}$ se obtiene cuando $\Delta=0$ y 
+$\Omega_0 \gg \gamma_a$, dando $\tilde{w}_st =0$, o bien 
+$\rho_{aa} = \rho_{bb} =1/2$; (ii) cuando $\Delta=0$ el movimiento del 
+vector de Bloch ocurre en el plano $y,z$ ($\tilde{u}(t)=0$); (iii)la inversi\'on 
+$\tilde{w}$ no tiene contraparte cl\'asica (donde el \'atomo no tiene niveles 
+de energ\'ia); (iv) las coherencias $\rho_{ab}$ y $\rho_{ba}$ representan 
+la polarizaci\'on inducida en el medio, 
+$\tilde{\rho}_{ab} = (\tilde{u} -i \tilde{v})/2$.
+
+El modelo vectorial permite visualizar la no linealidad de la interacci\'on  
+\'atomo-l\'aser utilizando el concepto de \textit{saturaci\'on}. Esta indica 
+que un cierto nivel de intensidad del l\'aser es suficiente para inducir 
+una respuesta no lineal en el \'atomo. Definiremos el par\'ametro de 
+saturaci\'on $I_S$ tal que 
+%
+\begin{eqnarray*}
+\tilde{w}_{st} &=& - \left[ 1 + 
+	\frac{\Omega_0^2 /2}{(\gamma_a/2)^2 +\Delta^2)} \right]^{-1} \\ 
+&=& - \left[ 1 + 
+	\frac{\Omega_0^2 /2}{(\gamma_a/2)^2} \cdot 
+	\frac{1}{1+ \frac{4\Delta^2}{\gamma_a^2}} \right]^{-1} \,.
+\end{eqnarray*}
+%%
+Definiendo  
+%
+\begin{eqnarray}
+I_S = \frac{2\Omega_0^2}{\gamma_a^2} \,, 	\qquad 
+\mcL (\Delta) = \left[ 1+ \frac{4\Delta^2}{\gamma_a^2} \right]^{-1} \,, 
+\end{eqnarray}
+%%
+entonces 
+%
+\begin{subequations}
+\begin{eqnarray}
+\tilde{w}_{st} &=& \frac{-1}{ 1+ I_S \mcL(\Delta) } \,,  \\ 
+\tilde{v}_{st} &=& -\frac{ 2(\Omega_0/\gamma_a) \mcL(\Delta)} 
+	{1+ I_S \mcL(\Delta) } \,, \\
+\tilde{u}_{st} &=& \frac{ (4\Delta \Omega_0 /\gamma_a) \mcL(\Delta) }
+	{1+ I_S \mcL(\Delta) } \,, 
+\end{eqnarray}
+\end{subequations}
+%%
+El par\'ametro de saturaci\'on $I_S$ es una medida adimensional de la 
+intensidad requerida para saturar el \'atomo, es decir, cuando su capacidad 
+de absorci\'on disminuye. Esto empieza a ocurrir cuando $I_S =1$ 
+($\Omega_0 = \gamma_a/\sqrt{2}$).
+
+\textcolor{red}{\'Area de un pulso:} 
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Desfasamiento, Eliminaci\'on Adiab\'atica y Ecuaciones 
+de Raz\'on} 
+Otro proceso de gran importancia es el de las colisiones el\'asticas entre 
+los \'atomos, las cuales solamente producen un desfasamiento entre 
+diferentes emisores, sin afectar los procesos de absorci\'on y emisi\'on. 
+Ahora debemos a\~nadir el t\'ermino 
+%
+\begin{eqnarray}
+\mathcal{L}_p \tilde{\rho} = 
+	 (\gamma_p /2) (\sigma_z \tilde{\rho} \sigma_z -\tilde{\rho}) 
+\end{eqnarray}
+%%
+a la ecuaci\'on para $\tilde{\rho}$, donde $\gamma_p$ se interpreta como 
+la frecuencia de las colisiones, que se refleja \'unicamente en las 
+ecuaciones para las coherencias a\~nadiendo t\'erminos de la forma 
+$(\dot{{\tilde{\rho}}}_{ab})_p = -\gamma_p \tilde{\rho}_{ab}$ 
+[$(\dot{{\tilde{\rho}}}_{aa})_p = (\dot{{\tilde{\rho}}}_{bb})_p = 0$]. 
+Por lo tanto, las coherencias tienen decaimiento adicional de la forma 
+$\tilde{\rho}_{ab} (t) \propto \tilde{\rho}_{ab} e^{- \gamma t}$), donde  
+%
+\begin{eqnarray}
+\gamma = \frac{\gamma_a}{2} +\gamma_p  \,. 
+\end{eqnarray}
+%%
+Las ecuaciones son ahora, 
+%
+\begin{eqnarray} 	%\label{eq:BlochEq_rho}
+\dot{\tilde{\rho}}_{ab} 
+	&=& - \left( \gamma +i\Delta \right) \tilde{\rho}_{ab}
+	-i\frac{\Omega_0}{2} (\rho_{aa} -\rho_{bb}) 	\,, \nonumber \\ 
+\dot{\tilde{\rho}}_{aa} 
+	&=& -\gamma_a \rho_{aa} + i\frac{\Omega_0}{2} \tilde{\rho}_{ba} 
+	- i\frac{\Omega_0}{2} \tilde{\rho}_{ab} 	\,, 	\nonumber \\ 
+\dot{\tilde{\rho}}_{bb} 
+	&=& \gamma_a \rho_{aa} - i\frac{\Omega_0}{2} \tilde{\rho}_{ba} 
+	+ i\frac{\Omega_0}{2} \tilde{\rho}_{ab} 	\,,
+\end{eqnarray}
+%%
+
+Si $\gamma_p \gg \gamma_a$, es decir, el desfasamiento es mucho 
+m\'as r\'apido que la emisi\'on espont\'anea, es posible simplificar el 
+sistema eliminando la variable r\'apida $\tilde{\rho}_{ab}$, que adquiere 
+su estado estacionario m\'as r\'apidamente que las poblaciones. 
+Haciendo $\dot{\tilde{\rho}}_{ab} =0$, entendiendo que 
+$\tilde{\rho}_{ab} \to \tilde{\rho}_{ab}^{st}$; 
+entonces 
+%
+\begin{eqnarray}
+\tilde{\rho}_{ab} &=& 
+	- i \frac{\Omega_0/2}{\gamma +i\Delta} (\rho_{aa} - \rho_{bb}) \,, 
+\end{eqnarray}
+%%
+que sustituimos en las ecuaciones para las poblaciones: 
+%
+\begin{subequations}
+\begin{eqnarray}
+\dot{\rho}_{aa} &=&  -\gamma_a \rho_{aa}  
+	- \frac{\Omega_0^2}{4} ( \rho_{aa} - \rho_{bb})  
+	\left[ \frac{1}{\gamma -i \Delta} + \frac{1}{\gamma +i\Delta} \right]   
+	\nonumber \\ 
+&=& -\gamma_a \rho_{aa} 
+	- \frac{ \gamma \Omega_0^2/2 }{ \Delta^2 +\gamma^2 } 
+	( \rho_{aa} - \rho_{bb}) 	\,, 
+\end{eqnarray}
+%%
+%
+\begin{eqnarray}
+\dot{\rho}_{bb} &=&  \gamma_a \rho_{aa}  
+	+ \frac{\Omega_0^2}{4} ( \rho_{aa} - \rho_{bb})  
+	\left[ \frac{1}{\gamma -i \Delta} + \frac{1}{\gamma +i\Delta} \right]    
+	\nonumber \\ 
+&=& \gamma_a \rho_{aa} 
+	+ \frac{ \gamma \Omega_0^2/2 }{ \Delta^2 +\gamma^2 } 
+	( \rho_{aa} - \rho_{bb}) 	\,. 
+\end{eqnarray}
+\end{subequations}
+%%
+Estas son llamadas \textit{Ecuaciones de Raz\'on}, en las que solamente 
+encontramos a las poblaciones o probabilidades de ocupaci\'on de los 
+niveles, debido a que las colisiones destruyen la coherencia entre ellos. 
+
+Este procedimiento, llamado \textit{eliminaci\'on adiab\'atica} es muy \'util 
+siempre que un sistema f\'isico presenta dos o mas escalas de tiempo 
+muy diferentes entre s\'i, es decir, una es mucho mas r\'apida que la otra. 
+En estos casos se dice que la variable r\'apida (eliminada) sigue 
+adiab\'aticamente a la variable lenta. 
+
+En s\'olidos hay procesos an\'alogos a las colisiones, como son las 
+vibraciones de la red, defectos, etc. Si $\gamma_p$ es similar o mayor a 
+$\gamma$ podemos aplicar el proceso de eliminaci\'on adiab\'atica visto 
+arriba. 
+
+\textbf{Ejemplo. Fase Relativa Aleatoria.}
+Una forma un poco m\'as formal de ver el efecto de desfasamiento es el  
+siguiente. Con frecuencia hay que realizar promedios estad\'isticos a las 
+variables de inter\'es adem\'as de los promedios cu\'anticos. Considere 
+un conjunto de vectores de estado de dos niveles $\ket{\psi}_j$ todos 
+con las mismas probabilidades $|C_a|^2$ y $|C_b|^2$, pero que tienen 
+una fase relativa aleatoria $\phi_j$ entre las amplitudes de probabilidad: 
+$\ket{\phi}_j = c_a \ket{a} + e^{i \phi_j} c_b \ket{b}$. 
+
+Para un sistema de $N$ \'atomos la probabilidad $P_j$ del $j$-\'esimo estado 
+es $1/N$, dado que todos las fases $\phi_j$ son igualmente probables. El 
+elemento no diagonal $\rho_{ab}$ para este problema es 
+%
+\begin{eqnarray*}
+\rho_{ab} &=& \sum_j P_j c_{aj} c_{bj}^\ast 
+	= c_a c_b^\ast \frac{1}{N} \sum_{j=1}^N e^{-i \phi_j} 	\\ 
+	&=& c_a c_b^\ast \frac{1}{N}  \int_0^{2\pi} d\phi \, e^{-i \phi} = 0 \,,
+\end{eqnarray*}
+%%
+es decir, la coherencia at\'omica entre los niveles $a$ y $b$ desaparece 
+completamente en el proceso de promediar. 
+
+%%5%%%%%%%%60%%%%%%%%70%%%
+\subsection{Excitaci\'on T\'ermica y/o Incoherente} 
+Anteriormente vimos la Ec.~(\ref{eq:mEq2LA_bb}) para la interacci\'on 
+de un \'atomo de dos niveles con un campo EM coherente y un campo a  
+temperatura $T$, que aparece mediante el n\'umero de fotones t\'ermicos 
+$\bar{n}$. Supongamos ahora que el \'atomo es excitado solamente por 
+un campo incoherente, por lo que descartamos el t\'ermino 
+$(-i/\hbar)[H,\rho]$ y el campo, en lugar de deberse a la temperatura 
+suponemos que se debe a un l\'aser muy ruidoso. Hacemos, entonces, 
+el remplazo $\gamma_a \bar{n}/2 \to \Gamma$, y a\~nadimos a la 
+ecuaci\'on maestra el t\'ermino
+%
+\begin{eqnarray} 	\label{eq:mEq2LA_inc}
+\mathcal{L}_{\Gamma} \rho &=& \Gamma   \left( 2 \sigma_+ \rho \sigma_- 
+	-\sigma_- \sigma_+ \rho -\rho \sigma_- \sigma_+ \right)\,, 
+\end{eqnarray}
+%%
+Obtener ecuaciones y soluci\'on \ldots
+
+%%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%
+\section{Coherencia vs Incoherencia en el \'Atomo de Dos NIveles} 
+Uno de los grandes objetivos de la \'optica cu\'antica es determinar las 
+fluctuaciones de la luz y de las fuentes que la producen. Para describir el 
+papel que tienen las fluctuaciones separamos los operadores at\'omicos 
+en una parte dada por su valor esperado (su media) a tiempos largos, 
+$ \vxp{\sigma_{jk}}_{st} =\alpha_{jk}$, mas 
+las fluctuaciones, $\Delta \sigma_{jk}(t)$, es decir,  
+%
+\begin{eqnarray} 	\label{eq:dipoleSplit}
+\sigma_{jk} (t) =\alpha_{jk}  +\Delta \sigma_{jk} (t) 	\,, 
+\end{eqnarray}
+%%
+donde, por definici\'on, $\vxp{\Delta \sigma_{jk}(t)} =0$,  tal que 
+%
+\begin{eqnarray}
+\vxp{\sigma_{eg} (0) \sigma_{ge} (\tau)}_{st}  
+&=& |\alpha_{eg} |^2 
+	+\vxp{\Delta \sigma_{eg} (0) \Delta \sigma_{ge} (\tau)}_{st} \,.
+	\nonumber \\
+\end{eqnarray}
+%%
+Mas adelante explicaremos el significado de esta funci\'on de dos tiempos. 
+Cuando el intervalo de tiempo $\tau$ entre los dos operadores es cero 
+se tiene que la intensidad de la emisi\'on es proporcional a
+%
+\begin{eqnarray} 
+\vxp{\sigma_{eg} \sigma_{ge}}_{st} 
+	&=& \vxp{\sigma_{ee}}_{st} = |\alpha_{eg} |^2   
+	+\vxp{\Delta \sigma_{eg} \Delta \sigma_{ge}}_{st}  \,. 
+\end{eqnarray}
+%%
+Decimos que el primer t\'ermino del lado derecho, $|\alpha_{eg} |^2$, 
+es la parte coherente, dependiente \'unicamente del valor esperado del 
+dipolo, y el segundo t\'ermino es la parte incoherente, 
+%
+\begin{eqnarray} 
+\vxp{\Delta \sigma_{eg} \Delta \sigma_{ge}}_{st} 
+	&=& \alpha_{ee} -|\alpha_{eg}|^2 		 \\  
+	&=& \frac{ 2\Omega_0^4}
+   	 { [ 2\Omega_0^2 +\gamma^2 +4\Delta^2 ]^2} \,.   \nonumber 
+\end{eqnarray}
+%%
+El t\'ermino ``incoherente'' se refiere a que depende de las 
+\textit{fluctuaciones}  de los operadores at\'omicos.
+
+Una relaci\'on importante es el cociente entre la parte coherente, llamada 
+tambi\'en el\'astica, y la incoherente, o inel\'astica: 
+%
+\begin{eqnarray}  
+\frac{I_{coh}}{I_{inc}} &=& \frac{|\vxp{\sigma_{eg}}_{st}|^2}
+	{\vxp{\Delta \sigma_{eg} \Delta \sigma_{ge}}_{st}}		\\ 
+&=& \frac{ \Omega_0^2 [\gamma_a^2 +4\Delta^2]/D^2 }
+	{ 2 \Omega_0^4 /D^2} 
+	= \frac{ \gamma_a^2 +4\Delta^2 }{ 2 \Omega_0^2} \,, \nonumber \\ 
+D &=& 2\Omega_0^2 +\gamma_a^2 +4\Delta^2 \,.
+\end{eqnarray}
+%%
+Este es justamente el inverso del par\'ametro de saturaci\'on $I_S$ visto 
+anteriormente, que es la intensidad de campo necesaria para saturar al 
+\'atomo. Un valor $I_S <1$ indica que la intensidad incoherente es mayor 
+que la coherente. 
+
+La raz\'on de emisi\'on de fotones es $\gamma_a \vxp{\sigma_{ee}}$, que 
+en el r\'egimen de saturaci\'on en un per\'iodo brillante es $\gamma_a/2$. 
+El n\'umero de fotones emitidos en el intervalo $[0,t]$ es 
+%
+\begin{eqnarray} 
+N(t) = \gamma_a \int_0^t \vxp{\sigma_{ee}(t')} \, dt' \,.
+\end{eqnarray}
+%%
+Equivalentemente, podemos calcular el tiempo promedio entre la 
+emisi\'on de dos fotones consecutivos, 
+$\bar{\tau} = [\gamma_a \vxp{\sigma_{ee}}_{st}]^{-1}$. 
+\textcolor{blue}{Comentar: funci\'on de retardo, etc.}
+
+
+\section*{Flourescencia Resonante intermintente}
+
+
+La Fluorescencia Resonante intermitente es un fenómeno físico que motivo el estudio de las ecuaciones estocásticas de Schrodinger, cuando se pudo atrapar un solo átomo se observaron efectos que no se aprecian cuando hay muchos átomos contribuyendo a la florescencia . 
+
+\subsection{El sistema en V}
+La idea es detectar una transición débil de un solo átomo, La transición fuerte se puede detectar visualmente (usando un microscopio) o fotoeléctricamente, la detección directa de florescencia de la absorción y emisión de una transición débil es problemática. el sistema atómico con el que se propuso es el sistema en V, donde el estado base (0) esta acoplado a dos niveles superiores (1 y 2),la transición 0-1 con acoplamiento fuerte y la transición 0-2 con acoplamiento débil.    \\
+
+En estudios previos, como los de Höffges et al.[1][2], se logró medir espectros de fluorescencia de alta resolución en sistemas de dos niveles. Estos avances han llevado al desarrollo de la Teoría de Trayectorias Cuánticas, que describe la evolución estocástica de sistemas cuánticos y permite simular mediciones como el fotoconteo y la detección heterodina.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\linewidth]{Capitulos de tesis en desorden/shelving/Vsistem.png}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
+
+\section*{Objetivos}
+
+\textbf{Objetivo General:} \\
+Simular sistemas cuánticos de dos y tres niveles utilizando la teoría de Trayectorias Cuánticas para estudiar fenómenos como el Fluorescencia Resonante Intermitente y la detección heterodina, obteniendo distribuciones de tiempos de espera y tiempos oscuros.\\
+
+\textbf{Objetivos Específicos:}
+\begin{itemize}
+    \item Simular un sistema de tres niveles con intermitencia, analizando los efectos de este fenómeno en la dinámica del sistema.
+    \item Simular un sistema de dos niveles, aplicando el modelo de trayectorias cuánticas para explorar su comportamiento estocástico.
+    \item Obtener distribuciones de tiempos de espera y tiempos oscuros para ambos sistemas, utilizando la ecuación maestra y trayectorias de brincos cuánticos con el método de Monte Carlo.
+    \item Simular la detección heterodina en un sistema de dos niveles, evaluando su capacidad para obtener espectros de alta resolución.
+\end{itemize}
+
+
+
+% Metodología
+\section*{Metodología}
+
+Abordamos el fenómeno de fluorescencia resonante intermitente, que describe la alternancia aleatoria entre per\'iodos de emisión frecuente de fotones ("brillantes") y periodos de nula emisión (``oscuros'') en un átomo excitado por un láser [3]. \\
+
+Consideramos un átomo de tres niveles interactuando con un láser que excita la transici\'on 
+$|e \rangle - |g \rangle$ con frecuencia de Rabi $\Omega$, y que decae a raz\'on $\gamma$, generando un per\'iodo brillante. 
+\\
+El estado $|e \rangle$ decae ocasionalmente a raz\'on $\gamma_d$ a un estado metaestable $|a \rangle$ que interrumpe la fluorescencia en $|e \rangle - |g \rangle$. Al decaer el estado $|a \rangle$ a $|g \rangle$ a raz\'on $\gamma_a$ vuelve la fluorescencia. Las razones de emisi\'on espont\'anea cumplen 
+$\gamma \gg \gamma_d,\gamma_a$.
+\\
+
+Para simular este proceso, utilizamos el método de Trayectorias Cuánticas [4], que modela la dinámica de emisión fotónica del sistema. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{1 sistema.png}
+    \caption{Esquema del sistema de 3 niveles}
+    \label{fig:enter-label}
+\end{figure}
+
+\\
+
+\subsection*{Trayectorias Cuánticas}
+Para simular una trayectoria cu\'antica de saltos resolvemos la ecuaci\'on de Schr\"odinger $i\hbar \dot{|\Psi \rangle} =H_{\mathrm{eff}} |\Psi \rangle$, donde $H_{\mathrm{eff}} = H - i \frac{\gamma}{2} A_{ee} -i \frac{\gamma_d}{2} A_{ee} - i \frac{\gamma_a}{2} A_{aa}$ es un Hamiltoniano efectivo no-Hermitiano, $H = \Delta A_{eg} A_{ge} + \frac{\Omega}{2} (A_{eg} + A_{ge})$ es el Hamiltoniano de la interacci\'on \'atomo-l\'aser, y los siguientes t\'erminos denotan emisi\'on espont\'anea. 
+
+\\
+
+Una trayectoria consiste en intervalos de evoluci\'on no unitaria hasta que se emite un fot\'on en alguna de las transiciones con 
+probabilidad $p_k(t) = \delta t \langle \Psi_c(t) | \mathcal{C}_k^\dagger \mathcal{C}_k | \Psi_c(t) \rangle$, 
+donde $\mathcal{C}_k = \sqrt{\gamma_k} A_{kk}$ son los operadores de colapso que representan los diferentes canales de emisión. De no emitirse un fot\'on el sistema contin\'ua siguiendo la ecuaci\'on de Schr\"odinger.
+\\
+
+El promedio en el ensamble de muchas trayectorias reproduce la evolución del operador de densidad $\rho$, que obedece la ecuación maestra $\dot{\rho} = -\frac{i}{\hbar} [H, \rho] + \mathcal{L}_D \rho$, donde $\mathcal{L}_D$ es el superoperador de Lindblad, que modela las emisiones espontáneas entre los diferentes niveles atómicos. 
+
+
+\subsection*{Simulaciones}
+Para llevar a cabo la simulación de sistemas cuánticos de dos y tres niveles, implementamos la teoría de Trayectorias Cuánticas, utilizando el método de Monte Carlo. Las simulaciones se desarrollaron en Python, empleando el paquete QuTiP, que permite modelar la evolución estocástica de sistemas cuánticos abiertos mediante operadores de colapso y Hamiltonianos definidos.
+
+En el caso del sistema de tres niveles, definimos los estados base, excitado e intermedio (metastable). El estado inicial del sistema es el estado base, desde el cual pueden ocurrir transiciones hacia los otros niveles bajo la influencia de un láser con frecuencia de Rabi $\Omega$ y desintonía $\Delta$. Las transiciones posibles son de tipo brillante y oscuro, representando los periodos brillantes y oscuros característicos del fenómeno de \textit{shelving}.
+
+Para capturar la dinámica de emisión, los operadores de colapso se definen en función de las tasas de decaimiento ($\gamma$, $\gamma_d$, $\gamma_a$) entre los estados del sistema. Estos operadores permiten modelar la interacción entre el sistema y su entorno, generando transiciones estocásticas que se resuelven con el método de Monte Carlo. El Hamiltoniano (\texttt{H}) describe la interacción láser-átomo y, junto con los operadores de colapso, define la evolución temporal del sistema. La función \texttt{mcsolve} de QuTiP se utiliza para obtener las trayectorias cuánticas correspondientes, permitiendo observar las distribuciones de tiempos brillantes y oscuros en el sistema.\\
+
+Para el sistema de dos niveles, el procedimiento es similar pero con menos transiciones posibles, ya que solo considera los estados base y excitado. Esto simplifica la configuración de los operadores y permite un análisis directo de las transiciones brillantes y oscuros en el sistema, obteniendo distribuciones de tiempos de espera y tiempos oscuros que ayudan a caracterizar la dinámica del sistema.
+\\
+\\
+\subsection*{Distribución de tiempos oscuros}\\
+
+El procedimiento de c\'alculo de trayectorias permite recoger la informaci\'on de fotoemisiones y estad\'istica de los per\'iodos brillantes y oscuros[3]. Esto se logra mejor si hacemos una trayectoria muy larga en lugar de muchas trayectorias cortas. Se pueden obtener las distribuciones de las duraciones de los periodos oscuros y brillantes, que siguen distribuciones exponenciales: 
+$$ P_O = \frac{1}{T_O} e^{-t/T_O}, \qquad  
+    P_B = \frac{1}{T_B} e^{-t/T_B} ,$$
+con duraciones promedio
+$$ T_O = \gamma_a^{-1}, \qquad T_B = \frac{2\Omega^2 + \gamma^2 + 4\Delta^2}{\gamma_d \Omega^2} .$$
+\\
+\textbf{Algoritmo para realizar la distribución de tiempos oscuros con los resultados obtenidos de la simulación}
+\begin{enumerate} \item \textbf{Registro de Eventos de Colapso} \begin{itemize} \item Durante la simulación, se registran eventos de colapso en ciertos tiempos. \item Cada colapso corresponde a una transición específica en el sistema. \end{itemize} \vspace{0.5em} \item \textbf{Identificación de Períodos} \begin{itemize} \item \textbf{Períodos Brillantes}: Intervalos donde el sistema emite fluorescencia. \item \textbf{Períodos Oscuros}: Intervalos donde no hay emisión de fluorescencia. \end{itemize} \vspace{0.5em} \item \textbf{Detección de Transiciones Clave} \begin{itemize} \item Se enfocan en colapsos específicos que marcan el inicio y fin de los períodos. \item Por ejemplo, un colapso de tipo 1 indica el inicio de un período brillante. \end{itemize} \vspace{0.5em} \item \textbf{Cálculo de Duraciones} \begin{itemize} \item \textbf{Períodos Brillantes}: Duración = tiempo de fin - tiempo de inicio. \item \textbf{Períodos Oscuros}: Duración = inicio del siguiente período brillante - fin del período brillante actual. \end{itemize} \vspace{0.5em} \item \textbf{Almacenamiento y Análisis} \begin{itemize} \item Se guardan las duraciones para análisis estadístico. \item Permite calcular tiempos promedio y visualizar patrones de intermitencia. \end{itemize} \end{enumerate}
+
+\subsubsection*{Distribución de Tiempos de Espera en el Sistema de Tres Niveles}
+
+En la simulación del sistema de tres niveles, se modela la probabilidad de contar eventos de fotoconteo en función del tiempo. Esta probabilidad se describe mediante una distribución de Poisson, que permite calcular la probabilidad de que se emitan \( n \) fotones en un intervalo de tiempo \( T \). Bajo una intensidad de campo constante, la probabilidad de detectar \( n \) fotoelectrones es:
+%
+\begin{equation}
+p(n, T) = \frac{(\xi \bar{I} T)^n}{n!} e^{-\xi \bar{I} T},
+\end{equation}
+%
+donde $\xi$ es la eficiencia de detección $\bar{I}$ es la intensidad media del campo incidente. Este enfoque permite analizar la distribución de tiempos de espera entre eventos de emisión, considerando tanto el régimen de dos niveles (\( |g\rangle \) y \( |e\rangle \)) como los períodos oscuros asociados al estado metastable \( |m\rangle \).
+
+
+
+La tasa de decaimiento del estado excitado al estado metastable, \( \gamma_{m} \), afecta directamente la frecuencia con la que el sistema entra en períodos oscuros. Una tasa de decaimiento más alta incrementa el número de períodos oscuros en la distribución final de tiempos de espera, y contribuye a la complejidad de la dinámica de fluorescencia intermitente. La distribución de tiempos de espera con períodos oscuros puede analizarse usando:
+\begin{equation
+w(\tau) = \frac{1}{\tau_0} e^{-\tau/\tau_0},
+\end{equation}
+donde \( \tau_0 \) es el tiempo medio entre eventos de fotoconteo. Este resultado, conocido como la función de retardo, es útil para modelar la fluorescencia resonante y analizar la duración de los períodos oscuros en el sistema, ya que describe la probabilidad de no detectar un fotón durante el retardo \( \tau \).
+ 
+
+% Resultados
+\section*{Resultados Preliminares}
+\subsection*{Simulación del Sistema de Tres Niveles}
+
+En esta sección presentamos los resultados de las simulaciones realizadas en el sistema de tres niveles, en el que estudiamos las distribuciones de tiempos brillantes y oscuros mediante trayectorias cuánticas. Estas simulaciones permiten observar el fenómeno de \textit{shelving}, donde el sistema pasa por períodos brillantes con oscilaciones de Rabi y períodos oscuros debido a la transición hacia un estado metastable.
+
+En la Fig. 2, a la izquierda, mostramos un fragmento de una trayectoria típica del sistema, destacando los períodos brillantes con oscilaciones de Rabi y los períodos oscuros característicos. A la derecha, presentamos el promedio de un ensamble de 4000 trayectorias, que se compara favorablemente con el resultado obtenido mediante la ecuación maestra. Los parámetros utilizados fueron $\Omega=3.5\gamma$, $\Delta=0$, $\gamma_d=0.95\gamma$, $\gamma_d=0.05\gamma$, y $\gamma_a =0.015 \gamma$.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Reporte Semestre 1/zoom y meq vs tj.png}
+    \caption{A la izquierda: Fragmento de la población del estado excitado de una trayectoria. A la derecha: Promedio en un ensamble de 4000 trayectorias, comparado con el resultado obtenido mediante la ecuación maestra.}
+\end{figure}
+\begin{figure}[!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Reporte Semestre 1/descarga (1).png}
+    \caption{Gráfica de los períodos oscuros a lo largo de la simulación: el eje $x$ representa el tiempo de ocurrencia de cada período oscuro, y el eje $y$ su duración. Esta visualización permite observar la variabilidad en la duración y distribución temporal de los períodos oscuros en la simulación de $10^6 \gamma^{-1}$.}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Reporte Semestre 1/descarga.png}
+    \caption{Histograma de los períodos oscuros obtenidos de las simulaciones (en magenta) y distribución teórica escalada $P_O(t)$ (curva negra) con parámetros ajustados en función de los bins y el número total de períodos oscuros observados.}
+\end{figure}
+
+
+En un per\'iodo brillante la raz\'on de emisi\'on de fotones es $\gamma \langle \rho_{ee} (t) \rangle$. Un per\'iodo oscuro finaliza cuando se vuelve a emitir un fot\'on en la transici\'on fuerte, iniciando otro per\'iodo brillante. Estos per\'iodos ocurren estoc\'asticamente. 
+\subsection*{Distribución Temporal de los Períodos Oscuros}
+
+La Fig. 3 presenta una gráfica que muestra el tiempo de ocurrencia (eje $x$) y la duración (eje $y$) de cada período oscuro a lo largo de la simulación, la cual abarca un tiempo total de $10^6 \gamma^{-1}$. Esta representación permite observar la dispersión en la duración de los períodos oscuros y su distribución temporal durante la evolución del sistema.
+
+Cada barra en la gráfica corresponde a un período oscuro específico, con su posición en el tiempo en el eje $x$ y su duración en el eje $y$. Esto proporciona una visualización clara de cómo los períodos oscuros se distribuyen a lo largo de la simulación, resaltando tanto la variabilidad en su duración como la frecuencia de su aparición. Este análisis temporal es útil para identificar patrones o tendencias en la dinámica de \textit{shelving} del sistema de tres niveles, donde los períodos oscuros se alternan con períodos brillantes.
+
+
+
+\subsection*{Distribución de Tiempos Oscuros}
+
+En la Fig. 4, mostramos el histograma de los períodos oscuros obtenido de las simulaciones del sistema de tres niveles. La duración promedio teórica de estos períodos oscuros, $T_{oc}$, se calcula como el inverso de la tasa de decaimiento hacia el estado metastable, es decir, $T_{oc} = 1/\gamma_a$. Para comparar los resultados simulados con la teoría, ajustamos la distribución teórica en función de los bins y el número total de períodos oscuros observados en las simulaciones. 
+
+La distribución teórica escalada $P_O(t)$, representada por la curva negra en la gráfica, muestra un buen ajuste con el histograma de los datos simulados. Este ajuste permite verificar la consistencia entre los resultados de las simulaciones y la teoría en cuanto a la duración y frecuencia de los períodos oscuros, proporcionando un análisis cuantitativo de estos eventos en el sistema de tres niveles.
+
+
+
+
+\subsection*{Distribuciones de Tiempos de Espera del Sistema de Tres Niveles}
+
+La dinámica del sistema de tres niveles implica dos tipos de transiciones principales: las transiciones entre los estados \( |g\rangle \) y \( |e\rangle \), que se comportan como un sistema de dos niveles, y las transiciones hacia y desde el estado metastable \( |m\rangle \), que introducen períodos oscuros (momentos sin emisión de fotones). Estos períodos oscuros ocurren cuando el sistema entra en el estado metastable y se mantiene en él antes de regresar al ciclo de emisión de fotones.
+
+En las figuras a continuación, mostramos las distribuciones de tiempos de espera para dos configuraciones de la frecuencia de Rabi. En ambas figuras, la gráfica de la izquierda muestra la distribución de tiempos de espera para las transiciones \( |e\rangle \rightarrow |g\rangle \), representando el comportamiento de un sistema de dos niveles sin la influencia del estado metastable. La gráfica de la derecha muestra la distribución total de tiempos de espera, que incluye el efecto del \textit{shelving} (estado metastable). Esta gráfica está recortada en el eje $x$ con un límite de 20 para visualizar mejor la estructura principal de la distribución, aunque existen tiempos de espera que alcanzan hasta 450 unidades de duración.
+
+La frecuencia de Rabi, denotada por \( \Omega \), tiene un impacto significativo en la dinámica del sistema. En la Fig. \ref{fig:dist_rabi_1}, la frecuencia de Rabi es baja (\( \Omega = 1 \gamma \)), lo que produce una menor interacción entre los estados, afectando la frecuencia y duración de los períodos oscuros en la distribución total. En la Fig. \ref{fig:dist_rabi_3.5}, con una frecuencia de Rabi más alta (\( \Omega = 3.5 \gamma \)), se observa un incremento en la tasa de transiciones, lo cual modifica la estructura de las distribuciones.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Reporte Semestre 1/Debil.png}
+
+    \caption{Distribuciones de tiempos de espera para el sistema de tres niveles con frecuencia de Rabi \( \Omega = 1 \gamma \): (izquierda) distribución de tiempos de espera para las transiciones \( |e\rangle \rightarrow |g\rangle \) sin el estado metastable; (derecha) distribución total de tiempos de espera, incluyendo el efecto del \textit{shelving}, recortada a un límite de 20 en el eje $x$ para mejorar la visualización.}
+    \label{fig:dist_rabi_1}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.01\linewidth]{Reporte Semestre 1/Fuerte.png}
+
+    \caption{Distribuciones de tiempos de espera para el sistema de tres niveles con frecuencia de Rabi \( \Omega = 3.5 \gamma \): (izquierda) distribución de tiempos de espera para las transiciones \( |e\rangle \rightarrow |g\rangle \) sin el estado metastable; (derecha) distribución total de tiempos de espera, incluyendo el efecto del \textit{shelving}, recortada a un límite de 20 en el eje $x$ para mejorar la visualización.}
+    \label{fig:dist_rabi_3.5}
+\end{figure}
+
+%Trabajo Futuro
+\section*{Perspectiva del segundo semestre}
+El objetivo en el siguiente semestre es simular el espectro del sistema, Fig. 7, con detección heterodina usando trayectorias cuánticas difusivas. Usar brincos nos ayudo a hacer un análisis preliminar a partir con foto conteo, cosa que no se puede hacer con detección heterodina por la intensidad alta del oscilador local.[1][2]\\
+
+La detección heterodina tiene la capacidad de resolver espectros del orden de Hz, mientras que un filtro Fabryt-Perot 
+en contraste tiene resoluciones del orden de KHz.[5].
+
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Reporte Semestre 1/hoffges E angosto.png}
+    \caption{Espectro esperado que presenta un pico angosto, simulable mediante trayectorias cuánticas difusivas. Este resultado permitirá estudiar espectros de alta resolución en sistemas abiertos.}
+    \label{fig:espectro_futuro}
+\end{figure}
+
+\begin{figure}[!]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Reporte Semestre 1/deteccion h.png}
+    \caption{Esquema de la detección heterodina}
+    \label{fig:enter-label}
+\end{figure}
+
+% Anexos
+\section*{Anexos}
+
+\subsection*{Participación en el Workshop on Open Quantum Systems and Quantum Information}
+
+Asistí al \textit{Workshop on Open Quantum Systems and Quantum Information} en Puebla, organizado por el Instituto de Física de la BUAP del 15 al 19 de julio de 2024. Este evento reunió a investigadores y estudiantes de diversas áreas de la física cuántica, abordando temas como sistemas cuánticos abiertos, información cuántica, entrelazamiento cuántico, interacción luz-materia, y teoría de matrices aleatorias aplicada a sistemas de muchos cuerpos. Más información sobre el evento se encuentra en su página oficial: \url{https://www.ifuap.buap.mx/eventos/2024/quantum/}.
+
+En el workshop, presenté un póster titulado "Trayectorias Cuánticas Difusivas para Simular Espectros de Fluorescencia Resonante," el cual resume los objetivos y avances de mi proyecto de investigación. A continuación, se incluye la constancia de participación otorgada por los organizadores y una copia del póster presentado.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Reporte Semestre 1/constancia.png}
+    \caption{Constancia de participación en el \textit{Workshop on Open Quantum Systems and Quantum Information}.}
+\end{figure}
+
+\begin{figure}[I]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Reporte Semestre 1/posterpdf_page-0001.jpg}
+    \caption{Póster presentado en el \textit{Workshop on Open Quantum Systems and Quantum Information}, titulado "Trayectorias Cuánticas Difusivas para Simular Espectros de Fluorescencia Resonante".}
+\end{figure}
+
+\newpage
+\subsection*{Cronograma de actividades}
+\begin{document}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{9cm}|c|c|c|c|}
+\hline
+\textbf{Actividad} & \multicolumn{4}{c|}{\textbf{Semestre}} \\ \cline{2-5} 
+ & 1 & 2 & 3 & 4 \\ \hline
+Búsqueda de información y análisis del estado del Arte & \cellcolor{green} & & & \\ \hline
+Estudio detallado de ecuaciones maestras y teoría de trayectorias cuánticas & \cellcolor{green} & & & \\ \hline
+Definición del marco teórico y planteamiento del problema & \cellcolor{green} & & & \\ \hline
+Definición de la metodología de simulación numérica (trayectorias cuánticas) & & \cellcolor{green} & & \\ \hline
+Selección y adaptación de herramientas computacionales (QuTiP, Python) & & \cellcolor{green} & & \\ \hline
+Elaboración del diseño de simulación (condiciones iniciales, parámetros, algoritmos) & & \cellcolor{green} & & \\ \hline
+Programación de simulaciones de trayectorias cuánticas para sistemas simples & & \cellcolor{green} & & \\ \hline
+Simulación y ajuste de parámetros (ejecución y depuración de código) & & \cellcolor{green} & & \\ \hline
+Análisis preliminar de resultados de simulaciones & & \cellcolor{green} & & \\ \hline
+Comparación con experimentos previos y ecuaciones maestras & & & \cellcolor{green} & \\ \hline
+Validación y ajuste de modelos teóricos & & & \cellcolor{green} & \\ \hline
+Discusión de resultados, refinamiento de hipótesis & & & \cellcolor{green} & \\ \hline
+Redacción del informe de investigación (marco teórico, metodología, resultados) & & & \cellcolor{green} & \cellcolor{green} \\ \hline
+Preparación de presentaciones para congresos o seminarios & & & & \cellcolor{green} \\ \hline
+Defensa del proyecto & & & & \cellcolor{green} \\ \hline
+\end{tabular}
+\end{table}
+
+\newpage
+\section*{Bibliografia}
+\begin{enumerate}
+    \item J. T. Höffges, H. W. Baldauf, T. Eichler, S. R. Helmfrid, and H. Walther, Opt. Commun. \textbf{133}, 170 (1997).
+    \item J. T. Höffges, H. W. Baldauf, W. Lange, and H. Walther, J. Mod. Opt. \textbf{44}, 1099 (1997).
+    \item H. J. Carmichael, \textit{An Open Systems Approach to Quantum Optics} (Springer, Berlin, 1993).
+    \item M. B. Plenio and P. L. Knight, Rev. Mod. Phys. \textbf{70}, 101 (1998).
+    \item V. Bühner and Ch. Tamm, Phys. Rev. A \textbf{61}, 061801 (2000).
+\end{enumerate}
+
+\end{document}
+\end{document}
