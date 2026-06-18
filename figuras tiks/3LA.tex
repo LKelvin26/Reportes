@@ -1,0 +1,42 @@
+\documentclass[border=15pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{decorations.pathmorphing}
+\begin{document}
+
+\begin{tikzpicture}[scale=1.2, >=Stealth]
+    % Líneas horizontales de niveles de energía
+    \draw[thick] (-4,0) -- (1,0) node[right] {};
+    \draw[thick] (-0.5,3.5) -- (3,3.5) node[right] {};
+    \draw[thick] (-4,6) -- (1,6) node[right] {};
+
+    % Flecha Ω (acoplamiento)
+    \draw[cyan, ultra thick, <->] (-1,0.2) -- (-1,5.8) 
+        node[midway, right, green!70!black, font=\Large\bfseries] {$\Omega$};
+
+    % Decaimiento γ (de |e> a |g>)
+
+
+    % Decaimiento γ con oscilaciones
+    \draw[red, dashed, thick, ->, decorate, decoration={snake, amplitude=0.1cm, segment length=1cm}] 
+        (-3,6) -- (-3,0.2)
+        node[midway, left, red,font=\Large\bfseries] {$\gamma$};
+
+    % Decaimiento γ_d (de |e> a |a>)
+    \draw[purple, dashed, thick, ->, decorate, decoration={snake, amplitude=0.1cm, segment length=1cm}] 
+        (0,6) -- (1,3.6)
+        node[midway, left, purple,font=\Large\bfseries] {$\gamma_d$};
+
+    % Decaimiento γ_a (de |a> a |g>)
+    \draw[magenta, dashed, thick, ->, decorate, decoration={snake, amplitude=0.1cm, segment length=1cm}] 
+        (1,3.5) -- (0,0.1)
+        node[midway, left, magenta,font=\Large\bfseries] {$\gamma_a$};
+
+    % Etiquetas de los estados
+    \node[left,font=\large\bfseries] at (-4,6) {$|e\rangle$};
+    \node[left,font=\large\bfseries] at (-4,0) {$|g\rangle$};
+    \node[right,font=\large\bfseries] at (3,3.5) {$|a\rangle$};
+
+\end{tikzpicture}
+
+\end{document}

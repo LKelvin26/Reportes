@@ -1,0 +1,379 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{NaSD86}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=ddc572a68658a35d3cc6d9b51395bd8d}{%
+           family={Nagourney},
+           familyi={N\bibinitperiod},
+           given={W.},
+           giveni={W\bibinitperiod}}}%
+        {{hash=793c43dcf73970ad2815c7e3d1f7483d}{%
+           family={Sandberg},
+           familyi={S\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=59850d95a31f8c5aa198f3fbcf19c698}{%
+           family={Dehmelt},
+           familyi={D\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{74018f58563f10e0952596ed92aac655}
+      \strng{fullhash}{88f18ebd9b3f070d774f3287609a8aa7}
+      \strng{fullhashraw}{88f18ebd9b3f070d774f3287609a8aa7}
+      \strng{bibnamehash}{88f18ebd9b3f070d774f3287609a8aa7}
+      \strng{authorbibnamehash}{88f18ebd9b3f070d774f3287609a8aa7}
+      \strng{authornamehash}{74018f58563f10e0952596ed92aac655}
+      \strng{authorfullhash}{88f18ebd9b3f070d774f3287609a8aa7}
+      \strng{authorfullhashraw}{88f18ebd9b3f070d774f3287609a8aa7}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Phys. Rev. Lett.}
+      \field{title}{Shelved optical electron amplifier: Observation of quantum jumps}
+      \field{volume}{56}
+      \field{year}{1986}
+      \field{pages}{2797}
+      \range{pages}{1}
+    \endentry
+    \entry{SNBT86}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=0ab199c00a56e8f746aa1aa839a03a74}{%
+           family={Sauter},
+           familyi={S\bibinitperiod},
+           given={Th.},
+           giveni={T\bibinitperiod}}}%
+        {{hash=8bfab55742621286e736a91f4ef4a257}{%
+           family={Neuhauser},
+           familyi={N\bibinitperiod},
+           given={W.},
+           giveni={W\bibinitperiod}}}%
+        {{hash=7f03b626d1344e6d4fae9f416a0e361c}{%
+           family={Blatt},
+           familyi={B\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=5dbbf8335f83248990e2ba0e5cd32230}{%
+           family={Toschek},
+           familyi={T\bibinitperiod},
+           given={P.\bibnamedelimi E.},
+           giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{4334f95589ffb95aeb82d7f4a26df0ed}
+      \strng{fullhash}{f6a165c47d543d160d1771bf6c2a44a6}
+      \strng{fullhashraw}{f6a165c47d543d160d1771bf6c2a44a6}
+      \strng{bibnamehash}{f6a165c47d543d160d1771bf6c2a44a6}
+      \strng{authorbibnamehash}{f6a165c47d543d160d1771bf6c2a44a6}
+      \strng{authornamehash}{4334f95589ffb95aeb82d7f4a26df0ed}
+      \strng{authorfullhash}{f6a165c47d543d160d1771bf6c2a44a6}
+      \strng{authorfullhashraw}{f6a165c47d543d160d1771bf6c2a44a6}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Phys. Rev. Lett.}
+      \field{title}{Observation of quantum jumps}
+      \field{volume}{57}
+      \field{year}{1986}
+      \field{pages}{1696}
+      \range{pages}{1}
+    \endentry
+    \entry{BHIW86}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=a2607a7109afa521c93bda04e303121d}{%
+           family={Bergquist},
+           familyi={B\bibinitperiod},
+           given={J.\bibnamedelimi C.},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=e863d1841819f296d9e271d070c27a94}{%
+           family={Hulet},
+           familyi={H\bibinitperiod},
+           given={R.\bibnamedelimi G.},
+           giveni={R\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=4539bd748af41832d08db3384e7af341}{%
+           family={Itano},
+           familyi={I\bibinitperiod},
+           given={W.\bibnamedelimi M.},
+           giveni={W\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=7e1cc1aeb5e45f657d533ecad9747f29}{%
+           family={Wineland},
+           familyi={W\bibinitperiod},
+           given={D.\bibnamedelimi J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{900a44fcf186b864d10cbe1ff8a86092}
+      \strng{fullhash}{b168a630527bbaf5fab7701b34f636f6}
+      \strng{fullhashraw}{b168a630527bbaf5fab7701b34f636f6}
+      \strng{bibnamehash}{b168a630527bbaf5fab7701b34f636f6}
+      \strng{authorbibnamehash}{b168a630527bbaf5fab7701b34f636f6}
+      \strng{authornamehash}{900a44fcf186b864d10cbe1ff8a86092}
+      \strng{authorfullhash}{b168a630527bbaf5fab7701b34f636f6}
+      \strng{authorfullhashraw}{b168a630527bbaf5fab7701b34f636f6}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Phys. Rev. Lett.}
+      \field{title}{Observation of quantum jumps in a single atom}
+      \field{volume}{57}
+      \field{year}{1986}
+      \field{pages}{1699}
+      \range{pages}{1}
+    \endentry
+    \entry{Carm93}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=6bb2e9d8a7bf28173581eef25c1cb81c}{%
+           family={Carmichael},
+           familyi={C\bibinitperiod},
+           given={H.\bibnamedelimi J.},
+           giveni={H\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{6bb2e9d8a7bf28173581eef25c1cb81c}
+      \strng{fullhash}{6bb2e9d8a7bf28173581eef25c1cb81c}
+      \strng{fullhashraw}{6bb2e9d8a7bf28173581eef25c1cb81c}
+      \strng{bibnamehash}{6bb2e9d8a7bf28173581eef25c1cb81c}
+      \strng{authorbibnamehash}{6bb2e9d8a7bf28173581eef25c1cb81c}
+      \strng{authornamehash}{6bb2e9d8a7bf28173581eef25c1cb81c}
+      \strng{authorfullhash}{6bb2e9d8a7bf28173581eef25c1cb81c}
+      \strng{authorfullhashraw}{6bb2e9d8a7bf28173581eef25c1cb81c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{18}
+      \field{series}{Lecture Notes in Physics}
+      \field{title}{An Open Systems Approach to Quantum Optics}
+      \field{year}{1993}
+    \endentry
+    \entry{Daley2014}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=f887e541a13bc3fbbc755dec8d46df26}{%
+           family={Daley},
+           familyi={D\bibinitperiod},
+           given={A.\bibnamedelimi J.},
+           giveni={A\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{f887e541a13bc3fbbc755dec8d46df26}
+      \strng{fullhash}{f887e541a13bc3fbbc755dec8d46df26}
+      \strng{fullhashraw}{f887e541a13bc3fbbc755dec8d46df26}
+      \strng{bibnamehash}{f887e541a13bc3fbbc755dec8d46df26}
+      \strng{authorbibnamehash}{f887e541a13bc3fbbc755dec8d46df26}
+      \strng{authornamehash}{f887e541a13bc3fbbc755dec8d46df26}
+      \strng{authorfullhash}{f887e541a13bc3fbbc755dec8d46df26}
+      \strng{authorfullhashraw}{f887e541a13bc3fbbc755dec8d46df26}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Advances in Physics}
+      \field{number}{2}
+      \field{title}{Quantum trajectories and open many-body systems}
+      \field{volume}{63}
+      \field{year}{2014}
+      \field{pages}{77\bibrangedash 149}
+      \range{pages}{73}
+    \endentry
+    \entry{Lindner2022}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=b75033f50701d0698e57ac2a3233ceb3}{%
+           family={Lindner},
+           familyi={L\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+        {{hash=4e0e1ba927f474a5d50715b5b81867d9}{%
+           family={Banerjee},
+           familyi={B\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{d74077b1115352068f8fcd6caac22278}
+      \strng{fullhash}{d74077b1115352068f8fcd6caac22278}
+      \strng{fullhashraw}{d74077b1115352068f8fcd6caac22278}
+      \strng{bibnamehash}{d74077b1115352068f8fcd6caac22278}
+      \strng{authorbibnamehash}{d74077b1115352068f8fcd6caac22278}
+      \strng{authornamehash}{d74077b1115352068f8fcd6caac22278}
+      \strng{authorfullhash}{d74077b1115352068f8fcd6caac22278}
+      \strng{authorfullhashraw}{d74077b1115352068f8fcd6caac22278}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Phys. Rev. Lett.}
+      \field{title}{Efficient tensor-network approach for quantum trajectories}
+      \field{volume}{128}
+      \field{year}{2022}
+      \field{pages}{150605}
+      \range{pages}{1}
+    \endentry
+    \entry{Li2022}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{1}{}{%
+        {{hash=ef065b28c31984323fd6d3483d29aafd}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{dc73eb82d413aea5c979b3637814969e}
+      \strng{fullhash}{dc73eb82d413aea5c979b3637814969e}
+      \strng{fullhashraw}{dc73eb82d413aea5c979b3637814969e}
+      \strng{bibnamehash}{dc73eb82d413aea5c979b3637814969e}
+      \strng{authorbibnamehash}{dc73eb82d413aea5c979b3637814969e}
+      \strng{authornamehash}{dc73eb82d413aea5c979b3637814969e}
+      \strng{authorfullhash}{dc73eb82d413aea5c979b3637814969e}
+      \strng{authorfullhashraw}{dc73eb82d413aea5c979b3637814969e}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Quantum}
+      \field{title}{GPU-accelerated quantum dynamics with QuTiP}
+      \field{volume}{6}
+      \field{year}{2022}
+      \field{pages}{630}
+      \range{pages}{1}
+    \endentry
+    \entry{Koch2019}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=6fd2d4e8d1de310fd14e33a3b8f05392}{%
+           family={Koch},
+           familyi={K\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2fe7ce38663715919c6b1b7ff878347f}{%
+           family={Girvin},
+           familyi={G\bibinitperiod},
+           given={S.\bibnamedelimi M.},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{87082e47665627527ff391bee23346b0}
+      \strng{fullhash}{87082e47665627527ff391bee23346b0}
+      \strng{fullhashraw}{87082e47665627527ff391bee23346b0}
+      \strng{bibnamehash}{87082e47665627527ff391bee23346b0}
+      \strng{authorbibnamehash}{87082e47665627527ff391bee23346b0}
+      \strng{authornamehash}{87082e47665627527ff391bee23346b0}
+      \strng{authorfullhash}{87082e47665627527ff391bee23346b0}
+      \strng{authorfullhashraw}{87082e47665627527ff391bee23346b0}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annalen der Physik}
+      \field{number}{6}
+      \field{title}{Introduction to circuit QED: Photon-assisted dephasing and quantum trajectories}
+      \field{volume}{525}
+      \field{year}{2013}
+      \field{pages}{395\bibrangedash 416}
+      \range{pages}{22}
+    \endentry
+    \entry{Suess2014}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=21a7fca188105d35a9b8e198f1e2cadc}{%
+           family={Suess},
+           familyi={S\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+        {{hash=ffdbd54a1cf9ee8df097950962ca069d}{%
+           family={Eisfeld},
+           familyi={E\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8089c88b02c5b9b64dbf164b3ab6c2f5}{%
+           family={Strunz},
+           familyi={S\bibinitperiod},
+           given={W.\bibnamedelimi T.},
+           giveni={W\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \strng{namehash}{9a65db7697abb2561021753ade622ef5}
+      \strng{fullhash}{835abf11166831b2315dec7e82e7b316}
+      \strng{fullhashraw}{835abf11166831b2315dec7e82e7b316}
+      \strng{bibnamehash}{835abf11166831b2315dec7e82e7b316}
+      \strng{authorbibnamehash}{835abf11166831b2315dec7e82e7b316}
+      \strng{authornamehash}{9a65db7697abb2561021753ade622ef5}
+      \strng{authorfullhash}{835abf11166831b2315dec7e82e7b316}
+      \strng{authorfullhashraw}{835abf11166831b2315dec7e82e7b316}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Phys. Rev. Lett.}
+      \field{title}{Hierarchy of stochastic pure states for open quantum system dynamics}
+      \field{volume}{113}
+      \field{year}{2014}
+      \field{pages}{150403}
+      \range{pages}{1}
+    \endentry
+    \entry{Ke2021}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=f3d24087953defbbec626cb66710363a}{%
+           family={Ke},
+           familyi={K\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=cfc592e67cc246310d6f048315973684}{%
+           family={Tang},
+           familyi={T\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=83b108c1ae00aae3bc551e97c72ae5fb}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=e0e52718cf4d754e809b0ef0a476d07d}{%
+           family={Yan},
+           familyi={Y\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{7a130fb1a807f4f0edd6093ba68c66c3}
+      \strng{fullhash}{6d96608e16e0488a5b3f90d5b153b228}
+      \strng{fullhashraw}{6d96608e16e0488a5b3f90d5b153b228}
+      \strng{bibnamehash}{6d96608e16e0488a5b3f90d5b153b228}
+      \strng{authorbibnamehash}{6d96608e16e0488a5b3f90d5b153b228}
+      \strng{authornamehash}{7a130fb1a807f4f0edd6093ba68c66c3}
+      \strng{authorfullhash}{6d96608e16e0488a5b3f90d5b153b228}
+      \strng{authorfullhashraw}{6d96608e16e0488a5b3f90d5b153b228}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{J. Chem. Phys.}
+      \field{number}{8}
+      \field{title}{A stochastic Schrödinger equation approach to quantum dissipative dynamics}
+      \field{volume}{154}
+      \field{year}{2021}
+      \field{pages}{084103}
+      \range{pages}{1}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
