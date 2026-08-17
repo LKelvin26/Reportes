@@ -2,8 +2,8 @@ PWD c:\Users\LordKelvin\Documents\GitHub\Reportes\Reporte Semestre 4
 INPUT C:\Users\LordKelvin\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
 INPUT c:\Users\LordKelvin\Documents\GitHub\Reportes\Reporte Semestre 4\reporte4.tex
 OUTPUT reporte4.log
-INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\tex\latex\base\report.cls
-INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\tex\latex\base\report.cls
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\tex\latex\base\size12.clo
 INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\tex\latex\base\size12.clo
 INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\tex\latex\base\size12.clo
@@ -274,6 +274,18 @@ INPUT .\imagenes\espectro autocorr.png
 INPUT .\imagenes\espectro autocorr.png
 INPUT .\imagenes\espectro autocorr.png
 INPUT .\imagenes\espectro autocorr.png
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi12.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmex10.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx7.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam7.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
+INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
 INPUT .\imagenes\pst3lainch.png
 INPUT .\imagenes\pst3lainch.png
 INPUT .\imagenes\pst3lainch.png
@@ -309,9 +321,14 @@ INPUT .\imagenes\distTOTB.png
 INPUT .\imagenes\distTOTB.png
 INPUT .\imagenes\distTOTB.png
 INPUT .\imagenes\distTOTB.png
+INPUT .\imagenes\sumacuadraturas.png
+INPUT .\imagenes\sumacuadraturas.png
+INPUT .\imagenes\sumacuadraturas.png
+INPUT .\imagenes\sumacuadraturas.png
+INPUT .\imagenes\sumacuadraturas.png
+INPUT .\imagenes\sumacuadraturas.png
+INPUT .\imagenes\sumacuadraturas.png
 INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbxti10.tfm
-INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr17.tfm
-INPUT C:\Users\LordKelvin\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
 INPUT reporte4.aux
 INPUT reporte4.run.xml
 OUTPUT reporte4.run.xml

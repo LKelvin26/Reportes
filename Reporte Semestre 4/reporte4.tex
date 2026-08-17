@@ -1,4 +1,4 @@
-\documentclass[12pt]{report}
+\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{textcomp}
@@ -83,15 +83,15 @@
 
 
 % Resumen
-\section*{Resumen}
+\section{Resumen}
 
-Durante el semestre se lograron avances significativos en el estudio de la fluorescencia resonante intermitente, obteniendo resultados novedosos en varios frentes. En primer lugar, se optimizaron los espectros de detección heterodina balanceada. En segundo lugar, se completó la detección homodina balanceada; habíamos obtenido que en las cuadraturas en $\pi/2$ y $0$ se identifican, respectivamente, el pico angosto con laterales y el pico central coherente, y el nuevo resultado es que la combinación de estas cuadraturas reconstruye el espectro completo de flouroscencia con la forma del triplete de Mollow. En tercer lugar, se desarrolló un análisis de la fluorescencia intermitente con bombeo incoherente, tanto mediante la ecuación maestra como con trayectorias de saltos. De este estudio se obtuvieron distribuciones que evidencian la alternancia entre periodos brillantes y oscuros, con diferencias notables respecto al átomo de tres niveles con dinámica coherente por excitación láser que se estudió en semestres anteriores. Las nuevas predicciones teóricas se confirmaron mediante simulaciones tanto en promedios como en momentos.
+Durante el semestre se lograron avances significativos en el estudio de la fluorescencia resonante intermitente, obteniendo resultados novedosos en varios frentes. En primer lugar, se completó la detección homodina balanceada; habíamos obtenido que en las cuadraturas en $\pi/2$ y $0$ se identifican, respectivamente, el pico angosto con laterales y el pico central coherente, y el nuevo resultado es que la combinación de estas cuadraturas reconstruye el espectro completo de fluorescencia con la forma del triplete de Mollow. En tercer lugar, se desarrolló un análisis de la fluorescencia intermitente con bombeo incoherente, tanto mediante la ecuación maestra como con trayectorias de saltos. De este estudio se obtuvieron distribuciones que evidencian la alternancia entre periodos brillantes y oscuros, con diferencias notables respecto al átomo de tres niveles con dinámica coherente por excitación láser que se estudió en semestres anteriores. Las nuevas predicciones teóricas se confirmaron mediante simulaciones tanto en promedios como en momentos.
 
 En conjunto, estos avances fortalecen el enfoque general de la tesis, permitiendo pulir los detalles del análisis espectral de la fluorescencia resonante intermitente y extender los resultados a un nuevo sistema de tres niveles con bombeo incoherente, lo cual abre nuevas líneas de investigación para el futuro próximo.
 
 
 % Introducción
-\section*{Introducción}
+\section{Introducción}
 La disipación, entendida como la pérdida irreversible de energía y coherencia de un microsistema, surge del acoplamiento a un macrosistema o reservorio con un número de grados de libertad extraordinariamente grande. En la práctica, resulta imposible resolver la dinámica completa mediante la ecuación de Schrödinger para el sistema total, ya que el espacio de Hilbert del reservorio es inaccesible desde un punto de vista computacional y experimental. Esta imposibilidad obliga a recurrir a descripciones efectivas, donde el efecto del entorno se incorpora a través de operadores de disipación en la ecuación maestra o mediante trayectorias estocásticas, como en el formalismo de Monte Carlo de saltos cuánticos.
 \begin{figure}[H]
     \centering
@@ -101,12 +101,12 @@ La disipación, entendida como la pérdida irreversible de energía y coherencia
 \end{figure}
 En la Figura~\ref{fig:region_interaccion} se ilustra el esquema general de los sistemas estudiados en este proyecto. La región de interacción que puede corresponder a una cavidad QED, una trampa de iones, pinzas ópticas (tweezers), un OPO u otros dispositivos constituye el núcleo del sistema cuántico abierto. Dicha región recibe entradas tanto coherentes (como campos láser) como incoherentes (como bombeo estocástico o ruido), y genera salidas que pueden ser igualmente coherentes o incoherentes, dependiendo del régimen de operación. El análisis de estas señales de salida ya sea en su componente coherente dirigida o en su emisión incoherente permite extraer información sobre la dinámica interna del sistema, así como caracterizar fenómenos como la fluorescencia resonante, la emisión espontánea dirigida y los efectos de correlación cuántica.
 
-En el caso particular de esta proyecto, nos enfocamos en la fluorescencia atómica, donde la región de interacción es un átomo de pocos niveles (dos o tres) iluminado por un campo láser coherente y, en algunos casos, sometido a bombeo incoherente. La salida incoherente emitida por el átomo la fluorescencia propiamente dicha contiene información clave sobre la dinámica de población y coherencias, y su espectro presenta estructuras características como el pico de Mollow o el pico central coherente. Además, mediante técnicas de detección homodina y heterodina balanceada, es posible aislar las contribuciones coherentes e incoherentes, lo que permite reconstruir el espectro completo y estudiar fenómenos como la fluorescencia intermitente, donde el átomo alterna entre periodos brillantes y oscuros debido a la presencia de estados metaestables.
+En el caso particular de este proyecto, nos enfocamos en la fluorescencia atómica, donde la región de interacción es un átomo de pocos niveles (dos o tres) iluminado por un campo láser coherente y, en algunos casos, sometido a bombeo incoherente. La salida incoherente emitida por el átomo la fluorescencia propiamente dicha contiene información clave sobre la dinámica de población y coherencias, y su espectro presenta estructuras características como el pico de Mollow o el pico central coherente. Además, mediante técnicas de detección homodina y heterodina balanceada, es posible aislar las contribuciones coherentes e incoherentes, lo que permite reconstruir el espectro completo y estudiar fenómenos como la fluorescencia intermitente, donde el átomo alterna entre periodos brillantes y oscuros debido a la presencia de estados metaestables.
 
-\subsection{Flouresencia Resonante Intermitente}
+\subsection{Fluorescencia Resonante Intermitente}
 La fluorescencia resonante intermitente es el fenómeno en el que la emisión de un sistema cuántico alterna aleatoriamente entre períodos brillantes y oscuros. Esta intermitencia puede originarse por distintos mecanismos físicos dependiendo del sistema considerado.
 
-En este trabajo estudiaremos el caso de un átomo de tres niveles, donde la intermitencia surge mediante el mecanismo conocido como electron shelving donde el átomo puede quedar atrapado en un estado de larga vida media al que llamamos estado mestable , lo que da lugar a periodos oscuros, mientras que la transición entre los estados de emisión conduce a periodos brillantes.
+En este trabajo estudiaremos el caso de un átomo de tres niveles, donde la intermitencia surge mediante el mecanismo conocido como electron shelving, donde el átomo puede quedar atrapado en un estado de larga vida media al que llamamos estado mestable , lo que da lugar a periodos oscuros, mientras que la transición entre los estados de emisión conduce a periodos brillantes.
 
 Para explicar este mecanismo primero describiremos el sistema de tres niveles interactuando con el láser. El láser acopla resonantemente la transición entre el estado base $\ket{g}$ y el estado excitado $\ket{e}$, con frecuencia de Rabi $\Omega$, como se ilustra en la Figura~\ref{fig:3niveles}. El estado excitado puede decaer espontáneamente al estado base con tasa $\gamma$, produciendo los fotones de fluorescencia que observamos experimentalmente. Además, el átomo posee un tercer nivel $\ket{a}$, que se encuentra débilmente acoplado al ciclo principal de excitación y emisión. Trabajaremos en el régimen $\gamma \gg \gamma_d, \gamma_a$, donde la dinámica entre $\ket{g}$ y $\ket{e}$ ocurre mucho más rápido que las transiciones asociadas al tercer nivel.
 
@@ -231,7 +231,7 @@ Durante los tiempos cortos se aprecian oscilaciones de Rabi entre los estados $\
 
 Finalmente, en escalas de tiempo más largas, el sistema exhibe una relajación lenta hacia un régimen cuasiestacionario determinado por la presencia del estado metaestable $\ket{a}$. Este proceso introduce una escala temporal mucho mayor que la asociada a las oscilaciones de Rabi y constituye una primera evidencia de la dinámica de *shelving*. Desde el punto de vista espectral, esta evolución lenta se manifiesta mediante la aparición de un pico central extremadamente angosto, característica distintiva de la fluorescencia resonante intermitente.
 
-Aunque la ecuación maestra permite describir adecuadamente estas características promedio de la dinámica, no proporciona información directa sobre cómo se manifiestan en una realización individual del experimento. En particular, los periodos brillantes y oscuros asociados al fenómeno de \textit{shelving} surgen de manera natural al observar trayectorias individuales condicionadas por los resultados de medición del entorno. Esto motiva el empleo de ecuaciones de Schrödinger estocásticas y de la teoría de trayectorias cuánticas, las cuales constituyen una descripción complementaria a la ecuación maestra y permiten acceder a la dinámica microscópica subyacente a los promedios estadísticos.
+Aunque la ecuación maestra permite describir adecuadamente estas características promedio de la dinámica, no proporciona información directa sobre cómo se manifiestan en una realización individual del experimento. En particular, los períodos brillantes y oscuros asociados al fenómeno de \textit{shelving} surgen de manera natural al observar trayectorias individuales condicionadas por los resultados de medición del entorno. Esto motiva el empleo de ecuaciones de Schrödinger estocásticas y de la teoría de trayectorias cuánticas, las cuales constituyen una descripción complementaria a la ecuación maestra y permiten acceder a la dinámica microscópica subyacente a los promedios estadísticos.
 
 Históricamente, las trayectorias estocásticas ofrecían una ventaja computacional clara frente a la integración de la ecuación maestra, debido a que la evolución de un estado puro de dimensión $d$ es mucho menos costosa que la evolución de un operador densidad de dimensión $d^2$.  
 Aunque el aumento en la capacidad de cómputo moderna ha reducido esta diferencia para sistemas pequeños, existen actualmente numerosos casos donde las trayectorias siguen siendo superiores: sistemas de muchos cuerpos o de gran dimensión de Hilbert \cite{Daley2014,Lindner2022}, simulaciones paralelizables en GPU \cite{Li2022}, sistemas bosónicos o de circuit QED con grandes truncamientos \cite{Koch2019}, y dinámicas no-Markovianas donde la ecuación maestra resulta impracticable \cite{Suess2014,Ke2021}.
@@ -244,7 +244,7 @@ No obstante, para los propósitos del presente proyecto, la motivación principa
 
 
 
-\section*{Objetivos}
+\section{Objetivos}
 \textbf{Objetivo General:}
 
 Simular sistemas cuánticos de dos y tres niveles mediante la Teoría de Trayectorias Cuánticas, en sus formulaciones de saltos cuánticos y trayectorias difusivas, con el propósito de estudiar el fenómeno de fluorescencia intermitente y extender el análisis al caso de bombeo incoherente. Como resultados principales se obtendrán la evolución de la función de onda, las poblaciones, la fotocorriente, la fotoestadística y los espectros de emisión.
@@ -263,17 +263,17 @@ Simular sistemas cuánticos de dos y tres niveles mediante la Teoría de Trayect
 \end{itemize}
 
 % Metodología
-\section*{Metodología}
+\section{Metodología}
 \subsection{Trayectorias Cuánticas}
 La intensidad, las correlaciones intensidad-intensidad, la distribución de tiempos de espera, la estadística de fotoelectrones y la estadística sub-Poissoniana se miden mediante conteo directo de fotones y se simulan mediante trayectorias discontinuas (saltos cuánticos). La detección homodina y heterodina, simuladas mediante trayectorias de difusión de estado cuántico, permiten mediciones de campo dependientes de la fase, como cuadratura única, compresión de ruido (squeezing) y espectros. La Detección Homodina Condicionada (CHD) combina saltos cuánticos y difusión cuántica para ofrecer una nueva perspectiva de las fluctuaciones cuánticas y resolver el squeezing de manera independiente de la eficiencia del detector. Los espectros pueden medirse mediante detección homodina, heterodina y mediciones filtradas \cite{TiCa92,Holland98}.
 
 Las trayectorias cuánticas, tal como las formuló Carmichael, simulan la salida de un experimento, y un gran conjunto de trayectorias representa el resultado promedio de muchos experimentos.
 
-\section*{Detección Homodina Balanceada}
+\subsection{Detección Homodina Balanceada}
 
 La detección homodina balanceada (DHB) es una técnica fundamental para la medición de ruido cuántico y, en particular, para la caracterización de \textit{estados comprimidos de la luz}. A diferencia de la detección heterodina, en este esquema el oscilador local (OL) tiene la misma frecuencia que el campo bajo estudio ($\omega_{\text{lo}} = \omega$). Ambos haces, el del emisor y el del OL, suelen provenir del mismo láser. La clave de este método reside en la capacidad de seleccionar la fase relativa $\phi$ del OL, lo que permite medir la varianza de una cuadratura específica del campo.
 
-\subsection*{Principio de Operación}
+\subsubsection*{Principio de Operación}
 
 El esquema de la DHB (ver Fig. \ref{fig:homodina_balanceada}) consiste en mezclar el modo del campo óptico de interés, $\hat{a}$, con el modo de un OL intenso y coherente, $\hat{b}$, en un divisor de haz (DH) balanceado ($R = T = 1/2$). Los modos de salida tras el divisor de haz están dados por:
 
@@ -291,7 +291,7 @@ Las intensidades registradas en los fotodetectores D1 y D2 son proporcionales a 
 
 Esta operación cancela el exceso de ruido clásico del OL, cuya intensidad es típicamente mucho mayor que la del emisor, permitiendo acceder a las fluctuaciones cuánticas del campo $\hat{a}$.
 
-\subsection{Sensibilidad a las Cuadraturas}
+\subsubsection{Sensibilidad a las Cuadraturas}
 
 Considerando que el OL se encuentra en un estado coherente de gran amplitud, $\hat{b} = \beta e^{i\phi}$, podemos aproximar $\hat{b}$ como un número complejo $\beta e^{i\phi}$. Sustituyendo en la Ecuación \ref{eq:diferencia_corrientes}, la señal medida se simplifica a:
 
@@ -307,7 +307,7 @@ Manipulando algebraicamente esta expresión, se puede demostrar que es proporcio
 
 donde $\hat{X}_{\theta} = \frac{1}{2}(\hat{a}^\dagger e^{i\theta} + \hat{a} e^{-i\theta})$ es el operador de cuadratura generalizado. Al normalizar por la amplitud del OL, la señal $\hat{n}_{cd}$ proporciona una medición directa de la cuadratura $\hat{P}_{\phi}$, que es la conjugada de $\hat{X}_{\phi}$. Variando la fase $\phi$ del OL, es posible medir cualquier cuadratura del campo, permitiendo así caracterizar completamente sus propiedades de ruido.
 
-\subsection{Aplicaciones: Detección de Compresión}
+\subsubsection{Aplicaciones: Detección de Compresión}
 
 La DHB es la técnica por excelencia para detectar estados comprimidos de la luz. Un estado está comprimido si la varianza de una de sus cuadraturas, $\Delta^2 \hat{X}_{\phi}$, es menor que el nivel de ruido del vacío (establecido como 1/4 en unidades adecuadas). Al medir el espectro de ruido de la fotocorriente diferencia $S(\omega, \phi)$, se puede obtener información sobre estas varianzas. Un valor de $S(\omega, \phi) < 1$ en una banda de frecuencias indica compresión, es decir, ruido cuántico por debajo del límite clásico.
 
@@ -318,7 +318,7 @@ La DHB es la técnica por excelencia para detectar estados comprimidos de la luz
     \label{fig:homodina_balanceada}
 \end{figure}
 
-\subsection{EES para DHB en un átomo de tres niveles}
+\subsubsection{EES para DHB en un átomo de tres niveles}
 
 La EES que simula la detección homodina balanceada (DHB) para un átomo de tres niveles está dada por $i \hbar \ket{\dot{\bar{\Psi}}_c} = {\mcH}_W \ket{\bar{\Psi}_c}$ \cite{Carm93,WisemanMilburn2009}, donde
 
@@ -391,10 +391,10 @@ S(\omega,\phi)-1 \propto \gamma \int_0^{\infty} d\tau\, \cos(\omega \tau)
 	\langle : \sigma_{\phi}^{eg} (t+\tau) \sigma_{\phi}^{eg} (t) : \rangle.
 \end{eqnarray}.
 
-\section{}
-\section{Reemplazando el Láser por un Campo Incoherente}
 
-La observación de la intermitencia no requiere estrictamente una excitación atómica coherente. La excitación incoherente, como la de un láser operando por debajo del umbral, también puede inducir fluorescencia intermitente. Aquí, retomamos el modelo estudiado en la Introducción que estudiamos en semestres anteroriores y reemplazamos el láser que excita la transición $|g\rangle - |e\rangle$ por un campo incoherente de banda ancha \ref{fig:3nivelesinc}. En lugar del Hamiltoniano átomo-láser, tenemos ahora un nuevo término en el Liouvillian que describe este tipo de excitación, que puede interpretarse en cierta medida como radiación de cuerpo negro con número promedio de fotones $\bar{n} = [e^{\hbar \omega/k_BT} -1]^{-1}$. El esquema de emisión espontánea es el mismo que en el problema con láser. Además, debido al ancho de banda, no hay desintonía.
+\subsection{Reemplazando el Láser por un Campo Incoherente}
+
+La observación de la intermitencia no requiere estrictamente una excitación atómica coherente. La excitación incoherente, como la de un láser operando por debajo del umbral, también puede inducir fluorescencia intermitente. Aquí, retomamos el modelo estudiado en la Introducción de semestres anteriores y reemplazamos el láser que excita la transición $|g\rangle - |e\rangle$ por un campo incoherente de banda ancha \ref{fig:3nivelesinc}. En lugar del Hamiltoniano átomo-láser, tenemos ahora un nuevo término en el Liouvillian que describe este tipo de excitación, que puede interpretarse en cierta medida como radiación de cuerpo negro con número promedio de fotones $\bar{n} = [e^{\hbar \omega/k_BT} -1]^{-1}$. El esquema de emisión espontánea es el mismo que en el problema con láser. Además, debido al ancho de banda, no hay desintonía.
 
 \begin{figure}[H]
     \centering
@@ -412,7 +412,7 @@ En nuestro modelo, en lugar de asumir un campo con temperatura $T \neq 0$, intro
 \end{eqnarray}
 
 %%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Átomo de Dos Niveles con Bombeo Incoherente}
+\subsubsection{Átomo de Dos Niveles con Bombeo Incoherente}
 
 La ecuación maestra para un átomo de dos niveles bajo excitación incoherente está dada por
 
@@ -444,7 +444,7 @@ con $\rho_{ee} + \rho_{gg} = 1$. Imponiendo la condición de estado estacionario
 
 Estas soluciones muestran que la población excitada aumenta con la tasa de bombeo $\kappa$ y disminuye con la tasa de decaimiento $\gamma$, como era de esperarse.
 %%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Átomo de Tres Niveles con Bombeo Incoherente}
+\subsubsection{Átomo de Tres Niveles con Bombeo Incoherente}
 
 la ecuación maestra para el átomo de tres niveles está dada por
 
@@ -515,7 +515,7 @@ La matriz para este sistema es
 y el vector es $\mathbf{r}_{B} = \left( \rho_{ee}, \rho_{gg}, \rho_{aa} \right)^T$. Nótese que el sistema de ecuaciones es homogéneo.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Reducción Adicional del Sistema de Ecuaciones}
+\subsubsection{Reducción Adicional del Sistema de Ecuaciones}
 
 Usando la conservación de la población, $\rho_{aa} = 1 - \rho_{ee} - \rho_{gg}$, el sistema de ecuaciones se reduce a
 
@@ -563,7 +563,7 @@ $$ f(t) = A e^{\lambda_+ t} + B e^{\lambda_- t} .$$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Modelo Estocástico para Fluorescencia Intermitente}
+\subsubsection{Modelo Estocástico para Fluorescencia Intermitente}
 
 Para describir estadísticamente la alternancia entre periodos brillantes y oscuros, recurrimos al formalismo de trayectorias de saltos cuánticos, siguiendo el enfoque de Carmichael. Este modelo permite obtener las distribuciones de tiempos de los periodos brillantes y oscuros, así como las probabilidades asociadas a cada régimen.
 
@@ -614,10 +614,9 @@ P_B(t) = T_B^{-1} e^{-t/T_B}, \qquad P_D(t) = T_D^{-1} e^{-t/T_D},
 \end{equation}
 
 lo que permite comparar directamente las predicciones teóricas con los histogramas obtenidos de las simulaciones numéricas mediante trayectorias de saltos cuánticos.
-\section*{Resultados}
-\subsection{Detección Homodina Balanceada}
+\section{Resultados:Detección Homodina Balanceada }
 
-\subsubsection{Trayectorias Individuales y Fotocorriente}
+\subsection{Trayectorias Individuales y Fotocorriente}
 
 En la Figura~\ref{fig:trayectorias_cuadraturas} se muestra la evolución temporal de la amplitud de probabilidad del estado excitado y la fotocorriente $I_c(t)$ para una trayectoria cuántica individual bajo detección homodina balanceada, en las cuadraturas $\theta = 0$ y $\theta = \pi/2$. 
 
@@ -633,7 +632,7 @@ Por su parte, la fotocorriente $I_c(t)$ registrada en ambas cuadraturas muestra 
 \end{figure}
 
 
-\subsubsection{Promedio sobre 500 Trayectorias}
+\subsection{Promedio sobre 500 Trayectorias}
 
 En la Figura~\ref{fig:promedio_500_trayectorias} se presenta el promedio de 500 trayectorias cuánticas para la fotocorriente $I_c(t)$ y la amplitud de probabilidad del estado excitado, en las cuadraturas $\theta = 0$ y $\theta = \pi/2$.
 
@@ -646,7 +645,7 @@ Al promediar sobre un conjunto de 500 trayectorias, el ruido estadístico caract
     \label{fig:promedio_500_trayectorias}
 \end{figure}
 
-\subsubsection{Espectros de Fluorescencia a partir de la Autocorrelación}
+\subsection{Espectros de Fluorescencia a partir de la Autocorrelación}
 
 Finalmente, en la Figura~\ref{fig:espectros_autocorrelacion} se presentan las funciones de autocorrelación de las fotocorrientes promedio y sus correspondientes espectros de fluorescencia para las cuadraturas $\theta = 0$ y $\theta = \pi/2$. Los espectros se obtienen calculando la transformada de Fourier de la función de autocorrelación de la fotocorriente, de acuerdo con la relación
 
@@ -668,11 +667,10 @@ La combinación de ambas cuadraturas permite reconstruir el espectro completo de
 
 
 
-\subsection*{Bombeo Incoherente}
+\section{Resultados: Bombeo Incoherente}
 
-\subsection{Bombeo Incoherente}
 
-\subsubsection{Estado Estacionario en Función de $\kappa/\gamma$}
+\subsection{Estado Estacionario en Función de $\kappa/\gamma$}
 
 En la Figura~\ref{fig:estado_estacionario_kappa} se muestra la solución del operador densidad en estado estacionario para el átomo de tres niveles bajo excitación incoherente, en función de la tasa de bombeo $\kappa$ normalizada por la tasa de decaimiento $\gamma$. Las poblaciones estacionarias $\rho_{ee}^{st}$, $\rho_{gg}^{st}$ y $\rho_{aa}^{st}$ están dadas por las ecuaciones
 
@@ -767,7 +765,21 @@ lo que refleja la naturaleza markoviana de los procesos de conmutación entre pe
 Los histogramas obtenidos numéricamente muestran un excelente acuerdo con las predicciones teóricas, validando así la consistencia del modelo estocástico para describir la dinámica de conmutación en el régimen de bombeo incoherente.
 %Trabajo Futuro
 
-\section*{Perspectiva del Quinto Semestre}
+\subsection{Reconstrucción del Espectro Completo: Suma de Cuadraturas}
+
+Finalmente, en la Figura~\ref{fig:suma_cuadraturas_mollow} se presenta la suma de los espectros obtenidos en las cuadraturas $\theta = 0$ y $\theta = \pi/2$ mediante detección homodina balanceada. Como se ha mostrado, cada cuadratura captura una parte diferente del espectro de fluorescencia: la cuadratura $\theta = 0$ contiene el pico central coherente, mientras que la cuadratura $\theta = \pi/2$ revela los picos laterales inelásticos junto con el pico angosto asociado al shelving.
+
+Al sumar ambas contribuciones, se obtiene el espectro completo de fluorescencia, el cual reproduce la estructura característica del triplete de Mollow. Este resultado demuestra que la combinación de las dos cuadraturas de la detección homodina permite reconstruir la totalidad del espectro, incluyendo tanto la componente elástica coherente como las componentes inelásticas laterales y la estructura fina introducida por el estado metaestable.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{imagenes/sumacuadraturas.png}
+    \caption{Reconstrucción del espectro completo de fluorescencia mediante la suma de las cuadraturas $\theta = 0$ y $\theta = \pi/2$ de la detección homodina balanceada. La suma reproduce el triplete de Mollow característico de la fluorescencia resonante en un sistema de tres niveles.}
+    \label{fig:suma_cuadraturas_mollow}
+\end{figure}
+
+
+\section{Perspectiva del Quinto Semestre}
 
 Durante el presente semestre, realicé aportes sustanciales a ambos proyectos de investigación. Si bien los artículos correspondientes aún no están finalizados, se prevé que sean publicados antes de que concluya el año.
 
@@ -779,20 +791,13 @@ En el quinto semestre, se llevará a cabo la defensa de la tesis y se continuar�
 \item \textbf{Colaboración en estudios de radiación cooperativa.}
 Se seguirá aportando a este proyecto como una línea de trabajo paralela a la tesis principal, con el objetivo de publicar un artículo. En particular, se continuará con el estudio teórico y numérico de sistemas compuestos por dos átomos en interacción, donde pueden emerger fenómenos de \textit{subradiancia} y \textit{superradiancia}. En dichos sistemas, simularé espectros dependientes del tiempo del tipo Eberly–Wódkiewicz variando parámetros tanto paramétricos como espaciales, con el fin de identificar comportamientos físicamente relevantes.
 
-\item \textbf{Colaboración en estudios de bombeo incoherente en un átomo de tres niveles con \textit{shelving}}. con el objetivo de contribuir a la publicación de un artículo científico. Mi participación se centrará tanto en el análisis teórico mediante ecuaciones maestras como en la aplicación de ecuaciones de Schrödinger estocásticas a. Inicialmente, el trabajo se enfocará en trayectorias cuánticas discontinuas y, posteriormente, si el tiempo y los objetivos del proyecto lo permiten, en trayectorias difusivas.
+\item \textbf{Colaboración en estudios de bombeo incoherente en un átomo de tres niveles con \textit{shelving}}. con el objetivo de contribuir a la publicación de un artículo científico. Mi participación se centrará tanto en el análisis teórico mediante ecuaciones maestras como en la aplicación de ecuaciones de Schrödinger estocásticas. Inicialmente, el trabajo se enfocará en trayectorias cuánticas discontinuas y, posteriormente, si el tiempo y los objetivos del proyecto lo permiten, en trayectorias difusivas.
 \end{enumerate}
 
 
 
 
-
-
-
-\newpage
-\section*{Anexos}
-
-
-\subsection*{Cronograma de actividades}
+\section{Cronograma de actividades}
 
 
 \begin{table}[h!]
